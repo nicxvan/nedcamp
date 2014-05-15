@@ -1,0 +1,31 @@
+/* Welcome to Compass. Use this file to write IE specific override styles.
+ * Import this file using the following HTML or equivalent:
+ * <!--[if IE]>
+ *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+ * <![endif]--> */
+/* ---------- Overall Specifications ---------- */
+section,
+figure,
+article {
+  display: block;
+}
+
+img {
+  width: auto;
+}
+
+#nav {
+  position: relative !important;
+}
+
+@media (max-width: 768px) {
+  .slideshow .flexslider .flex-caption {
+    color: #666666;
+  }
+}
+
+@media (max-width: 768px) {
+  .flex-control-nav li a {
+    background-color: #666666;
+  }
+}

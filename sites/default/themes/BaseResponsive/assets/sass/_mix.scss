@@ -1,0 +1,18 @@
+@mixin fluidWidth ($child_width, $parent_width){
+	width: $child_width/$parent_width *100%;
+}
+
+@mixin fluidPadding ($top_value, $right_child_width, $bottom_value, $left_child_width, $parent_width){
+	padding: $top_value
+			 $right_child_width/$parent_width *100%
+			 $bottom_value
+			 $left_child_width/$parent_width *100%			 
+}
+
+
+@mixin fluidMargin ($top_value, $right_child_width, $bottom_value, $left_child_width, $parent_width){
+	margin: $top_value
+			$right_child_width/$parent_width *100%
+			$bottom_value
+			$left_child_width/$parent_width *100%			 
+}

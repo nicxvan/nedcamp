@@ -1,0 +1,33 @@
+// ------------------ SASS Variables & Imports ------------------ //
+	
+	@import "compass";
+	@import "breakpoint";
+	@import "mix";
+	
+	$default-border-radius: 50%;
+	$default-transition-property : all;
+	$default-transition-duration : .5s;
+	$default-transition-function : ease-in-out;
+	$default-transition-delay    : 0s;
+	
+	$MQ_red: max-width 1024px;
+	$MQ_orange: max-width 768px;
+	$MQ_pink: max-width 600px;
+	$MQ_yellow: max-width 480px;
+	$MQ_green: max-width 320px;
+	$MQ_iOS: (orientation landscape) (device-width 320px) (device-height 480px);
+	
+	$white:#ffffff;
+	$black:#000000; 
+	
+	$light-gray:#f5f5f5;
+	$medium-gray:#999999;
+	$gray:#666666;
+	$dark-gray:#333333;
+	
+	$red:#d52027;
+	$orange:#ff9933;
+	$blue:#3333cc;
+	$tan:#f9d7b7;
+
+ 

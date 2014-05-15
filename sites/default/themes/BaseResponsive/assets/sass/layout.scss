@@ -1,0 +1,199 @@
+// ------------------ SASS Imports ------------------ //
+	
+	@import "compass";
+	@import "breakpoint";
+	@import "variables";
+	@import "mix";
+	
+
+/* ---------- Basic Layout Styles ----------- */
+
+html,
+body,
+#page  {
+  height: 100%;
+}
+
+#page-wrapper {
+    margin: 0 auto;
+    max-width: 910px;
+}
+
+#header div.section,
+#nav-bar div.section,
+#featured div.section,
+#messages div.section,
+#main,
+#triptych,
+#footer-columns,
+#footer,
+#header,
+#page-inner,
+#footer-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav-bar {
+    width: 100%;
+}
+
+#header {
+  clear: both;
+}
+
+#header div.section {
+  position: relative;
+}
+
+.region-header {
+  float: right; /* LTR */
+	@include fluidMargin(0,0,0,0,1025);
+	@include fluidWidth(540,1025);
+  	@include breakpoint($MQ_orange) {
+		width: 47%;
+	}
+  	@include breakpoint($MQ_pink) {
+		width: 42%;
+	}
+	@include breakpoint($MQ_yellow) {
+		margin: 0 3%;
+		width: 94%;
+	}
+}
+
+#secondary-menu {
+  position: absolute;
+  right: 0; /* LTR */
+  top: 0;
+}
+
+#content,
+#content-bottom,
+#sidebar-first,
+#sidebar-second,
+.region-triptych-first,
+.region-triptych-second,
+.region-triptych-third,
+.region-triptych-fourth,
+.region-footer-firstcolumn,
+.region-footer-secondcolumn,
+.region-footer-thirdcolumn,
+.region-footer-fourthcolumn {
+  display: inline;
+  float: left; /* LTR */
+  position: relative;
+}
+
+.one-sidebar #content {
+	@include fluidMargin(0,0,0,85,910);
+	@include fluidWidth(500,910);
+	@include breakpoint($MQ_red) {
+		margin: 0 3%;
+		width: 94%;
+	}
+	& .section {
+		@include fluidMargin(0,40,0,0,940);
+		@include breakpoint($MQ_red) {
+			margin: 0;
+		}
+	}
+}
+
+.sidebar-second #content {
+	@include fluidMargin(0,110,0,85,1025);
+	@include fluidWidth(500,910);
+	@include breakpoint($MQ_red) {
+		margin: 0 10.73171% 0 3.29268%;
+		width: 57.92683%;
+	}
+	@include breakpoint($MQ_orange) {
+		margin: 0 3%;
+		width: 94%;
+	}
+	& .section {
+		@include fluidMargin(0,40,0,0,940);
+	}
+}
+
+.two-sidebars #content {
+	@include fluidWidth(265,975);
+}
+
+.no-sidebars #content {
+	float: none;
+	display: block;
+	@include fluidWidth(900,1025);
+  	@include fluidMargin(0,0,0,85,1025);
+  	
+}
+
+#sidebar-first {
+	margin: 0 0 0 30px;
+	width: 240px;
+	@include breakpoint($MQ_red) {
+		margin: 0 3%;
+		width: 94%;
+	}
+}
+
+#sidebar-second {
+	@include fluidMargin(0,30,0,0,1025);
+	@include fluidWidth(250,1025);
+	@include breakpoint($MQ_orange) {
+		margin: 2em 42% 0 3%;
+		width: 55%;
+	}
+	@include breakpoint($MQ_pink) {
+		margin: 0 0 0 3%;
+		width: 75%;
+	}
+	@include breakpoint($MQ_yellow) {
+		margin: 0 3%;
+		width: 85%;
+	}
+}
+
+#content-bottom {
+  display: block;
+  width: 100%;
+}
+
+#main-wrapper {
+  min-height: 300px;
+}
+
+#breadcrumb {
+  margin: 0 15px;
+}
+
+#footer-wrapper {
+    margin: 2.3em auto 0 auto;
+    max-width: 1025px;
+}
+
+.region-triptych-first,
+.region-triptych-second,
+.region-triptych-third,
+.region-triptych-fourth {
+  width: 25%; 
+  display: block;
+}
+
+#triptych-bottom {
+  display: block;
+  width: 100%;
+}
+
+.region-footer-firstcolumn,
+.region-footer-secondcolumn,
+.region-footer-thirdcolumn,
+.region-footer-fourthcolumn {
+  width: 25%; 
+  display: block;
+}
+
+footer[role="contentinfo"] {
+    margin: 0 auto;
+    max-width: 1025px;
+}

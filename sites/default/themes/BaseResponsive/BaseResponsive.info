@@ -1,0 +1,51 @@
+name = Base Responsive Theme
+description = A flexible, theme with many regions.
+package = Core
+version = VERSION
+core = 7.x
+
+
+stylesheets[all][] = assets/css/nav-styles.css
+stylesheets[all][] = assets/css/layout.css
+stylesheets[all][] = assets/css/style.css
+stylesheets[print][] = assets/css/print.css
+
+scripts[] = assets/js/base-responsive.js
+scripts[] = assets/js/responsive-nav.js
+scripts[] = assets/js/ckeditor.styles.js
+scripts[] = assets/js/respond.min.js
+
+regions[utility] = Utility
+regions[header] = Header
+regions[help] = Help
+regions[highlighted] = Highlighted
+
+regions[featured] = Featured
+regions[content] = Content
+regions[content_bottom] = Content Bottom
+regions[sidebar_first] = Sidebar first
+regions[sidebar_second] = Sidebar second
+
+
+regions[triptych_bottom] = Triptych Bottom
+
+regions[triptych_first] = Triptych first
+regions[triptych_second] = Triptych second
+regions[triptych_third] = Triptych third
+regions[triptych_fourth] = Triptych fourth
+
+regions[footer_firstcolumn] = Footer first column
+regions[footer_secondcolumn] = Footer second column
+regions[footer_thirdcolumn] = Footer third column
+regions[footer_fourthcolumn] = Footer fourth column
+regions[footer] = Footer
+regions[footer_bottom] = Footer bottom
+
+settings[shortcut_module_link] = 0
+
+
+; Information added by drupal.org packaging script on 2013-04-03
+version = "7.22"
+project = "drupal"
+datestamp = "1365027012"
+
