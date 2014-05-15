@@ -597,25 +597,10 @@ body {
   background-image: url('../images/bg_drupal_watermark.png');
   background-repeat: no-repeat;
   background-position: 0 4em;
-  padding: 5.3em 0 0 0;
 }
 
 #main {
-  padding: 2em 0 3.5em 0;
-}
-@media (max-width: 1024px) {
-  #main {
-    padding: 2.5em 0 3.5em 0;
-  }
-}
-@media (max-width: 600px) {
-  #main {
-    padding: 1.5em 0 3.5em 0;
-  }
-}
-
-header {
-  margin: 1.4em 0 0.6em 0;
+  padding: 7em 0 3.5em 0;
 }
 
 a:link,
@@ -1097,7 +1082,7 @@ a.button,
 input.checkout-cancel,
 input.btn-submit {
   border: none;
-  background-color: #999999;
+  background-color: #d52027;
   text-transform: uppercase;
   color: white;
   cursor: pointer;
@@ -1120,8 +1105,7 @@ input.checkout-cancel:hover,
 input.checkout-cancel:focus,
 input.btn-submit:hover,
 input.btn-submit:focus {
-  background-color: whitesmoke;
-  color: #333333;
+  background-color: #666666;
 }
 
 a.button:link,
@@ -1157,9 +1141,9 @@ fieldset legend {
 
 input,
 textarea {
-  background-color: white;
+  background-color: #f3efe7;
   color: #666666;
-  border: 1px solid whitesmoke;
+  border: 1px dashed #333333;
   font-size: 1em;
   padding: 0.8em;
   width: 80%;
@@ -1366,7 +1350,7 @@ div.admin-panel .description {
 }
 
 #logo {
-  margin: 0 0 0 50px;
+  margin: 0 0% 0 8.33333%;
 }
 
 #name-and-slogan {

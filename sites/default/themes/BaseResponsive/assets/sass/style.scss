@@ -638,24 +638,16 @@ body {
 	background-image: image-url('bg_drupal_watermark.png');
 	background-repeat: no-repeat;
 	background-position: 0 4em;
-	padding: 5.3em 0 0 0;
 }
 
 #main-wrapper {
 }
 
 #main {
-	padding: 2em 0 3.5em 0;
-	@include breakpoint($MQ_red) {
-		padding: 2.5em 0 3.5em 0;
-	}
-	@include breakpoint($MQ_pink) {
-		padding: 1.5em 0 3.5em 0;
-	}
+	padding: 7em 0 3.5em 0;
 }
 
 header {
-	margin: 1.4em 0 0.6em 0;
 }
 
 a:link,
@@ -1143,7 +1135,7 @@ input.checkout-cancel,
 input.btn-submit {
 	border: none;
 	@extend %font-stack-sans-bold;
-	background-color: $medium-gray;
+	background-color: $red;
 	text-transform: uppercase;
 	color: $white;
 	cursor: pointer;
@@ -1162,8 +1154,7 @@ input.checkout-cancel:hover,
 input.checkout-cancel:focus,
 input.btn-submit:hover,
 input.btn-submit:focus {
-	background-color: $light-gray;
-	color: $dark-gray;
+	background-color: $gray;
 }
 
 a.button:link,
@@ -1208,9 +1199,9 @@ fieldset {
 
 input,
 textarea {
-  background-color: $white;
+  background-color: $tan;
   color: $gray;
-  border: 1px solid $light-gray;
+  border: 1px dashed $dark-gray;
   font-size: 1em;
   padding: 0.8em;
   width: 80%;
@@ -1428,7 +1419,7 @@ div.admin-panel .description {
 }
 
 #logo {
-	margin: 0 0 0 50px;
+  	@include fluidMargin(0,0,0,20,240);
 }
 
 #name-and-slogan {
