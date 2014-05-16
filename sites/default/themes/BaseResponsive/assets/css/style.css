@@ -505,10 +505,9 @@ font-family:'AvenirNextW02-ThinItali';
 font-family:'AvenirNextLTW01-MediumS';
 font-family:'AvenirNextLTW01-MediumI 727649';
 font-family:'AvenirNextW01-CnLight';
-
-
-font-family:'Avenir Next W04 Bold';
 font-family:'AvenirNextLTW01-DemiCnS';
+font-family:'Avenir Next W04 Bold';
+
 
 font-family:'AvenirNextLTW01-Condens 727663';
 font-family:'AvenirNextLTW01-CnItSC';
@@ -552,13 +551,18 @@ i b {
   font-style: normal;
 }
 
-h1 {
-  font-family: 'AvenirNextW01-CnLight', Helvetica, Arial, sans-serif;
+.utility-newdcamp, .utility-date, .main-menu-block ul.menu li.leaf a, .cta a {
+  font-family: 'Avenir Next W04 Bold', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
+h1, .label {
+  font-family: 'AvenirNextLTW01-DemiCnS', Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
 }
 
-.webform-component label {
+.webform-component label, .cta, .post-date {
   font-family: "Times New Roman", Times, serif;
   font-weight: normal;
 }
@@ -610,7 +614,7 @@ body {
 #page-wrapper {
   background-color: #d52027;
   margin: 3em auto;
-  padding: 3.5em 60px;
+  padding: 1.2em 5.49451% 3.5em 5.49451%;
 }
 
 #main-wrapper {
@@ -624,9 +628,14 @@ body {
   padding: 7em 0 3.5em 0;
 }
 
+header {
+  clear: left;
+}
+
 a:link,
 a:visited {
   color: #d52027;
+  text-decoration: none;
 }
 .edit a:link, .flag a:link, .edit
 a:visited, .flag
@@ -655,8 +664,8 @@ h6 {
 }
 
 h1 {
-  font-size: 2em;
-  line-height: 1.1;
+  font-size: 2.2em;
+  line-height: 1;
   text-transform: uppercase;
   font-weight: normal;
   color: #d52027;
@@ -1335,10 +1344,38 @@ div.admin-panel .description {
 }
 
 /* ------------------ Utility ------------------ */
-.utility-blocks {
+#utility {
+  color: white;
+  height: 3em;
+}
+
+.utility-block {
   display: block;
   float: left;
-  width: 33%;
+}
+
+.utility-newdcamp {
+  margin-top: 1em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: black;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  margin-top: 1.6em;
+  width: 39%;
+}
+
+.utility-date {
+  margin-top: 1em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 27%;
+}
+
+.get-in-touch {
+  text-align: left;
+  margin-left: 14%;
+  width: 20%;
 }
 
 /* ------------------ Header ------------------ */
@@ -1463,14 +1500,13 @@ div.admin-panel .description {
 }
 .main-menu-block ul.menu li.leaf a {
   color: #d52027;
-  font-size: 1.7em;
-  line-height: 1.4em;
+  font-size: 1.6em;
+  line-height: 1.3em;
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
   padding: 0;
   display: block;
-  letter-spacing: 1px;
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
@@ -1512,6 +1548,22 @@ div.admin-panel .description {
 
 .sidebar p {
   margin: 0;
+}
+
+.cta {
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.7;
+}
+.cta h2 {
+  font-size: 1em;
+}
+.cta p {
+  margin-bottom: 1em;
+}
+.cta a {
+  font-size: 1.1em;
+  letter-spacing: 1px;
 }
 
 /* ------------------ Footer ------------------ */
@@ -2417,8 +2469,29 @@ ol.inline.commerce-checkout-progress li.active {
   line-height: 1.5em;
 }
 
-/* --------------- CTA BLOCK - DESIGNER Styles ----------------- */
-.cta-designer p {
-  font-size: 0.95em;
-  line-height: 1.5em;
+/* --------------- Blog Styles ----------------- */
+.blog-main article {
+  margin-bottom: 7em;
+}
+
+.post-date {
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+/* --------------- Sponsor Styles ----------------- */
+.sponsor-main article {
+  width: 90%;
+  margin-bottom: 3em;
+}
+
+.sponsor-main-lower article {
+  width: 40%;
+  float: left;
+  margin: 0 10% 3em 0;
 }

@@ -545,10 +545,9 @@ font-family:'AvenirNextW02-ThinItali';
 font-family:'AvenirNextLTW01-MediumS';
 font-family:'AvenirNextLTW01-MediumI 727649';
 font-family:'AvenirNextW01-CnLight';
-
-
-font-family:'Avenir Next W04 Bold';
 font-family:'AvenirNextLTW01-DemiCnS';
+font-family:'Avenir Next W04 Bold';
+
 
 font-family:'AvenirNextLTW01-Condens 727663';
 font-family:'AvenirNextLTW01-CnItSC';
@@ -584,8 +583,19 @@ font-family:'AvenirNextW02-LightItal';
   font-style: normal;
 }
 
+%font-stack-sans-heavy {
+  font-family: 'Avenir Next W04 Bold', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+
 %font-stack-sans-condensed {
   font-family: 'AvenirNextW01-CnLight', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+%font-stack-sans-condensed-bold {
+  font-family: 'AvenirNextLTW01-DemiCnS', Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
 }
@@ -651,7 +661,7 @@ body {
 #page-wrapper {
 	background-color: $red;
 	margin: 3em auto;
-	padding: 3.5em 60px;
+	@include fluidPadding(1.2em,50,3.5em,50,910);
 }
 
 #page {
@@ -669,11 +679,13 @@ body {
 }
 
 header {
+	clear: left;
 }
 
 a:link,
 a:visited {
 	color: $red;
+	text-decoration: none;
 	.edit &,
 	.flag & {
 		color: $blue;
@@ -701,9 +713,9 @@ h6 {
 }
 
 h1 {
-	@extend %font-stack-sans-condensed;
-	font-size: 2em;
-	line-height: 1.1;
+	@extend %font-stack-sans-condensed-bold;
+	font-size: 2.2em;
+	line-height: 1;
 	text-transform: uppercase;
 	font-weight: normal;
 	color: $red;
@@ -1405,10 +1417,40 @@ div.admin-panel .description {
 
 /* ------------------ Utility ------------------ */
 
-.utility-blocks {
+#utility {
+	color: $white;
+	height: 3em;
+}
+
+.utility-block {
 	display: block;
 	float: left;
-	width: 33%;
+}
+
+.utility-newdcamp {
+	@extend %font-stack-sans-heavy;
+	margin-top: 1em;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: $black;
+	font-size: 0.8em;
+	letter-spacing: 1px;
+	margin-top: 1.6em;
+	width: 39%;
+}
+
+.utility-date {
+	@extend %font-stack-sans-heavy;
+	margin-top: 1em;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	width: 27%;
+}
+
+.get-in-touch {
+	text-align: left;
+	margin-left: 14%;
+	width: 20%;
 }
 
 /* ------------------ Header ------------------ */
@@ -1518,14 +1560,14 @@ div.admin-panel .description {
 			text-align: right;
 			& a {
 				color: $red;
-				font-size: 1.7em;
-				line-height: 1.4em;
+				font-size: 1.6em;
+				line-height: 1.3em;
 				font-weight: bold;
 				text-transform: uppercase;
 				text-decoration: none;
 				padding: 0;
 				display: block;
-				letter-spacing: 1px;
+				@extend %font-stack-sans-heavy; 
 				@include transition (0.5s);
 				&:hover {
 					text-decoration: underline;
@@ -1567,6 +1609,24 @@ div.admin-panel .description {
 
 .sidebar p {
 	margin: 0;
+}
+
+.cta {
+	@extend %font-stack-serif;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 1.7;
+	& h2 {
+		font-size: 1em;
+	}
+	& p {
+		margin-bottom: 1em;
+	}
+	& a {
+		@extend %font-stack-sans-heavy;
+		font-size: 1.1em;
+		letter-spacing: 1px;
+	}
 }
 
 /* ------------------ Footer ------------------ */
@@ -2464,14 +2524,42 @@ ol.inline.commerce-checkout-progress li {
 	}
 }
 
-/* --------------- CTA BLOCK - DESIGNER Styles ----------------- */
+/* --------------- Blog Styles ----------------- */
 
-.cta-designer {
-	& p {
-		font-size: 0.95em;
-		line-height: 1.5em;
+.blog-main {
+	& article {
+		margin-bottom: 7em;
 	}
 }
 
+.post-date {
+	@extend %font-stack-serif;
+	font-size: 0.9em;
+	letter-spacing: 1px;
+}
 
+.label {
+	@extend %font-stack-sans-condensed-bold;
+	text-transform: uppercase;
+	letter-spacing: 0;
+}
+
+
+
+/* --------------- Sponsor Styles ----------------- */
+
+.sponsor-main {
+	& article {
+		width: 90%;
+		margin-bottom: 3em;
+	}
+}
+
+.sponsor-main-lower {
+	& article {
+		width: 40%;
+		float: left;
+		margin: 0 10% 3em 0;
+	}
+}
 
