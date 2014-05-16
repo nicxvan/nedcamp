@@ -553,6 +553,9 @@ font-family:'AvenirNextLTW01-DemiCnS';
 font-family:'AvenirNextLTW01-Condens 727663';
 font-family:'AvenirNextLTW01-CnItSC';
 font-family:'AvenirNextW01-CnLightIt';
+
+font-family:'Avenir Next W02 Light';
+font-family:'AvenirNextW02-LightItal';
 */
 
 %font-stack-sans-fallback {
@@ -560,7 +563,7 @@ font-family:'AvenirNextW01-CnLightIt';
 }
 
 %font-stack-sans {
-  font-family: 'Avenir Next W02 Thin', Helvetica, Arial, sans-serif;
+  font-family: 'Avenir Next W02 Light', Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
 
@@ -624,7 +627,7 @@ body {
   outline: 0;
   color: $dark-gray;
   @extend %font-stack-sans-fallback;
-  font-family: 'AvenirNextLTW01-MediumS', Helvetica, Arial, sans-serif;
+  @extend %font-stack-sans;
   @include breakpoint($MQ_red) {
 		border-top: 5px solid red;
   }

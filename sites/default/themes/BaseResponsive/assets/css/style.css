@@ -513,13 +513,16 @@ font-family:'AvenirNextLTW01-DemiCnS';
 font-family:'AvenirNextLTW01-Condens 727663';
 font-family:'AvenirNextLTW01-CnItSC';
 font-family:'AvenirNextW01-CnLightIt';
+
+font-family:'Avenir Next W02 Light';
+font-family:'AvenirNextW02-LightItal';
 */
 body {
   font-family: sans-serif;
 }
 
-.webform-component label.option, .accordian-view .ui-accordion-content-active {
-  font-family: 'Avenir Next W02 Thin', Helvetica, Arial, sans-serif;
+body, .webform-component label.option, .accordian-view .ui-accordion-content-active {
+  font-family: 'Avenir Next W02 Light', Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
 
@@ -572,7 +575,6 @@ body {
   border: 0;
   outline: 0;
   color: #333333;
-  font-family: 'AvenirNextLTW01-MediumS', Helvetica, Arial, sans-serif;
 }
 @media (max-width: 1024px) {
   body {
