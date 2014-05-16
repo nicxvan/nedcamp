@@ -575,6 +575,11 @@ font-family:'AvenirLTW01-95BlackObli';
   font-style: italic;
 }
 
+%font-stack-serif {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+
 strong, 
 b {
 	@extend %font-stack-sans-bold; 
@@ -597,13 +602,15 @@ i b {
 
 body {
   background-color: $white;  
+  background-image: image-url('bg_parchment.png');
+  background-repeat: repeat;
   line-height: 1.8;
   font-size: 16px;
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
-  color: $gray;
+  color: $dark-gray;
   @extend %font-stack-sans-fallback;
   @extend %font-stack-sans;
   @include breakpoint($MQ_red) {
@@ -627,7 +634,6 @@ body {
 }
 
 #page-wrapper {
-	color: $gray;
 	background-color: $red;
 	margin: 3em auto;
 	padding: 3.5em 60px;
@@ -1183,9 +1189,10 @@ fieldset {
 
 .webform-component {
 	& label {
-		@extend %font-stack-sans-heavy;
+		@extend %font-stack-serif;
 		width: 75%;
 		line-height: 1.4;
+		text-transform: uppercase;
 		&.option {
 			@extend %font-stack-sans;
 		}
@@ -1214,8 +1221,7 @@ textarea {
 
 input.form-checkbox,
 input.form-checkboxes,
-input.form-radio,
-#Donate_IsMonthly {
+input.form-radio {
 	width: auto;
 	padding: 0;
 	border: none;

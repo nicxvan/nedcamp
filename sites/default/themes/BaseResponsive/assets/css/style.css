@@ -543,16 +543,23 @@ i b {
   font-style: italic;
 }
 
+.webform-component label {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+
 /* ---------- Overall Specifications ---------- */
 body {
   background-color: white;
+  background-image: url('../images/bg_parchment.png');
+  background-repeat: repeat;
   line-height: 1.8;
   font-size: 16px;
   margin: 0;
   padding: 0;
   border: 0;
   outline: 0;
-  color: #666666;
+  color: #333333;
 }
 @media (max-width: 1024px) {
   body {
@@ -586,7 +593,6 @@ body {
 }
 
 #page-wrapper {
-  color: #666666;
   background-color: #d52027;
   margin: 3em auto;
   padding: 3.5em 60px;
@@ -1132,6 +1138,7 @@ fieldset legend {
 .webform-component label {
   width: 75%;
   line-height: 1.4;
+  text-transform: uppercase;
 }
 .webform-component .description {
   width: 80%;
@@ -1156,8 +1163,7 @@ textarea {
 
 input.form-checkbox,
 input.form-checkboxes,
-input.form-radio,
-#Donate_IsMonthly {
+input.form-radio {
   width: auto;
   padding: 0;
   border: none;
