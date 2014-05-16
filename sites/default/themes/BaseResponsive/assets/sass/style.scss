@@ -655,13 +655,13 @@ body {
 }
 
 #page {
+}
+
+#main-wrapper {
 	background-color: $light-gray;
 	background-image: image-url('bg_drupal_watermark.png');
 	background-repeat: no-repeat;
 	background-position: 0 4em;
-}
-
-#main-wrapper {
 }
 
 #main {
@@ -1402,6 +1402,14 @@ div.admin-panel .description {
   width: auto;
 }
 
+
+/* ------------------ Utility ------------------ */
+
+.utility-blocks {
+	display: block;
+	float: left;
+	width: 33%;
+}
 
 /* ------------------ Header ------------------ */
 

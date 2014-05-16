@@ -613,7 +613,7 @@ body {
   padding: 3.5em 60px;
 }
 
-#page {
+#main-wrapper {
   background-color: whitesmoke;
   background-image: url('../images/bg_drupal_watermark.png');
   background-repeat: no-repeat;
@@ -1332,6 +1332,13 @@ div.admin-panel .description {
 
 .overlay #messages {
   width: auto;
+}
+
+/* ------------------ Utility ------------------ */
+.utility-blocks {
+  display: block;
+  float: left;
+  width: 33%;
 }
 
 /* ------------------ Header ------------------ */
