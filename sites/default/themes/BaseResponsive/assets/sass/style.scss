@@ -540,39 +540,51 @@ table {
 /* ------------------ Fonts ------------------ */
 
 /*
-font-family:'AvenirLTW01-55Oblique';
-font-family:'Avenir LT W01 55 Roman';
-font-family:'Avenir LT W01 65 Medium';
-font-family:'Avenir LT W01 85 Heavy';
-font-family:'AvenirLTW01-85HeavyObli';
-font-family:'Avenir LT W01 95 Black';
-font-family:'AvenirLTW01-95BlackObli';
+font-family:'Avenir Next W02 Thin';
+font-family:'AvenirNextW02-ThinItali';
+font-family:'AvenirNextLTW01-MediumS';
+font-family:'AvenirNextLTW01-MediumI 727649';
+font-family:'AvenirNextW01-CnLight';
+
+
+font-family:'Avenir Next W04 Bold';
+font-family:'AvenirNextLTW01-DemiCnS';
+
+font-family:'AvenirNextLTW01-Condens 727663';
+font-family:'AvenirNextLTW01-CnItSC';
+font-family:'AvenirNextW01-CnLightIt';
 */
 
 %font-stack-sans-fallback {
-  font-family:serif;
+  font-family: sans-serif;
 }
 
 %font-stack-sans {
-  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir Next W02 Thin', Helvetica, Arial, sans-serif;
   font-weight: normal;
 }
 
 %font-stack-sans-italic {
-  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+  font-family: 'AvenirNextW02-ThinItali', Helvetica, Arial, sans-serif;
   font-weight: normal;
-  font-style: italic;
+  font-style: normal;
 }
 
 %font-stack-sans-bold {
-  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-weight: bold;
+  font-family: 'AvenirNextLTW01-MediumS', Helvetica, Arial, sans-serif;
+  font-weight: normal;
 }
 
 %font-stack-sans-bold-italic {
-  font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  font-style: italic;
+  font-family: 'AvenirNextLTW01-MediumI 727649', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+%font-stack-sans-condensed {
+  font-family: 'AvenirNextW01-CnLight', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
 
 %font-stack-serif {
@@ -686,6 +698,7 @@ h6 {
 }
 
 h1 {
+	@extend %font-stack-sans-condensed;
 	font-size: 2.6em;
 	line-height: 1.1;
 	text-transform: uppercase;
