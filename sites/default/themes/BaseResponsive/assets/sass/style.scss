@@ -624,7 +624,7 @@ body {
   outline: 0;
   color: $dark-gray;
   @extend %font-stack-sans-fallback;
-  @extend %font-stack-sans;
+  font-family: 'AvenirNextLTW01-MediumS', Helvetica, Arial, sans-serif;
   @include breakpoint($MQ_red) {
 		border-top: 5px solid red;
   }
@@ -1545,7 +1545,7 @@ div.admin-panel .description {
 .sidebar .block {
   border: none;
   padding: 0;
-  margin: 0;
+  margin: 2.6em 0 0 0;
 }
 
 .sidebar h2 {

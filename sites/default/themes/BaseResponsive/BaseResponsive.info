@@ -26,7 +26,6 @@ regions[content_bottom] = Content Bottom
 regions[sidebar_first] = Sidebar first
 regions[sidebar_second] = Sidebar second
 
-
 regions[triptych_bottom] = Triptych Bottom
 
 regions[triptych_first] = Triptych first
@@ -43,6 +42,16 @@ regions[footer_bottom] = Footer bottom
 
 settings[shortcut_module_link] = 0
 
+fonts[fonts_com][] = "727667&AddFontToPalette=T"
+fonts[fonts_com][] = "727665&AddFontToPalette=T"
+fonts[fonts_com][] = "727663&AddFontToPalette=T"
+fonts[fonts_com][] = "727649&AddFontToPalette=T"
+fonts[fonts_com][] = "727647&AddFontToPalette=T"
+fonts[fonts_com][] = "1129862&AddFontToPalette=T"
+fonts[fonts_com][] = "1129865&AddFontToPalette=T"
+fonts[fonts_com][] = "1122658&AddFontToPalette=T"
+fonts[fonts_com][] = "1148399&AddFontToPalette=T"
+fonts[fonts_com][] = "1148402&AddFontToPalette=T"
 
 ; Information added by drupal.org packaging script on 2013-04-03
 version = "7.22"
