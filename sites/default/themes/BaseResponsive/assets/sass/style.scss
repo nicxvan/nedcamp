@@ -666,6 +666,10 @@ body {
 	background-color: $red;
 	margin: 3em auto;
 	@include fluidPadding(1.2em,50,3.5em,50,910);
+	@include breakpoint($MQ_red) {
+		margin: 0 auto;
+		padding: 0 3% 3em 3%;
+	}
 }
 
 #page {
@@ -680,6 +684,9 @@ body {
 
 #main {
 	padding: 7em 0 3.5em 0;
+	@include breakpoint($MQ_red) {
+		padding: 1em 0 3.5em 0;
+	}
 }
 
 header {
@@ -1446,6 +1453,16 @@ div.admin-panel .description {
 	letter-spacing: 1px;
 	margin-top: 1.6em;
 	width: 39%;
+	@include breakpoint($MQ_red) {
+		width: 22%;
+		margin-left: 3%;
+	}
+	@include breakpoint($MQ_yellow) {
+		float: none;
+		width: 94%;
+		margin-top: 0;
+		padding-top: 1em;
+	}
 }
 
 .utility-date {
@@ -1454,11 +1471,40 @@ div.admin-panel .description {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	width: 27%;
+	@include breakpoint($MQ_red) {
+		width: 36%;
+		float: none;
+		height: 2em;
+		margin-left: 3%;
+		margin-top: 0;
+	}
+	@include breakpoint($MQ_pink) {
+		font-size: 0.8em;
+	}
+	@include breakpoint($MQ_yellow) {
+		float: none;
+		width: 94%;
+	}
 }
 
 .get-in-touch {
 	text-align: left;
 	width: 34%;
+	@include breakpoint($MQ_red) {
+		width: 40%;
+		float: right;
+	}
+	@include breakpoint($MQ_orange) {
+		width: 50%;
+	}
+	@include breakpoint($MQ_pink) {
+		width: 56%;
+	}
+	@include breakpoint($MQ_yellow) {
+		float: none;
+		width: 80%;
+		margin-left: 20%
+	}
 }
 
 /* ------------------ Header ------------------ */
@@ -1500,6 +1546,22 @@ div.admin-panel .description {
 
 #logo {
   	@include fluidMargin(0,0,0,20,240);
+	@include breakpoint($MQ_red) {
+		margin: 0;
+		float: right;
+		width: 25%;
+	}
+	@include breakpoint($MQ_orange) {
+		width: 30%;
+	}
+	@include breakpoint($MQ_pink) {
+		width: 35%;
+	}
+	@include breakpoint($MQ_yellow) {
+		float: none;
+		width: 60%;
+		display: block;
+	}
 }
 
 #name-and-slogan {
@@ -1566,6 +1628,9 @@ div.admin-panel .description {
 			padding: 0;
 			margin: 0;
 			text-align: right;
+			@include breakpoint($MQ_red) {
+				text-align: left;
+			}
 			& a {
 				color: $red;
 				font-size: 1.6em;
@@ -1603,10 +1668,19 @@ div.admin-panel .description {
 
 /* ------------------ Sidebar ----------------- */
 
+.region-sidebar-first {
+	@include breakpoint($MQ_red) {
+		float: left;
+	}
+}
+
 .sidebar .block {
   border: none;
   padding: 0;
   margin: 2.6em 0 0 0;
+	@include breakpoint($MQ_yellow) {
+		margin: 1.6em 0 0 0;
+	}
 }
 
 .sidebar h2 {
@@ -1664,6 +1738,9 @@ div.admin-panel .description {
 	float: left;
 	@include fluidMargin(0,5,0,0,309);
     @include transition(1);
+	@include breakpoint($MQ_pink) {
+		margin: 0;
+	}
     &.social-twitter {
     	background-image: image-url('icon_tw.png');
 		background-position: 0 top;
