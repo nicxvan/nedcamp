@@ -1505,6 +1505,11 @@ div.admin-panel .description {
 		width: 80%;
 		margin-left: 20%
 	}
+	@include breakpoint($MQ_green) {
+		float: none;
+		width: 94%;
+		margin-left: 3%
+	}
 }
 
 /* ------------------ Header ------------------ */

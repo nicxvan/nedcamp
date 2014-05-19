@@ -1460,6 +1460,13 @@ div.admin-panel .description {
     margin-left: 20%;
   }
 }
+@media (max-width: 320px) {
+  .get-in-touch {
+    float: none;
+    width: 94%;
+    margin-left: 3%;
+  }
+}
 
 /* ------------------ Header ------------------ */
 #skip-link {
