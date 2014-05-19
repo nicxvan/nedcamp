@@ -567,10 +567,15 @@ h1, .label {
   font-style: normal;
 }
 
-p a:link, p
-a:visited, .webform-component label, .cta, .post-date,
+.webform-component label, .cta, .post-date,
 .author {
   font-family: 'GaramondClassico W00', "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+
+#content p a:link, #content p
+a:visited {
+  font-family: 'GaramondClassico W00 SC', "Times New Roman", Times, serif;
   font-weight: normal;
 }
 
@@ -650,6 +655,11 @@ a:visited {
   color: #3333cc;
   text-decoration: none;
   font-size: 0.8em;
+}
+#content p a:link, #content p
+a:visited {
+  font-size: 1.2em;
+  letter-spacing: 1px;
 }
 
 a:hover,
@@ -1518,9 +1528,8 @@ div.admin-panel .description {
   transition: 0.5s;
 }
 .main-menu-block ul.menu li.leaf a:hover {
-  text-decoration: none;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
-  opacity: 0.5;
+  text-decoration: underline;
+  /* @include opacity (0.5) */
 }
 
 /* ------------------- Main ------------------- */
@@ -1596,11 +1605,10 @@ div.admin-panel .description {
   height: 50px;
   float: left;
   margin: 0 1.61812% 0 0%;
-  -webkit-transition: all 0.5s ease-in-out;
-  -webkit-transition-delay: 0s;
-  -moz-transition: all 0.5s ease-in-out 0s;
-  -o-transition: all 0.5s ease-in-out 0s;
-  transition: all 0.5s ease-in-out 0s;
+  -webkit-transition: 1;
+  -moz-transition: 1;
+  -o-transition: 1;
+  transition: 1;
 }
 .get-in-touch a.social.social-twitter {
   background-image: url('../images/icon_tw.png');

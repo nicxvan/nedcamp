@@ -604,6 +604,11 @@ font-family:'GaramondClassico W00 SC';
   font-weight: normal;
 }
 
+%font-stack-serif-smallcap {
+  font-family: 'GaramondClassico W00 SC', "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+
 strong, 
 b {
 	@extend %font-stack-sans-bold; 
@@ -691,8 +696,10 @@ a:visited {
 		text-decoration: none;
 		font-size: 0.8em;
 	}
-	p & {
-		@extend %font-stack-serif;
+	#content p & {
+		@extend %font-stack-serif-smallcap;
+		font-size: 1.2em;
+		letter-spacing: 1px;
 	}
 }
 
@@ -1571,8 +1578,8 @@ div.admin-panel .description {
 				@extend %font-stack-sans-heavy; 
 				@include transition (0.5s);
 				&:hover {
-					text-decoration: none;
-					@include opacity (0.5)
+					text-decoration: underline;
+					/* @include opacity (0.5) */
 				}
 			}
 		}
@@ -1656,7 +1663,7 @@ div.admin-panel .description {
 	height: 50px;
 	float: left;
 	@include fluidMargin(0,5,0,0,309);
-    @include transition;
+    @include transition(1);
     &.social-twitter {
     	background-image: image-url('icon_tw.png');
 		background-position: 0 top;
