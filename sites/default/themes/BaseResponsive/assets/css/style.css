@@ -500,21 +500,20 @@ table {
 
 /* ------------------ Fonts ------------------ */
 /*
+font-family:'Avenir Next W04 Bold';
+font-family:'AvenirNextLTW01-DemiCnS';
+font-family:'AvenirNextW01-CnLight';
+font-family:'AvenirNextLTW01-Condens 727663';
+font-family:'AvenirNextLTW01-CnItSC';
 font-family:'Avenir Next W02 Thin';
 font-family:'AvenirNextW02-ThinItali';
 font-family:'AvenirNextLTW01-MediumS';
 font-family:'AvenirNextLTW01-MediumI 727649';
-font-family:'AvenirNextW01-CnLight';
-font-family:'AvenirNextLTW01-DemiCnS';
-font-family:'Avenir Next W04 Bold';
-
-
-font-family:'AvenirNextLTW01-Condens 727663';
-font-family:'AvenirNextLTW01-CnItSC';
 font-family:'AvenirNextW01-CnLightIt';
-
 font-family:'Avenir Next W02 Light';
 font-family:'AvenirNextW02-LightItal';
+font-family:'GaramondClassico W00';
+font-family:'GaramondClassico W00 SC';
 */
 body {
   font-family: sans-serif;
@@ -568,9 +567,10 @@ h1, .label {
   font-style: normal;
 }
 
-.webform-component label, .cta, .post-date,
+p a:link, p
+a:visited, .webform-component label, .cta, .post-date,
 .author {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'GaramondClassico W00', "Times New Roman", Times, serif;
   font-weight: normal;
 }
 
@@ -1518,7 +1518,7 @@ div.admin-panel .description {
   transition: 0.5s;
 }
 .main-menu-block ul.menu li.leaf a:hover {
-  text-decoration: underline;
+  text-decoration: none;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }

@@ -540,21 +540,20 @@ table {
 /* ------------------ Fonts ------------------ */
 
 /*
+font-family:'Avenir Next W04 Bold';
+font-family:'AvenirNextLTW01-DemiCnS';
+font-family:'AvenirNextW01-CnLight';
+font-family:'AvenirNextLTW01-Condens 727663';
+font-family:'AvenirNextLTW01-CnItSC';
 font-family:'Avenir Next W02 Thin';
 font-family:'AvenirNextW02-ThinItali';
 font-family:'AvenirNextLTW01-MediumS';
 font-family:'AvenirNextLTW01-MediumI 727649';
-font-family:'AvenirNextW01-CnLight';
-font-family:'AvenirNextLTW01-DemiCnS';
-font-family:'Avenir Next W04 Bold';
-
-
-font-family:'AvenirNextLTW01-Condens 727663';
-font-family:'AvenirNextLTW01-CnItSC';
 font-family:'AvenirNextW01-CnLightIt';
-
 font-family:'Avenir Next W02 Light';
 font-family:'AvenirNextW02-LightItal';
+font-family:'GaramondClassico W00';
+font-family:'GaramondClassico W00 SC';
 */
 
 %font-stack-sans-fallback {
@@ -601,7 +600,7 @@ font-family:'AvenirNextW02-LightItal';
 }
 
 %font-stack-serif {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'GaramondClassico W00', "Times New Roman", Times, serif;
   font-weight: normal;
 }
 
@@ -691,6 +690,9 @@ a:visited {
 		color: $blue;
 		text-decoration: none;
 		font-size: 0.8em;
+	}
+	p & {
+		@extend %font-stack-serif;
 	}
 }
 
@@ -1569,7 +1571,7 @@ div.admin-panel .description {
 				@extend %font-stack-sans-heavy; 
 				@include transition (0.5s);
 				&:hover {
-					text-decoration: underline;
+					text-decoration: none;
 					@include opacity (0.5)
 				}
 			}
