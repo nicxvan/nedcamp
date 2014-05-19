@@ -719,13 +719,13 @@ h1 {
 	text-transform: uppercase;
 	font-weight: normal;
 	color: $red;
+	margin-bottom: 0.1em;
 }
 
 h2 {
-	font-size: 1.6em;
+	@extend %font-stack-sans-heavy;
+	font-size: 1.1em;
 	line-height: 1.1;
-	color: $dark-gray;
-	margin-bottom: 0.5em;
 }
 
 h3 {
@@ -1449,8 +1449,7 @@ div.admin-panel .description {
 
 .get-in-touch {
 	text-align: left;
-	margin-left: 14%;
-	width: 20%;
+	width: 34%;
 }
 
 /* ------------------ Header ------------------ */
@@ -1651,35 +1650,58 @@ div.admin-panel .description {
 	text-indent: -500px;
 	display: block;
 	overflow: hidden;
-	width: 31px;
-	height: 31px;
+	width: 50px;
+	height: 50px;
 	float: left;
-	border: 1px solid $light-gray;
-	@include fluidMargin(0,5,0,0,180);
+	@include fluidMargin(0,5,0,0,309);
     @include transition;
-    &.social-facebook {
-    	background-image: image-url('icon_fb.png');
-    }
-    &.social-facebook:hover {
-    	@include opacity(0.5);
-    }
     &.social-twitter {
     	background-image: image-url('icon_tw.png');
+		background-position: 0 top;
     }
     &.social-twitter:hover {
-    	@include opacity(0.5);
+    	background-image: image-url('icon_tw.png');
+		background-position: 0 bottom;
+    }
+    &.social-facebook {
+    	background-image: image-url('icon_fb.png');
+		background-position: 0 top;
+    }
+    &.social-facebook:hover {
+    	background-image: image-url('icon_fb.png');
+		background-position: 0 bottom;
     }
     &.social-linkedin {
     	background-image: image-url('icon_in.png');
+		background-position: 0 top;
     }
     &.social-linkedin:hover {
-    	@include opacity(0.5);
+    	background-image: image-url('icon_in.png');
+		background-position: 0 bottom;
+    }
+    &.social-pinterest {
+    	background-image: image-url('icon_p.png');
+		background-position: 0 top;
+    }
+    &.social-pinterest:hover {
+    	background-image: image-url('icon_p.png');
+		background-position: 0 bottom;
     }
     &.social-youtube {
     	background-image: image-url('icon_yt.png');
+		background-position: 0 top;
     }
     &.social-youtube:hover {
-    	@include opacity(0.5);
+    	background-image: image-url('icon_yt.png');
+		background-position: 0 bottom;
+    }
+    &.social-google {
+    	background-image: image-url('icon_g.png');
+		background-position: 0 top;
+    }
+    &.social-google:hover {
+    	background-image: image-url('icon_g.png');
+		background-position: 0 bottom;
     }
 }
 
@@ -2526,22 +2548,35 @@ ol.inline.commerce-checkout-progress li {
 
 /* --------------- Blog Styles ----------------- */
 
+.overview {
+	@extend %font-stack-sans-condensed;
+	line-height: 1.4;
+	font-size: 1.4em;
+	margin-top: 1em;
+}
+
 .blog-main {
 	& article {
 		margin-bottom: 7em;
 	}
 }
 
-.post-date {
+.post-date,
+.author {
 	@extend %font-stack-serif;
-	font-size: 0.9em;
+	font-size: 0.8em;
 	letter-spacing: 1px;
+	margin-right: 20px;
+	text-transform: uppercase;
+	
 }
 
 .label {
 	@extend %font-stack-sans-condensed-bold;
 	text-transform: uppercase;
 	letter-spacing: 0;
+	font-size: 1.2em;
+	margin-right: 3px;
 }
 
 
