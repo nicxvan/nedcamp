@@ -582,7 +582,7 @@ a:visited {
 /* ---------- Overall Specifications ---------- */
 body {
   background-color: white;
-  background-image: url('../images/bg_parchment.png');
+  background-image: url('../images/bg_parchment.gif');
   background-repeat: repeat;
   line-height: 1.8;
   font-size: 16px;
