@@ -2398,163 +2398,6 @@ ol.inline.commerce-checkout-progress li {
 	}
 }
 
-/* --------------- BLOG DETAILED MAIN Styles ----------------- */
-.blog-posts-teaser {
-	& article {
-		border-bottom: 1px solid $light-gray;
-		margin: 0 0 2.5em 0;
-		padding: 0 0 3.8em 0;
-	  	@include breakpoint($MQ_pink) {	
-			margin: 0 0 1.5em 0;
-			padding: 0 0 2.6em 0;
-		}
-	}
-	& article.first {
-		margin-top: 2em;
-	}
-	& article.last {
-		border-bottom: 0px;
-	}
-	& .date {
-		text-transform: uppercase;
-		font-size: 0.9em;
-		color: $medium-gray;
-	}
-	& h2 {
-		margin-bottom: 0.2em;
-	}
-	& h2 a {
-		color: $red;
-		text-decoration: none;
-	}
-	& h2 a:hover {
-		text-decoration: underline;
-	}
-	& p {
-		margin: 0 0 1.3em 0;
-	}
-	& img {
-		padding: 2.5%;
-		background-color: $white;
-		@include box-shadow($dark-gray 0px 0px 10px);
-		margin-bottom: 0.4em;
-	}
-	& .button {
-		margin-top: 0.5em;
-	}
-}
-
-
-/* --------------- BLOG DETAILED PAGE Styles ----------------- */
-
-.blog-thumbnails {
-	& figure {
-		@include breakpoint($MQ_red) {
-			display: inline-block;
-			margin: 0 2% 0 0;
-		}
-	}
-	& img {
-		padding: 11%;
-		background-color: $white;
-		@include box-shadow($dark-gray 0px 0px 10px);
-		@include breakpoint($MQ_red) {
-			padding: 9%;
-		}
-	}
-}
-
-.blog-top-details {
-	& figure {
-		width: 50%;
-		float: left;
-		@include breakpoint($MQ_pink) {
-			width: 90%;
-			float: none;
-			margin-bottom: 2em;
-		}
-	}
-	& img {
-		padding: 3%;
-		background-color: $white;
-		@include box-shadow($dark-gray 0px 0px 10px);
-	}
-}
-
-.blog-body-details {
-	& h1 {
-		margin: 0.5em 0 0.2em 0;
-	}
-}
-
-.recipe-quick-info {
-	float: right;
-	width: 43%;
-	color: $red;
-	font-size: 2em;
-	margin: 6px 0 0 0;
-	@include breakpoint($MQ_orange) {
-		font-size: 1.7em;
-	}
-	@include breakpoint($MQ_pink) {
-		width: 90%;
-		float: none;
-	}
-	& .highlight-style {
-		font-size: 2em;
-		float: left;
-		letter-spacing: -3px;
-		padding: 0 11px 0 0;
-		margin: -40px 0 0 0;
-		@include breakpoint($MQ_orange) {
-			font-size: 1.8em;
-			margin: -28px 0 0 0;
-		}
-	}
-	&.quick-ingredients {
-		
-	}
-	&.quick-prep {
-		margin: 20px 0 0 0;
-		@include breakpoint($MQ_green) {
-			margin: 12px 0 0 0;
-		}
-	}
-	&.quick-cooking {
-		margin: 20px 0 0 0;
-		@include breakpoint($MQ_green) {
-			margin: 12px 0 0 0;
-		}
-		
-	}
-}
-
-/* --------------- INSTAGRAM FEED Styles ----------------- */
-
-.instagram-feed {
-	& p {
-		margin-bottom: 0.3em;
-	}
-	& figure {
-		margin-bottom: 2em;
-	}
-	& img {
-		padding: 3%;
-		background-color: $white;
-		@include box-shadow($dark-gray 0px 0px 10px);
-		width: 94%;
-	}
-	& .date {
-		text-transform: uppercase;
-		font-size: 0.9em;
-		color: $medium-gray;
-	}
-	& .figure-caption {
-		font-size: 0.95em;
-		line-height: 1.5em;
-	}
-}
-
 /* --------------- Blog Styles ----------------- */
 
 .overview {
@@ -2567,6 +2410,12 @@ ol.inline.commerce-checkout-progress li {
 .blog-main {
 	& article {
 		margin-bottom: 7em;
+		& figure {
+			margin-bottom: 1em;
+		}
+		& .overview {
+			margin-top: 0.3em;
+		}
 	}
 }
 
@@ -2588,7 +2437,11 @@ ol.inline.commerce-checkout-progress li {
 	margin-right: 3px;
 }
 
-
+.blog-detailed {
+	& figure {
+		margin-bottom: 1em;
+	}
+}
 
 /* --------------- Sponsor Styles ----------------- */
 

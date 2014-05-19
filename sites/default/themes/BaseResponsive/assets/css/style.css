@@ -2337,170 +2337,6 @@ ol.inline.commerce-checkout-progress li.active {
   font-weight: normal;
 }
 
-/* --------------- BLOG DETAILED MAIN Styles ----------------- */
-.blog-posts-teaser article {
-  border-bottom: 1px solid whitesmoke;
-  margin: 0 0 2.5em 0;
-  padding: 0 0 3.8em 0;
-}
-@media (max-width: 600px) {
-  .blog-posts-teaser article {
-    margin: 0 0 1.5em 0;
-    padding: 0 0 2.6em 0;
-  }
-}
-.blog-posts-teaser article.first {
-  margin-top: 2em;
-}
-.blog-posts-teaser article.last {
-  border-bottom: 0px;
-}
-.blog-posts-teaser .date {
-  text-transform: uppercase;
-  font-size: 0.9em;
-  color: #999999;
-}
-.blog-posts-teaser h2 {
-  margin-bottom: 0.2em;
-}
-.blog-posts-teaser h2 a {
-  color: #d52027;
-  text-decoration: none;
-}
-.blog-posts-teaser h2 a:hover {
-  text-decoration: underline;
-}
-.blog-posts-teaser p {
-  margin: 0 0 1.3em 0;
-}
-.blog-posts-teaser img {
-  padding: 2.5%;
-  background-color: white;
-  -webkit-box-shadow: #333333 0px 0px 10px;
-  -moz-box-shadow: #333333 0px 0px 10px;
-  box-shadow: #333333 0px 0px 10px;
-  margin-bottom: 0.4em;
-}
-.blog-posts-teaser .button {
-  margin-top: 0.5em;
-}
-
-/* --------------- BLOG DETAILED PAGE Styles ----------------- */
-@media (max-width: 1024px) {
-  .blog-thumbnails figure {
-    display: inline-block;
-    margin: 0 2% 0 0;
-  }
-}
-.blog-thumbnails img {
-  padding: 11%;
-  background-color: white;
-  -webkit-box-shadow: #333333 0px 0px 10px;
-  -moz-box-shadow: #333333 0px 0px 10px;
-  box-shadow: #333333 0px 0px 10px;
-}
-@media (max-width: 1024px) {
-  .blog-thumbnails img {
-    padding: 9%;
-  }
-}
-
-.blog-top-details figure {
-  width: 50%;
-  float: left;
-}
-@media (max-width: 600px) {
-  .blog-top-details figure {
-    width: 90%;
-    float: none;
-    margin-bottom: 2em;
-  }
-}
-.blog-top-details img {
-  padding: 3%;
-  background-color: white;
-  -webkit-box-shadow: #333333 0px 0px 10px;
-  -moz-box-shadow: #333333 0px 0px 10px;
-  box-shadow: #333333 0px 0px 10px;
-}
-
-.blog-body-details h1 {
-  margin: 0.5em 0 0.2em 0;
-}
-
-.recipe-quick-info {
-  float: right;
-  width: 43%;
-  color: #d52027;
-  font-size: 2em;
-  margin: 6px 0 0 0;
-}
-@media (max-width: 768px) {
-  .recipe-quick-info {
-    font-size: 1.7em;
-  }
-}
-@media (max-width: 600px) {
-  .recipe-quick-info {
-    width: 90%;
-    float: none;
-  }
-}
-.recipe-quick-info .highlight-style {
-  font-size: 2em;
-  float: left;
-  letter-spacing: -3px;
-  padding: 0 11px 0 0;
-  margin: -40px 0 0 0;
-}
-@media (max-width: 768px) {
-  .recipe-quick-info .highlight-style {
-    font-size: 1.8em;
-    margin: -28px 0 0 0;
-  }
-}
-.recipe-quick-info.quick-prep {
-  margin: 20px 0 0 0;
-}
-@media (max-width: 320px) {
-  .recipe-quick-info.quick-prep {
-    margin: 12px 0 0 0;
-  }
-}
-.recipe-quick-info.quick-cooking {
-  margin: 20px 0 0 0;
-}
-@media (max-width: 320px) {
-  .recipe-quick-info.quick-cooking {
-    margin: 12px 0 0 0;
-  }
-}
-
-/* --------------- INSTAGRAM FEED Styles ----------------- */
-.instagram-feed p {
-  margin-bottom: 0.3em;
-}
-.instagram-feed figure {
-  margin-bottom: 2em;
-}
-.instagram-feed img {
-  padding: 3%;
-  background-color: white;
-  -webkit-box-shadow: #333333 0px 0px 10px;
-  -moz-box-shadow: #333333 0px 0px 10px;
-  box-shadow: #333333 0px 0px 10px;
-  width: 94%;
-}
-.instagram-feed .date {
-  text-transform: uppercase;
-  font-size: 0.9em;
-  color: #999999;
-}
-.instagram-feed .figure-caption {
-  font-size: 0.95em;
-  line-height: 1.5em;
-}
-
 /* --------------- Blog Styles ----------------- */
 .overview {
   line-height: 1.4;
@@ -2510,6 +2346,12 @@ ol.inline.commerce-checkout-progress li.active {
 
 .blog-main article {
   margin-bottom: 7em;
+}
+.blog-main article figure {
+  margin-bottom: 1em;
+}
+.blog-main article .overview {
+  margin-top: 0.3em;
 }
 
 .post-date,
@@ -2525,6 +2367,10 @@ ol.inline.commerce-checkout-progress li.active {
   letter-spacing: 0;
   font-size: 1.2em;
   margin-right: 3px;
+}
+
+.blog-detailed figure {
+  margin-bottom: 1em;
 }
 
 /* --------------- Sponsor Styles ----------------- */
