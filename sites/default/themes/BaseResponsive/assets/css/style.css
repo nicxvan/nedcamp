@@ -2374,11 +2374,19 @@ ol.inline.commerce-checkout-progress li.active {
 }
 
 /* --------------- Sponsor Styles ----------------- */
-.sponsor-main article {
-  width: 90%;
+.sponsor-main-event {
   margin-bottom: 3em;
 }
+.sponsor-main-event h2 {
+  margin: 1em 0;
+}
+.sponsor-main-event article {
+  width: 90%;
+}
 
+.sponsor-main-lower h2 {
+  margin: 1em 0;
+}
 .sponsor-main-lower article {
   width: 40%;
   float: left;

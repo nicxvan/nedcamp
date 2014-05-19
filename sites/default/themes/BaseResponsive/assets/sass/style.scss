@@ -2445,14 +2445,22 @@ ol.inline.commerce-checkout-progress li {
 
 /* --------------- Sponsor Styles ----------------- */
 
-.sponsor-main {
+
+.sponsor-main-event {
+	margin-bottom: 3em;
+	& h2 {
+		margin: 1em 0;
+	}
 	& article {
 		width: 90%;
-		margin-bottom: 3em;
 	}
+	
 }
 
 .sponsor-main-lower {
+	& h2 {
+		margin: 1em 0;
+	}
 	& article {
 		width: 40%;
 		float: left;
