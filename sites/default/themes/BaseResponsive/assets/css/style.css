@@ -2494,6 +2494,17 @@ ol.inline.commerce-checkout-progress li.active {
   margin-bottom: 1em;
 }
 
+.read-more {
+  font-size: 1.2em;
+  text-align: right;
+}
+.read-more a:link {
+  text-decoration: underline;
+}
+.read-more a:link:hover {
+  text-decoration: none;
+}
+
 /* --------------- Sponsor Styles ----------------- */
 .sponsor-main-event {
   margin-bottom: 3em;

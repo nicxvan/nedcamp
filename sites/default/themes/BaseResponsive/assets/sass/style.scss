@@ -2527,7 +2527,15 @@ ol.inline.commerce-checkout-progress li {
 }
 
 .read-more {
-	@extend %font-stack-serif;
+	@extend %font-stack-serif; 
+	font-size: 1.2em;
+	text-align: right;
+	& a:link {
+		text-decoration: underline;
+		&:hover {
+			text-decoration: none;
+		}
+	}
 }
 
 /* --------------- Sponsor Styles ----------------- */
