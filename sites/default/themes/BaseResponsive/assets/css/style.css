@@ -1696,6 +1696,10 @@ div.admin-panel .description {
 }
 
 /* ------------------ Footer ------------------ */
+
+
+.footer a { color: white; }
+
 #footer-wrapper {
   font-size: 0.85em;
 }
