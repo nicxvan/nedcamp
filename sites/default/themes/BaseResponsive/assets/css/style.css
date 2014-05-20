@@ -568,7 +568,7 @@ h1, .label {
 }
 
 .webform-component label, .cta, .post-date,
-.author {
+.author, .read-more {
   font-family: 'GaramondClassico W00', "Times New Roman", Times, serif;
   font-weight: normal;
 }
@@ -2472,6 +2472,7 @@ ol.inline.commerce-checkout-progress li.active {
 }
 .blog-main article .overview {
   margin-top: 0.3em;
+  margin-bottom: 0.3em;
 }
 
 .post-date,

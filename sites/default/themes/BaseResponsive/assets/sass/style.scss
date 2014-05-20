@@ -2497,6 +2497,7 @@ ol.inline.commerce-checkout-progress li {
 		}
 		& .overview {
 			margin-top: 0.3em;
+			margin-bottom: 0.3em;
 		}
 	}
 }
@@ -2523,6 +2524,10 @@ ol.inline.commerce-checkout-progress li {
 	& figure {
 		margin-bottom: 1em;
 	}
+}
+
+.read-more {
+	@extend %font-stack-serif;
 }
 
 /* --------------- Sponsor Styles ----------------- */
