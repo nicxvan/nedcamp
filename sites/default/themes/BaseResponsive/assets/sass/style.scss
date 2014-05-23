@@ -1512,6 +1512,70 @@ div.admin-panel .description {
 	}
 }
 
+.get-in-touch a.social {
+	background-repeat: no-repeat;
+	text-indent: -500px;
+	display: block;
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+	float: left;
+	@include fluidMargin(0,5,0,0,309);
+    @include transition(1);
+	@include breakpoint($MQ_pink) {
+		margin: 0;
+	}
+    &.social-twitter {
+    	background-image: image-url('icon_tw.png');
+		background-position: 0 top;
+    }
+    &.social-twitter:hover {
+    	background-image: image-url('icon_tw.png');
+		background-position: 0 bottom;
+    }
+    &.social-facebook {
+    	background-image: image-url('icon_fb.png');
+		background-position: 0 top;
+    }
+    &.social-facebook:hover {
+    	background-image: image-url('icon_fb.png');
+		background-position: 0 bottom;
+    }
+    &.social-linkedin {
+    	background-image: image-url('icon_in.png');
+		background-position: 0 top;
+    }
+    &.social-linkedin:hover {
+    	background-image: image-url('icon_in.png');
+		background-position: 0 bottom;
+    }
+    &.social-pinterest {
+    	background-image: image-url('icon_p.png');
+		background-position: 0 top;
+    }
+    &.social-pinterest:hover {
+    	background-image: image-url('icon_p.png');
+		background-position: 0 bottom;
+    }
+    &.social-youtube {
+    	background-image: image-url('icon_yt.png');
+		background-position: 0 top;
+    }
+    &.social-youtube:hover {
+    	background-image: image-url('icon_yt.png');
+		background-position: 0 bottom;
+    }
+    &.social-google {
+    	background-image: image-url('icon_g.png');
+		background-position: 0 top;
+    }
+    &.social-google:hover {
+    	background-image: image-url('icon_g.png');
+		background-position: 0 bottom;
+    }
+}
+
+
 /* ------------------ Header ------------------ */
 
 #skip-link {
@@ -1733,68 +1797,15 @@ div.admin-panel .description {
 	font-size: 0.95em;
 }
 
-.get-in-touch a.social {
-	background-repeat: no-repeat;
-	text-indent: -500px;
-	display: block;
-	overflow: hidden;
-	width: 50px;
-	height: 50px;
-	float: left;
-	@include fluidMargin(0,5,0,0,309);
-    @include transition(1);
-	@include breakpoint($MQ_pink) {
-		margin: 0;
+.footer-sponsor {
+	color: $white;
+	padding-top: 0.7em;
+	& label {
+		float: left;
+		padding: 0 10px;
 	}
-    &.social-twitter {
-    	background-image: image-url('icon_tw.png');
-		background-position: 0 top;
-    }
-    &.social-twitter:hover {
-    	background-image: image-url('icon_tw.png');
-		background-position: 0 bottom;
-    }
-    &.social-facebook {
-    	background-image: image-url('icon_fb.png');
-		background-position: 0 top;
-    }
-    &.social-facebook:hover {
-    	background-image: image-url('icon_fb.png');
-		background-position: 0 bottom;
-    }
-    &.social-linkedin {
-    	background-image: image-url('icon_in.png');
-		background-position: 0 top;
-    }
-    &.social-linkedin:hover {
-    	background-image: image-url('icon_in.png');
-		background-position: 0 bottom;
-    }
-    &.social-pinterest {
-    	background-image: image-url('icon_p.png');
-		background-position: 0 top;
-    }
-    &.social-pinterest:hover {
-    	background-image: image-url('icon_p.png');
-		background-position: 0 bottom;
-    }
-    &.social-youtube {
-    	background-image: image-url('icon_yt.png');
-		background-position: 0 top;
-    }
-    &.social-youtube:hover {
-    	background-image: image-url('icon_yt.png');
-		background-position: 0 bottom;
-    }
-    &.social-google {
-    	background-image: image-url('icon_g.png');
-		background-position: 0 top;
-    }
-    &.social-google:hover {
-    	background-image: image-url('icon_g.png');
-		background-position: 0 bottom;
-    }
 }
+
 
 /* --------------- Social Styles ----------------- */
 
