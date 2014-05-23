@@ -2565,7 +2565,8 @@ ol.inline.commerce-checkout-progress li {
 
 .sponsor-main-lower {
 	& h2 {
-		margin: 1em 0;
+		padding: 2em 0 1em 0;
+		clear: both;
 	}
 	& article {
 		width: 40%;
