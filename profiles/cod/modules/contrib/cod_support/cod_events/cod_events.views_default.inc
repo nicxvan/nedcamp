@@ -37,7 +37,7 @@ function cod_events_views_default_views() {
   $handler->display->display_options['header']['area']['table'] = 'views';
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['empty'] = TRUE;
-  $handler->display->display_options['header']['area']['content'] = 'All conferences should have at least one event. Many have more than one. You may administer your event(s) below, or create an event';
+  $handler->display->display_options['header']['area']['content'] = 'All conferences should have at least one event. Many have more than one. You may administer your event(s) below, or create an event.';
   $handler->display->display_options['header']['area']['format'] = 'filtered_html';
   /* Relationship: Flags: default_event */
   $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';

@@ -88,18 +88,3 @@ function cod_events_node_info() {
   );
   return $items;
 }
-
-/**
- * Implements hook_default_registration_type().
- */
-function cod_events_default_registration_type() {
-  $items = array();
-  $items['free_event'] = entity_import('registration_type', '{
-    "name" : "free_event",
-    "label" : "Free Event",
-    "locked" : "0",
-    "weight" : "0",
-    "data" : null
-  }');
-  return $items;
-}

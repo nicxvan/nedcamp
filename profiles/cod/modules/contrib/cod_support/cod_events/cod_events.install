@@ -1,4 +1,112 @@
 <?php
+
+/**
+ * Implements hook_enable().
+ */
+function cod_events_install() {
+  db_insert('date_formats')
+    ->fields(array(
+      'format' => 'g:ia',
+      'type' => 'cod_time',
+      'locked' => 1,
+    ))
+    ->execute();
+
+  db_insert('date_formats')
+    ->fields(array(
+      'format' => "H:i",
+      'type' => 'cod_time',
+      'locked' => 1,
+    ))
+    ->execute();
+
+  variable_set('date_format_cod_time', 'g:ia');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function cod_events_schema() {
+  $schema = array();
+  $schema['cod_event_room'] = array(
+    'description' => '@todo.',
+    'fields' => array(
+      'evtrid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique block ID.',
+      ),
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 60,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Room Name',
+        'translatable' => TRUE,
+      ),
+      'capacity' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => 'Room Capacity',
+        'translatable' => TRUE,
+      ),
+      'status' => array(
+         'type' => 'int',
+         'not null' => TRUE,
+         // Set the default to ENTITY_CUSTOM without using the
+         // constant as it is not safe to use it at this point.
+         'default' => 0x01,
+         'size' => 'tiny',
+         'description' => 'The exportable status of the entity.',
+       ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('evtrid'),
+  );
+  $schema['cod_event_time'] = array(
+    'description' => '@todo.',
+    'fields' => array(
+      'evttid' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique Time ID.',
+      ),
+      'date_label' => array(
+        'type' => 'varchar',
+        'length' => 60,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Human Readable Date',
+        'translatable' => TRUE,
+      ),
+      'status' => array(
+         'type' => 'int',
+         'not null' => TRUE,
+         // Set the default to ENTITY_CUSTOM without using the
+         // constant as it is not safe to use it at this point.
+         'default' => 0x01,
+         'size' => 'tiny',
+         'description' => 'The exportable status of the entity.',
+       ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('evttid'),
+  );
+  return $schema;
+}
+
 /**
  * Update the cod_events image field to not include 'cache' in the name
  */
@@ -35,3 +143,88 @@ function cod_events_update_7001() {
   }
   return t('Event field_image_cache changed to field_event_image.');
 }
+
+/**
+ * Update to install the schema if its not installed already.
+ */
+function cod_events_update_7002() {
+  drupal_install_schema('cod_events');
+  return true;
+}
+
+/**
+ * Set a default time formatter.
+ */
+function cod_events_update_7003() {
+  if(!variable_get('date_format_cod_time', NULL)) {
+    db_insert('date_formats')
+      ->fields(array(
+        'format' => 'g:ia',
+        'type' => 'cod_time',
+        'locked' => 1,
+      ))
+      ->execute();
+
+    db_insert('date_formats')
+      ->fields(array(
+        'format' => "H:i",
+        'type' => 'cod_time',
+        'locked' => 1,
+      ))
+      ->execute();
+
+    variable_set('date_format_cod_time', 'g:ia');
+  }
+}
+
+function cod_events_update_7004() {
+  $result = db_select('field_config', 'f')
+    ->fields('f', array('data'))
+    ->condition('field_name', 'field_dates', '=')
+    ->execute()
+    ->fetchField();
+  $data = unserialize($result);
+  $data['settings']['todate'] = 'required';
+  $data['settings']['tz_handling'] = 'date';
+
+  $updated = db_update('field_config')
+    ->fields(array(
+      'data' => serialize($data)
+    ))
+    ->condition('field_name', 'field_dates', '=')
+    ->execute();
+
+  $revert = array(
+    'cod_events' => array('field_base', 'views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Remove legacy views from the database.
+ */
+function cod_events_update_7005() {
+  $result = db_delete('og_role_permission')
+    ->condition('module', 'cod_events', '=')
+    ->execute();
+
+  // Remove legacy views:
+  $views = array('cod_event_schedule', 'cod_events_timeslots', 'cod_session_timeslot', 'cod_event_sessions', 'cod_event_timeslots');
+  foreach ($views as $view_name) {
+    if ($view = views_get_view($view_name)) {
+      $view->delete(TRUE);
+    }
+  }
+  module_enable(array('cod_schedule', 'og_vocab'));
+
+  $revert = array(
+    'cod_schedule' => array('field_base', 'views_view'),
+    'cod_bof' => array('field_base', 'field_instance', 'views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+

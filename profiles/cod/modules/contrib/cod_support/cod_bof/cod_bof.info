@@ -2,6 +2,7 @@ name = COD BoF Session
 description = BoFs are self-scheduled, unconference style sessions
 core = 7.x
 package = COD
+dependencies[] = cod_schedule
 dependencies[] = cod_session
 dependencies[] = cod_wysiwyg
 dependencies[] = entityreference
@@ -9,6 +10,7 @@ dependencies[] = features
 dependencies[] = field_group
 dependencies[] = og_ui
 dependencies[] = options
+dependencies[] = quicktabs
 dependencies[] = strongarm
 dependencies[] = views
 dependencies[] = views_field_view
@@ -43,12 +45,12 @@ features[variable][] = node_options_bof_session
 features[variable][] = node_preview_bof_session
 features[variable][] = node_submitted_bof_session
 features[views_view][] = cod_bof_schedule
-features[views_view][] = cod_bof_schedule_entity
+features[views_view][] = cod_bof_schedule_content
+features[views_view][] = cod_bof_schedule_timeslots
 
-
-; Information added by drush on 2014-03-03
-version = "7.x-1.0-alpha4+2-dev"
+; Information added by Drupal.org packaging script on 2014-05-12
+version = "7.x-1.0-alpha5"
 core = "7.x"
 project = "cod_support"
-datestamp = "1393834764"
+datestamp = "1399880029"
 

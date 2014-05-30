@@ -9,3 +9,24 @@ function cod_events_views_pre_render(&$view) {
     }
   }
 }
+
+/**
+ * Implements hook_views_plugins().
+ * TODO: Create a default
+ */
+function cod_events_views_plugins() {
+  return array(
+    'argument default' => array(
+      'cod_events_default_event' => array(
+        'title' => t("Default event"),
+        'handler' => 'cod_events_plugin_argument_default_event',
+        'path' => drupal_get_path('module', 'cod_events') . '/includes/views/handlers'
+      ),
+      'cod_events_default_type' => array(
+        'title' => t("Default Content Type"),
+        'handler' => 'cod_events_plugin_argument_default_type',
+        'path' => drupal_get_path('module', 'cod_events') . '/includes/views/handlers'
+      ),
+    ),
+  );
+}

@@ -21,7 +21,7 @@ function cod_session_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Audience',
-    'weight' => '4',
+    'weight' => '8',
     'children' => array(),
     'format_type' => 'hidden',
     'format_settings' => array(
@@ -49,10 +49,10 @@ function cod_session_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Audience',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_experience',
-      1 => 'field_track',
+      1 => 'og_vocabulary',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -76,11 +76,11 @@ function cod_session_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Schedule info',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_accepted',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'hidden',
     'format_settings' => array(
       'formatter' => 'collapsible',
       'instance_settings' => array(
@@ -102,11 +102,11 @@ function cod_session_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Schedule info',
-    'weight' => '3',
+    'weight' => '7',
     'children' => array(
       0 => 'field_accepted',
     ),
-    'format_type' => 'fieldset',
+    'format_type' => 'hidden',
     'format_settings' => array(
       'formatter' => 'collapsible',
       'instance_settings' => array(
@@ -157,7 +157,7 @@ function cod_session_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Schedule Info',
-    'weight' => '5',
+    'weight' => '7',
     'children' => array(
       0 => 'field_accepted',
       1 => 'field_session_timeslot',

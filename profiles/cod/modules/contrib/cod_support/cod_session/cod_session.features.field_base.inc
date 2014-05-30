@@ -19,7 +19,7 @@ function cod_session_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_accepted',
     'field_permissions' => array(
-      'type' => 2,
+      'type' => 0,
     ),
     'foreign keys' => array(),
     'indexes' => array(
@@ -86,34 +86,16 @@ function cod_session_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_room_capacity'
-  $field_bases['field_room_capacity'] = array(
+  // Exported field_base: 'field_news_image'
+  $field_bases['field_news_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_room_capacity',
+    'field_name' => 'field_news_image',
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(
-      'max_length' => 60,
-    ),
-    'translatable' => 0,
-    'type' => 'number_integer',
-  );
-
-  // Exported field_base: 'field_room_photo'
-  $field_bases['field_room_photo'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_room_photo',
     'foreign keys' => array(
       'fid' => array(
         'columns' => array(
@@ -133,68 +115,8 @@ function cod_session_field_default_field_bases() {
       'default_image' => 0,
       'uri_scheme' => 'public',
     ),
-    'translatable' => 1,
+    'translatable' => 0,
     'type' => 'image',
-  );
-
-  // Exported field_base: 'field_room_slots_types_allowed'
-  $field_bases['field_room_slots_types_allowed'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_room_slots_types_allowed',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'field_collection',
-    'settings' => array(
-      'hide_blank_items' => TRUE,
-      'path' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'field_collection',
-  );
-
-  // Exported field_base: 'field_session_timeslot'
-  $field_bases['field_session_timeslot'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_session_timeslot',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'entityreference',
-    'settings' => array(
-      'handler' => 'views',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 1,
-          ),
-        ),
-        'view' => array(
-          'args' => array(),
-          'display_name' => 'entityreference_1',
-          'view_name' => 'cod_session_timeslot',
-        ),
-      ),
-      'target_type' => 'field_collection_item',
-    ),
-    'translatable' => 0,
-    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_session_track'
@@ -241,6 +163,9 @@ function cod_session_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_slides',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
     'foreign keys' => array(
       'fid' => array(
         'columns' => array(
@@ -272,139 +197,6 @@ function cod_session_field_default_field_bases() {
     'type' => 'file',
   );
 
-  // Exported field_base: 'field_slot_datetime'
-  $field_bases['field_slot_datetime'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_slot_datetime',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'date',
-    'settings' => array(
-      'cache_count' => 4,
-      'cache_enabled' => 0,
-      'field_permissions' => array(
-        'create' => 0,
-        'edit' => 'edit',
-        'edit own' => 0,
-        'view' => 'view',
-        'view own' => 0,
-      ),
-      'granularity' => array(
-        'day' => 'day',
-        'hour' => 'hour',
-        'minute' => 'minute',
-        'month' => 'month',
-        'second' => 0,
-        'year' => 'year',
-      ),
-      'repeat' => 0,
-      'timezone_db' => 'UTC',
-      'todate' => 'required',
-      'tz_handling' => 'site',
-    ),
-    'translatable' => 1,
-    'type' => 'datetime',
-  );
-
-  // Exported field_base: 'field_slot_types_allowed'
-  $field_bases['field_slot_types_allowed'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_slot_types_allowed',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'field_select_ct',
-    'settings' => array(
-      'allowed_values' => array(
-        'bof_session' => 'bof_session',
-        'schedule_item' => 'schedule_item',
-        'session' => 'session',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_cts',
-  );
-
-  // Exported field_base: 'field_slot_types_capacity'
-  $field_bases['field_slot_types_capacity'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_slot_types_capacity',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(),
-    'locked' => 0,
-    'module' => 'number',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'number_integer',
-  );
-
-  // Exported field_base: 'field_slot_types_time_slot'
-  $field_bases['field_slot_types_time_slot'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_slot_types_time_slot',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(),
-    'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'entityreference',
-    'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'direction' => 'ASC',
-          'field' => 'body:value',
-          'property' => 'nid',
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'time_slot' => 'time_slot',
-        ),
-      ),
-      'handler_submit' => 'Change handler',
-      'target_type' => 'node',
-    ),
-    'translatable' => 0,
-    'type' => 'entityreference',
-  );
-
   // Exported field_base: 'field_speakers'
   $field_bases['field_speakers'] = array(
     'active' => 1,
@@ -431,20 +223,17 @@ function cod_session_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'views',
+      'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'view' => array(
-          'args' => array(
-            0 => '[node:og-group-ref:nid]',
-          ),
-          'display_name' => 'entityreference_1',
-          'view_name' => 'cod_community_attendees',
+        'sort' => array(
+          'type' => 'none',
         ),
+        'target_bundles' => array(),
       ),
       'handler_submit' => 'Change handler',
       'target_type' => 'user',
@@ -453,17 +242,24 @@ function cod_session_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'og_group_ref'
-  $field_bases['og_group_ref'] = array(
+  // Exported field_base: 'og_vocabulary'
+  $field_bases['og_vocabulary'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'og_group_ref',
+    'field_name' => 'og_vocabulary',
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'taxonomy_term_data' => array(
+        'columns' => array(
+          'target_id' => 'tid',
+        ),
+        'table' => 'taxonomy_term_data',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -472,28 +268,27 @@ function cod_session_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'og',
+      'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
-          'og_behavior' => array(
+          'og_vocab' => array(
             'status' => TRUE,
+            'use_context' => 'yes',
           ),
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'membership_type' => 'og_membership_type_default',
         'sort' => array(
-          'type' => 'none',
+          'direction' => 'ASC',
+          'property' => 'weight',
+          'type' => 'property',
         ),
-        'target_bundles' => array(
-          'event' => 'event',
-        ),
+        'target_bundles' => array(),
       ),
       'handler_submit' => 'Change handler',
-      'target_type' => 'node',
+      'target_type' => 'taxonomy_term',
     ),
-    'target_type' => 'node',
     'translatable' => 0,
     'type' => 'entityreference',
   );

@@ -65,32 +65,32 @@ function cod_session_field_access($op, $field, $entity_type, $entity, $account) 
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_event_entity_integration.
  */
-function cod_session_form_node_type_form_alter(&$form, &$form_state, $form_id) {
-  if (isset($form['#node_type'])) {
-    // Provide scheduling controls for this content type.
-    $form['cod_session'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Scheduling settings'),
-      '#description' => t('Scheduling is only available to content types that have room and time slot entityreference fields'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-      '#group' => 'additional_settings',
-    );
-    $form['cod_session']['cod_unique'] = array(
-      '#title' => t('Can content of this type share time slots with other scheduled content?'),
-      '#type' => 'radios',
-      '#options' => array(
-        'single' => t('No, content of this type overrides room availability and occupies entire time slot'),
-        'multiple' => t('Yes, content of this type can share a time slot if there is room availability'),
+function cod_session_event_entity_integration() {
+  return array(
+    'node' => array(
+      'session' => array(
+        'non_member' => TRUE,
       ),
-      '#default_value' => variable_get('cod_unique_' . $form['#node_type']->type, COD_SCHEDULE_SINGLE),
-      '#description' => t('Scheduled items (such as sessions, schedule items and BoFs) can share a room and time slot with other scheduled items or be configured here to occupy the entire room for that time slot.'),
-      // @todo, also make reference to room spanning?
-    );
+      'schedule_item' => array(
+        'non_member' => TRUE,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ * TODO: Implement a way to filter out og_vocab terms from global taxonomy.
+ function cod_session_menu_alter(&$items) {
+  foreach($items AS $path => $item) {
+    if(strpos($path, 'session_tracks')) {
+      $items['admin/structure/taxonomy/session_tracks']['access callback'] = FALSE;
+    }
   }
 }
+ */
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -120,107 +120,178 @@ function cod_session_save_declined_message(&$form, &$form_state) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function cod_session_form_session_node_form_alter(&$form, &$form_state, $form_id) {
+  // Prepopulate the current user into the Speakers field
+  // on new session creation.
+
+  if (isset($form['field_speakers'])) {
+    // Form tweaks for the Speakers field:
+    $form['field_speakers'][LANGUAGE_NONE]['add_more']['#value'] = t('Add another speaker');
+    // Prepopulate the current user into the Speakers field
+    // on new session creation.
+    if (empty($form['#node']->nid)) {
+      global $user;
+      $form['field_speakers'][LANGUAGE_NONE][0]['target_id']['#default_value'] = "$user->name ($user->uid)";
+    }
+  }
+
+  if (isset($form['field_accepted']) && !user_access('edit any session content')) {
+    $form['field_accepted']['#access'] = FALSE;
+  }
+
+  // Sessions can only belong to one event.
+  if(isset($form['og_group_ref'])) {
+    $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#multiple'] = FALSE;
+  }
+
+  /*
+  if (isset($form['field_session_timeslot']) && !user_access('edit any session content')) {
+    unset($form['field_session_timeslot']);
+    unset($form['#fieldgroups']['group_schedule']);
+    $form['#validate'][] = 'cod_session_session_node_form_validate';
+  }
+*/
+  // Make the session track and timeslot fields conditional on the event field.
+  $form['og_vocabulary']['#states'] = array(
+    'visible' => array(
+      'xor',
+      array(':input[name="og_group_ref[und][0][default]"]' => array('!value' => '_none')),
+      // This sort of works, but would be better if it fired after
+      // the autocomplete. Note that this field is only available
+      // to administrators.
+      array(':input[name="og_group_ref[und][0][admin][0][target_id]"]' => array('empty' => FALSE)),
+    ),
+  );
+
+  $form['field_session_timeslot']['#states'] = array(
+    'visible' => array(
+      'xor',
+      array(':input[name="og_group_ref[und][0][default]"]' => array('!value' => '_none')),
+      // This sort of works, but would be better if it fired after
+      // the autocomplete. Note that this field is only available
+      // to administrators.
+      array(':input[name="og_group_ref[und][0][admin][0][target_id]"]' => array('empty' => FALSE)),
+    ),
+  );
+
+  // Make the level field filtered on the event field.
+  $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#ajax'] = array(
+    'callback' => 'cod_session_events_filter',
+    'wrapper' => 'field-cod-events-filter',
+    'method' => 'replace',
+  );
+  $form['og_vocabulary']['#validated'] = TRUE;
+
+  $form['og_group_ref']['#prefix'] = '<div id="field-cod-events-filter">';
+  $form['og_group_ref']['#suffix'] = '</div>';
+
+  $form['og_vocabulary']['#prefix'] = '<div id="field-cod-session-og-vocabulary">';
+  $form['og_vocabulary']['#suffix'] = '</div>';
+
+
+  $form['field_session_timeslot']['#prefix'] = '<div id="field-cod-session-timeslot">';
+  $form['field_session_timeslot']['#suffix'] = '</div>';
+
+  // Add form state to only show tracks for the the selected event.
+  if (isset($form['og_vocabulary'][LANGUAGE_NONE][0]) && isset($form['og_group_ref'])) {
+    foreach ($form['og_vocabulary'][LANGUAGE_NONE][0] as &$event_vocab) {
+      if (is_array($event_vocab) && isset($event_vocab['#og_vocab'])) {
+        $event_vocab['#states'] = array(
+          'visible' => array(
+            ':input[name^="og_group_ref[und][0][default]"]' => array(
+              'value' => $event_vocab['#og_vocab']->id,
+            ),
+          ),
+        );
+      }
+    }
+  }
+}
+
+
+/**
+ * Event (og_group_ref) ajax callback.
+ */
+function cod_session_events_filter($form, &$form_state) {
+
+  if (isset($form_state['values']['og_group_ref']) &&
+      isset($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['default']) &&
+      $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['default'] == '_none') {
+    return;
+  }
+  // Get the event node id.
+  $nid = FALSE;
+  if (isset($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id']) && is_numeric($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id'])) {
+    $nid = $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id'];
+  }
+  elseif (isset($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']) && is_numeric($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id'])) {
+    $nid = $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id'];
+  }
+
+  if ($nid) {
+    $commands = module_invoke_all('cod_event_ajax_elements', $form, $nid, 'field_session_details');
+    return array('#type' => 'ajax', '#commands' => $commands);
+  }
+
+  return;
+}
+
+/**
+ * Implements hook_cod_event_ajax_elements().
+ */
+function cod_session_cod_event_ajax_elements($form, $nid, $fieldgroup = NULL) {
+  // Get the applicable terms for this event.
+  if($fieldgroup == 'field_session_details') {
+    $vocab = taxonomy_vocabulary_machine_name_load('session_tracks_' . $nid);
+
+    $query = db_select('og_vocab_relation', 'ovr');
+    $query->join('taxonomy_term_data', 'ttd', "ttd.vid = ovr.vid");
+    $results = $query->fields('ttd', array('tid'))
+      ->condition('ovr.gid', $nid)
+      ->condition('ovr.vid', $vocab->vid)
+      ->execute()
+      ->fetchCol();
+    $results['_none'] = 0;
+
+    if (!isset($form['og_vocabulary'][LANGUAGE_NONE]['#options'])) {
+      $form['og_vocabulary'][LANGUAGE_NONE]['#options'] = array();
+    }
+    else {
+      $return = array();
+      array_walk_recursive($form['og_vocabulary'][LANGUAGE_NONE]['#options'], function($a) use (&$return) { $return[] = $a; });
+    }
+    $form['og_vocabulary'][LANGUAGE_NONE]['#options'] = array_intersect_key($return, array_flip($results));
+
+    return array(ajax_command_replace("#field-cod-session-og-vocabulary", drupal_render($form['og_vocabulary'])));
+  }
+}
+
+function _cod_session_tids($item, $key) {
+  return array($key => $item);
+}
+
+/*
+ * Make the event dashboard be an admin path
+ */
+function cod_session_admin_paths() {
+  $paths = array(
+    'node/*/edit/*' => TRUE,
+  );
+  return $paths;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function cod_session_form_alter(&$form, &$form_state, $form_id) {
-  // Prepopulate the current user into the Speakers field
-  // on new session creation.
-  if ($form_id == 'session_node_form') {
-    if (isset($form['field_speakers'])) {
-      // Form tweaks for the Speakers field:
-      $form['field_speakers'][LANGUAGE_NONE]['add_more']['#value'] = t('Add another speaker');
-      // Prepopulate the current user into the Speakers field
-      // on new session creation.
-      if (empty($form['#node']->nid)) {
-        global $user;
-        $form['field_speakers'][LANGUAGE_NONE][0]['target_id']['#default_value'] = "$user->name ($user->uid)";
-      }
-    }
-
-    if (isset($form['field_session_timeslot']) && !user_access('edit any session content')) {
-      unset($form['field_session_timeslot']);
-      unset($form['#fieldgroups']['group_schedule']);
-      $form['#validate'][] = 'cod_session_session_node_form_validate';
-    }
-
-  }
-
   // @todo consider altering user_admin_perm form to disable editing
   // of edit slot and room permissions?
   if (strpos($form_id, '_node_form') !== FALSE) {
     $types = cod_session_schedulable_types();
     if (empty($types)) {
       return;
-    }
-    if (in_array($form['#node']->type, array_keys($types))) {
-      // If this is content-type is not unique make the widget a select list.
-      if (variable_get('cod_unique_' . $form['#node']->type, COD_SCHEDULE_SINGLE) == COD_SCHEDULE_MULTIPLE) {
-        // Keep the widget from allowing multiple values.
-        $form['field_session_room']['und']['#multiple'] = FALSE;
-        $form['field_session_room']['und']['#type'] = 'select';
-      }
-
-      // Use $_GET for room and slot.
-      if (isset($_GET['edit'])) {
-        // @todo does this work if the widget wasn't altered above?
-        $room_nid = $_GET['edit']['field_session_room']['target_id'];
-        $slot_nid = $_GET['edit']['field_session_slot']['target_id'];
-      }
-      elseif (!empty($form['#node']->nid) && !empty($form['#node']->field_session_room) && !empty($form['#node']->field_session_slot)) {
-        // Get room and slot from node during node edit.
-        $room_nid = $form['#node']->field_session_room['und'][0]['target_id'];
-        $slot_nid = $form['#node']->field_session_slot['und'][0]['target_id'];
-      }
-      else {
-        return;
-      }
-      // Provide custom room & slot display.
-      if (isset($room_nid) && isset($slot_nid)) {
-        $room = node_load($room_nid);
-        $slot = node_load($slot_nid);
-      }
-      // Sanity check that bad data (or none) didn't get through.
-      if (!isset($slot) && !isset($room) && ($slot->type != 'time_slot' || $slot->status != 1 || $room->type != 'room' || $room->status != 1)) {
-        return;
-      }
-      $form['cod_session'] = array(
-        '#title' => t('Scheduling'),
-        '#type' => 'fieldset',
-        '#group' => FALSE,
-        '#weight' => -1000,
-      );
-      $form['cod_session']['room_markup'] = array(
-        '#markup' => '<div>' . t('<strong>Room</strong>: @room', array('@room' => $room->title)) . '</div>',
-      );
-      $time_range = cod_session_time_slot_format($slot);
-      $form['cod_session']['slot_markup'] = array(
-        '#markup' => '<div>' . t('<strong>Time</strong>: @day @start - @end', array('@day' => $time_range['day'], '@start' => $time_range['formatted_start'], '@end' => $time_range['formatted_end'])) . '</div>',
-      );
-      if (isset($form['#node']->nid)) {
-        // Provide unschedule button on node edit.
-        $form['cod_session']['cod_unschedule'] = array(
-          '#type' => 'button',
-          '#value' => t('Unschedule from this slot'),
-          '#executes_submit_callback' => TRUE,
-          '#submit' => array('_cod_session_unschedule', 'node_form_submit'),
-        );
-        $form['cod_session']['desc'] = array(
-          '#type' => 'markup',
-          '#value' => '<div>' . t("Need to change the room or time? Click 'Unschedule from this slot', then reshedule from the main schedule grid.") . '</div>',
-        );
-      }
-      // Set Room and Time-slot fields. Prepopulate is not used to accomplish
-      // this because as of 2.2 Prepopulate doesn't support hidden or access
-      // FALSE fields.
-      $form['field_session_room']['und']['#default_value'] = $room_nid;
-      $form['field_session_slot']['und']['#default_value'] = $slot_nid;
-      // Disable editing and hide the room and slot fields wuth after_build, FAPI!!!
-      if (!user_access('edit any ' . $form['#node']->type . ' content')) {
-        $form['field_session_room']['und']['#access'] = FALSE;
-        $form['field_session_slot']['und']['#access'] = FALSE;
-      }
-      // Disable node preview because of Prepopulate bug http://drupal.org/node/661842
-      unset($form['actions']['preview']);
     }
   }
 }
@@ -389,71 +460,35 @@ function cod_session_node_presave($node) {
 }
 
 /**
- * Implements hook_node_validate().
+ * Implements hook_entity_insert().
+ *
+ * Using entity_insert to ensure it runs after node_insert.
+ * There seemed to be some issues in running during nod_insert.
  */
-function cod_session_node_validate($node, $form, &$form_state) {
-  // If the node has a room and slot field, make sure there are no existing nodes that have the same room/slot combination.
-  // Unless the node is not unique check room capacity.
-  if (!empty($node->field_session_slot[LANGUAGE_NONE][0]['target_id']) && !empty($node->field_session_room[LANGUAGE_NONE][0]['target_id'])) {
-    $slots = $rooms = array();
-    foreach ($node->field_session_slot[LANGUAGE_NONE] as $slot) {
-      if (!empty($slot['target_id'])) {
-        $slots[] = $slot[0]['target_id'];
-      }
-    }
+function cod_session_entity_insert($entity, $type) {
+  // Whenever an event is created, generate the Tracks OG vocab.
+  if (og_is_group($type, $entity)) {
+    list($entity_id, $revision_id, $bundle) = entity_extract_ids($type, $entity);
 
-    // Get rooms.
-    foreach ($node->field_session_room as $room) {
-      if (!empty($room[0]['target_id'])) {
-        $rooms[$room[0]['target_id']] = node_load($room[0]['target_id']);
-      }
-    }
+    if ($type == 'node' && $bundle == 'event') {
+      $machine_name = 'session_tracks_' . $entity_id;
 
-    // Get room capacity if this node is scheduled in only one room.
-    // If multiple rooms are selected it should mean this node is unique.
-    $capacity = 0;
-    if (count($rooms) == 1) {
-      $room = current($rooms);
-      $ent = entity_load('field_collection_item',array($room->field_room_slots_types_allowed[LANGUAGE_NONE][0]['value']));
-      //is the session even allowed in this slot?
-      if (isset($room->field_room_session_capacity[LANGUAGE_NONE][0]['value'])) {
-        $capacity = $room->field_room_session_capacity[LANGUAGE_NONE][0]['value'];
-      }
-    }
-
-    // Get all sessions that have the same room and time slot.
-    if (!empty($slots) && !empty($rooms)) {
-      $room_nids = array_keys($rooms);
-      $query = new EntityFieldQuery();
-      $query->entityCondition('entity_type', 'node')
-        ->propertyCondition('status', 1)
-        ->fieldCondition('field_session_room', 'target_id', $room_nids, 'IN')
-        ->fieldCondition('field_session_slot', 'target_id', $slots, 'IN');
-      if (isset($node->nid)) {
-        // Don't let this node block unscheduling.
-        $query->propertyCondition('nid', $node->nid, '!=');
-      }
-      $result = $query->execute();
-      if (isset($result['node'])) {
-        $nids = array_keys($result['node']);
-        $content = entity_load('node', $nids);
-      }
-      $errors = array();
-      // Check to see if the room's time slot has exceeded its capacity.
-      if (!empty($content)) {
-        foreach ($content as $scheduled) {
-          $capacity--;
-          if ($capacity <= 0 || (variable_get('cod_unique_' . $scheduled->type, COD_SCHEDULE_SINGLE) == COD_SCHEDULE_SINGLE) || (variable_get('cod_unique_' . $node->type, COD_SCHEDULE_SINGLE) == COD_SCHEDULE_SINGLE)) {
-            // @todo handle this scheduled item being in multiple rooms?
-            $room = $rooms[$scheduled->field_session_room['und'][0]['target_id']];
-            $errors[] = t('!session in !room', array('!session' => l($scheduled->title, 'node/' . $scheduled->nid), '!room' => l($room->title, 'node/' . $room->nid)));
-          }
-        }
+      if (!$vocab = taxonomy_vocabulary_machine_name_load($machine_name)) {
+        // Create a new tracks vocab for this event.
+        $vocab = new stdClass();
+        $vocab->name = t('Session Tracks (@event)', array('@event' => $entity->title));
+        $vocab->description = t('Tracks organize @event sessions by topic.', array('@event' => $entity->title));
+        $vocab->machine_name = $machine_name;
+        $vocab->hierarchy = 0;
+        taxonomy_vocabulary_save($vocab);
       }
 
-      if (!empty($errors)) {
-        form_set_error('', format_plural(count($errors), 'The proposed time and room conflicts with the following item:', 'The proposed time and rooms conflict with the following items:') . theme('item_list', array('items' => $errors)) . format_plural(count($errors), 'Please select a different time slot and/or room.', 'Please select a different time slot and/or rooms.'));
-      }
+      // Add the og relationship.
+      og_vocab_relation_save($vocab->vid, $type, $entity_id);
+
+      // Setup the field.
+      $og_vocab = og_vocab_create_og_vocab($vocab->vid, 'node', 'session');
+      $og_vocab->save();
     }
   }
 }
@@ -554,22 +589,6 @@ function cod_session_time_slot_format($slot) {
 function _cod_session_scheduler_title($type) {
   $type_info = node_type_get_type($type);
   return t('Schedule a @name', array('@name' => $type_info->name));
-}
-
-/**
- * Helper function to determine content types with single schedule types.
- */
-function cod_session_single_schedulable_types() {
-  $single_types = array();
-  $types = node_type_get_types();
-  foreach ($types as $type => $content_type) {
-    $bundle = field_info_instances('node', $type);
-    if (isset($bundle['field_session_room']) && isset($bundle['field_session_slot']) && variable_get('cod_unique_' . $type, COD_SCHEDULE_SINGLE) == COD_SCHEDULE_SINGLE) {
-      $single_types[] = $type;
-    }
-  }
-
-  return $single_types;
 }
 
 function cod_session_custom_theme() {

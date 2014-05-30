@@ -22,7 +22,7 @@ function cod_events_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'listing' => array(
         'label' => 'above',
@@ -67,7 +67,7 @@ function cod_events_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'date',
         'settings' => array(
           'format_type' => 'long',
@@ -77,7 +77,7 @@ function cod_events_field_default_field_instances() {
           'multiple_to' => '',
         ),
         'type' => 'date_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'listing' => array(
         'label' => 'above',
@@ -107,6 +107,7 @@ function cod_events_field_default_field_instances() {
       'active' => 1,
       'module' => 'date',
       'settings' => array(
+        'display_all_day' => 0,
         'increment' => 15,
         'input_format' => 'm/d/Y - g:i:sa',
         'input_format_custom' => '',
@@ -175,72 +176,6 @@ function cod_events_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-event-field_registration'
-  $field_instances['node-event-field_registration'] = array(
-    'bundle' => 'event',
-    'default_value' => array(
-      0 => array(
-        'registration_type' => 'free_event',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => 'If this is a free event, then you can choose which registration type to use for this event.',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'registration',
-        'settings' => array(),
-        'type' => 'registration_form',
-        'weight' => 3,
-      ),
-      'listing' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_registration',
-    'label' => 'Registration',
-    'required' => 0,
-    'settings' => array(
-      'default_registration_settings' => array(
-        'capacity' => 0,
-        'reminder' => array(
-          'reminder_settings' => array(
-            'reminder_date' => '',
-            'reminder_template' => '',
-          ),
-          'send_reminder' => 0,
-        ),
-        'scheduling' => array(
-          'close' => '',
-          'open' => '',
-        ),
-        'settings' => array(
-          'from_address' => 'example@example.com',
-          'multiple_registrations' => 0,
-        ),
-        'status' => 1,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'registration',
-      'settings' => array(),
-      'type' => 'registration_select',
-      'weight' => 6,
-    ),
-  );
-
   // Exported field_instance: 'node-event-group_group'
   $field_instances['node-event-group_group'] = array(
     'bundle' => 'event',
@@ -253,13 +188,10 @@ function cod_events_field_default_field_instances() {
     'description' => 'Determine if this is an OG group.',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'og_ui',
-        'settings' => array(
-          'field_name' => FALSE,
-        ),
-        'type' => 'og_group_subscribe',
-        'weight' => 7,
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
       ),
       'listing' => array(
         'label' => 'above',
@@ -311,9 +243,7 @@ function cod_events_field_default_field_instances() {
   t('Dates');
   t('Determine if this is an OG group.');
   t('Group');
-  t('If this is a free event, then you can choose which registration type to use for this event.');
   t('Image');
-  t('Registration');
 
   return $field_instances;
 }

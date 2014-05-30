@@ -57,6 +57,9 @@ function cod_events_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_dates',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
     'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
@@ -72,9 +75,10 @@ function cod_events_field_default_field_bases() {
         'second' => 0,
         'year' => 'year',
       ),
+      'repeat' => 0,
       'timezone_db' => 'UTC',
-      'todate' => 'optional',
-      'tz_handling' => 'site',
+      'todate' => 'required',
+      'tz_handling' => 'date',
     ),
     'translatable' => 0,
     'type' => 'datestamp',
@@ -104,40 +108,14 @@ function cod_events_field_default_field_bases() {
     'module' => 'image',
     'settings' => array(
       'default_image' => 0,
+      'description_field' => 0,
+      'list_default' => 1,
+      'list_field' => 0,
       'uri_scheme' => 'public',
     ),
     'translatable' => 0,
     'type' => 'image',
-  );
-
-  // Exported field_base: 'field_registration'
-  $field_bases['field_registration'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_registration',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(
-      'registration_type' => array(
-        'columns' => array(
-          'registration_type' => 'name',
-        ),
-        'table' => 'registration_type',
-      ),
-    ),
-    'indexes' => array(
-      'registration_type' => array(
-        0 => 'registration_type',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'registration',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'registration',
+    'type_name' => 'product',
   );
 
   // Exported field_base: 'group_group'
@@ -164,6 +142,58 @@ function cod_events_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'og_group_ref'
+  $field_bases['og_group_ref'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'og_group_ref',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'foreign keys' => array(
+      'node' => array(
+        'columns' => array(
+          'target_id' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'og_events',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'og_behavior' => array(
+            'status' => TRUE,
+          ),
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'membership_type' => 'og_membership_type_default',
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'event' => 'event',
+        ),
+      ),
+      'handler_submit' => 'Change handler',
+      'target_type' => 'node',
+    ),
+    'target_type' => 'node',
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   return $field_bases;

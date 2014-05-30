@@ -13,10 +13,9 @@ features[features_api][] = api:2
 features[user_permission][] = administer contact forms
 features[views_view][] = cod_community_attendees
 
-
-; Information added by drush on 2014-03-03
-version = "7.x-1.0-alpha4+2-dev"
+; Information added by Drupal.org packaging script on 2014-05-12
+version = "7.x-1.0-alpha5"
 core = "7.x"
 project = "cod_support"
-datestamp = "1393834764"
+datestamp = "1399880029"
 

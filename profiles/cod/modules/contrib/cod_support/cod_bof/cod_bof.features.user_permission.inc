@@ -22,7 +22,10 @@ function cod_bof_user_default_permissions() {
   // Exported permission: 'delete any bof_session content'.
   $permissions['delete any bof_session content'] = array(
     'name' => 'delete any bof_session content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'session organizer' => 'session organizer',
+    ),
     'module' => 'node',
   );
 
@@ -38,7 +41,10 @@ function cod_bof_user_default_permissions() {
   // Exported permission: 'edit any bof_session content'.
   $permissions['edit any bof_session content'] = array(
     'name' => 'edit any bof_session content',
-    'roles' => array(),
+    'roles' => array(
+      'administrator' => 'administrator',
+      'session organizer' => 'session organizer',
+    ),
     'module' => 'node',
   );
 

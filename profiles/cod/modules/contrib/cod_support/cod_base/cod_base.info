@@ -48,13 +48,12 @@ features[user_permission][] = view advanced help topic
 features[user_permission][] = view the administration theme
 features[user_role][] = content editor
 features[variable][] = admin_toolbar
-features[variable][] = date_format_date_no_time_
+features[variable][] = date_format_date_no_time
 files[] = cod_base.module
 
-
-; Information added by drush on 2014-03-03
-version = "7.x-1.0-alpha4+2-dev"
+; Information added by Drupal.org packaging script on 2014-05-12
+version = "7.x-1.0-alpha5"
 core = "7.x"
 project = "cod_support"
-datestamp = "1393834764"
+datestamp = "1399880029"
 

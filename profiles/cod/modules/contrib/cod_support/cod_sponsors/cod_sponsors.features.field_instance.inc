@@ -193,7 +193,7 @@ function cod_sponsors_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_sponsor_sponsorship_level',
     'label' => 'Sponsorship Level',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -266,19 +266,22 @@ function cod_sponsors_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-sponsor-field_sponsorship_level'
-  $field_instances['node-sponsor-field_sponsorship_level'] = array(
+  // Exported field_instance: 'node-sponsor-og_group_ref'
+  $field_instances['node-sponsor-og_group_ref'] = array(
     'bundle' => 'sponsor',
     'default_value' => NULL,
+    'default_value_function' => 'entityreference_prepopulate_field_default_value',
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 6,
       ),
       'listing' => array(
         'label' => 'above',
@@ -294,39 +297,6 @@ function cod_sponsors_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_sponsorship_level',
-    'label' => 'Sponsorship level',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 7,
-    ),
-  );
-
-  // Exported field_instance: 'taxonomy_term-sponsorship_level-og_group_ref'
-  $field_instances['taxonomy_term-sponsorship_level-og_group_ref'] = array(
-    'bundle' => 'sponsorship_level',
-    'default_value' => NULL,
-    'default_value_function' => '',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
     'field_name' => 'og_group_ref',
     'label' => 'Event',
     'required' => 1,
@@ -342,7 +312,12 @@ function cod_sponsors_field_default_field_instances() {
           'status' => TRUE,
         ),
         'prepopulate' => array(
-          'status' => 0,
+          'action' => 'hide',
+          'action_on_edit' => 0,
+          'fallback' => 'none',
+          'og_context' => 0,
+          'skip_perm' => 0,
+          'status' => 1,
         ),
       ),
       'user_register_form' => FALSE,
@@ -352,7 +327,7 @@ function cod_sponsors_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 1,
+      'weight' => 6,
     ),
   );
 
@@ -364,7 +339,6 @@ function cod_sponsors_field_default_field_instances() {
   t('Related Attendees');
   t('Sponsor URL');
   t('Sponsorship Level');
-  t('Sponsorship level');
 
   return $field_instances;
 }

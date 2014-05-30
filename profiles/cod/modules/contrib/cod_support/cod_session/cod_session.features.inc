@@ -125,7 +125,7 @@ function cod_session_flag_default_flags() {
     'weight' => 0,
     'show_on_form' => 0,
     'access_author' => '',
-    'show_on_page' => 1,
+    'show_on_page' => 0,
     'show_on_teaser' => 0,
     'show_contextual_link' => 0,
     'i18n' => 0,
@@ -152,14 +152,6 @@ function cod_session_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'room' => array(
-      'name' => t('Room'),
-      'base' => 'node_content',
-      'description' => t('Rooms provide a location for each session.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => t('What type of space is this? How is the seating arranged? Are there any other information to be shared?'),
-    ),
     'schedule_item' => array(
       'name' => t('Schedule Item'),
       'base' => 'node_content',
@@ -174,14 +166,6 @@ function cod_session_node_info() {
       'description' => t('Use this content type to propose sessions at the event. Users can vote on proposed sessions and add sessions to their individual session agendas.'),
       'has_title' => '1',
       'title_label' => t('Session Title'),
-      'help' => '',
-    ),
-    'time_slot' => array(
-      'name' => t('Time slot'),
-      'base' => 'node_content',
-      'description' => t('Use time slots to define when sessions will occur.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
       'help' => '',
     ),
   );

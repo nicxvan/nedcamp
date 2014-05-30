@@ -30,9 +30,9 @@ function cod_base_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'date_format_date_no_time_';
+  $strongarm->name = 'date_format_date_no_time';
   $strongarm->value = 'D, j M Y';
-  $export['date_format_date_no_time_'] = $strongarm;
+  $export['date_format_date_no_time'] = $strongarm;
 
   return $export;
 }
