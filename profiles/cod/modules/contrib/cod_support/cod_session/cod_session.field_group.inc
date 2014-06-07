@@ -68,6 +68,33 @@ function cod_session_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_event_sessions|node|event|form';
+  $field_group->group_name = 'group_event_sessions';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'event';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Sessions Details',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_event_default_session_view',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-event-sessions field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_event_sessions|node|event|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_schedule_info|node|schedule_item|default';
   $field_group->group_name = 'group_schedule_info';
   $field_group->entity_type = 'node';

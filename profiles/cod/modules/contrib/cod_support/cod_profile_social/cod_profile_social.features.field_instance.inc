@@ -19,7 +19,7 @@ function cod_profile_social_field_default_field_instances() {
         'url' => '',
       ),
     ),
-    'deleted' => '0',
+    'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
@@ -28,6 +28,12 @@ function cod_profile_social_field_default_field_instances() {
         'settings' => array(),
         'type' => 'link_default',
         'weight' => 6,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -43,11 +49,11 @@ function cod_profile_social_field_default_field_instances() {
         'title' => '',
       ),
       'display' => array(
-        'url_cutoff' => '80',
+        'url_cutoff' => 80,
       ),
       'enable_tokens' => 0,
       'title' => 'none',
-      'title_maxlength' => '128',
+      'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
       'user_register_form' => 0,
@@ -58,7 +64,7 @@ function cod_profile_social_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => '6',
+      'weight' => 11,
     ),
   );
 
@@ -70,7 +76,7 @@ function cod_profile_social_field_default_field_instances() {
         'url' => '',
       ),
     ),
-    'deleted' => '0',
+    'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
@@ -79,6 +85,12 @@ function cod_profile_social_field_default_field_instances() {
         'settings' => array(),
         'type' => 'link_default',
         'weight' => 5,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -94,11 +106,11 @@ function cod_profile_social_field_default_field_instances() {
         'title' => '',
       ),
       'display' => array(
-        'url_cutoff' => '80',
+        'url_cutoff' => 80,
       ),
       'enable_tokens' => 0,
       'title' => 'none',
-      'title_maxlength' => '128',
+      'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
       'user_register_form' => 0,
@@ -109,7 +121,7 @@ function cod_profile_social_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => '7',
+      'weight' => 13,
     ),
   );
 
@@ -122,7 +134,7 @@ function cod_profile_social_field_default_field_instances() {
         'url' => '',
       ),
     ),
-    'deleted' => '0',
+    'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
@@ -131,6 +143,12 @@ function cod_profile_social_field_default_field_instances() {
         'settings' => array(),
         'type' => 'link_default',
         'weight' => 7,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -146,11 +164,11 @@ function cod_profile_social_field_default_field_instances() {
         'title' => '',
       ),
       'display' => array(
-        'url_cutoff' => '80',
+        'url_cutoff' => 80,
       ),
       'enable_tokens' => 1,
       'title' => 'none',
-      'title_maxlength' => '128',
+      'title_maxlength' => 128,
       'title_value' => '',
       'url' => 0,
       'user_register_form' => 0,
@@ -161,7 +179,7 @@ function cod_profile_social_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => '8',
+      'weight' => 14,
     ),
   );
 

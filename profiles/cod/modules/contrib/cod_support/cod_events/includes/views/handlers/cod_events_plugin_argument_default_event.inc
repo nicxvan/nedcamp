@@ -27,6 +27,9 @@ class cod_events_plugin_argument_default_event extends views_plugin_argument_def
     // Return an explicit 0 if not found instead of FALSE or NULL, as the
     // argument provided will be used to attempt a commerce_order_load() that
     // must accept an integer as the order ID.
+    // TODO: This is probably bad and will likely return the wrong event id in
+    // a multi-event environment. Also it appears this is not being set
+    // correctly and is likely going to just return 0.
     return variable_get('cod_events_default_event', 0);
   }
 }

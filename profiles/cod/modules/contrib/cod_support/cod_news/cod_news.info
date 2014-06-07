@@ -1,8 +1,9 @@
 name = COD News
-description = News for a COD site
+description = News items for events
 core = 7.x
 package = COD
 project = cod_news
+install_option = cod
 dependencies[] = cod_events
 dependencies[] = comment
 dependencies[] = features
@@ -24,9 +25,9 @@ features[variable][] = comment_subject_field_news
 features[variable][] = node_options_news
 features[views_view][] = cod_news
 
-; Information added by Drupal.org packaging script on 2014-05-12
-version = "7.x-1.0-alpha5"
+; Information added by Drupal.org packaging script on 2014-06-05
+version = "7.x-1.0-beta1"
 core = "7.x"
 project = "cod_support"
-datestamp = "1399880029"
+datestamp = "1402004328"
 

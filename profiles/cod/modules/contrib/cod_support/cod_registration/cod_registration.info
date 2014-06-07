@@ -1,5 +1,5 @@
 name = COD Registration
-description = Provides registration options for ticket and cod_events
+description = Provide registration options to attendees
 core = 7.x
 package = COD
 project = cod_registration
@@ -34,10 +34,11 @@ features[user_permission][] = administer ticket
 features[user_permission][] = administer ticket states
 features[user_permission][] = edit all ticket registrations
 features[user_permission][] = view all ticket registrations
+install_option = cod
 
-; Information added by Drupal.org packaging script on 2014-05-12
-version = "7.x-1.0-alpha5"
+; Information added by Drupal.org packaging script on 2014-06-05
+version = "7.x-1.0-beta1"
 core = "7.x"
 project = "cod_support"
-datestamp = "1399880029"
+datestamp = "1402004328"
 

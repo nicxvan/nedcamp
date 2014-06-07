@@ -10,18 +10,51 @@ include_once('cod_events.features.inc');
 function cod_events_menu_alter(&$items) {
   if (isset($items['node/%/group'])) {
     $items['node/%/group']['access callback'] = 'cod_events_get_group_admin';
-    $items['node/%/event'] = $items['node/%/group'];
-    $items['node/%/event']['title'] = t('Event');
-    $items['node/%/event']['access arguments'][] = TRUE;
 
+    /*
     $items['node/%/event/dashboard'] = array(
       'title' => 'Dashboard',
       'weight' => -10,
       'type' => MENU_DEFAULT_LOCAL_TASK,
     );
+    */
+  }
+  if (isset($items['node/%/tickets'])) {
+    $items['node/%/tickets']['access callback'] = 'cod_events_get_ticket_admin';
+    $items['node/%/event/tickets'] = $items['node/%/tickets'];
+    $items['node/%/event/tickets']['access arguments'][] = TRUE;
   }
 }
 
+/*
+ * Make the event dashboard be an admin path
+ */
+function cod_schedule_admin_paths() {
+  $paths = array(
+    'node/*/event' => TRUE,
+    'node/*/event/*' => TRUE,
+  );
+  return $paths;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function cod_events_permission() {
+  $perms = array();
+
+  $perms['view program'] = array(
+    'title' => t('View Program'),
+    'description' => t('Allows users to view the program.'),
+  );
+  return $perms;
+}
+
+/*
+ * Menu Alter access callback.
+ * Allows OG to be used elsewhere on the site, but will make the group tab
+ * disappear when used on the event content type.
+ */
 function cod_events_get_group_admin($entity_type, $etid, $event = FALSE) {
   // If we're not dealing with nodes, we aren't dealing with events. Skip.
   if ($entity_type != 'node') {
@@ -30,6 +63,23 @@ function cod_events_get_group_admin($entity_type, $etid, $event = FALSE) {
   $entity = node_load($etid);
   if (isset($entity->type) && $entity->type == 'event' && $event == TRUE) {
     return og_ui_get_group_admin($entity_type, $etid);
+  }
+  return FALSE;
+}
+
+/**
+ * Menu Alter access callback.
+ * Allows Tickets to be used elsewhere on the site, but will make the ticket tab
+ * disappear when used on the event content type.
+ */
+function cod_events_get_ticket_admin($entity_type, $etid, $op, $event = FALSE) {
+  // If we're not dealing with nodes, we aren't dealing with events. Skip.
+  if ($entity_type != 'node') {
+    return ticket_type_overview_access($entity_type, $etid, $op);
+  }
+  $entity = node_load($etid);
+  if (isset($entity->type) && $entity->type == 'event' && $event == TRUE) {
+    return ticket_type_overview_access($entity_type, $etid, $op);
   }
   return FALSE;
 }
@@ -48,21 +98,6 @@ function cod_events_ctools_plugin_directory($module, $plugin) {
     return "plugins/entityreference/$plugin";
   }
 }
-
-/**
- * Implements hook_forms().
-
-function cod_events_forms() {
-  $forms = array();
-  $days = cod_events_days();
-  if ($days = cod_events_days()) {
-    foreach ($days as $day_nid) {
-      $forms['cod_events_timeslots_'. $day_nid . '_form']['callback'] = 'cod_events_timeslots_form';
-    }
-  }
-  return $forms;
-}
- */
 
 /**
  * Implements hook_og_user_access_alter().
@@ -124,8 +159,11 @@ function cod_events_get_group_content_entity_types() {
 
 }
 
-/*
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
  * Add the default event select box for choosing a default event.
+ * This is probably deprecated due to the new event view admin ui.
  */
 function cod_events_form_cod_base_admin_settings_alter(&$form, &$form_state, $form_id) {
   $form['cod_events'] = array(
@@ -143,14 +181,16 @@ function cod_events_form_cod_base_admin_settings_alter(&$form, &$form_state, $fo
     ->propertyCondition('status', 1)
     ->propertyOrderBy('title')
     ->execute();
+
   if (count($event_list['node']) == 1) {
-    $default_event = array_pop(array_keys($event_list['node']));
+    $events = array_keys($event_list['node']);
+    $default_event = array_pop($events);
     variable_set('cod_events_default_event', $default_event);
-    $form['cod_events']['#description'] = "Node $default_event is the only event, and set to default";
+    $form['cod_events']['#description'] = t('Node !num is the only event and set to default', array('!num' => $default_event));
   }
-  else if (!empty($event_list['node'])) {
+  elseif (!empty($event_list['node'])) {
     $events = entity_load('node', array_keys($event_list['node']));
-    foreach($events AS $event) {
+    foreach ($events as $event) {
       $options[$event->nid] = $event->title;
     }
 
@@ -162,43 +202,123 @@ function cod_events_form_cod_base_admin_settings_alter(&$form, &$form_state, $fo
     );
   }
   else {
-    $form['cod_events']['#markup'] = "You currently have no events";
+    $form['cod_events']['#markup'] = t('You currently have no events');
     variable_set('cod_events_default_event', 0);
   }
 
+  $form['#submit'][] = 'cod_events_set_default_flag';
 }
+
 /**
-* Implements hook_form_alter().
-* - Add default event to all new node types, using the default event setting.
-*/
-function cod_events_form_alter(&$form, &$form_state, $form_id) {
-  // If the form isn't an entity, or if its not a group, return
-  //TODO: Reverse how we make this check. Entities that don't contain groups will error here.
-  if(!isset($form['#entity']) || og_is_group($form['#entity_type'], $form['#entity'])) {
+ * Default event submit handler.
+ *
+ * This is probably deprecated due to the new event view admin ui.
+ */
+function cod_events_set_default_flag(&$form, &$form_state) {
+  // Kick us out of the flag if we only have one event.
+  if (!isset($form_state['values']['cod_events_default_event'])) {
     return;
   }
-
-  $which_flag = flag_get_flags($entity_type = NULL, $content_subtype = NULL, $account = NULL);
-  $default_event = isset($which_flag['default_event']) ? $which_flag['default_event'] : FALSE;
-  $default_event = flag_get_flagged_content($default_event->name);
-
-  // Set and Hide the og_group_ref field if $default event is set.
-  if(isset($form['og_group_ref'])) {
-    if (!empty($default_event) && $form_state['field']['og_group_ref'][LANGUAGE_NONE]['items_count'] === 0 && !user_access('administer content')) {
-      if (!empty($default_event)) {
-        $form['og_group_ref']['und'][0]['default']['#default_value'] = (int)$default_event[0]->content_id;
-        $form['og_group_ref']['#access'] = FALSE;
-      }
+  if ($form_state['values']['cod_events_default_event']) {
+    if ($flag = flag_get_flag('default_event')) {
+      $flag->flag('flag', $form_state['values']['cod_events_default_event']);
     }
-    // Hide the ref field, unless you're an admin, if default event is not set.
-    else if($form_state['field']['og_group_ref'][LANGUAGE_NONE]['items_count'] > 0 && !user_access('administer content')) {
-      $form['og_group_ref']['#access'] = FALSE;
+  }
+  else {
+    if ($flag = flag_get_flag('default_event')) {
+      $flag->flag('unflag', $form['cod_events']['cod_events_default_event']['#default_value']);
     }
   }
 }
 
-function cod_events_views_default_views_alter(&$views) {
-  if(isset($views['cod_events_admin'])) {
-    $views['cod_events_admin']->display['default']->display_options['header']['area']['content'] .= '<ul class="action-links"><li>' . l('Add Event', 'node/add/event') . '</li></ul>';
+/**
+ * Implements hook_flag_flag().
+ */
+function cod_events_flag_flag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'default_event') {
+    variable_set('cod_events_default_event', $entity_id);
+  }
+}
+
+/**
+ * Implements hook_flag_unflag().
+ */
+function cod_events_flag_unflag($flag, $entity_id, $account, $flagging) {
+  if ($flag->name == 'default_event') {
+    if ($entity_id == variable_get('cod_events_default_event', 0)) {
+      variable_set('cod_events_default_event', 0);
+    }
+  }
+}
+
+/**
+* Implements hook_form_alter().
+*/
+function cod_events_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['og_group_ref'])) {
+    // Set the default value if there is none.
+    $default_event = isset($_GET['og_group_ref']) ? $_GET['og_group_ref'] : variable_get('cod_events_default_event', 0);
+
+    // Hide the group ref field from non admins.
+    if ($default_event && !user_access('administer content')) {
+      $form['og_group_ref']['#access'] = FALSE;
+    }
+
+    // If there's a default event and the form doesn't have a default value, reload with the default event.
+    // TODO: This would probably be better with just a drupal_rebuild_form, but I couldn't get that to work. :(
+    if ($default_event && empty($form['og_group_ref']['und'][0]['default']['#default_value'])) {
+      drupal_goto(current_path(), array('query' => array('og_group_ref' => $default_event)));
+    }
+  }
+}
+
+/**
+ * Append group as query param so new content can have group context.
+ */
+function cod_events_add_content($event, $content_type) {
+  $args = func_get_args();
+   // Remove $event from the arguments.
+   array_shift($args);
+   // Remove $content_type from the arguments.
+   array_shift($args);
+
+  $options = array(
+    'query' => array(
+      'og_group_ref' => $event->nid,
+    ),
+  );
+
+  if (!empty($args)) {
+    $path = implode('/', $args);
+    $options['query']['destination'] = '/node/'.$event->nid.'/'.$path;
+  }
+  drupal_goto('node/add/' . $content_type, $options);
+}
+
+/**
+ * Callback to send a user back to the admin page after a taxonomy item is created.
+ */
+function cod_events_add_term($event, $vocabulary) {
+  $args = func_get_args();
+   // Remove $event from the arguments.
+   array_shift($args);
+   // Remove $vocabulary from the arguments.
+   array_shift($args);
+
+  $options = array();
+  if (!empty($args)) {
+    $path = implode('/', $args);
+    $options['query']['destination'] = '/node/'.$event->nid.'/'.$path;
+  }
+  // Check to see if we're using a OG Vocabulary. Probably better way to do this.
+  if ($vocab = taxonomy_vocabulary_machine_name_load($vocabulary . '_' . $event->nid)) {
+    drupal_goto('admin/structure/taxonomy/' . $vocabulary . '_' . $event->nid . '/add', $options);
+  }
+  else if ($vocab = taxonomy_vocabulary_machine_name_load($vocabulary)) {
+    drupal_goto('admin/structure/taxonomy/' . $vocabulary . '/add', $options);
+  }
+  else {
+    drupal_set_message("Vocabulary '$vocabulary' was not found.", 'warning');
+    drupal_goto($options['query']['destination']);
   }
 }

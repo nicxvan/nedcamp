@@ -40,5 +40,14 @@ function cod_sponsors_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'view sponsors'.
+  $permissions['view sponsors'] = array(
+    'name' => 'view sponsors',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'cod_sponsors',
+  );
+
   return $permissions;
 }

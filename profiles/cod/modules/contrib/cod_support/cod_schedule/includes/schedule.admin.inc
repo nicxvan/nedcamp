@@ -9,7 +9,7 @@ function cod_schedule_schedule_admin_page($node) {
   // Grab the days.
   $days = cod_schedule_days($node);
   if (empty($days)) {
-    return t('Your event must have a start and end date.');
+    return t('Your event must have a <a href="@edit">start and end date</a>. <a href="@edit">Edit</a> event.', array('@edit' => url('node/'.$node->nid.'/edit', array('fragment' => 'edit-field-dates', 'query' => array('destination' => 'node/'.$node->nid.'/event/schedule')))));
   }
 
   // Grab the Rooms attached to the event.
@@ -54,11 +54,15 @@ function cod_schedule_schedule_admin_page($node) {
     if (isset($times['cod_event_time'])) {
       foreach ($times['cod_event_time'] as $evttid => $time) {
         $time_entity = entity_load('cod_event_time', array($evttid));
-        $row = array($time_entity[$evttid]->getTimeLabel());
+        $time_label = $time_entity[$evttid]->getTimeLabel();
+        $time_edit_uri = 'admin/conference/times/manage/' . $evttid;
+        $row = array(l($time_label, $time_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule'))));
 
         foreach ($rooms['cod_event_room'] as $roomid => $room) {
           if (empty($rows)) {
-            $header[] = $room->extraFields->name;
+            $room_label = $room->extraFields->name;
+            $room_edit_uri = 'admin/conference/rooms/manage/' . $roomid;
+            $header[] = l($room_label, $room_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule')));
           }
 
           $row[] = cod_schedule_schedule_grid_item($node, $evttid, $roomid);
@@ -113,7 +117,7 @@ function cod_schedule_schedule_grid_item($event, $time, $room, $reset = FALSE) {
     // Generate the appropriate link for this timeslot.
     $items[]['data'] = l(
       t('@op timeslot', array('@op' => ucwords($op))),
-      'node/' . $event->nid . '/edit/schedule/nojs/' . $op . '/' . $time .'/' . $room,
+      'node/' . $event->nid . '/event/schedule/nojs/' . $op . '/' . $time .'/' . $room,
       array('attributes' => array('class' => 'ctools-use-modal'))
     );
 
@@ -171,6 +175,11 @@ function cod_event_room_form($form, &$form_state, CodEventRoom $cod_event_room, 
     $submit += $form['#submit'];
   }
 
+  if (isset($node) && is_object($node)) {
+    $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'] = $node->nid;
+    $form['og_group_ref']['#access'] = FALSE;
+  }
+
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
@@ -179,7 +188,7 @@ function cod_event_room_form($form, &$form_state, CodEventRoom $cod_event_room, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/edit/schedule';
+    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/event/schedule';
   }
   $form['weight'] = array(
     '#type' => 'weight',
@@ -232,6 +241,12 @@ function cod_event_room_form_submit_delete(&$form, &$form_state) {
  * Form constructor for the COD session time form.
  */
 function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, $op = 'update', $node = NULL) {
+
+  if (isset($node) && is_object($node) && !cod_schedule_days($node)) {
+    drupal_set_message("You must first set a date for the event.", 'warning');
+    drupal_goto('node/'.$node->nid.'/event/schedule');
+  }
+
   $form_state['cod_event_time'] = $cod_event_time;
 
   if (!isset($form_state['wrapper_callback'])) {
@@ -258,6 +273,11 @@ function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, 
     $form['field_evttime_date'][LANGUAGE_NONE][0]['timezone']['#value'] = $node->field_dates[LANGUAGE_NONE][0]['timezone'];
   }
 
+  if (isset($node) && is_object($node)) {
+    $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'] = $node->nid;
+    $form['og_group_ref']['#access'] = FALSE;
+  }
+
   $submit = array();
   if (!empty($form['#submit'])) {
     $submit += $form['#submit'];
@@ -271,7 +291,7 @@ function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/edit/schedule';
+    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/event/schedule';
   }
 
   if (!$cod_event_time->isLocked() && $op != 'add' && $op != 'clone') {
@@ -314,7 +334,7 @@ function cod_event_time_form_submit_delete(&$form, &$form_state) {
 
 // --------------------------------------------------------------------------
 // Various subforms for editing the pieces of a view.
-//NODEID/edit/schedule/nojs/OPERATION/TIMEID/ROOMID
+//NODEID/event/schedule/nojs/OPERATION/TIMEID/ROOMID
 function cod_schedule_schedule_forms($key = NULL) {
   $forms = array(
     'edit' => array(

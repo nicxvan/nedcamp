@@ -30,7 +30,7 @@ function cod_session_flag_default_flags() {
   $flags = array();
   // Exported flag: "Speaker confirmation flag".
   $flags['session_confirm'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Speaker confirmation flag',
     'global' => 0,
     'types' => array(
@@ -44,28 +44,25 @@ function cod_session_flag_default_flags() {
     'unflag_message' => '',
     'unflag_denied_text' => 'You have confirmed that you will be presenting for this session.',
     'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => 2,
-      ),
-      'unflag' => array(),
-    ),
     'weight' => 0,
+    'show_in_links' => array(
+      'teaser' => TRUE,
+      'full' => TRUE,
+    ),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => 'own',
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'show_contextual_link' => 0,
     'i18n' => 0,
     'module' => 'cod_session',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Session Attending".
   $flags['session_schedule'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Session Attending',
     'global' => 0,
     'types' => array(
@@ -81,30 +78,24 @@ function cod_session_flag_default_flags() {
     'unflag_message' => 'Session removed',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(
-        0 => 2,
-      ),
-      'unflag' => array(
-        0 => 2,
-      ),
-    ),
     'weight' => 0,
+    'show_in_links' => array(
+      'full' => TRUE,
+    ),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
-    'show_on_page' => 1,
-    'show_on_teaser' => 0,
     'show_contextual_link' => 0,
     'i18n' => 0,
     'module' => 'cod_session',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   // Exported flag: "Session Vote".
   $flags['session_vote'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Session Vote',
     'global' => 0,
     'types' => array(
@@ -118,22 +109,18 @@ function cod_session_flag_default_flags() {
     'unflag_message' => 'Your vote has been retracted.',
     'unflag_denied_text' => '',
     'link_type' => 'toggle',
-    'roles' => array(
-      'flag' => array(),
-      'unflag' => array(),
-    ),
     'weight' => 0,
+    'show_in_links' => array(),
+    'show_as_field' => FALSE,
     'show_on_form' => 0,
     'access_author' => '',
-    'show_on_page' => 0,
-    'show_on_teaser' => 0,
     'show_contextual_link' => 0,
     'i18n' => 0,
     'module' => 'cod_session',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   return $flags;
 

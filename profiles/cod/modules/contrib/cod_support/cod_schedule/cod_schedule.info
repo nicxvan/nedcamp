@@ -1,4 +1,5 @@
 name = COD Schedule
+description = Scheduling for Sessions, BoFs, etc.
 core = 7.x
 package = COD
 dependencies[] = cod_events
@@ -8,7 +9,7 @@ dependencies[] = field_collection
 dependencies[] = number
 dependencies[] = quicktabs
 dependencies[] = views
-dependencies[] = views_json
+dependencies[] = entityreference
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_base][] = field_event_timeslots
@@ -36,15 +37,17 @@ features[og_features_permission][] = node:event:edit own cod_event_room
 features[og_features_permission][] = node:event:edit own cod_event_time
 features[og_features_permission][] = node:event:view cod_event_room
 features[og_features_permission][] = node:event:view cod_event_time
+features[user_permission][] = view schedule
 features[views_view][] = cod_event_rooms
 features[views_view][] = cod_schedule
 features[views_view][] = cod_schedule_content
 features[views_view][] = cod_schedule_timeslot_widget
 files[] = cod_schedule.entity.inc
+install_option = cod
 
-; Information added by Drupal.org packaging script on 2014-05-12
-version = "7.x-1.0-alpha5"
+; Information added by Drupal.org packaging script on 2014-06-05
+version = "7.x-1.0-beta1"
 core = "7.x"
 project = "cod_support"
-datestamp = "1399880029"
+datestamp = "1402004328"
 

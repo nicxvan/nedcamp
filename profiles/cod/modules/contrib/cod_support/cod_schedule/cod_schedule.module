@@ -86,12 +86,6 @@ function cod_schedule_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['node/%node/program/schedule'] = array(
-    'page callback' => 'cod_schedule_view',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
-  );
-
   return $items;
 }
 
@@ -133,6 +127,11 @@ function cod_schedule_permission() {
     );
   }
 
+  $perms['view schedule'] = array(
+    'title' => t('View Schedule'),
+    'description' => t('Allows users to view the event schedule'),
+  );
+
   return $perms;
 }
 
@@ -152,51 +151,6 @@ function cod_schedule_form_node_form_alter(&$form, &$form_state) {
   if (isset($form['#node_edit_form']) && isset($form['field_event_timeslots'])) {
     $form['field_event_timeslots']['#access'] = FALSE;
   }
-}
-
-/**
- * Page Callbacks
- */
-function cod_schedule_view($group) {
-
-  $args[] = $group->vid;
-
-  $start_date = DateTime::createFromFormat('U', $group->field_dates[LANGUAGE_NONE][0]['value'], new DateTimeZone($group->field_dates[LANGUAGE_NONE][0]['timezone_db']));
-  $start_date->setTimezone(new DateTimeZone($group->field_dates[LANGUAGE_NONE][0]['timezone']));
-
-  $end_date = DateTime::createFromFormat('U', $group->field_dates[LANGUAGE_NONE][0]['value2'], new DateTimeZone($group->field_dates[LANGUAGE_NONE][0]['timezone_db']));
-  $end_date->setTimezone(new DateTimeZone($group->field_dates[LANGUAGE_NONE][0]['timezone']));
-
-  $interval = new DateInterval('P1D');
-  $daterange = new DatePeriod($start_date, $interval ,$end_date);
-
-  $markup = NULL;
-
-  $num_dates = iterator_count($daterange);
-  foreach($daterange as $key => $date){
-    $view = views_get_view('cod_schedule');
-    $display_id = 'page';
-
-    $args[1] = $date->format("Y-m-d");
-
-    $view->get_total_rows = TRUE;
-    $content = $view->execute_display($display_id, $args);
-
-    $total_items = $view->total_rows;
-
-    if($total_items > 0) {
-      $markup .= $content;
-    }
-
-    if(++$key !== $num_dates) {
-      $view->destroy();
-    }
-  }
-
-  $build['content'] = array(
-    'page' => array('#markup' => $markup)
-  );
-  return $build;
 }
 
 /**
@@ -239,16 +193,6 @@ function cod_schedule_day_url($day) {
   $day = str_replace(' ','-',$day);
   $day = str_replace(',','',$day);
   return strtolower($day);
-}
-
-/*
- * Make the event dashboard be an admin path
- */
-function cod_schedule_admin_paths() {
-  $paths = array(
-    'node/*/edit/schedule' => TRUE,
-  );
-  return $paths;
 }
 
 /**

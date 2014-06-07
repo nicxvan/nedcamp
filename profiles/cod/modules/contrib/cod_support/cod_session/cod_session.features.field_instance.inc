@@ -10,6 +10,52 @@
 function cod_session_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-event-field_event_default_session_view'
+  $field_instances['node-event-field_event_default_session_view'] = array(
+    'bundle' => 'event',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'listing' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_event_default_session_view',
+    'label' => 'Default Session View',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 31,
+    ),
+  );
+
   // Exported field_instance: 'node-page-body'
   $field_instances['node-page-body'] = array(
     'bundle' => 'page',
@@ -219,6 +265,7 @@ function cod_session_field_default_field_instances() {
   $field_instances['node-schedule_item-og_group_ref'] = array(
     'bundle' => 'schedule_item',
     'default_value' => NULL,
+    'default_value_function' => 'entityreference_prepopulate_field_default_value',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -244,10 +291,11 @@ function cod_session_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
     'label' => 'Event',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
       'behaviors' => array(
         'og_widget' => array(
+          'access_override' => 0,
           'admin' => array(
             'widget_type' => 'entityreference_autocomplete',
           ),
@@ -255,6 +303,17 @@ function cod_session_field_default_field_instances() {
             'widget_type' => 'options_select',
           ),
           'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'action' => 'none',
+          'action_on_edit' => 0,
+          'fallback' => 'none',
+          'providers' => array(
+            'og_context' => 0,
+            'url' => 1,
+          ),
+          'skip_perm' => 0,
+          'status' => 1,
         ),
       ),
       'user_register_form' => FALSE,
@@ -272,6 +331,7 @@ function cod_session_field_default_field_instances() {
       ),
     ),
     'widget' => array(
+      'active' => 0,
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
@@ -366,7 +426,7 @@ function cod_session_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_accepted',
     'label' => 'Status',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -471,49 +531,6 @@ function cod_session_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 12,
-    ),
-  );
-
-  // Exported field_instance: 'node-session-field_session_track'
-  $field_instances['node-session-field_session_track'] = array(
-    'bundle' => 'session',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Select a suggested track that this session should go into',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 5,
-      ),
-      'listing' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_session_track',
-    'label' => 'Track',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 2,
     ),
   );
 
@@ -624,6 +641,7 @@ function cod_session_field_default_field_instances() {
   $field_instances['node-session-og_group_ref'] = array(
     'bundle' => 'session',
     'default_value' => NULL,
+    'default_value_function' => 'entityreference_prepopulate_field_default_value',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -653,6 +671,7 @@ function cod_session_field_default_field_instances() {
     'settings' => array(
       'behaviors' => array(
         'og_widget' => array(
+          'access_override' => 0,
           'admin' => array(
             'widget_type' => 'entityreference_autocomplete',
           ),
@@ -660,6 +679,17 @@ function cod_session_field_default_field_instances() {
             'widget_type' => 'options_select',
           ),
           'status' => TRUE,
+        ),
+        'prepopulate' => array(
+          'action' => 'none',
+          'action_on_edit' => 0,
+          'fallback' => 'none',
+          'providers' => array(
+            'og_context' => 0,
+            'url' => 1,
+          ),
+          'skip_perm' => 0,
+          'status' => 1,
         ),
       ),
       'user_register_form' => FALSE,
@@ -743,17 +773,16 @@ function cod_session_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('An image to be used for highlighted sessions in the front page rotator.');
   t('Body');
+  t('Default Session View');
   t('Description');
   t('Event');
   t('Experience level');
   t('File attachments');
   t('Image');
-  t('Select a suggested track that this session should go into');
   t('Session Track');
   t('Slides');
   t('Speaker(s)');
   t('Status');
-  t('Track');
   t('Type the username of the speaker, and to add more speakers click "Add another speaker"');
   t('Upload your slides here as a PDF, or link to them from the description. (This is typically done after your session.)');
 

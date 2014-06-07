@@ -91,9 +91,28 @@ function cod_session_user_default_permissions() {
   $permissions['edit own session content'] = array(
     'name' => 'edit own session content',
     'roles' => array(
+      'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'view sessions'.
+  $permissions['view sessions'] = array(
+    'name' => 'view sessions',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'cod_session',
+  );
+
+  // Exported permission: 'view speakers'.
+  $permissions['view speakers'] = array(
+    'name' => 'view speakers',
+    'roles' => array(
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'cod_session',
   );
 
   return $permissions;

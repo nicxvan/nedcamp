@@ -27,122 +27,58 @@ function cod_sponsors_form_alter(&$form, &$form_state, $form_id) {
     if(isset($form['og_group_ref'])) {
       $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#multiple'] = FALSE;
     }
-
-    // Make the level conditional on the event field.
-    $form['field_sponsor_sponsorship_level']['#states'] = array(
-      'visible' => array(
-        'xor',
-        array(':input[name="og_group_ref[und][0][default]"]' => array('!value' => '_none')),
-        // This sort of works, but would be better if it fired after
-        // the autocomplete. Note that this field is only available
-        // to administrators.
-        array(':input[name="og_group_ref[und][0][admin][0][target_id]"]' => array('empty' => FALSE)),
-      ),
-    );
-
-    // Make the level field filtered on the event field.
-    $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#ajax'] = array(
-      'callback' => 'cod_sponsors_filter_level',
-      'wrapper' => 'field-sponsor-sponsorship-level-wrapper',
-    );
-    $form['field_sponsor_sponsorship_level']['#prefix'] = '<div id="field-sponsor-sponsorship-level-wrapper">';
-    $form['field_sponsor_sponsorship_level']['#suffix'] = '</div>';
-
-    // Auto-set the sponsorship level in the form.
-    if (isset($_GET['level'])) {
-      $levels = $form['field_sponsor_sponsorship_level'][LANGUAGE_NONE]['#options'];
-
-      // Get the level by tid.
-      if (is_numeric($_GET['level']) && in_array($_GET['level'], $options)) {
-        $sponsorship_level = $_GET['level'];
-      }
-      // Get the level by term name.
-      else {
-        $sponsorship_level = array_search(check_plain($_GET['level']), $levels);
-      }
-
-      // Set the field values.
-      if ($sponsorship_level !== FALSE) {
-        $level = taxonomy_term_load($sponsorship_level);
-        $event = $level->og_group_ref[LANGUAGE_NONE][0]['target_id'];
-        $events = $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#options'];
-
-        // Set the user event field.
-        if (in_array($event, array_keys($events))) {
-          $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'] = $event;
-          // Unset the admin field value, so we don't have multiple events.
-          unset($form['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']['#default_value']);
-          unset($form['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']['#entity']);
-        }
-        // Set the admin event field.
-        else {
-          $og = node_load($event);
-          $replacements = array(
-            '@title' => $og->title,
-            '@event' => $event,
-          );
-          $form['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']['#default_value'] = t('@title (@event)', $replacements);
-          $form['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']['#entity_type'] = 'node';
-          $form['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']['#entity'] = $og;
-          $form['og_group_ref'][LANGUAGE_NONE][0]['#entity_type'] = 'node';
-          $form['og_group_ref'][LANGUAGE_NONE][0]['#entity'] = $og;
-          // Unset the default field value, so we don't have multiple events.
-          $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'] = '_none';
-        }
-
-        $form['field_sponsor_sponsorship_level'][LANGUAGE_NONE]['#default_value'] = $sponsorship_level;
-      }
-    }
-
   }
-}
-
-/**
- * Event (og_group_ref) ajax callback.
- */
-function cod_sponsors_filter_level($form, &$form_state) {
-  if (isset($form_state['values']['og_group_ref']) && $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['default'] == '_none') {
-    return;
-  }
-  // Get the event node id.
-  $nid = FALSE;
-  if (isset($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id']) && is_numeric($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id'])) {
-    $nid = $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['target_id'];
-  }
-  elseif (isset($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id']) && is_numeric($form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id'])) {
-    $nid = $form_state['values']['og_group_ref'][LANGUAGE_NONE][0]['admin'][0]['target_id'];
-  }
-
-  if ($nid) {
-    // Get the applicable terms for this event.
-    $vocab = taxonomy_vocabulary_machine_name_load('sponsorship_level');
-
-    $query = db_select('og_membership', 'ogm');
-    $query->join('taxonomy_term_data', 'ttd', "ttd.tid = ogm.etid AND ogm.entity_type = 'taxonomy_term'");
-    $results = $query->fields('ogm', array('etid'))
-      ->condition('ogm.gid', $nid)
-      ->condition('ttd.vid', $vocab->vid)
-      ->execute()
-      ->fetchCol();
-    $results[] = '_none';
-
-    $form['field_sponsor_sponsorship_level'][LANGUAGE_NONE]['#options'] = array_intersect_key($form['field_sponsor_sponsorship_level'][LANGUAGE_NONE]['#options'], array_flip($results));
-  }
-
-  return $form['field_sponsor_sponsorship_level'];
 }
 
 /**
  * Implements hook_menu().
  */
 function cod_sponsors_menu() {
+  $items = array();
   $items['sponsorship/add/%node'] = array(
     'page callback' => 'cod_sponsors_product_add',
     'page arguments' => array(2),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  $items['node/%node/add/sponsor'] = array(
+    'title' => t('Add Sponsor'),
+    'type' => MENU_CALLBACK,
+    'page callback' => 'cod_events_add_content',
+    'page arguments' => array(1, 3),
+    'access callback' => TRUE,
+  );
+  $items['node/%node/event/sponsors/add/sponsor'] = array(
+    'title' => t('Add Sponsor'),
+    'page callback' => 'cod_events_add_content',
+    'page arguments' => array(1, 5, 2, 3),
+    'access callback' => TRUE,
+    'weight' => -1,
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['node/%node/event/sponsors/add/sponsorship_level'] = array(
+    'title' => t('Add Sponsorship Level'),
+    'page callback' => 'cod_events_add_term',
+    'page arguments' => array(1, 5, 2, 3),
+    'access callback' => TRUE,
+    'weight' => -4,
+    'type' => MENU_LOCAL_ACTION,
+  );
+
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function cod_sponsors_permission() {
+  $perms = array();
+
+  $perms['view sponsors'] = array(
+    'title' => t('View Sponsors'),
+    'description' => t('Allows users to view published sponsors'),
+  );
+  return $perms;
 }
 
 /**

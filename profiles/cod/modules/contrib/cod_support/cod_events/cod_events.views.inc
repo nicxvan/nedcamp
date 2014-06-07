@@ -1,5 +1,12 @@
 <?php
+/**
+ * @file
+ * Views include file.
+ */
 
+/**
+ * Implements hook_views_pre_render().
+ */
 function cod_events_views_pre_render(&$view) {
   if($view->name == 'cod_events_admin' && $default_event = variable_get('cod_events_default_event', 0)) {
     foreach($view->result AS $rid => $row) {
@@ -29,4 +36,13 @@ function cod_events_views_plugins() {
       ),
     ),
   );
+}
+
+/**
+ * Implements hook_views_default_views_alter().
+ */
+function cod_events_views_default_views_alter(&$views) {
+  if(isset($views['cod_events_admin'])) {
+    $views['cod_events_admin']->display['default']->display_options['header']['area']['content'] .= '<ul class="action-links"><li>' . l('Add Event', 'node/add/event') . '</li></ul>';
+  }
 }

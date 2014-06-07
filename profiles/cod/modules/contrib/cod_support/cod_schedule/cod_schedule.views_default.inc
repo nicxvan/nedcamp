@@ -62,6 +62,7 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['title'] = 'Schedule';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['access']['perm'] = 'view schedule';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
@@ -77,6 +78,13 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['style_options']['tab_style'] = 'Zen';
   $handler->display->display_options['style_options']['tab_title_field'] = 'field_evttime_date';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'The schedule has not been configured yet.';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Field: Time: Time ID */
   $handler->display->display_options['fields']['evttid']['id'] = 'evttid';
   $handler->display->display_options['fields']['evttid']['table'] = 'cod_event_time';
@@ -90,7 +98,7 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['fields']['field_evttime_date']['label'] = 'Day Tab';
   $handler->display->display_options['fields']['field_evttime_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_evttime_date']['settings'] = array(
-    'format_type' => 'date_no_time_',
+    'format_type' => 'date_no_time',
     'fromto' => 'value',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -146,9 +154,9 @@ function cod_schedule_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'node/%/program/schedule/sessions';
-  $handler->display->display_options['menu']['type'] = 'default tab';
-  $handler->display->display_options['menu']['title'] = 'Sessions';
+  $handler->display->display_options['path'] = 'node/%/program/schedule';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Schedule';
   $handler->display->display_options['menu']['weight'] = '-10';
   $handler->display->display_options['menu']['context'] = 0;
   $handler->display->display_options['menu']['context_only_inline'] = 0;
@@ -173,9 +181,6 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: Autorefresh */
-  $handler->display->display_options['header']['autorefresh']['interval'] = '60000';
-  $handler->display->display_options['header']['autorefresh']['display'] = 'page';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Time: Time ID */
   $handler->display->display_options['fields']['evttid']['id'] = 'evttid';
@@ -190,7 +195,7 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['fields']['field_evttime_date']['label'] = 'Day Tab';
   $handler->display->display_options['fields']['field_evttime_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_evttime_date']['settings'] = array(
-    'format_type' => 'date_no_time_',
+    'format_type' => 'date_no_time',
     'fromto' => 'value',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -418,7 +423,7 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['fields']['field_evttime_date_1']['relationship'] = 'field_timeslot_time_target_id';
   $handler->display->display_options['fields']['field_evttime_date_1']['label'] = 'day';
   $handler->display->display_options['fields']['field_evttime_date_1']['settings'] = array(
-    'format_type' => 'date_no_time_',
+    'format_type' => 'date_no_time',
     'fromto' => 'value',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -573,8 +578,8 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['arguments']['nid']['table'] = 'node';
   $handler->display->display_options['arguments']['nid']['field'] = 'nid';
   $handler->display->display_options['arguments']['nid']['relationship'] = 'field_event_timeslots_node';
-  $handler->display->display_options['arguments']['nid']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'cod_events_default_event';
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
@@ -582,8 +587,8 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['id'] = 'field_timeslot_allowed_types_value';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['table'] = 'field_data_field_timeslot_allowed_types';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['field'] = 'field_timeslot_allowed_types_value';
-  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_argument_type'] = 'cod_events_default_type';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['summary_options']['items_per_page'] = '25';

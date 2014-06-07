@@ -11,9 +11,6 @@ function cod_events_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "page_manager" && $api == "pages_default") {
     return array("version" => "1");
   }
-  if ($module == "panels" && $api == "layouts") {
-    return array("version" => "1");
-  }
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -33,7 +30,7 @@ function cod_events_flag_default_flags() {
   $flags = array();
   // Exported flag: "Default Event".
   $flags['default_event'] = array(
-    'content_type' => 'node',
+    'entity_type' => 'node',
     'title' => 'Default Event',
     'global' => 1,
     'types' => array(
@@ -47,26 +44,28 @@ function cod_events_flag_default_flags() {
     'unflag_message' => '',
     'unflag_denied_text' => '',
     'link_type' => 'normal',
-    'roles' => array(
-      'flag' => array(
-        0 => 2,
-      ),
-      'unflag' => array(
-        0 => 2,
-      ),
-    ),
     'weight' => 0,
+    'show_in_links' => array(
+      'full' => 0,
+      'teaser' => 0,
+      'rss' => 0,
+      'search_index' => 0,
+      'search_result' => 0,
+      'print' => 0,
+      'listing' => 0,
+      'diff_standard' => 0,
+      'token' => 0,
+    ),
+    'show_as_field' => 0,
     'show_on_form' => 0,
     'access_author' => '',
-    'show_on_page' => 1,
-    'show_on_teaser' => 1,
     'show_contextual_link' => 0,
     'i18n' => 0,
     'module' => 'cod_events',
     'locked' => array(
       0 => 'name',
     ),
-    'api_version' => 2,
+    'api_version' => 3,
   );
   return $flags;
 

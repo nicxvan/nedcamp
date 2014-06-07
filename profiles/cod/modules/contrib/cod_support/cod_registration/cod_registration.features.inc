@@ -30,7 +30,7 @@ function cod_registration_default_ticket_state() {
     "name" : "cancelled",
     "description" : "People who\\u0027ve cancelled",
     "weight" : "0",
-    "active" : "0",
+    "active" : "1",
     "bundle" : "ticket_state"
   }');
   $items['checked_in'] = entity_import('ticket_state', '{
@@ -38,7 +38,7 @@ function cod_registration_default_ticket_state() {
     "name" : "checked_in",
     "description" : "Registered users who\\u0027ve checked-in.",
     "weight" : "0",
-    "active" : "0",
+    "active" : "1",
     "bundle" : "ticket_state"
   }');
   $items['completed'] = entity_import('ticket_state', '{
@@ -46,7 +46,7 @@ function cod_registration_default_ticket_state() {
     "name" : "completed",
     "description" : "Completed Registrations",
     "weight" : "-9",
-    "active" : "0",
+    "active" : "1",
     "bundle" : "ticket_state"
   }');
   $items['pending'] = entity_import('ticket_state', '{

@@ -44,3 +44,15 @@ function cod_profile_base_update_7004() {
     field_delete_field('field_bio');
   }
 }
+
+/**
+ * Revert cod_profile_base features that have small tweaks
+ */
+function cod_profile_base_update_7005() {
+  $revert = array(
+    'cod_events' => array('field_base', 'field_instance', 'variable'),
+  );
+  features_revert($revert);
+
+  return array();
+}

@@ -51,6 +51,13 @@ function cod_bof_views_default_views() {
   $handler->display->display_options['header']['area']['field'] = 'area';
   $handler->display->display_options['header']['area']['content'] = 'BoFs are first come, first serve. To create a BoF, <a href="/user">login first</a> and then click \'create a bof\' at the time you want.';
   $handler->display->display_options['header']['area']['format'] = 'full_html';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'No Schedule has been configured yet to show BoFs';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Field: Time: Date and time */
   $handler->display->display_options['fields']['field_evttime_date']['id'] = 'field_evttime_date';
   $handler->display->display_options['fields']['field_evttime_date']['table'] = 'field_data_field_evttime_date';
@@ -58,7 +65,7 @@ function cod_bof_views_default_views() {
   $handler->display->display_options['fields']['field_evttime_date']['label'] = 'Day Tab';
   $handler->display->display_options['fields']['field_evttime_date']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_evttime_date']['settings'] = array(
-    'format_type' => 'date_no_time_',
+    'format_type' => 'date_no_time',
     'fromto' => 'value',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -105,6 +112,12 @@ function cod_bof_views_default_views() {
   $handler->display->display_options['arguments']['og_group_ref_target_id']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['og_group_ref_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['og_group_ref_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['og_group_ref_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['og_group_ref_target_id']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['og_group_ref_target_id']['validate_options']['types'] = array(
+    'event' => 'event',
+  );
+  $handler->display->display_options['arguments']['og_group_ref_target_id']['validate_options']['access'] = TRUE;
   /* Filter criterion: Field collection item: Allowed Types (field_timeslot_allowed_types) */
   $handler->display->display_options['filters']['field_timeslot_allowed_types_value']['id'] = 'field_timeslot_allowed_types_value';
   $handler->display->display_options['filters']['field_timeslot_allowed_types_value']['table'] = 'field_data_field_timeslot_allowed_types';
@@ -121,7 +134,7 @@ function cod_bof_views_default_views() {
   $handler->display->display_options['relationships']['reverse_field_timeslot_time_field_collection_item']['table'] = 'cod_event_time';
   $handler->display->display_options['relationships']['reverse_field_timeslot_time_field_collection_item']['field'] = 'reverse_field_timeslot_time_field_collection_item';
   $handler->display->display_options['relationships']['reverse_field_timeslot_time_field_collection_item']['required'] = TRUE;
-  $handler->display->display_options['path'] = 'node/%/schedule/bofs';
+  $handler->display->display_options['path'] = 'node/%/program/bofs';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'BoFs';
   $handler->display->display_options['menu']['description'] = 'Birds of a Feather Sessions';

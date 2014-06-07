@@ -12,13 +12,16 @@ function cod_events_default_rules_configuration() {
   $items['rules_default_event_flag'] = entity_import('rules_config', '{ "rules_default_event_flag" : {
       "LABEL" : "Default event flag",
       "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
       "REQUIRES" : [ "flag" ],
-      "ON" : [ "flag_flagged_default_event" ],
+      "ON" : { "flag_flagged_default_event" : [] },
       "DO" : [
         { "flag_trim" : {
             "flag" : "default_event",
-            "flagging_user" : [ "flagging_user" ],
-            "cutoff_size" : "1"
+            "flagging_user" : [ "flagging-user" ],
+            "cutoff_size" : "1",
+            "trim_newest" : 0,
+            "permission_check" : 0
           }
         }
       ]

@@ -96,10 +96,13 @@ function cod_events_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '6',
+        ),
+        'redirect' => array(
+          'weight' => '9',
         ),
       ),
       'display' => array(),
@@ -145,6 +148,57 @@ function cod_events_strongarm() {
   $strongarm->name = 'node_submitted_event';
   $strongarm->value = 0;
   $export['node_submitted_event'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_features_ignore_og_fields';
+  $strongarm->value = 0;
+  $export['og_features_ignore_og_fields'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_group_manager_default_rids_node_event';
+  $strongarm->value = array(
+    7 => 7,
+  );
+  $export['og_group_manager_default_rids_node_event'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_group_manager_full_access';
+  $strongarm->value = 1;
+  $export['og_group_manager_full_access'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_node_access_strict';
+  $strongarm->value = 1;
+  $export['og_node_access_strict'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_orphans_delete';
+  $strongarm->value = 0;
+  $export['og_orphans_delete'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_ui_admin_people_view';
+  $strongarm->value = 'og_members_admin:default';
+  $export['og_ui_admin_people_view'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_use_queue';
+  $strongarm->value = 0;
+  $export['og_use_queue'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

@@ -194,6 +194,41 @@ function cod_events_update_7004() {
     ->condition('field_name', 'field_dates', '=')
     ->execute();
 
+  if(!db_field_exists('field_data_field_dates', 'field_dates_timezone')) {
+    db_add_field('field_data_field_dates', 'field_dates_timezone', array(
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 50
+      ));
+    db_add_field('field_data_field_dates', 'field_dates_offset', array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'length' => 11
+      ));
+    db_add_field('field_data_field_dates', 'field_dates_offset2', array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'length' => 11
+      ));
+  }
+  if(!db_field_exists('field_revision_field_dates', 'field_dates_timezone')) {
+    db_add_field('field_revision_field_dates', 'field_dates_timezone', array(
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 50
+      ));
+    db_add_field('field_revision_field_dates', 'field_dates_offset', array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'length' => 11
+      ));
+    db_add_field('field_revision_field_dates', 'field_dates_offset2', array(
+        'type' => 'int',
+        'not null' => FALSE,
+        'length' => 11
+      ));
+  }
+
   $revert = array(
     'cod_events' => array('field_base', 'views_view'),
   );
@@ -228,3 +263,66 @@ function cod_events_update_7005() {
   return array();
 }
 
+/**
+ * Set OG default variables
+ */
+function cod_events_update_7006() {
+  $revert = array(
+    'cod_events' => array('variable'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Remove the 'administrator' OG role; 'administrator member' should be used.
+ * Make sure the default administrator role id exists
+ */
+function cod_events_update_7007() {
+  $og_roles = og_roles('node', 'event');
+
+  foreach ($og_roles AS $rid => $name) {
+    if ($name === 'administrator') {
+      og_role_delete($rid);
+    }
+    if ($name === 'administrator member') {
+      variable_set('og_group_manager_default_rids_node_event', array($rid => $rid));
+    }
+  }
+
+  return array();
+}
+
+/**
+ * Revert event features that use new flag3 API
+ */
+function cod_events_update_7008() {
+  $revert = array(
+    'cod_events' => array('page_manager_pages', 'flag', 'views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+
+/**
+ * Enable event program field
+ */
+function cod_events_update_7009() {
+  $revert = array(
+    'cod_events' => array('field_base', 'field_instance'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Enable cod_events_pages
+ */
+function cod_events_update_7010() {
+  module_enable(array('cod_events_pages'));
+  return array();
+}

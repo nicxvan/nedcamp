@@ -6,6 +6,19 @@
 
 include_once('cod_bof.features.inc');
 
+/**
+ * Implements hook_permission().
+ */
+function cod_bof_permission() {
+  $perms = array();
+
+  $perms['view bofs'] = array(
+    'title' => t('View BOFs'),
+    'description' => t('Allows users to view BoF schedule.'),
+  );
+  return $perms;
+}
+
 function cod_bof_views_post_execute(&$view) {
 
   if ($view->name == 'cod_bof_schedule_content' && $view->current_display == 'default' && $view->args[1] == 'bof_session') {

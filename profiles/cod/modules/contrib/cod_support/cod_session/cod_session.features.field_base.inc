@@ -34,6 +34,7 @@ function cod_session_field_default_field_bases() {
         0 => 'Unprocessed',
         1 => 'Accepted',
         2 => 'Declined',
+        3 => 'Featured',
       ),
       'allowed_values_function' => '',
       'allowed_values_php' => '',
@@ -47,6 +48,35 @@ function cod_session_field_default_field_bases() {
     ),
     'translatable' => 1,
     'type' => 'list_integer',
+  );
+
+  // Exported field_base: 'field_event_default_session_view'
+  $field_bases['field_event_default_session_view'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_event_default_session_view',
+    'field_permissions' => array(
+      'type' => 1,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Unprocessed',
+        1 => 'Accepted',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_experience'
@@ -117,43 +147,6 @@ function cod_session_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'image',
-  );
-
-  // Exported field_base: 'field_session_track'
-  $field_bases['field_session_track'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_session_track',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(
-      'tid' => array(
-        'columns' => array(
-          'tid' => 'tid',
-        ),
-        'table' => 'taxonomy_term_data',
-      ),
-    ),
-    'indexes' => array(
-      'tid' => array(
-        0 => 'tid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'taxonomy',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => array(
-          'vocabulary' => 'session_tracks',
-          'parent' => 0,
-        ),
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_slides'
