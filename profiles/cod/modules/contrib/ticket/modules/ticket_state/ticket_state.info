@@ -9,14 +9,14 @@ dependencies[] = ctools
 
 ; Entity includes.
 files[] = includes/ticket_state.entity.inc
-files[] = includes/ticket_state.controller.inc
 files[] = includes/ticket_state.ui_controller.inc
 
 files[] = includes/ticket_state.admin.inc
 
-; Information added by drush on 2014-03-03
-version = "7.x-1.0-alpha3+0-dev"
+
+; Information added by drush on 2014-06-05
+version = "7.x-1.0-beta1+0-dev"
 core = "7.x"
 project = "ticket"
-datestamp = "1393834754"
+datestamp = "1402005235"
 

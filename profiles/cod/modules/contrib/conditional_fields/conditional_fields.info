@@ -7,9 +7,10 @@ dependencies[] = system (>=7.14)
 dependencies[] = field
 configure = admin/structure/dependencies
 
-; Information added by Drupal.org packaging script on 2014-01-06
+
+; Information added by drush on 2014-06-05
 version = "7.x-3.0-alpha1+12-dev"
 core = "7.x"
 project = "conditional_fields"
-datestamp = "1389018505"
+datestamp = "1402005240"
 

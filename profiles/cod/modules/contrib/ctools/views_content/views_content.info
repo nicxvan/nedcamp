@@ -9,9 +9,10 @@ files[] = plugins/views/views_content_plugin_display_ctools_context.inc
 files[] = plugins/views/views_content_plugin_display_panel_pane.inc
 files[] = plugins/views/views_content_plugin_style_ctools_context.inc
 
-; Information added by Drupal.org packaging script on 2014-05-21
-version = "7.x-1.4+6-dev"
+
+; Information added by drush on 2014-06-05
+version = "7.x-1.4+2-dev"
 core = "7.x"
 project = "ctools"
-datestamp = "1400633330"
+datestamp = "1402005241"
 

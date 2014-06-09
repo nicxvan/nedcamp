@@ -16,8 +16,6 @@ class TicketStateEntity extends Entity {
   public $description;
   public $weight;
   public $module;
-  public $show_on_form;
-  public $default_state;
   public $active;
   public $bundle = 'ticket_state';
 

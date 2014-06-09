@@ -115,8 +115,8 @@ function ticket_state_form_submit_delete($form, &$form_state) {
 }
 
 
-/*
- * Ticket states setting form
+/**
+ * Ticket states setting form.
  */
 function ticket_state_overview_form($form, &$form_state) {
   $ticket_states = ticket_state_states();
@@ -138,13 +138,6 @@ function ticket_state_overview_form($form, &$form_state) {
         '#size' => 20,
         '#required' => TRUE,
       );
-      $form['state'][$tsid]['default_state'] = array(
-        '#type' => 'radio',
-        '#name' => 'default_state',
-        '#return_value' => $tsid,
-        '#tree' => FALSE,
-        '#default_value' => ($state->default_state) ? $tsid : FALSE,
-      );
       $form['state'][$tsid]['weight'] = array(
         '#title' => t('Weight'),
         '#type' => 'weight',
@@ -163,11 +156,6 @@ function ticket_state_overview_form($form, &$form_state) {
         '#title' => t('Active'),
         '#type' => 'checkbox',
         '#default_value' => $state->active,
-      );
-      $form['state'][$tsid]['show_on_form'] = array(
-        '#title' => t('Show on form'),
-        '#type' => 'checkbox',
-        '#default_value' => $state->show_on_form,
       );
       $form['state'][$tsid]['delete'] = array(
         '#type' => 'item',
@@ -194,17 +182,14 @@ function ticket_state_overview_form($form, &$form_state) {
 }
 
 /**
- * Submit handler for the ticket states form
+ * Submit handler for the ticket states form.
  */
 function ticket_state_overview_form_submit($form, &$form_state) {
 
-  $default_state = $form_state['values']['default_state'];
   foreach ($form_state['input']['state'] as $state) {
     $ticket_state = entity_load_single('ticket_state', $state['tsid']);
     $ticket_state->label = $state['label'];
-    $ticket_state->default_state = $state['tsid'] == $default_state;
     $ticket_state->active = isset($state['active']) ? $state['active'] : 0;
-    $ticket_state->show_on_form = isset($state['show_on_form']) ? $state['show_on_form'] : 0;
     $ticket_state->weight = $state['weight'];
     $ticket_state->description = $state['description'];
 
@@ -214,8 +199,8 @@ function ticket_state_overview_form_submit($form, &$form_state) {
   drupal_set_message(t('Your ticket states have been saved.'));
 }
 
-/*
- * Theme handler for ticket states form
+/**
+ * Theme handler for ticket states form.
  */
 function theme_ticket_state_overview_form($variables) {
   $form = $variables['form'];
@@ -224,11 +209,9 @@ function theme_ticket_state_overview_form($variables) {
   $header = array(
     array('data' => t('Label !required', array('!required' => '<span class="form-required" title="' . t('This field is required.') . '">*</span>'))),
     array('data' => t('Description')),
-    array('data' => t('Default')),
     array('data' => t('Active')),
-    array('data' => t('Show on form')),
     array('data' => t('Weight')),
-    array('data' => t('Operations'), 'colspan' => 2)
+    array('data' => t('Operations'), 'colspan' => 2),
   );
 
   foreach (element_children($form['state']) as $key) {
@@ -236,12 +219,10 @@ function theme_ticket_state_overview_form($variables) {
     foreach (array(
                'label',
                'description',
-               'default_state',
                'active',
-               'show_on_form',
                'weight',
                'delete',
-               'export'
+               'export',
              ) as $element) {
       // Since we're rendering these in a table, remove any #title attributes.
       if (!empty($form['state'][$key][$element]['#title'])) {
@@ -259,7 +240,7 @@ function theme_ticket_state_overview_form($variables) {
   $output = theme('table', array(
     'header' => $header,
     'rows' => $rows,
-    'attributes' => array('id' => 'ticket-state-admin-settings-table')
+    'attributes' => array('id' => 'ticket-state-admin-settings-table'),
   ));
 
   $output .= drupal_render_children($form);

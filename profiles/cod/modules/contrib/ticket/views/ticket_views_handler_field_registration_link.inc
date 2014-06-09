@@ -31,11 +31,6 @@ class ticket_views_handler_field_registration_link extends views_handler_field {
     parent::options_form($form, $form_state);
   }
 
-  function access() {
-    $bundle = reset($this->view->args);
-    return ticket_type_access('update', $bundle);
-  }
-
   function query() {
     $this->ensure_my_table();
     $this->add_additional_fields();

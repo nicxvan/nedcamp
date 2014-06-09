@@ -38,9 +38,31 @@ function ticket_views_data_alter(&$data) {
     'help' => t('Relate registration to the user who created it.'),
     'handler' => 'views_handler_relationship',
     'base' => 'users',
-    'base field' => 'uid', // Field on the joined table.
+    // Field on the joined table.
+    'base field' => 'uid',
     'field' => 'author_uid',
     'label' => t('registrant'),
+  );
+
+  // Allow views to relate registrations to users.
+  $data['ticket_registration']['user_uid']['relationship'] = array(
+    'title' => t('Attendee'),
+    'help' => t('Relate registration to its attendee.'),
+    'handler' => 'views_handler_relationship',
+    'base' => 'users',
+    'base field' => 'uid', // Field on the joined table.
+    'field' => 'user_uid',
+    'label' => t('attendee'),
+  );
+
+  $data['ticket_registration']['ticket_type_ttid']['relationship'] = array(
+    'title' => t('Ticket Type'),
+    'help' => t('Relate registration to its ticket type.'),
+    'handler' => 'views_handler_relationship',
+    'base' => 'ticket_type',
+    'base field' => 'ttid', // Field on the joined table.
+    'field' => 'bundle',
+    'label' => t('ticket type'),
   );
 
   $data['ticket_registration']['view_registration'] = array(
@@ -64,6 +86,14 @@ function ticket_views_data_alter(&$data) {
       'title' => t('Cancel link'),
       'help' => t('Provide a simple link to delete the ticket registration.'),
       'handler' => 'ticket_views_handler_field_registration_link_cancel',
+    ),
+  );
+
+  $data['ticket_type']['entity'] = array(
+    'field' => array(
+      'title' => t('Host entity'),
+      'help' => t('Provide a linked title of the host event entity'),
+      'handler' => 'ticket_views_handler_field_entity_link',
     ),
   );
 

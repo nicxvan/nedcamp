@@ -25,7 +25,7 @@ function ticket_state_entity_info() {
     'label' => t('Ticket registration state'),
     'plural label' => t('Ticket registration states'),
     'entity class' => 'TicketStateEntity',
-    'controller class' => 'TicketStateController',
+    'controller class' => 'EntityAPIControllerExportable',
     'base table' => 'ticket_state',
     'fieldable' => FALSE,
     'exportable' => TRUE,
@@ -103,18 +103,6 @@ function ticket_state_entity_property_info() {
       'description' => t('boolean indicating if the state is active or not.'),
       'schema field' => 'active',
     ),
-    'default_state' => array(
-      'label' => t('Default State'),
-      'type' => 'int',
-      'description' => t('A boolean indicating default ticket state.'),
-      'schema field' => 'default_state',
-    ),
-    'show_on_form' => array(
-      'label' => t('Show on form'),
-      'type' => 'int',
-      'description' => t('Show the ticket state on ticket forms'),
-      'schema field' => 'show_on_form',
-    ),
   );
 
   return $info;
@@ -190,13 +178,7 @@ function ticket_state_field_access($op, $field, $entity_type, $entity, $account)
 }
 
 /**
- * Return all registration state entities.
- *
- * @param bool $active
- * @param bool $show_on_form
- *
- * @return array
- *   An array of registration state entities.
+ * Return all ticket state entities.
  */
 function ticket_state_states($conditions = array()) {
   $states = &drupal_static(__FUNCTION__ . serialize($conditions), array());
@@ -223,8 +205,6 @@ function ticket_state_states($conditions = array()) {
 
 /**
  * Return an array of all active state machine names.
- *
- * @return array
  */
 function ticket_state_get_active_states() {
   $active = array();
@@ -236,19 +216,9 @@ function ticket_state_get_active_states() {
 }
 
 /**
- * Return default state
+ * Gets an array of all ticket states, keyed by the name.
  *
- * @return array
- */
-function ticket_state_get_default_state() {
-  $states = ticket_state_states(array('default_state' => 1));
-  return !empty($states) ? reset($states) : NULL;
-}
-
-/**
- * Gets an array of all registration states, keyed by the name.
- *
- * @param $name
+ * @param string $name
  *   If set, the type with the given name is returned.
  */
 function ticket_state_get_states($name = NULL) {
@@ -257,16 +227,19 @@ function ticket_state_get_states($name = NULL) {
 }
 
 /**
- * Get an array of states structured as options for a form select elements
+ * Get an array of states structured as options for a form select elements.
  *
  * @param array $conditions
+ *   Conditions array to pass to ticket_state_states().
  *
  * @return array
+ *   An array of options.
  */
 function ticket_state_get_states_options($conditions = array()) {
   $options = array();
 
-  // Rules likes to pass an object as the first param in an option list callback. Get rid of it.
+  // Rules likes to pass an object as the first param in an option list
+  // callback. Get rid of it.
   if (!is_array($conditions)) {
     $conditions = array();
   }
@@ -286,7 +259,7 @@ function ticket_state_get_states_options($conditions = array()) {
 function ticket_state_type_default($ticket_type) {
   if ($ticket_type->ttid) {
     $instance = field_info_instance('ticket_registration', TICKET_STATE_FIELD, $ticket_type->ttid);
-    return $instance['default_value'];
+    return $instance['default_value'][0]['target_id'];
   }
 }
 
@@ -313,9 +286,15 @@ function ticket_state_ticket_field_item_presave($item) {
   // Set the default value;
   $settings = array();
   if (isset($item['ticket_state_default'])) {
-    $settings['default_value'] = $item['ticket_state_default'];
+    $settings['default_value'][0]['target_id'] = $item['ticket_state_default'];
   }
-  ticket_state_create_field_instance('ticket_registration', $item['entity']->ttid, $settings);
+  if ($field_instance = field_info_instance('ticket_registration', TICKET_STATE_FIELD, $item['entity']->ttid)) {
+    $field_instance = array_merge($field_instance, $settings);
+    field_update_instance($field_instance);
+  }
+  else {
+    ticket_state_create_field_instance('ticket_registration', $item['entity']->ttid, $settings);
+  }
 }
 
 /**

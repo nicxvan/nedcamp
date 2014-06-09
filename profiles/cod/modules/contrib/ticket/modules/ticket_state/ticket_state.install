@@ -36,12 +36,6 @@ function ticket_state_schema() {
         'type' => 'text',
         'not null' => FALSE,
       ),
-      'default_state' => array(
-        'description' => 'A boolean indicating default ticket state.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ),
       'weight' => array(
         'description' => 'The weight of the registration state. Used to control the workflow.',
         'type' => 'int',
@@ -61,13 +55,6 @@ function ticket_state_schema() {
         'size' => 'tiny',
         'default' => 0,
       ),
-      'show_on_form' => array(
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'size' => 'tiny',
-        'description' => 'A flag showing if this ticket state should be shown on the registration form.',
-      ),
       'status' => array(
         'type' => 'int',
         'not null' => TRUE,
@@ -81,7 +68,6 @@ function ticket_state_schema() {
     'primary key' => array('tsid'),
     'indexes' => array(
       'ticket_state_name' => array('name'),
-      'ticket_state_default_state' => array('default_state'),
     ),
     'unique keys' => array(
       'name' => array('name'),
@@ -105,7 +91,8 @@ function ticket_state_install() {
   field_cache_clear();
   field_associate_fields('ticket_state');
 
-  // Generate a field base we can use for ticket type defaults and registrations.
+  // Generate a field base we can use for ticket type defaults and
+  // registrations.
   if (!$field_base = field_info_field(TICKET_STATE_FIELD)) {
     $field_base = array(
       'field_name' => TICKET_STATE_FIELD,
@@ -183,4 +170,13 @@ function ticket_state_update_7002(&$sandbox) {
     'not null' => TRUE,
     'default' => '',
   ));
+}
+
+/**
+ * Remove fields from abandoned refactor. :P
+ */
+function ticket_state_update_7003(&$sandbox) {
+  db_drop_index('ticket_state', 'ticket_state_default_state');
+  db_drop_field('ticket_state', 'default_state');
+  db_drop_field('ticket_state', 'show_on_form');
 }

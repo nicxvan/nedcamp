@@ -165,14 +165,16 @@ function ticket_field_formatter_view($entity_type, $entity, $field, $instance, $
     foreach ($items as $delta => $item) {
       // Ensure the ticket type field matches in case there are multiple
       // ticket type fields.
-      $ticket_type = $ticket_types[$item['value']];
-      if ($ticket_type->field_name == $field['field_name']) {
+      if (isset($ticket_types[$item['value']])) {
+        $ticket_type = $ticket_types[$item['value']];
+        if ($ticket_type->field_name == $field['field_name']) {
 
-        // If we show unavailable or the ticket type is available.
-        if ((isset($settings['show_unavailable']) && $settings['show_unavailable']) || ticket_type_available($ticket_type)) {
-          $form_ticket_types[$ticket_type->ttid] = $ticket_type;
+          // If we show unavailable or the ticket type is available.
+          if ((isset($settings['show_unavailable']) && $settings['show_unavailable']) || ticket_type_available($ticket_type)) {
+            $form_ticket_types[$ticket_type->ttid] = $ticket_type;
+          }
+
         }
-
       }
     }
 
@@ -218,7 +220,7 @@ function ticket_field_formatter_view_form($form, &$form_state, $vars = NULL) {
           'ticket_field_formatter_view_form_quantity_validate',
         ),
         // Custom properties used for validation.
-        '#default_value' => (int) $wrapper->ticket_type_order_min->value(),
+        '#default_value' => count($vars['ticket_types']) > 1 ? NULL : (int) $wrapper->ticket_type_order_min->value(),
         '#ticket_type' => $ticket_type->ttid,
         '#ticket_registration_quantity_min' => (int) $wrapper->ticket_type_order_min->value(),
         '#ticket_registration_quantity_max' => (int) $wrapper->ticket_type_order_max->value(),
@@ -655,15 +657,20 @@ function ticket_field_update($entity_type, $entity, $field, $instance, $langcode
   }
 
   $old_tts = array();
-  foreach (field_get_items($entity_type, $entity->original, $field['field_name'], $langcode) as $old_tt) {
-    $old_tts[] = $old_tt['value'];
+  $original_types = field_get_items($entity_type, $entity->original, $field['field_name'], $langcode);
+  if (!empty($original_types)) {
+    foreach ($original_types as $old_tt) {
+      $old_tts[] = $old_tt['value'];
+    }
   }
 
   $delete_tts = array_diff($old_tts, $new_tts);
   if (count($delete_tts)) {
     entity_delete_multiple('ticket_type', $delete_tts);
-    ticket_flush_caches();
   }
+
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+  ticket_flush_caches($entity_type, $entity_id);
 }
 
 /**

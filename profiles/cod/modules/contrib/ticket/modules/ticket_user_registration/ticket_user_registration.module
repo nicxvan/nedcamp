@@ -5,6 +5,30 @@
  */
 
 /**
+ * Implements hook_views_api().
+ */
+function ticket_user_registration_views_api() {
+  return array(
+    'version' => '3.0',
+    'path' => drupal_get_path('module', 'ticket_user_registration') . '/views',
+  );
+}
+
+/**
+ * Impleents hook_ticket_user_registrations().
+ */
+function ticket_user_registration_ticket_user_registrations($account) {
+  $view = views_get_view('ticket_attendee');
+  $display = 'block';
+  $user = $account->uid == $GLOBALS['user']->uid ? t('you') : $account->name;
+
+  return theme('ticket_user_tickets', array(
+    'title' => t('Tickets registered for @user', array('@user' => $user)),
+    'data' => $view->preview($display, array($account->uid)),
+  ));
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Adds the user registration to the ticket registration form(s).
@@ -14,7 +38,7 @@ function ticket_user_registration_form_ticket_register_form_alter(&$form, &$form
   /* Define the user registration fields for the default registrant */
   $user_registration_added = TRUE;
 
-  if(isset($user->uid) && $user->uid > 0) {
+  if (isset($user->uid) && $user->uid > 0) {
     $form['#user'] = user_load($user->uid);
     $form['#user_category'] = 'account';
   }
@@ -45,8 +69,7 @@ function ticket_user_registration_form_ticket_register_form_alter(&$form, &$form
   $form['ticket_registrant'] = array(
     '#type' => 'fieldset',
     '#title' => 'Ticket Registrant',
-    '#description' => $form['#user_category'] == 'account' ? t("Hello %email. Not you? !signout", array('%email' => $form['#user']->mail, '!signout' => l(t('Start over'), 'user/logout', array('query' => array('destination' => $return_url)))))
-          : t("Have an account already? !signin", array('!signin' => l(t('Sign-in'), 'user/login', array('query' => array('destination' => $return_url))))),
+    '#description' => $form['#user_category'] == 'account' ? t('"Hello %email. Not you? !signout', array('%email' => $form['#user']->mail, '!signout' => l(t('Start over'), 'user/logout', array('query' => array('destination' => $return_url))))) : t('Have an account already? !signin', array('!signin' => l(t('Sign-in'), 'user/login', array('query' => array('destination' => $return_url))))),
     '#weight' => -1000,
   );
   $form['ticket_registrant']['ticket_user_registrant_email'] = array(
@@ -57,12 +80,12 @@ function ticket_user_registration_form_ticket_register_form_alter(&$form, &$form
     '#required' => TRUE,
     '#element_validate' => array('ticket_user_registration_email_validate'),
     '#weight' => -1000,
-    '#default_value' => isset($form['#user']->mail) ? $form['#user']->mail: '',
+    '#default_value' => isset($form['#user']->mail) ? $form['#user']->mail : '',
     '#disabled' => $form['#user']->uid,
   );
 
   $form['#attached']['library'][] = array('system', 'jquery.cookie');
-  //Todo: Make it possible to copy data from the registrant to the 1st ticket
+  // Todo: Make it possible to copy data from the registrant to the 1st ticket.
   $form['#attached']['js'][] = drupal_get_path('module', 'ticket_user_registration') . '/ticket_user_registration.js';
 
   $form['#attributes']['class'][] = 'user-info-from-cookie';
@@ -116,14 +139,14 @@ function ticket_user_registration_form_submit(&$form, &$form_state) {
   global $user;
   $author_uid = 0;
 
-  // Potentially create a new user for the registrant of the tickets
+  // Potentially create a new user for the registrant of the tickets.
   if (isset($form['ticket_registrant'])) {
     $email = $form_state['values']['ticket_registrant']['ticket_user_registrant_email'];
     if (!$account = user_load_by_mail($email)) {
       $account = _create_user($email, $form, $form_state, 'ticket_registrant');
     }
     // If the user is logged in and wants to change profile information...
-    else if ($account->uid == $user->uid) {
+    elseif ($account->uid == $user->uid) {
       $values['values'] = $form_state['values']['ticket_registrant'];
       entity_form_submit_build_entity('user', $account, $form, $values);
       user_save($account);
@@ -134,7 +157,7 @@ function ticket_user_registration_form_submit(&$form, &$form_state) {
 
   foreach ($form as $field_name => $element) {
     unset($account);
-    // Potentially create new users for the tickets
+    // Potentially create new users for the tickets.
     if (preg_match('/^ticket_registration:new_(\d+)/', $field_name, $matches)) {
       if (isset($element['ticket_user_registration_email:' . $matches[1][0]])) {
 

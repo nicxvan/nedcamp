@@ -27,6 +27,14 @@ function ticket_theme($existing, $type, $theme, $path) {
       'template' => 'ticket-type',
       'path' => drupal_get_path('module', 'ticket') . '/theme',
     ),
+    'ticket_user_tickets' => array(
+      'variables' => array(
+        'title' => NULL,
+        'data' => NULL,
+      ),
+      'template' => 'ticket-user-tickets',
+      'path' => drupal_get_path('module', 'ticket') . '/theme',
+    ),
   );
 }
 
@@ -86,7 +94,7 @@ function ticket_entity_info() {
     'label callback' => 'ticket_registration_label',
     'entity class' => 'TicketRegistration',
     'metadata controller class' => 'TicketRegistrationMetadataController',
-    'controller class' => 'EntityAPIControllerExportable',
+    'controller class' => 'TicketRegistrationController',
     'base table' => 'ticket_registration',
     'revision table' => 'ticket_registration_revision',
     'fieldable' => TRUE,
@@ -119,7 +127,7 @@ function ticket_entity_info() {
   return $entities;
 }
 
-/*
+/**
  * Implements hook_entity_info_alter().
  */
 function ticket_entity_info_alter(&$entity_info) {
@@ -179,6 +187,17 @@ function ticket_menu() {
     'access callback' => TRUE,
     'theme callback' => 'ajax_base_page_theme',
     'type' => MENU_CALLBACK,
+  );
+
+  $items['user/%user/tickets'] = array(
+    'title' => 'Tickets',
+    'page callback' => 'ticket_registration_user_tickets',
+    'page arguments' => array(1),
+    'access callback' => 'user_edit_access',
+    'access arguments' => array(1),
+    'file path' => drupal_get_path('module', 'ticket') . '/includes',
+    'file' => 'ticket_registration.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
@@ -245,6 +264,22 @@ function ticket_permission() {
 }
 
 /**
+ * Ticket type overview page access callback.
+ */
+function ticket_type_overview_access($entity_type, $entity_id, $op) {
+  $entity = entity_load_single($entity_type, $entity_id);
+  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+  $fields_info = field_info_instances($entity_type, $bundle);
+  foreach ($fields_info as $field_name => $value) {
+    if ($field_info = field_info_field($field_name)) {
+      if ($field_info['type'] == 'ticket_type') {
+        return entity_access($op, $entity_type);
+      }
+    }
+  }
+  return FALSE;
+}
+/**
  * Ticket type entity access callback.
  */
 function ticket_type_access($op, $item = NULL, $account = NULL) {
@@ -299,7 +334,7 @@ function ticket_registration_access($op, $item = NULL, $account = NULL) {
   }
 
   // The registration owner should always have access.
-  if (isset($item->uid) && $item->uid == $account->uid) {
+  if (isset($item->author_uid) && $item->author_uid == $account->uid) {
     return TRUE;
   }
 
@@ -481,8 +516,10 @@ function ticket_get_entity_ticket_types($entity_type, $entity, $show_disabled = 
     }
 
     $result = $query->execute();
-    $ticket_types = entity_load('ticket_type', array_keys($result['ticket_type']));
-    cache_set($cid, $ticket_types);
+    if (!empty($result['ticket_type'])) {
+      $ticket_types = entity_load('ticket_type', array_keys($result['ticket_type']));
+      cache_set($cid, $ticket_types);
+    }
   }
 
   return $ticket_types;
@@ -640,101 +677,29 @@ function ticket_get_user_registrations($user, $entity_type = NULL, $entity_id = 
   // Registrations first.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'ticket_registration')
-    ->propertyCondition('uid', $user->uid);
+    ->propertyCondition('user_uid', $user->uid);
   $user_registrations = $query->execute();
 
   // Need to make a query for all the bundles that are applicable to these
-  // registrations if the host entity is passed in
+  // registrations if the host entity is passed in.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'ticket_type');
 
-  if(!empty($entity_type) && !empty($entity_id)) {
+  if (!empty($entity_type) && !empty($entity_id)) {
     $query->propertyCondition('entity_type', $entity_type)
       ->propertyCondition('entity_id', $entity_id);
   }
   $bundles = $query->execute();
 
   $registrations = array();
-  foreach($user_registrations['ticket_registration'] AS $registration) {
-    if(in_array((int)$registration->bundle, array_keys($bundles['ticket_type']))) {
+  foreach ($user_registrations['ticket_registration'] as $registration) {
+    if (in_array((int)$registration->bundle, array_keys($bundles['ticket_type']))) {
       $registrations[] = ticket_registration_load($registration->trid);
     }
   }
   return $registrations;
 }
 
-
-/*
- * Ticket Registration callbacks
- * It'd be nice if these could be put into the entity class itself
- */
-
-/**
- * Callback to get $ticket_registration->host.
- *
- * @see ticket_registration_entity_property_info().
- */
-function ticket_registration_property_host_get(TicketRegistration $ticket_registration, array $options, $property_name, $entity_type) {
-  $entity = entity_load_single($ticket_registration->entity_type, $ticket_registration->entity_id);
-  return entity_metadata_wrapper($ticket_registration->entity_type, $entity);
-}
-
-/**
- * Callback to set $ticket_registration->host.
- * @see ticket_registration_entity_property_info().
- */
-function ticket_registration_property_host_set(TicketRegistration $ticket_registration, $name, $value, $lang, $type, $info) {
-  $ticket_registration->entity_type = $value->type();
-  $ticket_registration->entity_id = $value->getIdentifier();
-}
-
-/**
- * Callback to get $ticket_registration->author.
- *
- * @see ticket_registration_entity_property_info().
- */
-function ticket_registration_property_author_get(TicketRegistration $ticket_registration, array $options, $property_name, $entity_type) {
-  if (is_numeric($ticket_registration->author_uid)) {
-    $entity = entity_load_single('user', $ticket_registration->author_uid);
-    return entity_metadata_wrapper('user', $entity);
-  }
-}
-
-/**
- * Callback to get $ticket_registration->user.
- *
- * @see ticket_registration_entity_property_info().
- */
-function ticket_registration_property_user_get(TicketRegistration $ticket_registration, array $options, $property_name, $entity_type) {
-  if (is_numeric($ticket_registration->user_uid)) {
-    $entity = entity_load_single('user', $ticket_registration->user_uid);
-    return entity_metadata_wrapper('user', $entity);
-  }
-}
-
-/**
- * Callback to set $ticket_registration->user that supports null value.
- */
-function ticket_registration_property_user_set(TicketRegistration $ticket_registration, $name, $value, $lang, $type, $info) {
-  if (is_object($value) && $account = $value->value()) {
-    $ticket_registration->{$info['schema field']} = $account->uid;
-  }
-  else {
-    $ticket_registration->{$info['schema field']} = NULL;
-  }
-}
-
-/**
- * Callback to set $ticket_registration->anon_mail that supports null value.
- */
-function ticket_registration_property_email_set(TicketRegistration $ticket_registration, $name, $value, $lang, $type, $info) {
-  if (!empty($value)) {
-    $ticket_registration->{$info['schema field']} = $value;
-  }
-  else {
-    $ticket_registration->{$info['schema field']} = NULL;
-  }
-}
 
 /**
  * Required by ticket_registrationMetadataController for Views integration.
@@ -748,11 +713,38 @@ function ticket_registration_property_email_set(TicketRegistration $ticket_regis
  */
 function ticket_registration_get_properties($entity, array $options, $name, $type) {
   switch ($name) {
-    case 'mail':
-      // If a user is set, use their email
-      $user =  entity_metadata_wrapper('ticket_registration', $entity)->user;
-      return ($user->value()) ? $user->mail->value() : '';
-      break;
+    case 'entity_type':
+      return $entity->host()->entity_type;
+
+    case 'entity_id':
+      return $entity->host()->entity_id;
+
+    case 'entity':
+      return $entity->host();
+
+    case 'user':
+      return $entity->attendee();
+
+    case 'author':
+      return $entity->registrant();
+
+  }
+}
+
+/**
+ * Required by ticket_typeMetadataController for Views integration.
+ *
+ * @param $entity
+ * @param array $options
+ * @param $name
+ * @param $type
+ *
+ * @return EntityMetadataWrapper
+ */
+function ticket_type_get_properties($entity, array $options, $name, $type) {
+  switch ($name) {
+    case 'entity':
+      return $entity->host();
   }
 }
 

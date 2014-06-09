@@ -31,6 +31,28 @@ function ticket_registration_view_page($ticket_type) {
 }
 
 /**
+ * Display tickets on a user's page.
+ */
+function ticket_registration_user_tickets($account) {
+  $content = module_invoke_all('ticket_user_registrations', $account);
+  return implode('', $content);
+}
+
+/**
+ * Implements hook_ticket_user_registrations().
+ */
+function ticket_ticket_user_registrations($account) {
+  $view = views_get_view('ticket_user');
+  $display = 'block';
+  $user = $account->uid == $GLOBALS['user']->uid ? t('Your') : t('@name\'s', array('@name' => $account->name));
+
+  return theme('ticket_user_tickets', array(
+    'title' => t('@user ticket registrations', array('@user' => $user)),
+    'data' => $view->preview($display, array($account->uid)),
+  ));
+}
+
+/**
  * View callback. This just arrayifies things for entity_view().
  */
 function ticket_registration_view($entity_type, $entity) {
@@ -77,7 +99,7 @@ function ticket_registration_form_submit($form, &$form_state) {
   if (empty($ticket_registration->trid)) {
     $ticket_registration->is_new = TRUE;
     $ticket_registration->created = REQUEST_TIME;
-    if(empty($ticket_registration->author_uid)) {
+    if (empty($ticket_registration->author_uid)) {
       $ticket_registration->author_uid = $GLOBALS['user']->uid;
     }
   }
@@ -158,8 +180,9 @@ function ticket_register_form($form, &$form_state) {
   }
 
   if (!empty($entity_data)) {
-    $form += multiple_entity_form($form, $form_state, $entity_data);
+    $entity_form = multiple_entity_form($form, $form_state, $entity_data);
 
+    $form += $entity_form;
     $form['submit'] = array(
       '#type' => 'submit',
       '#value' => isset($_SESSION['ticket']['submit_text']) ? check_plain($_SESSION['ticket']['submit_text']) : 'Next',
@@ -167,6 +190,25 @@ function ticket_register_form($form, &$form_state) {
   }
 
   return $form;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function ticket_form_alter(&$form, &$form_state, $form_id) {
+  // Disable registration forms from showing the ticket state.
+  if (isset($form['#entity_form_keys'])) {
+    foreach ($form['#entity_form_keys'] as $entity_form) {
+      if (isset($form[$entity_form]['ticket_state']) && !user_access('administer ticket')) {
+        $form[$entity_form]['ticket_state']['#access'] = FALSE;
+      }
+    }
+  }
+
+  // Disable the user registration edit page from showing ticket state.
+  elseif (isset($form['ticket_state']) && !user_access('administer ticket')) {
+    $form['ticket_state']['#access'] = FALSE;
+  }
 }
 
 /**
@@ -205,7 +247,7 @@ function ticket_register_form_submit($form, &$form_state) {
     // TODO: We should probably do this in hook_entity insert or something.
     if (module_exists('ticket_state')) {
       $ticket_type = $entity->ticket_type();
-      if(!empty($ticket_type->ticket_type_default_tsid)) {
+      if (!empty($ticket_type->ticket_type_default_tsid)) {
         $ts = ticket_state_load($ticket_type->ticket_type_default_tsid[LANGUAGE_NONE][0]['target_id']);
         $entity->state = $ts->name;
       }
@@ -224,7 +266,7 @@ function ticket_register_form_submit($form, &$form_state) {
   // Return back to the event entity, but let others modify that.
   // Note that hook_ticket_registered_redirect_alter() may return an array. see:
   // https://api.drupal.org/api/drupal/includes!form.inc/function/drupal_redirect_form/7
-  $redirect = $_SESSION['ticket']['return_url'] ? $_SESSION['ticket']['return_url']: '';
+  $redirect = $_SESSION['ticket']['return_url'] ? $_SESSION['ticket']['return_url'] : '';
   drupal_alter('ticket_registered_redirect', $redirect, $registrations);
 
   if ($redirect) {

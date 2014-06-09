@@ -11,21 +11,22 @@ class TicketTypeEntity extends Entity {
 
   // Allow access to Ticket Type properties.
   public $ttid;
-  public $vid;
+  public $revision_id;
   public $entity_type;
   public $entity_id;
   public $field_name;
   public $status;
-  public $default_state;
   public $created;
   public $changed;
+  public $default_state;
+  public $entity;
   public $bundle = 'ticket_type';
 
   /**
    * Construct.
    */
   public function __construct($values) {
-    return parent::__construct($values, 'ticket_type');
+    parent::__construct($values, 'ticket_type');
   }
 
   /**
@@ -39,8 +40,20 @@ class TicketTypeEntity extends Entity {
   /**
    * A helper funtion to get a type's host entity.
    */
-  public function host() {
-    return entity_load_single($this->entity_type, $this->entity_id);
+  public function host($entity_type = NULL, $entity_id = NULL) {
+    // Set the entity info.
+    if ($entity_type && $entity_id) {
+      $this->entity_type = $entity_type;
+      $this->entity_id = $entity_id;
+      $this->entity = NULL;
+    }
+
+    // Set the entity.
+    if (empty($this->entity) && !empty($this->entity_type) && !empty($this->entity_id)) {
+      $this->entity = entity_load_single($this->entity_type, $this->entity_id);
+    }
+
+    return $this->entity;
   }
 }
 
@@ -84,14 +97,13 @@ class TicketTypeUIController extends EntityDefaultUIController {
         'page callback' => 'drupal_get_form',
         'page arguments' => array($this->entityType . '_overview_form', $this->entityType, $argument, $entity_type),
         'description' => 'Manage ' . $plural_label . '.',
-        'access callback' => 'entity_access',
-        'access arguments' => array('update', $entity_type),
+        'access callback' => 'ticket_type_overview_access',
+        'access arguments' => array($entity_type, $argument, 'update'),
         'file path' => drupal_get_path('module', 'entity') . '/includes',
         'file' => 'entity.ui.inc',
         'type' => MENU_LOCAL_TASK,
       );
     }
-
     return $items;
   }
 
@@ -139,10 +151,10 @@ class TicketTypeUIController extends EntityDefaultUIController {
    * Generates the render array for a overview table for arbitrary entities
    * matching the given conditions.
    *
-   * @param $conditions
+   * @param array $conditions
    *   An array of conditions as needed by entity_load().
-
-   * @return Array
+   *
+   * @return array
    *   A renderable array.
    */
   public function overviewTable($conditions = array()) {
@@ -169,7 +181,7 @@ class TicketTypeUIController extends EntityDefaultUIController {
     foreach ($entities as $entity) {
       $additional_cols = array(
         ticket_type_registration_count($entity->ttid),
-        ticket_type_available($entity)? t('Yes') : t('No'),
+        ticket_type_available($entity) ? t('Yes') : t('No'),
       );
       $rows[] = $this->overviewTableRow($conditions, entity_id($this->entityType, $entity), $entity, $additional_cols);
     }
@@ -229,10 +241,10 @@ class TicketTypeUIController extends EntityDefaultUIController {
 
     $row[] = array(
       'data' => array(
-       '#theme' => 'entity_ui_overview_item',
+        '#theme' => 'entity_ui_overview_item',
         '#label' => entity_label($this->entityType, $entity),
         '#name' => !empty($this->entityInfo['exportable']) ? entity_id($this->entityType, $entity) : FALSE,
-       '#url' => $entity_uri ? $entity_uri : FALSE,
+        '#url' => $entity_uri ? $entity_uri : FALSE,
         '#entity_type' => $this->entityType,
       ),
     );

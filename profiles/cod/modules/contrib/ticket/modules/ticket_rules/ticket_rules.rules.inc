@@ -18,7 +18,7 @@ function ticket_rules_rules_condition_info() {
         'label' => t('Ticket registration'),
       ),
       'ticket_state' => array(
-        'type' => 'list<text>', 
+        'type' => 'list<text>',
         'label' => t('Ticket state'),
         'options list' => 'ticket_state_get_states_options',
       ),
@@ -53,7 +53,7 @@ function ticket_rules_rules_action_info() {
         'label' => t('Ticket registration'),
       ),
       'ticket_state' => array(
-        'type' => 'list<text>', 
+        'type' => 'list<text>',
         'label' => t('Ticket state'),
         'options list' => 'ticket_state_get_states_options',
       ),

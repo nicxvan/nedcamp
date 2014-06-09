@@ -11,20 +11,19 @@ class TicketRegistration extends Entity {
 
   // Allow access to Ticket Type properties.
   public $trid;
-  public $vid;
+  public $revision_id;
   // Essentially ttid is the bundle.
   public $bundle;
+  public $user_uid;
+  public $author_uid;
   public $created;
   public $changed;
-  public $mail;
-  public $author_uid;
-  public $user_uid;
 
   /**
    * Construct.
    */
   public function __construct(array $values = array()) {
-    return parent::__construct($values, 'ticket_registration');
+    parent::__construct($values, 'ticket_registration');
   }
 
   /**
@@ -35,12 +34,25 @@ class TicketRegistration extends Entity {
   }
 
   /**
-   * A helper function to get the email address of registration owner
+   * A helper function to get a registration's host entity.
    */
-  public function getMail() {
-    return $this->mail;
+  public function host() {
+    return entity_load_single($this->ticket_type()->entity_type, $this->ticket_type()->entity_id);
   }
 
+  /**
+   * A helper function to get a registration's author user.
+   */
+  public function registrant() {
+    return entity_load_single('user', $this->author_uid);
+  }
+
+  /**
+   * A helper function to get a registration's attendee user.
+   */
+  public function attendee() {
+    return entity_load_single('user', $this->user_uid);
+  }
 }
 
 class TicketRegistrationUIController extends EntityContentUIController {
@@ -67,4 +79,20 @@ class TicketRegistrationUIController extends EntityContentUIController {
     return $items;
   }
 
+}
+
+/**
+ * @file
+ *
+ * Contains the controller for ticket_registration entities.
+ */
+class TicketRegistrationController extends EntityAPIController {
+
+  /**
+   * Saves a ticket registration entity.
+   */
+  public function save($registration, DatabaseTransaction $transaction = NULL) {
+    $registration->changed = REQUEST_TIME;
+    parent::save($registration, $transaction);
+  }
 }

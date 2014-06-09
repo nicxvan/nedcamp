@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * UI Controller class.
+ */
 
 class TicketStatesUIController extends EntityDefaultUIController {
 
@@ -19,6 +23,9 @@ class TicketStatesUIController extends EntityDefaultUIController {
     return $items;
   }
 
+  /**
+   * Returns the ticket status overview form.
+   */
   public function overviewForm($form, &$form_state) {
     return drupal_get_form('ticket_states_overview_form');
   }

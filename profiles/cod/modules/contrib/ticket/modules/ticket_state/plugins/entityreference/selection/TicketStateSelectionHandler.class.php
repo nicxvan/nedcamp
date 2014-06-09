@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * OG Commons groups selection handler.

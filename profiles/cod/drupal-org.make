@@ -5,7 +5,7 @@ core = 7.x
 ; Contributed modules.
 projects[acquia_connector][type] = "module"
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "2.13"
+projects[acquia_connector][version] = "2.14"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
@@ -20,7 +20,17 @@ projects[admin_icons][download][revision] = "60d9f28801533fecc92216a60d444d89d80
 
 projects[admin_menu][type] = "module"
 projects[admin_menu][subdir] = "contrib"
-projects[admin_menu][version] = "3.x-dev"
+projects[admin_menu][download][type] = "git"
+projects[admin_menu][download][url] = "http://git.drupal.org/project/admin_menu.git"
+projects[admin_menu][download][branch] = "7.x-3.x"
+projects[admin_menu][download][revision] = "b07d37b8"
+
+projects[adminimal_admin_menu][type] = "module"
+projects[adminimal_admin_menu][subdir] = "contrib"
+projects[adminimal_admin_menu][download][type] = "git"
+projects[adminimal_admin_menu][download][url] = "http://git.drupal.org/project/adminimal_admin_menu.git"
+projects[adminimal_admin_menu][download][branch] = "7.x-1.x"
+projects[adminimal_admin_menu][download][revision] = "eca2f1c4"
 
 projects[advanced_help][type] = "module"
 projects[advanced_help][version] = "1.1"
@@ -32,7 +42,7 @@ projects[auto_nodetitle][version] = "1.0"
 
 projects[breakpoints][type] = "module"
 projects[breakpoints][subdir] = "contrib"
-projects[breakpoints][version] = "1.1"
+projects[breakpoints][version] = "1.2"
 
 projects[connector][type] = "module"
 projects[connector][subdir] = "contrib"
@@ -40,29 +50,41 @@ projects[connector][version] = "1.0-beta2"
 
 projects[ckeditor][type] = "module"
 projects[ckeditor][subdir] = "contrib"
-projects[ckeditor][version] = "1.13"
+projects[ckeditor][download][type] = "git"
+projects[ckeditor][download][url] = "http://git.drupal.org/project/ckeditor.git"
+projects[ckeditor][download][branch] = "7.x-1.x"
+projects[ckeditor][download][revision] = "b69a9ac"
+
+; Only load CSS when necessary.
+; https://drupal.org/node/1370894
+projects[ckeditor][patch][] = "https://drupal.org/files/issues/attach-ckeditor-css-1370894-8.patch"
+
+; Accomodate latest Media changes.
+; https://drupal.org/node/2159403
+projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-accomodate-latest-media-changes-0.patch"
+
+; Remove redundant external plugin declarations.
+; https://drupal.org/comment/8284591#comment-8284591
+projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-remove-external-plugin-declarations-1-alt.patch"
 
 projects[cod_support][type] = "module"
 projects[cod_support][subdir] = "contrib"
-projects[cod_support][download][type] = "git"
-projects[cod_support][download][url] = "http://git.drupal.org/project/cod_support.git"
-projects[cod_support][download][branch] = "7.x-1.x"
+projects[cod_support][version] = "1.0-beta1"
+;projects[cod_support][download][type] = "git"
+;projects[cod_support][download][url] = "http://git.drupal.org/project/cod_support.git"
+;projects[cod_support][download][branch] = "7.x-1.x"
 
 projects[commerce][type] = "module"
-projects[commerce][version] = "1.8"
+projects[commerce][version] = "1.9"
 projects[commerce][subdir] = "contrib"
 
 projects[commerce_features][type] = "module"
 projects[commerce_features][subdir] = "contrib"
 projects[commerce_features][version] = "1.0"
 
-projects[commerce_registration][type] = "module"
-projects[commerce_registration][subdir] = "contrib"
-projects[commerce_registration][version] = "2.0-beta5"
-
 projects[commerce_stock][type] = "module"
 projects[commerce_stock][subdir] = "contrib"
-projects[commerce_stock][version] = "2.0-rc1"
+projects[commerce_stock][version] = "2.0"
 
 projects[content_access][type] = "module"
 projects[content_access][subdir] = "contrib"
@@ -70,7 +92,10 @@ projects[content_access][version] = "1.2-beta2"
 
 projects[conditional_fields][type] = "module"
 projects[conditional_fields][subdir] = "contrib"
-projects[conditional_fields][version] = "3.x-dev"
+projects[conditional_fields][download][type] = "git"
+projects[conditional_fields][download][url] = "http://git.drupal.org/project/conditional_fields.git"
+projects[conditional_fields][download][branch] = "7.x-3.x"
+projects[conditional_fields][download][revision] = "78ecb0408"
 
 projects[context][type] = "module"
 projects[context][subdir] = "contrib"
@@ -89,13 +114,14 @@ projects[date][version] = "2.7"
 
 projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
-projects[date_ical][version] = "3.1"
+projects[date_ical][version] = "3.2"
 
 ; Remove icalcreator library from the date_ical module
 ; https://drupal.org/node/2209165
 projects[date_ical][patch][] = "https://drupal.org/files/issues/date_ical_remove_makefile.patch"
 
-projects[devel][version] = "1.4"
+; Keeping this to the latest version, since it should only be used for development.
+projects[devel][version] = "1.5"
 projects[devel][type] = "module"
 projects[devel][subdir] = "contrib"
 
@@ -112,7 +138,7 @@ projects[efq_extra_field][download][revision] = "c810360"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.3"
+projects[entity][version] = "1.5"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -139,7 +165,7 @@ projects[features][version] = "2.0"
 
 projects[field_group][type] = "module"
 projects[field_group][subdir] = "contrib"
-projects[field_group][version] = "1.3"
+projects[field_group][version] = "1.4"
 
 projects[field_permissions][type] = "module"
 projects[field_permissions][subdir] = "contrib"
@@ -151,21 +177,21 @@ projects[field_select_ct][version] = "1.0-alpha1"
 
 projects[field_collection][type] = "module"
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta5"
+projects[field_collection][version] = "1.0-beta7"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "2.2"
+projects[flag][version] = "3.5"
 
 projects[inline_entity_form][type] = "module"
 projects[inline_entity_form][version] = "1.5"
 projects[inline_entity_form][subdir] = "contrib"
 
 projects[i18n][type] = "module"
-projects[i18n][version] = "1.10"
+projects[i18n][version] = "1.11"
 projects[i18n][subdir] = "contrib"
 
-projects[jquery_update][version] = "2.3"
+projects[jquery_update][version] = "2.4"
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
 
@@ -183,7 +209,7 @@ projects[module_filter][version] = "1.8"
 
 projects[mollom][type] = "module"
 projects[mollom][subdir] = "contrib"
-projects[mollom][version] = "2.8"
+projects[mollom][version] = "2.10"
 
 projects[multiple_entity_form][type] = "module"
 projects[multiple_entity_form][version] = "1.1"
@@ -191,7 +217,7 @@ projects[multiple_entity_form][subdir] = "contrib"
 
 projects[oauth][type] = "module"
 projects[oauth][subdir] = "contrib"
-projects[oauth][version] = "3.1"
+projects[oauth][version] = "3.2"
 
 projects[oauthconnector][type] = "module"
 projects[oauthconnector][subdir] = "contrib"
@@ -202,7 +228,7 @@ projects[oauthconnector][download][revision] = "0ce7ac9614710c0f68d0a58cb4ae4667
 
 projects[og][type] = "module"
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.5"
+projects[og][version] = "2.7"
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
@@ -214,7 +240,7 @@ projects[og][patch][] = "http://drupal.org/files/og_ui-group_node_add_theme-1800
 
 ; og_group_ref field should respect og_user_access()
 ; http://drupal.org/node/1902086#comment-7026516
-projects[og][patch][] = "http://drupal.org/files/1902086-og-ref-respect-og-user-access-3.patch"
+; projects[og][patch][] = "http://drupal.org/files/1902086-og-ref-respect-og-user-access-3.patch"
 
 projects[og_vocab][type] = "module"
 projects[og_vocab][subdir] = "contrib"
@@ -231,9 +257,12 @@ projects[panels][download][url] = "http://git.drupal.org/project/panels.git"
 projects[panels][download][branch] = "7.x-3.x"
 projects[panels][download][revision] = "a267233f91e84db326a286ad91692d83c4d4a684"
 
-projects[panels_tabs][version] = "1.x-dev"
 projects[panels_tabs][type] = "module"
 projects[panels_tabs][subdir] = "contrib"
+projects[panels_tabs][download][type] = "git"
+projects[panels_tabs][download][url] = "http://git.drupal.org/project/panels_tabs.git"
+projects[panels_tabs][download][branch] = "7.x-1.x"
+projects[panels_tabs][download][revision] = "2caec501d"
 
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
@@ -248,20 +277,20 @@ projects[redirect][type] = "module"
 projects[redirect][subdir] = "contrib"
 projects[redirect][version] = "1.0-rc1"
 
-projects[registration][type] = "module"
-projects[registration][subdir] = "contrib"
-projects[registration][download][type] = "git"
-projects[registration][download][url] = "http://git.drupal.org/project/registration.git"
-projects[registration][download][branch] = "7.x-1.x"
-projects[registration][download][revision] = "45715cf133594ba7c5efe3ae214d029f132f055c"
-
 projects[rules][type] = "module"
 projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.6"
+projects[rules][version] = "2.7"
 
-projects[strongarm][version] = "2.x-dev"
+projects[smtp][version] = "1.0"
+projects[smtp][type] = "module"
+projects[smtp][subdir] = "contrib"
+
 projects[strongarm][type] = "module"
 projects[strongarm][subdir] = "contrib"
+projects[strongarm][download][type] = "git"
+projects[strongarm][download][url] = "http://git.drupal.org/project/strongarm.git"
+projects[strongarm][download][branch] = "7.x-2.x"
+projects[strongarm][download][revision] = "5a2326ba67"
 
 projects[ticket][type] = "module"
 projects[ticket][subdir] = "contrib"
@@ -292,10 +321,10 @@ projects[uuid_features][download][branch] = "7.x-1.x"
 projects[uuid_features][download][revision] = "d34d00fac27dde4247fec411f1a196411bd6e913"
 
 projects[variable][type] = "module"
-projects[variable][version] = "2.3"
+projects[variable][version] = "2.5"
 projects[variable][subdir] = "contrib"
 
-projects[views][version] = "3.7"
+projects[views][version] = "3.8"
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
 
@@ -303,12 +332,19 @@ projects[views_autorefresh][version] = "1.0-beta2"
 projects[views_autorefresh][type] = "module"
 projects[views_autorefresh][subdir] = "contrib"
 
+projects[views_datasource][type] = "module"
+projects[views_datasource][subdir] = "contrib"
+projects[views_datasource][download][type] = "git"
+projects[views_datasource][download][url] = "http://git.drupal.org/project/views_datasource.git"
+projects[views_datasource][download][branch] = "7.x-1.x"
+projects[views_datasource][download][revision] = "c15e455cebe36c1a2ef1082da4b0ea7d93db2ed5"
+
 projects[views_field_view][version] = "1.1"
 projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"
 
 projects[views_send][type] = "module"
-projects[views_send][version] = "1.0-rc3"
+projects[views_send][version] = "1.0"
 projects[views_send][subdir] = "contrib"
 
 projects[views_data_export][type] = "module"
@@ -323,14 +359,20 @@ projects[webform][type] = "module"
 projects[webform][version] = "3.20"
 projects[webform][subdir] = "contrib"
 
-; Themes
-projects[adaptivetheme][type] = "theme"
-projects[adaptivetheme][version] = "3.1"
-projects[adaptivetheme][subdir] = "contrib"
+; Contributed themes.
+projects[omega][type] = "theme"
+projects[omega][subdir] = "contrib"
+projects[omega][download][type] = "git"
+projects[omega][download][url] = "http://git.drupal.org/project/omega.git"
+projects[omega][download][branch] = "7.x-4.x"
+projects[omega][download][revision] = "3e00917a9843c3e2e0ad4bf8a68eef2dc4c34f09"
 
-projects[sky][type] = "theme"
-projects[sky][version] = "3.0-rc1"
-projects[sky][subdir] = "contrib"
+projects[adminimal_theme][type] = "theme"
+projects[adminimal_theme][subdir] = "contrib"
+projects[adminimal_theme][download][type] = "git"
+projects[adminimal_theme][download][url] = "http://git.drupal.org/project/adminimal_theme.git"
+projects[adminimal_theme][download][branch] = "7.x-1.x"
+projects[adminimal_theme][download][revision] = "d70f9f4f"
 
 ; Libraries.
 ; NOTE: These need to be listed in http://drupal.org/packaging-whitelist.
@@ -343,8 +385,20 @@ libraries[backbone][type] = "libraries"
 libraries[backbone][download][url] = "https://github.com/jashkenas/backbone/archive/1.0.0.tar.gz"
 
 libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.0/ckeditor_4.0_full.tar.gz"
+libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.3.4/ckeditor_4.3.4_full.zip"
 libraries[ckeditor][type] = "libraries"
+
+libraries[ckeditor_lineutils][download][type] = "get"
+libraries[ckeditor_lineutils][download][url] = "http://download.ckeditor.com/lineutils/releases/lineutils_4.3.4.zip"
+libraries[ckeditor_lineutils][type] = "libraries"
+libraries[ckeditor_lineutils][subdir] = "ckeditor/plugins"
+libraries[ckeditor_lineutils][directory_name] = "lineutils"
+
+libraries[ckeditor_widget][download][type] = "get"
+libraries[ckeditor_widget][download][url] = "http://download.ckeditor.com/widget/releases/widget_4.3.4.zip"
+libraries[ckeditor_widget][type] = "libraries"
+libraries[ckeditor_widget][subdir] = "ckeditor/plugins"
+libraries[ckeditor_widget][directory_name] = "widget"
 
 libraries[placeholder][download][type] = "get"
 libraries[placeholder][type] = "libraries"

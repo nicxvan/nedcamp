@@ -329,9 +329,7 @@ function panels_permission() {
  * Implements hook_flush_caches().
  */
 function panels_flush_caches() {
-  if (db_table_exists('cache_panels')) {
-    return array('cache_panels');
-  }
+  return array('cache_panels');
 }
 
 // ---------------------------------------------------------------------------
