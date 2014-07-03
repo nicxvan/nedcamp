@@ -239,6 +239,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['arguments']['field_accepted_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_accepted_value']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_accepted_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_accepted_value']['break_phrase'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -593,9 +594,9 @@ function cod_session_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'No sessions have been flagged. to add sessions, to your schedule, go to the session and click \'add to my schedule\'
+  $handler->display->display_options['empty']['area']['content'] = 'No sessions have been flagged. To add sessions to your schedule, go to the session and click \'add to my schedule\'.
 
-<strong>If you just flagged sessions, it may take up to 2 minutes for them to appear here</strong>';
+<strong>If you just flagged sessions, it may take up to 2 minutes for them to appear here.</strong>';
   $handler->display->display_options['empty']['area']['format'] = 'full_html';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Flags: session_schedule */

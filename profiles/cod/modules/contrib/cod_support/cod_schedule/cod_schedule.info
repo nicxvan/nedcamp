@@ -45,9 +45,9 @@ features[views_view][] = cod_schedule_timeslot_widget
 files[] = cod_schedule.entity.inc
 install_option = cod
 
-; Information added by Drupal.org packaging script on 2014-06-05
-version = "7.x-1.0-beta1"
+; Information added by Drupal.org packaging script on 2014-06-23
+version = "7.x-1.0-beta1+8-dev"
 core = "7.x"
 project = "cod_support"
-datestamp = "1402004328"
+datestamp = "1403508838"
 

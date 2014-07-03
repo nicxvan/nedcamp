@@ -326,3 +326,12 @@ function cod_events_update_7010() {
   module_enable(array('cod_events_pages'));
   return array();
 }
+
+/**
+ * Disable og_node_access_strict variable
+ */
+function cod_events_update_7011() {
+  variable_set('og_node_access_strict', 0);
+
+  return array();
+}

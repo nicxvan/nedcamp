@@ -83,3 +83,15 @@ function cod_base_update_7101() {
     'cod_base' => array('variable'),
   ));
 }
+
+/**
+ * Revert user permissions to enable users to view own unpublished content.
+ */
+function cod_base_update_7102() {
+  $revert = array(
+    'cod_base' => array('user_permission'),
+  );
+  features_revert($revert);
+
+  return array();
+}

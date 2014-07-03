@@ -34,8 +34,8 @@ function cod_session_sessions_pane_render($subtype, $conf, $context = NULL) {
 }
 
 function cod_session_sessions_quicktabs($event) {
-
-  $allowed_values = array('0' => 'Proposed', '1' => 'Accepted');
+  // Use '+' so that we can display Proposed/Declined and Accepted/Featured.
+  $allowed_values = array('0+2' => 'Proposed', '1+3' => 'Accepted');
   $content_tabs = array();
   foreach ($allowed_values AS $key => $status) {
     $content_tabs[] = array(

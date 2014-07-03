@@ -125,3 +125,15 @@ function cod_session_update_7008() {
 
   return array();
 }
+
+/**
+ * Enable set default session settings for events
+ */
+function cod_session_update_7009() {
+  $revert = array(
+    'cod_session' => array('views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}

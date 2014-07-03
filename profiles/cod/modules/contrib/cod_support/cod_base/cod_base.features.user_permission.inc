@@ -295,5 +295,15 @@ function cod_base_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'view own unpublished content'.
+  $permissions['view own unpublished content'] = array(
+    'name' => 'view own unpublished content',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'node',
+  );
+
   return $permissions;
 }

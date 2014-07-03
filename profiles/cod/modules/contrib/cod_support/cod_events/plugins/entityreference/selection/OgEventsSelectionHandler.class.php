@@ -22,7 +22,7 @@ class OgEventsSelectionHandler extends OgSelectionHandler {
     if (empty($this->instance['field_mode'])
       || $group_type != 'node'
       || user_is_anonymous()
-      || (isset($this->entity->type) && !(isset($event_entity_types['node'][$this->entity->type]['non_member']) && user_access("create " . $this->entity->type . " content")))) {
+      || (isset($this->instance['bundle']) && !(isset($event_entity_types['node'][$this->instance['bundle']]['non_member']) && user_access("create " . $this->instance['bundle'] . " content")))) {
       return parent::buildEntityFieldQuery($match, $match_operator);
     }
 
