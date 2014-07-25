@@ -1,0 +1,260 @@
+//::::::::::::::::::::::::::::::
+//:: Standard Navicon
+//::::::::::::::::::::::::::::::
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Navicon Defaults
+$create-navicon-use-icon:									true !default;
+$create-navicon-icon:											"%icon-navicon" !default;
+$create-navicon-font-size-context:				$base-font-size !default;
+$create-navicon-clear-next:								both;
+$create-navicon-container-background:			$site-bg-color !default;
+$create-navicon-container-border-all:			1px solid $master-color !default;
+$create-navicon-container-border-radius:	NULL !default;
+$create-navicon-container-color:					NULL !default;
+$create-navicon-container-float:					NULL !default;
+$create-navicon-container-font-size:			$base-font-size !default;
+$create-navicon-container-height:					NULL !default;
+$create-navicon-container-line-height:		NULL !default;
+$create-navicon-container-margin:					NULL !default;
+$create-navicon-container-padding:				NULL !default;
+$create-navicon-container-overflow:				NULL !default;
+$create-navicon-container-position:				NULL !default;
+$create-navicon-container-top:						NULL !default;
+$create-navicon-container-right:					NULL !default;
+$create-navicon-container-bottom:					NULL !default;
+$create-navicon-container-left:						NULL !default;
+$create-navicon-container-width:					NULL !default;
+$create-navicon-navicon-float:						NULL !default;
+$create-navicon-navicon-font-size:				NULL !default;
+$create-navicon-navicon-line-height:			NULL !default;
+$create-navicon-navicon-margin:						NULL !default;
+$create-navicon-navicon-padding:					NULL !default;
+$create-navicon-navicon-position:         absolute !default;
+$create-navicon-navicon-top:							NULL !default;
+$create-navicon-navicon-right:						NULL !default;
+$create-navicon-navicon-bottom:						NULL !default;
+$create-navicon-navicon-left:							NULL !default;
+
+
+@mixin create-navicon (
+		$use-iconfont:								$create-navicon-use-icon
+	,	$icon:												$create-navicon-icon
+	, $context:											$create-navicon-font-size-context
+	, $clear-next:									$create-navicon-clear-next
+	,	$background:									$create-navicon-container-background
+	,	$border-all:									$create-navicon-container-border-all
+	,	$border-top:									NULL
+	,	$border-right:								NULL
+	,	$border-bottom:								NULL
+	,	$border-left:									NULL
+	,	$border-radius:								$create-navicon-container-border-radius
+	, $color:												$create-navicon-container-color
+	, $cursor:											pointer
+	, $float:												$create-navicon-container-float
+	, $font-size:										$create-navicon-container-font-size
+	, $height:											$create-navicon-container-height
+	, $line-height:									$create-navicon-container-line-height
+	, $margin:											$create-navicon-container-margin
+	, $padding:											$create-navicon-container-padding
+  , $overflow:                    $create-navicon-container-overflow
+	, $position:										$create-navicon-container-position
+	, $top:													$create-navicon-container-top
+	, $right:												$create-navicon-container-right
+	, $bottom:											$create-navicon-container-bottom
+	, $left:												$create-navicon-container-left
+	, $text-align:									NULL
+	, $text-indent:									NULL
+	, $text-transform:							NULL
+	,	$width:												$create-navicon-container-width
+	,	$z-index:											NULL
+	,	$navicon-border-color:				NULL
+	,	$navicon-border-bottom-size:	NULL
+	,	$navicon-border-top-size:			NULL
+	, $before-content:							""
+	,	$display:											NULL
+	,	$visibility:									NULL
+	, $navicon-float:								$create-navicon-navicon-float
+	, $navicon-font-size:						$create-navicon-navicon-font-size
+	, $navicon-height:							NULL
+	, $navicon-line-height:					$create-navicon-navicon-line-height
+	, $navicon-margin:							$create-navicon-navicon-margin
+	, $navicon-padding:							$create-navicon-navicon-padding
+	, $navicon-position:						$create-navicon-navicon-position
+	,	$navicon-text-indent:					NULL
+	,	$navicon-width:								NULL
+	, $navicon-top:									$create-navicon-navicon-top
+	, $navicon-right:								$create-navicon-navicon-right
+	, $navicon-bottom:							$create-navicon-navicon-bottom
+	, $navicon-left:								$create-navicon-navicon-left
+	, $activate-hover-swap:					false
+	,	$background-hover:						NULL
+	,	$outer-border-hover:					NULL
+	,	$navicon-border-color-hover:	NULL
+	,	$after-content:								NULL
+	,	$after-color:									NULL
+)
+{
+	@if $use-iconfont and $use-iconfont != NULL {
+		@extend %icon-font-base !optional;
+		@extend #{$icon} !optional;
+	}
+	@if $background != NULL {
+		background: $background;
+	}
+	@if $border-all != NULL {
+		border: $border-all;
+	}
+	@if $border-top != NULL {
+		border-top: $border-top;
+	}
+	@if $border-right != NULL {
+		border-right: $border-right;
+	}
+	@if $border-bottom != NULL {
+		border-bottom: $border-bottom;
+	}
+	@if $border-left != NULL {
+		border-left: $border-left;
+	}
+	@if $border-radius != NULL {
+		@include border-radius($border-radius);
+	}
+	@if $color != NULL {
+		color: $color;
+	}
+	@if $cursor != NULL {
+		cursor: $cursor;
+	}
+	@if $display != NULL {
+		display: $display;
+	}
+	@if $float != NULL {
+		float: $float;
+	}
+	@if $font-size != NULL {
+		font-size: em($font-size,$context);
+	}
+	@if $height != NULL {
+		height: $height;
+	}
+	@if $line-height != NULL {
+		line-height: $line-height;
+	}
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $overflow != NULL {
+		overflow: $overflow;
+	}
+	@if $padding != NULL {
+		padding: $padding;
+	}
+	@if $position != NULL {
+		position: $position;
+	}
+	@if $top != NULL {
+		top: $top;
+	}
+	@if $right != NULL {
+		right: $right;
+	}
+	@if $bottom != NULL {
+		bottom: $bottom;
+	}
+	@if $left != NULL {
+		left: $left;
+	}
+	@if $text-align != NULL {
+		text-align: $text-align;
+	}
+	@if $text-indent != NULL {
+		text-indent: $text-indent;
+	}
+	@if $text-transform != NULL {
+		text-transform: $text-transform;
+	}
+	@if $width != NULL {
+		width: $width;
+	}
+	@if $z-index != NULL {
+		z-index: $z-index;
+	}
+	@if $clear-next != NULL {
+		+ * {
+			clear: $clear-next;
+		}
+	}
+	
+	
+	@if $activate-hover-swap {
+		&:hover {
+			background: $background-hover;
+			border: $outer-border-hover;
+			
+			&:before {
+				border-color: $navicon-border-color-hover;
+			}
+		}
+	}
+	&:before {
+		@if $use-iconfont == false {
+			border-bottom: $navicon-border-bottom-size solid $navicon-border-color;
+			border-top: $navicon-border-top-size double $navicon-border-color;
+			content: $before-content;
+		}
+		@if $navicon-float != NULL {
+			float: $navicon-float;
+		}
+		@if $navicon-font-size != NULL {
+			font-size: $navicon-font-size;
+		}
+		@if $navicon-height != NULL {
+			height: $navicon-height;
+		}
+		@if $navicon-line-height != NULL {
+			line-height: $navicon-line-height;
+		}
+		@if $navicon-margin != NULL {
+			margin: $navicon-margin;
+		}
+		@if $navicon-padding != NULL {
+			padding: $navicon-padding;
+		}
+		@if $navicon-position != NULL {
+			position: $navicon-position;
+		}
+		@if $navicon-top != NULL {
+			top: $navicon-top;
+		}
+		@if $navicon-right != NULL {
+			right: $navicon-right;
+		}
+		@if $navicon-bottom != NULL {
+			bottom: $navicon-bottom;
+		}
+		@if $navicon-left != NULL {
+			left: $navicon-left;
+		}
+		@if $navicon-text-indent != NULL {
+			text-indent: $navicon-text-indent;
+		}
+		@if $visibility != NULL {
+			visibility: $visibility;
+		}
+		@if $navicon-width != NULL {
+			width: $navicon-width;
+		}
+	}
+	@if $after-content != NULL {
+		&:after {
+			content: $after-content;
+			
+			@if $after-color != NULL {
+				color: $after-color;
+			}
+		}
+	}
+}
+

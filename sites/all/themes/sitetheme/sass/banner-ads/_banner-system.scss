@@ -1,0 +1,173 @@
+//::::::::::::::::::::::::::::::
+//:: Olive Tap Styles
+//::::::::::::::::::::::::::::::
+
+//::::::::::::::::::::::::::::::
+//:: Banners
+@import "image-text-link";
+@import "image-title-text-link";
+@import "title-image";
+@import "title-image-text";
+@import "title-image-text-link";
+
+
+
+//::::::::::::::::::::::::::::::
+//:: Banner Extendable Defaults
+//::::::::::::::::::::::::::::::
+%image-text-link {
+	@include image-text-link(
+			$container-margin: 0 0 1.5em 0
+		,	$container-padding: 0 1em 0 0
+		,	$anchor-color: $master-color
+		,	$img-float: left
+		,	$img-margin: 0 0.25em 0.5em 0
+		,	$img-width: 50%
+		,	$desc-margin: 0 0 1em 0
+		,	$link-button: true
+		,	$link-button-color: yellow
+	);
+}
+
+%image-title-text-link {
+	@include image-title-text-link(
+			$container-margin: 0 0 1.5em 0
+		,	$container-padding: 0 1em 0 0
+		,	$anchor-color: $master-color
+		,	$img-float: left
+		,	$img-margin: 0 0.25em 0.5em 0
+		,	$img-width: 50%
+		,	$title-font-size: em(11)
+		,	$title-color: $master-color
+		,	$title-margin: 0 0 0.5em
+		,	$desc-margin: 0 0 1em 0
+		,	$link-button: true
+		,	$link-button-color: yellow
+	);
+}
+%title-image {
+	@include title-image(
+		$container-margin: 0 0 1.5em 0
+	);
+}
+%title-image-text {
+	@include title-image-text(
+			$container-margin: 0 0 1.5em 0
+		,	$container-padding: 0 1em 0 0
+		,	$anchor-color: $master-color
+		,	$title-font-size: em(11)
+		,	$title-color: $master-color
+		,	$title-margin: 0 0 0.5em
+		,	$img-float: left
+		,	$img-margin: 0 0.25em 0.5em 0
+		,	$img-width: 50%
+	);
+}
+%title-image-text-link {
+	@include title-image-text-link(
+			$container-margin: 0 0 1.5em 0
+		,	$container-padding: 0 1em 0 0
+		,	$anchor-color: $master-color
+		,	$title-font-size: em(11)
+		,	$title-color: $master-color
+		,	$title-margin: 0 0 0.5em
+		,	$img-float: left
+		,	$img-margin: 0 0.25em 0.5em 0
+		,	$img-width: 50%
+		,	$desc-margin: 0 0 1em 0
+		,	$link-button: true
+		,	$link-button-color: yellow
+	);
+}
+
+ 
+//::::::::::::::::::::::::::::::
+//:: Banner Locations
+.banner_loc {
+
+}
+.view-banner-location {
+
+	> .view-content {
+	
+	}
+	&.top {
+	
+		&.left {
+		
+		}
+		&.right {
+		
+		}
+	}
+	&.bottom {
+	
+		&.left {
+		
+		}
+		&.right {
+		
+		}
+	}
+	&.left {
+	
+	}
+	&.right {
+	
+	}
+	&.within-article {
+	
+	}
+	.#{$logged-in-admin} & {
+		padding-top: $edit-link-top-padding;
+		position: relative;
+	}
+	.edit-link {
+		position: absolute;
+		left: 0;
+		top: -$edit-link-top-padding;
+		
+		&.banner_loc {
+			left: auto;
+			right: 1em;
+		}
+		+ div {
+			clear: both;
+		}
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Banner Ad: image-title-text-link
+.banner_style_image-title-text-link {
+	@extend %image-title-text-link;
+}
+
+//::::::::::::::::::::::::::::::
+//:: Banner Ad: image-text-link
+.banner_style_image-text-link {
+	@extend %image-text-link;
+}
+
+//::::::::::::::::::::::::::::::
+//:: Banner Ad: title-image-text-link
+.banner_style_title-image-text-link {
+	@extend %title-image-text-link;
+}
+
+//::::::::::::::::::::::::::::::
+//:: Banner Ad: title-image-text
+.banner_style_title-image-text {
+	@extend %title-image-text;
+}
+
+//::::::::::::::::::::::::::::::
+//:: Banner Ad: title-image
+.banner_style_title-image {
+	@extend %title-image;
+}
+
+
+
+//.testing{display: none;}

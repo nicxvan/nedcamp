@@ -17,3 +17,6 @@ for additional information about obtaining and organizing extensions.
 
 See INSTALL.txt in the Drupal root for information about single-site
 installation or multisite configuration.
+
+This is a new comment
+This is a new one

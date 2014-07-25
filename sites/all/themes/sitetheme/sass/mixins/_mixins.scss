@@ -1,0 +1,1389 @@
+//::::::::::::::::::::::::::::::
+//:: Mixins and Functions
+//::::::::::::::::::::::::::::::
+ 
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Responsive Design
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin responsive(
+		$level
+	, $custom-query: null
+)
+{
+  @if $custom-query {
+    @media #{$level} { @content; }
+  }
+  @else if $level == all {
+    @media #{$responsive-all} { @content; }
+  }
+  @else if $level == less-than-grid {
+    @media #{$responsive-less-than-grid} { @content; }
+  }
+  @else if $level == less-than-ipad {
+    @media #{$responsive-less-than-ipad} { @content; }
+  }
+  @else if $level == less-than-nook {
+    @media #{$responsive-less-than-nook} { @content; }
+  }
+  @else if $level == grid-ipad {
+    @media #{$responsive-grid-ipad} { @content; }
+  }
+  @else if $level == ipad-nook {
+    @media #{$responsive-ipad-nook} { @content; }
+  }
+  @else if $level == ipad-landscape {
+    @media #{$responsive-ipad-landscape} { @content; }
+  }
+  @else if $level == nook-landscape {
+    @media #{$responsive-nook-landscape} { @content; }
+  }
+  @else if $level == $portrait {
+    @media #{$portrait-query} { @content; }
+  }
+  @else if $level == $landscape {
+    @media #{$landscape-query} { @content; }
+  }
+  @else if $level == $nook {
+    @media #{$nook-query} { @content; }
+  }
+  @else if $level == $ipad {
+    @media #{$ipad-query} { @content; }
+  }
+  @else if $level == $grid {
+    @media #{$grid-query} { @content; }
+  }
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Visually Hide and Show
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin hide-block (
+		$clip:			rect(1px, 1px, 1px, 1px)
+	,	$clip-ie:		rect(1px 1px 1px 1px)
+	,	$position:	absolute !important
+)
+{
+	@if $clip-ie != NULL {
+		clip: $clip-ie;
+	}
+	@if $clip != NULL {
+		clip: $clip;
+	}
+	@if $position != NULL {
+		position: $position;
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin show-block (
+		$clip:			auto
+	,	$position:	static !important
+)
+{
+	@if $clip != NULL {
+		clip: $clip;
+	}
+	@if $position != NULL {
+		position: $position;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: C-F-W
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin c-f-w (
+		$clear: both
+	, $float: left
+	, $margin: null
+	, $width: null
+)
+{
+	@if $clear != NULL {
+  	clear: $clear;
+  }
+	@if $float != NULL {
+    float: $float;
+  }
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $width != NULL {
+		width: $width;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Quotes
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin quotes (
+		$q-line-height:		NULL
+	,	$color:						$master-color
+	, $before-content:	'\201C'
+	, $after-content:		'\201D'
+	, $font-size:				1.5em
+	, $font-style:			normal
+)
+{
+	@if $q-line-height != NULL {
+		line-height: $q-line-height;
+	}
+
+	&:before,
+	&:after {
+		@if $color != NULL {
+			color: $color;
+		}
+		@if $font-size != NULL {
+			font-size: $font-size;	
+		}
+		@if $font-style != NULL {
+			font-style: $font-style;
+		}
+	}
+
+	@if $before-content != NULL {
+		&:before {
+			content: '#{$before-content}';
+		}
+	}
+	@if $after-content != NULL {
+		&:after {
+			content: '#{$after-content}';
+		}
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Cross-Browser
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin ie($ie-version) {
+	.#{$ie-version} & { @content; }
+}
+@mixin firefox() {
+	@-moz-document url-prefix() { @content; }
+}
+@mixin opera() {
+	@media not all and (-webkit-min-device-pixel-ratio:0) { @content; }
+}
+@mixin webkit() {
+	@media screen and (-webkit-min-device-pixel-ratio:0) { @content; }
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Generated Content ClearFix
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin ClearFix(){
+	&:after,
+	.pseudo-clear	{
+		content: ".";
+		display: block;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Calculating px to em
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function em(
+		$target
+	, $context:			($base-font-size / 1px)
+	, $return-unit: true
+)
+{
+	@if $return-unit {
+		@return ($target / $context) * 1em;
+	}
+	@else {
+		@return ($target / $context);
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Calculating em to px
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function em2px(
+		$target
+	, $context: ($base-font-size / 1px)
+	, $return-unit: true
+)
+{
+	@if $return-unit {
+		@return ($target * $context) * 1px;
+	}
+	@else {
+		@return ($target * $context);
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Calculating percent of number
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function pon($percent,$base) {
+	@return ($percent / $base) * 100%;
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Calculating Phi
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function phi-a(
+	$number: 100%
+)
+{
+	@return $number / 1.618;
+}
+@function phi-b(
+	$number: 100%
+)
+{
+	@return $number - ($number / 1.618);
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Strip Units
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function stripUnits(
+		$type
+	,	$number
+)
+{
+	@if $type == 'rem'		{@return $number / 1rem;}
+	@elseif $type == 'em'	{@return $number / 1em;}
+	@elseif $type == 'px'	{@return $number / 1px;}
+	@elseif $type == '%'	{@return $number / 1%;}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Determine even number via modulus
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function mod(
+		$number
+	,	$scope:		2
+)
+{
+  @return $number % $scope == 0;
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: CSS3Pie
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin CSS3Pie(
+		$CSS3PieDirectory: "#{$CSS3PieLocation}/PIE.htc"
+	, $relative: true
+)
+{
+	behavior: url($CSS3PieDirectory);
+	@if $relative {
+		position: relative;
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin CSS3PieReset(){
+	behavior: none;
+	position: static;
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: IE RGBA
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin ie-rgba(
+		$color: $master-color
+	, $alpha: 0.5
+	, $legacy: false
+	,	$ie-version: lt-ie9
+	, $relative: true
+)
+{
+	$rgba: rgba($color, $alpha);
+
+	@include ie('#{$ie-version}'){
+		@if $legacy {
+			$ie-hex-str: ie-hex-str($rgba);
+			background: none;
+			-ms-filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+			zoom: 1;
+		}
+		@else {
+			-pie-background: $rgba;
+			@if $relative {
+				@include CSS3Pie();
+			}
+			@else {
+				@include CSS3Pie($relative: false);
+			}
+		}
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Halo Border
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin halo-border(
+		$background:				false
+	,	$background-color:	false
+	, $alpha:							0.1
+	, $border:						false
+	, $border-top:				false
+	, $border-right:			false
+	, $border-bottom:			false
+	, $border-left:				false
+	, $border-radius:			false
+	, $box-shadow:				false
+	, $padding:						false
+)
+{
+	@if $background {
+		background: $background;
+	}
+	@if $background-color {
+		background-color: rgba($background-color, $alpha);
+	}
+	@if $border {
+		border: $border;
+	}
+	@if $border-top {
+		border-top: $img-border-top;
+	}
+	@if $border-right {
+		border-right: $img-border-right;
+	}
+	@if $border-bottom {
+		border-bottom: $img-border-bottom;
+	}
+	@if $border-left {
+		border-left: $img-border-left;
+	}
+	@if $border-radius {
+		@include border-radius($border-radius);
+	}
+	@if $box-shadow {
+		box-shadow: $box-shadow;
+	}
+	@if $padding {
+		padding: $padding;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Responsive Font-sizes
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin font-size (
+		$level-full:				$base-font-size
+	,	$level-all:					NULL
+	,	$level-ipad:				NULL
+	,	$level-nook:				NULL
+	,	$level-landscape:		NULL
+	,	$level-portrait:		NULL
+	,	$context:						stripUnits('px', $base-font-size)
+)
+{
+
+	font-size: em($level-full,$context);
+
+	@if $level-all != NULL {
+		@include responsive(all) {
+			font-size: em($level-all,$context);
+		}
+	}
+	@if $level-ipad != NULL {
+		@include responsive(less-than-grid) {
+			font-size: em($level-ipad,$context);
+		}
+	}
+	@if $level-nook != NULL {
+		@include responsive(less-than-ipad) {
+			font-size: em($level-nook,$context);
+		}
+	}
+	@if $level-landscape != NULL {
+		@include responsive(less-than-nook) {
+			font-size: em($level-landscape,$context);
+		}
+	}
+	@if $level-portrait != NULL {
+		@include responsive($portrait) {
+			font-size: em($level-portrait,$context);
+		}
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Titles
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin title-style (
+		$color:									$master-color
+	,	$color-hover:						NULL
+	, $font-family:						NULL
+	, $font-size:							NULL
+	, $font-style:						NULL
+	, $font-weight:						NULL
+	, $line-height:						NULL
+	,	$margin:								NULL
+	, $text-transform:				NULL
+	,	$hidden:								NULL
+	,	$visible:								NULL
+	,	$invisible:							NULL
+	,	$hide-standard-user:		NULL
+	,	$hide-specifc-selector:	NULL
+	,	$extend-1:							NULL
+	,	$extend-2:							NULL
+	,	$extend-3:							NULL
+)
+{
+	@if $extend-1 != NULL {
+		@extend %#{$extend-1};
+	}
+	@if $extend-2 != NULL {
+		@extend %#{$extend-2};
+	}
+	@if $extend-3 != NULL {
+		@extend %#{$extend-3};
+	}
+	@if $hidden != NULL {
+		@extend %hidden;
+	}
+	@if $invisible != NULL {
+		@extend %element-invisible;
+	}
+	@if $visible != NULL {
+		@extend %element-visible;
+	}
+	@if $color != NULL {
+		color: $color;
+	}
+	@if $font-family != NULL {
+		font-family: $font-family;
+	}
+	@if $font-size != NULL {
+		font-size: $font-size;
+	}
+	@if $font-weight != NULL {
+		font-weight: $font-weight;
+	}
+	@if $line-height != NULL {
+		line-height: $line-height;
+	}
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $text-transform != NULL {
+		text-transform: $text-transform;
+	}
+
+	@if $hide-standard-user != NULL {
+		.not-logged-in & {
+			@extend %element-invisible;
+		}
+	}
+	@if $hide-specifc-selector != NULL {
+		#{$hide-specifc-selector} & {
+			@extend %element-invisible;
+		}
+	}
+	a {
+		@if $color != NULL {
+			color: $color;
+		}
+		&:hover {
+			@if $color-hover != NULL {
+				color: $color-hover;
+			}
+			@if $titles-link-underline-on-hover {
+				text-decoration: underline;
+			}
+			@else {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: CSS Buttons
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin css-button (
+	  $background: $master-color
+	,	$linear-gradient: false
+	,	$linear-gradient-cstop: false
+	,	$linear-gradient-rgba: false
+	,	$linear-gradient-color1: false
+	,	$linear-gradient-color2: false
+	,	$linear-gradient-color3: false
+	,	$linear-gradient-color4: false
+	,	$linear-gradient-color5: false
+	,	$linear-gradient-color6: false
+	,	$linear-gradient-color7: false
+	,	$linear-gradient-color8: false
+	, $border: false
+	, $border-radius: false
+	, $box-shadow: false
+	, $color: $text-color
+	, $cursor: pointer
+	, $display: false
+	, $float: false
+	, $font-family: false
+	, $font-size: false
+	, $font-weight: false
+	, $line-height: $base-line-height
+	, $padding: false
+	, $position: false
+	, $margin: false
+	, $text-align: false
+	, $text-decoration: false
+	, $text-shadow: false
+	, $text-transform: false
+	, $width: false
+	, $width-ie: false
+)
+{
+	background: $background;
+	@if $linear-gradient {
+		@if $linear-gradient-cstop {
+			@if $linear-gradient-rgba {
+				.rgba & {
+					@include background-image(
+						linear-gradient(
+								$linear-gradient-cstop
+							,	$linear-gradient-color1
+							,	$linear-gradient-color2
+							,	$linear-gradient-color3
+						)
+					);
+				}
+			}
+			@else {
+				@include background-image(
+					linear-gradient(
+							$linear-gradient-cstop
+						,	$linear-gradient-color1
+						,	$linear-gradient-color2
+						,	$linear-gradient-color3
+					)
+				);
+			}
+		}
+		@else {
+			@if $linear-gradient-rgba {
+				.rgba & {
+					@include background-image(
+						linear-gradient(
+								$linear-gradient-color1
+							,	$linear-gradient-color2
+							,	$linear-gradient-color3
+						)
+					);
+				}
+			}
+			@else {
+				@include background-image(
+					linear-gradient(
+							$linear-gradient-color1
+						,	$linear-gradient-color2
+						,	$linear-gradient-color3
+					)
+				);
+			}
+		}
+	}
+	@if $border {
+		border: $border;
+	}
+	@if $border-radius {
+		@include border-radius($border-radius);
+	}
+	@if $box-shadow {
+		@include box-shadow($box-shadow);
+	}
+	color: $color;
+	cursor: $cursor;
+	@if $display {
+		@if $display == inline-block {
+			@extend %inline-block;
+		}
+		@else if $display == block {
+			@extend %display-block;
+		}
+		@else {
+			display: $display;
+		}
+	}
+	@if $float {
+		float: $float;
+	}
+	@if $font-family {
+		font-family: $font-family;
+	}
+	@if $font-size {
+		font-size: $font-size;
+	}
+	@if $font-weight {
+		font-weight: $font-weight;
+	}
+	line-height: $line-height;
+	@if $margin {
+		margin: $margin;
+	}
+	@if $padding {
+		padding: $padding;
+	}
+	@if $position {
+		position: $position;
+	}
+	@if $text-align {
+		text-align: $text-align;
+	}
+	
+	@if $button-link-underline-static and $text-decoration {
+		text-decoration: $text-decoration;
+	}
+	@else if $button-link-underline-static {
+		text-decoration: underline;
+	}
+	@else if $text-decoration {
+		text-decoration: $text-decoration;
+	}
+	@if $text-shadow {
+		@include text-shadow($text-shadow);
+	}
+	@if $text-transform {
+		text-transform: $text-transform;
+	}
+	@if $width {
+		width: $width;
+	}
+	@include ie('lt-ie9') {
+		@include CSS3Pie();
+		@if $width-ie {
+			width: $width-ie;
+		}
+	}
+	&:hover {
+		@if $button-link-underline-on-hover {
+			text-decoration: underline;
+		}
+		@else {
+			text-decoration: none;
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin css-button-reset (
+	  $background: $site-bg-color
+	, $border-radius: 0
+	, $box-shadow: none
+	, $color: $master-color
+	, $line-height: $base-line-height
+	, $padding: false
+	, $width: auto
+)
+{
+	@include border-radius($border-radius);
+	@include box-shadow($box-shadow);
+	background: $background;
+	color: $color;
+	line-height: $line-height;
+	@if $padding {
+		padding: $padding;
+	}
+	width: $width;
+
+	@include ie('lt-ie9') {
+		@include CSS3Pie();
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: CSS Triangle
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin CSSTriangle(
+		$pointing:			right
+	, $color:					$text-color
+	,	$border-color:	transparent transparent transparent $color
+	, $border-style:	solid
+	, $border-width:	6px 10px
+	, $content:				""
+	, $height:				0
+	, $margin:				NULL
+	, $position:			absolute
+	, $top:						NULL
+	, $right:					NULL
+	, $bottom:				NULL
+	, $left:					NULL
+	, $width:					0
+	, $z-index:				NULL
+)
+{
+		@if $pointing == up {
+			$border-color: transparent transparent $color transparent;
+  } @else if $pointing == right {
+			$border-color: transparent transparent transparent $color;
+  } @else if $pointing == down {
+			$border-color: $color transparent transparent transparent;
+  } @else if $pointing == left {
+			$border-color: transparent $color transparent transparent;
+  }
+	
+	border-color: $border-color;
+	border-style: $border-style;
+	border-width: $border-width;
+	@if $bottom != NULL {
+		bottom: $bottom;
+  }
+	@if $content != NULL {
+		content: "#{$content}";
+	}
+	@if $height != NULL {
+		height: $height;
+	}
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $left != NULL {
+		left: $left;
+  }
+	@if $position != NULL {
+		position: $position;
+  }
+	@if $right != NULL {
+		right: $right;
+  }
+	@if $top != NULL {
+		top: $top;
+  }
+	@if $width != NULL {
+		width: $width;
+	}
+	@if $z-index != NULL {
+		z-index: $z-index;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: CSS Styling <ol>
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin Numbered-List(
+		$scope:								li
+	, $counter-increment:		$scope
+	, $content:							counter($scope)
+	,	$scope-margin:				false
+	,	$scope-padding:				false
+	,	$scope-position:			relative
+	, $border-radius:				$standard-border-radius
+	, $background:					$master-color
+	, $border-all:					false
+	, $border-top:					false
+	, $border-right:				false
+	, $border-bottom:				false
+	, $border-left:					false
+	, $color:								$text-color
+	, $font:								false
+	, $font-family:					false
+	, $font-size:						false
+	, $font-weight:					false
+	, $display:							block
+	, $text-align:					center
+	, $line-height:					false
+	, $padding:							false
+	, $position:						absolute
+	, $top:									false
+	, $right:								false
+	, $bottom:							false
+	, $left:								false
+	, $height:							false
+	, $width:								false
+	, $reset-list:					false
+)
+{
+	counter-reset: li;
+
+	@if $reset-list {
+		@extend %list-reset;
+	}
+
+	> #{$scope} {
+		@if $scope-margin {
+			margin: $scope-margin;
+		}
+		@if $scope-padding {
+			padding: $scope-padding;
+		}
+		@if $scope-position {
+			position: $scope-position;
+		}
+	
+		&:before {
+			@if $background {
+				background: $background;
+			}
+			@if $border-all {
+				border: $border-all;
+			}
+			@if $border-top {
+				border-top: $border-top;
+			}
+			@if $border-right {
+				border-right: $border-right;
+			}
+			@if $border-bottom {
+				border-bottom: $border-bottom;
+			}
+			@if $border-left {
+				border-left: $border-left;
+			}
+			@if $border-radius and $border-radius != NULL and $border-radius > 0 {
+				@include border-radius($border-radius);
+			}
+			@if $color {
+				color: $color;
+			}
+			@if $content {
+				content: $content;
+			}
+			@if $counter-increment {
+				counter-increment: $counter-increment;
+			}
+			@if $font {
+				font: $font;
+			}
+			@if $font-family {
+				font-family: $font-family;
+			}
+			@if $font-size {
+				font-size: $font-size;
+			}
+			@if $font-weight {
+				font-weight: $font-weight;
+			}
+			@if $display {
+				display: $display;
+			}
+			@if $height {
+				height: $height;
+			}
+			@if $line-height {
+				line-height: $line-height;
+			}
+			@if $padding {
+				padding: $padding;
+			}
+			@if $position {
+				position: $position;
+			}
+			@if $text-align {
+				text-align: $text-align;
+			}
+			@if $top {
+				top: $top;
+			}
+			@if $right {
+				right: $right;
+			}
+			@if $bottom {
+				bottom: $bottom;
+			}
+			@if $left {
+				left: $left;
+			}
+			@if $width {
+				width: $width;
+			}
+		}
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Banner Overlay
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin banner-overlay (
+	  $background: false
+	, $border-all: false
+	, $border-top: false
+	, $border-right: false
+	, $border-bottom: false
+	, $border-left: false
+	, $border-radius: false
+	, $bottom: false
+	, $color: false
+	, $font: false
+	, $font-family: false
+	, $font-size: false
+	, $font-weight: false
+	, $height: false
+	, $left: false
+	, $line-height: false
+	, $margin: false
+	, $min-height: false
+	, $max-height: false
+	, $padding: false
+	, $position: false
+	, $right: false
+	, $text-transform: false
+	, $top: false
+	, $width: false
+	, $z-index: false
+	, $css3pie-support: true
+	, $ie-rgba: false
+	, $ie-rgba-color: #FFF
+	, $ie-rgba-alpha: 0.9
+)
+{
+	@if $background {
+		background: $background;
+	}
+	@if $border-all {
+		border: $border-all;
+	}
+	@if $border-top {
+		border-top: $border-top;
+	}
+	@if $border-right {
+		border-right: $border-right;
+	}
+	@if $border-bottom {
+		border-bottom: $border-bottom;
+	}
+	@if $border-left {
+		border-left: $border-left;
+	}
+	@if $border-radius {
+		@include border-radius($border-radius);
+	}
+	@if $color {
+		color: $color;
+	}
+	@if $font {
+		font: $font;
+	}
+	@if $font-family {
+		font-family: $font-family;
+	}
+	@if $font-size {
+		font-size: $font-size;
+	}
+	@if $font-weight {
+		font-weight: $font-weight;
+	}
+	@if $height {
+		height: $height;
+	}
+	@if $line-height {
+		line-height: $line-height;
+	}
+	@if $margin {
+		margin: $margin;
+	}
+	@if $min-height {
+		min-height: $min-height;
+	}
+	@if $max-height {
+		max-height: $max-height;
+	}
+	@if $padding {
+		padding: $padding;
+	}
+	@if $position {
+		position: $position;
+	}
+	@if $text-transform {
+		text-transform: $text-transform;
+	}
+	@if $top {
+		top: $top;
+	}
+	@if $right {
+		right: $right;
+	}
+	@if $bottom {
+		bottom: $bottom;
+	}
+	@if $left {
+		left: $left;
+	}
+	@if $width {
+		width: $width;
+	}
+	@if $z-index {
+		z-index: $z-index;
+	}
+	@if $ie-rgba {
+		@include ie-rgba(
+				$color: $ie-rgba-color
+			, $alpha: $ie-rgba-alpha
+			, $relative: false
+		);
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Resets
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin mar-pad-reset(
+		$margin:		0
+	,	$padding:		0
+)
+{
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $padding != NULL {
+		padding: $padding;
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin list-reset(
+		$list-style:					none
+	,	$list-style-image:		none
+)
+{
+	@if $list-style != NULL {
+		list-style: $list-style;
+	}
+	@if $list-style-image != NULL {
+		list-style-image: $list-style-image;
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin full-list-reset(
+		$list-style:					none
+	,	$list-style-image:		none
+	,	$margin:						0
+	,	$padding:						0
+)
+{
+	@if $list-style != NULL {
+		list-style: $list-style;
+	}
+	@if $list-style-image != NULL {
+		list-style-image: $list-style-image;
+	}
+	@if $margin != NULL {
+		margin: $margin;
+	}
+	@if $padding != NULL {
+		padding: $padding;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Output Extended Margins
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@function extend-margin($extendable) {
+	@if $extendable == mar-0 {
+		@return "%mar-0";
+	}
+	@else if $extendable == mar-b-0 {
+		@return "%mar-b-0";
+	}
+	@else if $extendable == mar-b-0_25em {
+		@return "%mar-b-0_25em";
+	}
+	@else if $extendable == mar-b-0_5em {
+		@return "%mar-b-0_5em";
+	}
+	@else if $extendable == mar-b-1em {
+		@return "%mar-b-1em";
+	}
+	@else if $extendable == mar-b-1_5em {
+		@return "%mar-b-1_5em";
+	}
+	@else if $extendable == mar-b-2em {
+		@return "%mar-b-2em";
+	}
+	@else if $extendable ==mar-b-2_5em {
+		@return "%mar-b-2_5em";
+	}
+	@else if $extendable == mar-b-3em {
+		@return "%mar-b-3em";
+	}
+	@else if $extendable == mar-b-4em {
+		@return "%mar-b-4em";
+	}
+}
+
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//:: Listing Objects
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-container (
+	  $clear-container: false
+	,	$container-float: false
+	,	$container-extend-margin: false
+	,	$container-margin: false
+	,	$container-padding: false
+	,	$container-position: false
+	,	$container-width: false
+	,	$anchor-color: false
+)
+{
+	@if $container-extend-margin {
+		@extend #{extend-margin($container-extend-margin)};
+	}
+	@if $clear-container {
+		@extend %clearfix;
+	}
+	@if $container-float {
+		float: $container-float;
+	}
+	@if $container-margin {
+		margin: $container-margin;
+	}
+	@if $container-padding {
+		padding: $container-padding;
+	}
+	@if $container-position {
+		position: $container-position;
+	}
+	@if $container-width {
+		width: $container-width;
+	}
+	
+	@if $anchor-color {
+		a {
+			color: $anchor-color;
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-rows (
+	  $clear-rows: false
+	,	$position-edit-links: false
+	,	$rows-float: false
+	,	$rows-extend-margin: false
+	,	$rows-margin: false
+	,	$rows-padding: false
+	,	$rows-position: false
+	,	$rows-width: false
+)
+{
+	@if $rows-extend-margin {
+		@extend #{extend-margin($rows-extend-margin)};
+	}
+	@if $clear-rows {
+		@extend %clearfix;
+	}
+	@if $rows-float {
+		float: $rows-float;
+	}
+	@if $rows-margin {
+		margin: $rows-margin;
+	}
+	@if $rows-padding {
+		padding: $rows-padding;
+	}
+	@if $rows-position {
+		position: $rows-position;
+	}
+	@if $rows-width {
+		width: $rows-width;
+	}
+	@if $position-edit-links {
+		@extend %edit-container;
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-title (
+		$title-background: false
+	,	$title-extend: false
+	,	$title-font-size: false
+	,	$title-color: false
+	,	$title-extend-margin: false
+	,	$title-margin: false
+	,	$title-padding: false
+	,	$title-hover-anchor-underline: false
+)
+{
+	@if $title-extend-margin {
+		@extend #{extend-margin($title-extend-margin)};
+	}
+	@if $title-extend == h1 {
+		@extend %h1-title-style;
+	}
+	@else if $title-extend == h2 {
+		@extend %h2-title-style;
+	}
+	@else if $title-extend == h3 {
+		@extend %h3-title-style;
+	}
+	
+	@if $title-background {
+		background: $title-background;
+	}
+	@if $title-font-size {
+		font-size: $title-font-size;
+	}
+	@if $title-color {
+		color: $title-color;
+	}
+	@if $title-margin {
+		margin: $title-margin;
+	}
+	@if $title-padding {
+		padding: $title-padding;
+	}
+	
+	a {
+		@if $title-color {
+			color: $title-color;
+		}
+		@if $titles-link-underline-static {
+			text-decoration: underline;
+		} 
+		@else {
+			text-decoration: none;
+		}
+		
+		&:hover {
+			@if $titles-link-underline-on-hover {
+				text-decoration: underline;
+			} 
+			@else {
+				text-decoration: none;
+			}
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-image (
+	  $img-background: 			false
+	,	$img-float:						false
+	,	$img-extend-margin:		false
+	,	$img-margin:					false
+	,	$img-padding:					false
+	,	$img-width:						false
+	,	$halo-img:						$halo-all-images
+)
+{
+	@if $img-extend-margin {
+		@extend #{extend-margin($img-extend-margin)};
+	}
+	@if $img-background {
+		background: $img-background;
+	}
+	@if $img-float {
+		float: $img-float;
+	}
+	@if $img-margin {
+		margin: $img-margin;
+	}
+	@if $img-padding {
+		padding: $img-padding;
+	}
+	@if $img-width {
+		width: $img-width;
+	}
+	
+	img {
+		@if $halo-img {
+			@extend %halo-border;
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-desc (
+	  $desc-background: false
+	,	$desc-float: false
+	,	$desc-extend-margin: false
+	,	$desc-margin: false
+	,	$desc-padding: false
+	,	$desc-width: false
+	,	$desc-hover-anchor-underline: false
+)
+{
+	@if $desc-extend-margin {
+		@extend #{extend-margin($desc-extend-margin)};
+	}
+	@if $desc-background {
+		background: $desc-background;
+	}
+	@if $desc-float {
+		float: $desc-float;
+	}
+	@if $desc-margin {
+		margin: $desc-margin;
+	}
+	@if $desc-padding {
+		padding: $desc-padding;
+	}
+	@if $desc-width {
+		width: $desc-width;
+	}
+	@if $desc-hover-anchor-underline {
+		a {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+@mixin listing-link (
+	  $link-background: false
+	,	$link-float: false
+	,	$link-extend-margin: false
+	,	$link-margin: false
+	,	$link-padding: false
+	,	$link-width: false
+	,	$link-button: false
+	,	$link-button-color: false
+	,	$link-hover-anchor-underline: false
+)
+{
+	@if $link-extend-margin {
+		@extend #{extend-margin($link-extend-margin)};
+	}
+	@if $link-background {
+		background: $link-background;
+	}
+	@if $link-float {
+		float: $link-float;
+	}
+	@if $link-margin {
+		margin: $link-margin;
+	}
+	@if $link-padding {
+		padding: $link-padding;
+	}
+	@if $link-width {
+		width: $link-width;
+	}
+
+	a {
+		@if $link-button {
+			@extend .btn;
+		}
+		@if $link-button-color {
+			color: $link-button-color;
+		}
+		@if $link-hover-anchor-underline {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+//:::::::::::::::::::::::::::::::::::::::::::::::::://
+//.testing{display:none;}

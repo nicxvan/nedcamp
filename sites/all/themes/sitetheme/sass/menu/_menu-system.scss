@@ -1,0 +1,50 @@
+//::::::::::::::::::::::::::::::
+//:: Main Menu system controller
+//::::::::::::::::::::::::::::::
+
+
+//::::::::::::::::::::::::::::::
+//:: Import Mixins
+@import "navicon";
+
+@import "menu-horizontal-inline";
+
+@import "single_col_stacked_menu";
+
+
+//::::::::::::::::::::::::::::::
+//:: Menu Horizontal Inline
+%horizontal-inline-menu {
+  @include horizontal-inline-menu(
+	);
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Single Column Stacked menu
+%single-col-stacked-menu {
+	@include single-col-stacked-menu ();
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Menu - Sub-menu Full-menu Horizontal inline
+%menu-submenu-full-horizontal-inline {
+  @include menu-submenu-full-horizontal-inline();
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Standard Navicon
+%navicon {
+	@include create-navicon();
+	@extend %element-invisible;
+
+	@if $activate-navicon-level != NULL {
+		@include responsive($activate-navicon-level) {
+			clip: auto;
+			position: relative !important;
+		}
+	}
+}
+

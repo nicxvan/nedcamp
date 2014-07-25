@@ -1,0 +1,303 @@
+//::::::::::::::::::::::::::::::
+//:: Init file
+//::::::::::::::::::::::::::::::
+
+//::::::::::::::::::::::::::::::
+//:: Base Imports
+@import "zen";
+@import "compass";
+
+
+//::::::::::::::::::::::::::::::
+//:: Mixins and functions
+@import "mixins/mixins";
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Directory Paths
+$site-directory:												"newdcamp";
+$directory:															"/sites/default/files";
+$theme:																	"/sites/all/themes/sitetheme";
+$theme-images:													"#{$theme}/images";
+$fonts-directory:												"#{$theme}/fonts";
+$CSS3PieLocation:												$theme;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Typography
+$webfont:																"Avenir Next W02 Light";
+//::::::::::::::::::::::::::::::
+$font-arial:														Arial, "Helvetica Neue", Helvetica, sans-serif !default;
+$font-arialblack:												"Arial Black", "Arial Bold", Gadget, sans-serif !default;
+$font-arialnarrow:											"Arial Narrow", Arial, sans-serif !default;
+$font-baskerville:											Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif !default;
+$font-centurygothic:                    "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+$font-copperplate:											Copperplate, "Copperplate Gothic Light", fantasy !default;
+$font-courier:													"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace !default;
+$font-futura:                           Futura, "Trebuchet MS", Arial, sans-serif;
+$font-georgia:													Georgia, Times, "Times New Roman", serif !default;
+$font-helvetica:												"Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-lucida:														"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif !default;
+$font-tahoma:														Tahoma, Verdana, Segoe, sans-serif !default;
+$font-times:														TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif !default;
+$font-trebuchet:												"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !default;
+$font-verdana:													Verdana, Geneva, sans-serif !default;
+//:::::::::::::::::::::::::::::: 
+$base-font-size:												16px;
+$site-line-height:											1.8;
+$font:																	$webfont, $font-helvetica;
+$h1-font-size:													36;
+$h2-font-size:													18;
+$h3-font-size:													16;
+//:::::::::::::::::::::::::::::: 
+$footer-font-size:											NULL;
+$footer-line-height:										NULL;
+//::::::::::::::::::::::::::::::
+$content-link-underline-static:					false !default;
+$content-link-underline-on-hover:				true !default;
+$titles-link-underline-static:					false !default;
+$titles-link-underline-on-hover:				true !default;
+$button-link-underline-static:					false !default;
+$button-link-underline-on-hover:				false !default;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Colors
+$master-color:													#D52027;  //Red
+$secondary-color:												#000;     //Black
+$accent-color:													#FFF;     //White
+//:::::::::::::::::::::::::::::: 
+$site-bg-color:													#FFF;
+$page-bg-color:													$master-color;
+$header-bg-color:												$master-color;
+$navigation-bg-color:										NULL;
+$main-bg-color:													#FFF;
+$content-bg-color:                      NULL;
+$sidebar-bg-color:                      NULL;
+$footer-bg-color:												NULL;
+//:::::::::::::::::::::::::::::: 
+$text-color:														#333;
+$title-color:														$text-color;
+$link-color:														$master-color;
+$link-hover-color:											$master-color;
+//:::::::::::::::::::::::::::::: 
+$form-placeholder-text-color:           #AAA;
+//:::::::::::::::::::::::::::::: 
+$edit-button-bg-color:									$master-color !default;
+$edit-button-border-color:							$secondary-color !default;
+$edit-button-text-color:								#FF0 !default;
+//:::::::::::::::::::::::::::::: 
+$non-published-bg-color:								#FFC !default;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Bullet Patterns		[http://www.patternify.com/][http://ptrn.it/1mJdGYi]
+$site-bullet-style-extend:							"%bullet-disc-master" !default;
+$bullet-disc-master-pattern:						"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAALElEQVQYV2NkIBIwEqmOAV3hfzSNcHlkheiKYHrAagaJQpBTiPIM3pAiOhwBAzQGCxUtVEYAAAAASUVORK5CYII=";
+$bullet-disc-secondary-pattern:					"";
+
+
+//::::::::::::::::::::::::::::::
+//:: One-Off 
+$halo-all-images:												false;
+$logged-in-admin:												"logged-in" !default; //Class on body that defines an admin is logged in
+$edit-link-top-padding:									25px !default;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Listing Objects
+$listing-img-rt-padding:								1.5em;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Layout - Standard
+$zen-column-count:											10 !default;
+$zen-gutter-width:											0 !default;
+$pit-gutter-width:											10px !default;
+//:::::::::::::::::::::::::::::: 
+$site-padding:													70px;
+$site-width:														1040px;
+$site-width-inner:                      ($site-width - ($site-padding * 2));
+$site-standard-padding:									20px;
+$top-page-padding:											20px;
+$standard-border-radius:								5px !default;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Layout - Header
+$header-height:													70px;
+$logo-height:														NULL;
+$logo-width:														NULL;
+$edit-block-header:											false;
+$edit-block-footer:											false;
+$header-geo-width:											NULL;
+//:::::::::::::::::::::::::::::: 
+$header-padding-top:                    NULL;
+$header-padding-right:                  NULL;
+$header-padding-bottom:                 NULL;
+$header-padding-left:                   NULL;
+$header-padding:                        NULL; //$header-padding-top $header-padding-right $header-padding-bottom $header-padding-left;
+//:::::::::::::::::::::::::::::: 
+$header-region-clear:										none;
+$header-region-float:										left;
+$header-region-margin:									NULL;
+$header-region-padding:									NULL;
+$header-region-width:										((100% / 3) *2);
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Layout - Bilateral
+$skin:																	"skin-bilateral";
+//:::::::::::::::::::::::::::::: 
+$center-page:                           true;
+$center-header:													false;
+$center-header-inner:										false;
+$center-navigation:											false;
+$center-navigation-inner:								false;
+$center-main:														false;
+$center-content:                    		false;
+$center-sidebar:                        false;
+$center-sidebar-inner:                  false;
+$center-footer:													false;
+$center-footer-inner:										false;
+//:::::::::::::::::::::::::::::: 
+$clear-header-block-margin:							true;
+$header-block-extend-margin:						NULL;
+$site-logo-absolute:                    false;
+$header-min-height:											100px;
+$portrait-logo-centered:								false;
+$h1-title-label:												false;
+$h1-center-container:                   false;
+$main-top-padding-for-navigation:       5em;
+//:::::::::::::::::::::::::::::: 
+$sidebar-column-count:                	NULL;
+$sidebar-clear:                   			NULL;
+$sidebar-float:                   			left;
+$sidebar-margin:                  			NULL;
+$sidebar-padding:                   		0 30px;
+$sidebar-width:                     		pon(300, stripUnits('px', $site-width-inner));
+//:::::::::::::::::::::::::::::: 
+$content-clear:                         NULL;
+$content-float:						        			right;
+$content-margin:				        				NULL;
+$content-padding:				        				0 30px;
+$content-width:					        				pon(600, stripUnits('px', $site-width-inner));
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Icons
+$icon-font-library:											newdcamp;
+$iconfont-before-support:               true;
+$iconfont-after-support:                false;
+$iconfont-lt-ie8-support:               true;
+$icon-font-size:												25px;
+$social-icon-size:											45px;
+$icon-link-underline-static:						false;
+$icon-link-underline-on-hover:					false;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Menu
+$main-menu-item-count:									4;
+$main-menu-using-block:									false;
+$include-main-menu-inner: 							true;
+$main-menu-item-padding:								NULL;
+$main-menu-link-underline-static:				false;
+$main-menu-link-underline-on-hover:			false;
+//:::::::::::::::::::::::::::::: 
+$menu-scsm-container-background:        NULL;
+$menu-scsm-container-border-radius:     NULL;
+$menu-scsm-container-margin:            1.5em 0;
+$menu-scsm-container-padding:         	NULL;
+$menu-scsm-a-background:            		NULL;
+$menu-scsm-a-color:                 		$master-color;
+$menu-scsm-a-padding:                 	NULL;
+$menu-scsm-a-hover-background:        	NULL;
+$menu-scsm-a-hover-color:             	NULL;
+$menu-scsm-a-active-background:       	NULL;
+$menu-scsm-a-active-color:            	$secondary-color;
+//:::::::::::::::::::::::::::::: 
+$activate-navicon-level:								less-than-nook; // This is also in the script.js file
+$create-navicon-clear-next:							NULL;
+$create-navicon-container-border-all:		NULL;
+$create-navicon-container-color:				$master-color;
+$create-navicon-container-font-size:		NULL;
+$create-navicon-container-height:				38px;
+$create-navicon-container-margin:				0;
+$create-navicon-container-padding:			0;
+$create-navicon-container-overflow:			hidden;
+$create-navicon-container-right:				50px;
+$create-navicon-container-top:					135px;
+$create-navicon-container-width:				34px;
+$create-navicon-navicon-font-size:			40px;
+$create-navicon-navicon-line-height:		1;
+$create-navicon-navicon-top:						0;
+$create-navicon-navicon-left:						0;
+$navicon-after-font-size:								16;
+//:::::::::::::::::::::::::::::: 
+$standard-menu-height:									33;
+$nook-menu-height:											26;
+$mobile-menu-height:										44;
+$mobile-menu-bottom-gutter:							6;
+$mobile-expanded-menu-height:						134;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Top Banner
+$page-banner-height:										NULL;
+$page-banner-overlay-bg:								NULL;
+$page-banner-overlay-height:						NULL;
+$page-banner-overlay-padding:						NULL;
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Forms
+$form-field-bg-color:										#F3EFE7;
+$form-field-border:											1px dashed $text-color;
+$form-field-text-color:									#666;
+$form-field-padding:										13px !default;
+$form-field-font-size:									16;
+$form-field-line-height:								normal;
+$form-field-width:                      100%;
+//:::::::::::::::::::::::::::::: 
+$search-field-bg-color:									#EEE;
+$search-field-border:										NULL;
+$search-field-text-color:								$master-color;
+$search-field-padding-top:							5px;
+$search-field-padding-right:						0;
+$search-field-padding-bottom:						5px;
+$search-field-padding-left:             10px;
+$search-field-padding:									$search-field-padding-top $search-field-padding-right $search-field-padding-bottom $search-field-padding-left;
+$search-field-font-size:								14; // This is pixels that will be converted to ems
+$search-field-line-height:							$site-line-height;
+$search-field-width:      							100%;
+$search-button-width:                   NULL;
+
+
+//::::::::::::::::::::::::::::::
+//:: Responsive Design
+$full:																	$site-width - 1 + 20 !default;
+$portrait:															310px !default;
+$landscape:															470px !default;
+$nook:																	590px !default;
+$ipad:																	760px !default;
+$grid:																	950px !default;
+//:::::::::::::::::::::::::::::: 
+$responsive-all:												"only screen and (max-width: #{$full})" !default;
+$responsive-less-than-grid:							"only screen and (max-width: 959px)" !default;
+$responsive-less-than-ipad:							"only screen and (max-width: 767px)" !default;
+$responsive-less-than-nook:							"only screen and (max-width: 599px)" !default;
+$responsive-grid-ipad:									"only screen and (min-width: 768px) and (max-width: #{$full - 1})" !default;
+$responsive-grid-nook:                  "only screen and (min-width: 600px) and (max-width: #{$full - 1})" !default;;
+$responsive-ipad-nook:									"only screen and (min-width: 600px) and (max-width: 959px)" !default;
+$responsive-ipad-landscape:             "only screen and (min-width: 480px) and (max-width: 959px)" !default;
+$responsive-nook-landscape:							"only screen and (min-width: 480px) and (max-width: 767px)" !default;
+$grid-query:														"only screen and (min-width: 960px) and (max-width: #{$full})" !default;
+$ipad-query:														"only screen and (min-width: 768px) and (max-width: 959px)" !default;
+$nook-query:														"only screen and (min-width: 600px) and (max-width: 767px)" !default;
+$landscape-query:												"only screen and (min-width: 480px) and (max-width: 599px)" !default;
+$portrait-query:												"only screen and (max-width: 479px)" !default;
+
+
+//::::::::::::::::::::::::::::::
+//:: Site Specific

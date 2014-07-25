@@ -1,0 +1,174 @@
+//::::::::::::::::::::::::::::::
+//:: Icon Font Definitions
+//::::::::::::::::::::::::::::::
+
+@if $iconfont-before-support {
+  .icon-pinterest,
+  %icon-pinterest {
+    &:before {
+      content: "\e600";
+    }
+  }
+  .icon-linkedin,
+  %icon-linkedin {
+    &:before {
+      content: "\e601";
+    }
+  }
+  .icon-youtube,
+  %icon-youtube {
+    &:before {
+      content: "\e602";
+    }
+  }
+  .icon-navicon,
+  %icon-navicon {
+    &:before {
+      content: "\e603";
+    }
+  }
+  .icon-googleplus,
+  %icon-googleplus {
+    &:before {
+      content: "\e604";
+    }
+  }
+  .icon-facebook,
+  %icon-facebook {
+    &:before {
+      content: "\e605";
+    }
+  }
+  .icon-twitter,
+  %icon-twitter {
+    &:before {
+      content: "\e606";
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+@if $iconfont-after-support {
+  .icon-pinterest-r,
+  %icon-pinterest-r {
+    &:before {
+      content: "\e600";
+    }
+  }
+  .icon-linkedin-r,
+  %icon-linkedin-r {
+    &:before {
+      content: "\e601";
+    }
+  }
+  .icon-youtube-r,
+  %icon-youtube-r {
+    &:before {
+      content: "\e602";
+    }
+  }
+  .icon-navicon-r,
+  %icon-navicon-r {
+    &:before {
+      content: "\e603";
+    }
+  }
+  .icon-googleplus-r,
+  %icon-googleplus-r {
+    &:before {
+      content: "\e604";
+    }
+  }
+  .icon-facebook-r,
+  %icon-facebook-r {
+    &:before {
+      content: "\e605";
+    }
+  }
+  .icon-twitter-r,
+  %icon-twitter-r {
+    &:before {
+      content: "\e606";
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+@if $iconfont-lt-ie8-support {
+  @if $iconfont-before-support {
+    .lt-ie8 {
+      .icon-pinterest {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
+        }
+      }
+      .icon-linkedin {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
+        }
+      }
+      .icon-youtube {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
+        }
+      }
+      .icon-navicon {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+        }
+      }
+      .icon-googleplus {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
+        }
+      }
+      .icon-facebook {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
+        }
+      }
+      .icon-twitter {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
+        }
+      }
+    }
+  }
+  @if $iconfont-after-support {
+    .lt-ie8 {
+      .icon-pinterest {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
+        }
+      }
+      .icon-linkedin {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
+        }
+      }
+      .icon-youtube {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
+        }
+      }
+      .icon-navicon {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+        }
+      }
+      .icon-googleplus {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
+        }
+      }
+      .icon-facebook {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
+        }
+      }
+      .icon-twitter {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,143 @@
+//::::::::::::::::::::::::::::::
+//:: Banner Tool Include: Title Image Text
+//::::::::::::::::::::::::::::::
+
+
+@mixin title-image-text (
+		$container-float: false
+	,	$container-margin: false
+	,	$container-padding: false
+	,	$container-width: false
+	,	$anchor-color: false
+	,	$content-bottom: false
+	,	$content-height: false
+	,	$content-left: false
+	,	$content-position: false
+	,	$content-right: false
+	,	$content-top: false
+	,	$content-width: false
+	,	$content-z-index: false
+	,	$title-extend: false
+	,	$title-background: false
+	,	$title-color: false
+	,	$title-font-size: false
+	,	$title-margin: false
+	,	$title-padding: false
+	,	$desc-background: false
+	,	$desc-margin: false
+	,	$desc-padding: false
+	,	$halo-img: $halo-all-images
+	,	$img-float: false
+	,	$img-margin: false
+	,	$img-width: false
+	,	$break1: ""
+	,	$break2: ""
+)
+{
+	@extend %clearfix;
+	@if $container-float {
+		float: $container-float;
+	}
+	@if $container-margin {
+		margin: $container-margin;
+	}
+	@if $container-padding {
+		padding: $container-padding;
+	}
+	@if $container-width {
+		width: $container-width;
+	}
+
+	a {
+		@if $anchor-color {
+			color: $anchor-color;
+		}
+	}
+	.content {
+		@if $content-bottom {
+			bottom: $content-bottom;
+		}
+		@if $content-height {
+			height: $content-height;
+		}
+		@if $content-left {
+			left: $content-left;
+		}
+		@if $content-position {
+			position: $content-position;
+		}
+		@if $content-right {
+			right: $content-right;
+		}
+		@if $content-top {
+			top: $content-top;
+		}
+		@if $content-width {
+			width: $content-width;
+		}
+		@if $content-z-index {
+			z-index: $content-z-index;
+		}
+	}
+	.title {
+		@if $title-extend == h1 {
+			@extend %h1-title-style;
+		}
+		@else if $title-extend == h2 {
+			@extend %h2-title-style;
+		}
+		@else if $title-extend == h3 {
+			@extend %h3-title-style;
+		}
+		@if $title-background {
+			background: $title-background;
+		}
+		@if $title-color {
+			color: $title-color;
+		}
+		@if $title-font-size {
+			font-size: $title-font-size;
+		}
+		@if $title-margin {
+			margin: $title-margin;
+		}
+		@if $title-padding {
+			padding: $title-padding;
+		}
+		
+		a {
+			@if $title-color {
+				color: $title-color;
+			}
+		}
+	}
+	.img {
+		@if $img-float {
+			float: $img-float;
+		}
+		@if $img-margin {
+			margin: $img-margin;
+		}
+		@if $img-width {
+			width: $img-width;
+		}
+		
+		img {
+			@if $halo-img {
+				@extend %halo-border;
+			}
+		}
+	}
+	.desc {
+		@if $desc-background {
+			background: $desc-background;
+		}
+		@if $desc-margin {
+			margin: $desc-margin;
+		}
+		@if $desc-padding {
+			padding: $desc-padding;
+		}
+	}
+}
+
