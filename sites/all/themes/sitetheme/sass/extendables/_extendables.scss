@@ -1,0 +1,337 @@
+//::::::::::::::::::::::::::::::
+//:: Extendables and Common Classes - Core
+//::::::::::::::::::::::::::::::
+ 
+//::::::::::::::::::::::::::::::
+//:: Visibility and Placement
+%position-relative {
+  position: relative;
+}
+%element-hidden,
+.hidden {
+	display: none;
+}
+%element-invisible,
+.invisible {
+	@include hide-block();
+}
+%element-visible,
+.visible {
+	@include show-block();
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Colors
+%master-color,
+.master-color {
+	color: $master-color !important;
+}
+
+%secondary-color,
+.secondary-color {
+	color: $secondary-color !important;
+}
+%accent-color,
+.accent-color {
+	color: $accent-color !important;
+}
+%text-color,
+.text-color {
+	color: $text-color !important;
+}
+//::::::::::::::::::::::::::::::
+%bg-master-color,
+.bg-master-color {
+	background-color: $master-color;
+}
+
+%bg-secondary-color,
+.bg-secondary-color {
+	background-color: $secondary-color;
+}
+%bg-accent-color,
+.bg-accent-color {
+	background-color: $accent-color;
+}
+%bg-text-color,
+.bg-text-color {
+	background-color: $text-color;
+}
+//::::::::::::::::::::::::::::::
+%published-No,
+.published-No,
+.node-unpublished {
+  @extend %position-relative;
+  background-color: $non-published-bg-color !important;
+	
+	&:before {
+		content: "unpublished";
+		color: #F00;
+		font-size: 11px;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Margins		[Additions must be added to @function extend-margin()]
+%mar-pad-reset {
+	margin: 0;
+	padding: 0;
+}
+%mar-0 {
+	margin: 0;
+}
+%mar-b-0 {
+	margin-bottom: 0;
+}
+%mar-b-0_25em {
+	margin-bottom: 0.25em;
+}
+%mar-b-0_5em {
+	margin-bottom: 0.5em;
+}
+%mar-b-1em {
+	margin-bottom: 1em;
+}
+%mar-b-1_5em {
+	margin-bottom: 1.5em;
+}
+%mar-b-2em {
+	margin-bottom: 2em;
+}
+%mar-b-2_5em {
+	margin-bottom: 2.5em;
+}
+%mar-b-3em {
+	margin-bottom: 3em;
+}
+%mar-b-4em {
+	margin-bottom: 4em;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Layout
+.c-f-w,
+%c-f-w {
+	@include c-f-w ($width: 100%);
+}
+.display-block,
+%display-block {
+	display: block !important;
+}
+.contents-inline,
+%contents-inline {
+	> * {
+		display: inline;
+	}
+}
+%inline-block {
+	@include inline-block($alignment:none);
+	/*
+		//:: use this for places that cannot be extended
+		display: -moz-inline-stack;
+		display: inline-block;
+		*vertical-align: auto;
+		zoom: 1;
+		*display: inline;
+	*/
+}
+%center-block {
+	display: block;
+	margin: 0 auto;
+}
+%overlay-block {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+%edit-container {
+	.#{$logged-in-admin} & {
+		padding-top: $edit-link-top-padding !important;
+		@extend %position-relative;
+	}
+	.edit-link {
+		position: absolute;
+		left: 0;
+		text-transform: lowercase;
+		top: 0;
+	}
+	.edit-link-2 {
+		left: auto;
+    right: 0;
+	}
+}
+%list-reset {
+	list-style: none;
+	list-style-image: none;
+}
+%full-list-reset {
+	@extend %mar-pad-reset;
+  list-style: none;
+	list-style-image: none;
+}
+%clearfix {
+	@include ClearFix();
+}
+%video-aspect-ratio {
+	@extend %position-relative;
+  height: 0;
+	overflow: hidden;
+	padding-bottom: 75%;
+
+	iframe {
+		height: 100% !important;
+		left: 0;
+		position: absolute;
+		top: 0;
+		width: 100% !important;
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Forms
+%form-input-field {
+  @if $form-field-bg-color != NULL {
+    background: $form-field-bg-color;
+  }
+  @if $form-field-border != NULL {
+  	border: $form-field-border;
+  }
+  @if $form-field-text-color != NULL {
+    color: $form-field-text-color;
+  }
+	@if $standard-border-radius != NULL and $standard-border-radius < 0 {
+		@include border-radius($standard-border-radius);
+	}
+	@include box-sizing(border-box);
+	@if $form-field-font-size != NULL and $form-field-font-size != $base-font-size {
+    font-size: em($form-field-font-size);
+  }
+	@if $form-field-line-height != NULL and $form-field-line-height != $site-line-height {
+    line-height: $form-field-line-height;
+  }
+  @if $form-field-text-color != NULL {
+    padding: $form-field-padding;
+  }
+  @if $form-field-width != NULL {
+    width: $form-field-width;
+  }
+
+	@include ie('lt-ie9'){
+		@include CSS3Pie();
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Search Block
+%search-block {
+  
+  form{
+    @extend %position-relative;
+    @if ($search-button-width != NULL){
+      padding-right: $search-button-width + 10;
+    }
+  }
+  .form-actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    @if ($search-button-width != NULL){
+      width: $search-button-width;
+    }
+  }
+  .form-text {
+    @if $search-field-bg-color != NULL and $search-field-bg-color != $search-field-bg-color {
+      background-color: $search-field-bg-color;
+    }
+    @if $search-field-border != NULL and $search-field-border != $form-field-border {
+      border: $search-field-border;
+    }
+    @if $search-field-text-color != NULL and $search-field-text-color != $form-field-text-color {
+      color: $search-field-text-color;
+    }
+    @if $search-field-font-size != NULL and $search-field-font-size != $form-field-font-size {
+      font-size: $search-field-font-size;
+    }
+    @if $search-field-line-height != NULL and $search-field-line-height != $form-field-line-height {
+      line-height: $search-field-line-height;
+    }
+    padding: $search-field-padding-top $search-field-padding-right $search-field-padding-bottom $search-field-padding-left;
+    @if $search-field-width != NULL and $search-field-width != $form-field-width {
+      width: $search-field-width;
+    }
+  }
+  .form-submit {
+    @if $search-field-padding-top != NULL {
+      padding-top: $search-field-padding-top;
+    }
+    @if $search-field-padding-bottom != NULL {
+      padding-bottom: $search-field-padding-bottom;
+    }
+    width: 100%;
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Bullets
+%bullet-disc-master {
+	list-style-image: url("#{$bullet-disc-master-pattern}");
+}
+%bullet-disc-secondary {
+	list-style-image: url("#{$bullet-disc-secondary-pattern}");
+}
+
+//::::::::::::::::::::::::::::::
+%bullet-layout-disc {
+	li {
+		@extend %bullet-disc-secondary;
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: One-off
+.left-floated-img {
+	float: left;
+	margin: 0 2em 0.5em 0;
+	
+	@include responsive("only screen and (max-width: 600px)", true) {
+		display: block;
+		float: none !important;
+		margin: 0 auto 1em;
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Editing
+.edit-link,
+%edit-button {
+	
+	a {
+		@include css-button(
+				$background: $edit-button-bg-color
+			,	$border: 1px solid $edit-button-border-color
+			,	$box-shadow: 1px 1px rgba(#000, 0.2)
+			,	$color: $edit-button-text-color !important
+			,	$float: left
+			,	$font-size: 11px
+			,	$line-height: 1
+			, $padding: 3px 5px
+			, $text-decoration: none
+			,	$text-shadow: 1px 1px rgba(#000, 0.7)
+		);
+	}
+}
+
+	

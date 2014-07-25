@@ -1,0 +1,156 @@
+//::::::::::::::::::::::::::::::
+//:: Banner Tool Include: Image Title Text Link
+//::::::::::::::::::::::::::::::
+
+@mixin image-title-text-link (
+		$container-float: false
+	,	$container-margin: false
+	,	$container-padding: false
+	,	$container-width: false
+	,	$anchor-color: false
+	,	$halo-img: $halo-all-images
+	,	$img-float: false
+	,	$img-margin: false
+	,	$img-width: false
+	,	$title-font-size: false
+	,	$title-color: false
+	,	$title-margin: false
+	,	$desc-margin: false
+	,	$link-button: false
+	,	$link-button-color: false
+	,	$break1: NULL
+	,	$break2: NULL
+)
+{
+	@extend %clearfix;
+	@if $container-float {
+		float: $container-float;
+	}
+	@if $container-margin {
+		margin: $container-margin;
+	}
+	@if $container-padding {
+		padding: $container-padding;
+	}
+	@if $container-width {
+		width: $container-width;
+	}
+	@if $break1 != NULL {
+		@include responsive("#{$break1}", true) {
+			padding-right: 0;
+			width: 100%;
+		}
+	}
+
+	.#{$logged-in-admin} & {
+		padding-top: $edit-link-top-padding;
+		position: relative;
+	}
+	.edit-link {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	a {
+		@if $anchor-color {
+			color: $anchor-color;
+		}
+	}
+	.img {
+		@if $img-float {
+			float: $img-float;
+		}
+		@if $img-margin {
+			margin: $img-margin;
+		}
+		@if $img-width {
+			width: $img-width;
+		}
+		@if $break1 != NULL {
+			@include responsive("#{$break1}", true) {
+				float: left;
+				margin: 0 1em 0 0;
+			}
+		}
+		@if $break2 != NULL {
+			@include responsive($break2) {
+				float: none;
+				margin: 0 0 1em;
+			}
+		}
+		
+		img {
+			@if $halo-img {
+				@extend %halo-border;
+			}
+			@if $break2 != NULL {
+				@include responsive($break2) {
+					display: block;
+					margin: 0 auto;
+				}
+			}
+		}
+	}
+	.title {
+		@if $title-font-size {
+			font-size: $title-font-size;
+		}
+		@if $title-color {
+			color: $title-color;
+		}
+		@if $title-margin {
+			margin: $title-margin;
+		}
+		@if $break2 != NULL {
+			@include responsive($break2) {
+				text-align: center;
+			}
+		}
+		
+		a {
+			@if $title-color {
+				color: $title-color;
+			}
+		}
+	}
+	.desc {
+		@if $desc-margin {
+			margin: $desc-margin;
+		}
+	}
+	.link {
+	
+		a {
+			@if $link-button {
+				@extend .btn;
+			}
+			@if $link-button-color {
+				color: $link-button-color;
+			}
+		}
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Core Extendable
+%image-title-text-link {
+	@include image-title-text-link (
+			$container-margin: 0 0 1.5em 0
+		,	$container-padding: 0 1em 0 0
+		,	$anchor-color: $master-color
+		,	$img-float: left
+		,	$img-margin: 0 0.25em 0.5em 0
+		,	$title-color: $master-color
+		,	$title-margin: 0 0 0.5em
+		,	$desc-margin: 0 0 1em 0
+		,	$link-button: true
+		,	$link-button-color: $master-color
+	);
+}
+
+
+/*
+//@include responsive("#{$break1}", true) {}
+//@include responsive("only screen and (max-width: 750px)", true) {}
+*/

@@ -1,0 +1,96 @@
+//::::::::::::::::::::::::::::::
+//:: Banner Tool Include: Title Image Text Link
+//::::::::::::::::::::::::::::::
+
+
+@mixin title-image-text-link (
+		$container-float: false
+	,	$container-margin: false
+	,	$container-padding: false
+	,	$container-width: false
+	,	$anchor-color: false
+	,	$title-font-size: false
+	,	$title-color: false
+	,	$title-margin: false
+	,	$halo-img: $halo-all-images
+	,	$img-float: false
+	,	$img-margin: false
+	,	$img-width: false
+	,	$desc-margin: false
+	,	$link-button: false
+	,	$link-button-color: false
+	,	$break1: ""
+	,	$break2: ""
+)
+{
+	@extend %clearfix;
+	@if $container-float {
+		float: $container-float;
+	}
+	@if $container-margin {
+		margin: $container-margin;
+	}
+	@if $container-padding {
+		padding: $container-padding;
+	}
+	@if $container-width {
+		width: $container-width;
+	}
+
+	a {
+		@if $anchor-color {
+			color: $anchor-color;
+		}
+	}
+	.title {
+		@if $title-font-size {
+			font-size: $title-font-size;
+		}
+		@if $title-color {
+			color: $title-color;
+		}
+		@if $title-margin {
+			margin: $title-margin;
+		}
+		
+		a {
+			@if $title-color {
+				color: $title-color;
+			}
+		}
+	}
+	.img {
+		@if $img-float {
+			float: $img-float;
+		}
+		@if $img-margin {
+			margin: $img-margin;
+		}
+		@if $img-width {
+			width: $img-width;
+		}
+		
+		img {
+			@if $halo-img {
+				@extend %halo-border;
+			}
+		}
+	}
+	.desc {
+		@if $desc-margin {
+			margin: $desc-margin;
+		}
+	
+	}
+	.link {
+	
+		a {
+			@if $link-button {
+				@extend .btn;
+			}
+			@if $link-button-color {
+				color: $link-button-color;
+			}
+		}
+	}
+}

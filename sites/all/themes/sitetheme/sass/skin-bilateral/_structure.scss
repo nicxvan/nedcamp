@@ -1,0 +1,439 @@
+//::::::::::::::::::::::::::::::
+//:: Layout Structure
+//::::::::::::::::::::::::::::::
+
+//::::::::::::::::::::::::::::::
+//:: Structure
+html {
+	@if $site-bg-color != NULL {
+    @if ($site-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($site-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($site-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else {
+      background-color: $site-bg-color;
+    }
+	}
+}
+body {
+	color: $text-color;
+	font: #{(($base-font-size / 16px) * 100%)}/#{$site-line-height} $font;
+}
+#page {
+  @if ($page-bg-color != NULL and $page-bg-color != $site-bg-color){
+    @if ($page-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($page-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($page-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($page-bg-color != $site-bg-color){
+      background-color: $page-bg-color;
+    }
+  }
+	@if $center-page {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+  @else {
+    max-width: 100%;
+  }
+}
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Header
+#header {
+	@if $center-header {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+	@if $header-bg-color != NULL and $header-bg-color != $site-bg-color {
+    @if ($header-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($header-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($header-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($header-bg-color != $page-bg-color){
+      background-color: $header-bg-color;
+    }
+  }
+	#header-inner {
+		@extend %clearfix;
+		@if $center-header-inner {
+			@extend %center-container;	
+      @extend %position-relative;
+		}
+    @if $header-padding != NULL {
+      padding: $header-padding;
+    }
+    @if $header-padding-top != NULL {
+      padding-top: $header-padding-top;
+    }
+    @if $header-padding-right != NULL {
+      padding-right: $header-padding-right;
+    }
+    @if $header-padding-bottom != NULL {
+      padding-bottom: $header-padding-bottom;
+    }
+    @if $header-padding-left != NULL {
+      padding-left: $header-padding-left;
+    }
+	}
+	.block {
+		@if $edit-block-header {
+			@extend %edit-container;
+		}
+		@if $clear-header-block-margin {
+			@extend %mar-0;
+		}
+		@if $header-block-extend-margin != NULL {
+			@if $header-block-extend-margin {
+				@extend #{extend-margin($header-block-extend-margin)};
+			}
+		}
+	}
+}
+.region-header {
+  @if $site-logo-absolute {
+    @if $header-height != NULL {
+      @if $header-height > $logo-height {
+        min-height: $header-height;
+      }
+      @else {
+        min-height: $logo-height;
+      }
+    }
+    @if $logo-width != NULL {
+      padding-left: $logo-width;
+    }
+    @if $header-geo-width != NULL and $header-geo-width > 0 {
+      @include responsive("only screen and (min-width: 768px) and (max-width: #{$full})", true) {
+        padding-left: ($logo-width + 2);
+        padding-right: ($header-geo-width + $site-padding);
+      }
+    }
+    @include responsive(nook-landscape) {
+      min-height: 1px;
+      padding-left: 0;
+    }
+    @include responsive($portrait) {
+      margin-top: 0.5em;
+      min-height: 1px;
+      padding: 0 10px;
+    }
+    @include ie('lt-ie8'){
+      width: 67%;
+    }
+  }
+	@if $header-region-clear != NULL {
+		clear: $header-region-clear;
+	}
+	@if $header-region-float != NULL {
+		float: $header-region-float;
+	}
+  @if $header-height != NULL {
+    @if $logo-height != NULL {
+      @if $header-height > $logo-height {
+        min-height: $header-height;
+      }
+      @else {
+        min-height: $logo-height;
+      }
+    }
+    @else {
+      min-height: $header-height;
+    }
+  }
+	@if $header-region-margin != NULL {
+		margin: $header-region-margin;
+	}
+	@if $header-region-padding != NULL {
+		padding: $header-region-padding;
+	}
+	@if $header-region-width != NULL {
+		width: $header-region-width;
+	}
+
+}
+#logo {
+  
+  @if $site-logo-absolute {
+    left: $site-padding;
+    position: absolute;
+    top: 0;
+    width: $logo-width;
+    z-index: 100;
+
+    @include responsive("only screen and (min-width: 768px) and (max-width: #{$full})", true) {
+      left: 20px;
+      position: absolute;
+      top: 5px;
+    }
+    @include responsive(nook-landscape) {
+      max-height: $header-min-height;
+      padding-left: 20px;
+      top: 0.5em;
+      width: 50%;
+
+      img {
+        max-height: $header-min-height;
+      }
+    }
+    @if $portrait-logo-centered {
+      @include responsive($portrait) {
+        float: none;
+        position: static;
+        width: 100%;
+
+        img {
+          display: block;
+          margin: 0 auto;
+          max-width: 80%;
+        }
+      }
+    }
+  }
+
+}
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Navigation (Theme-level)
+#main-menu {
+	@if $center-navigation {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+	@if $navigation-bg-color != NULL and $navigation-bg-color != $site-bg-color {
+    @if ($navigation-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($navigation-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($navigation-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($navigation-bg-color != $page-bg-color){
+      background-color: $navigation-bg-color;
+    }
+  }
+  @if $include-main-menu-inner {
+    #main-menu-inner {
+      @extend %clearfix;
+      @if $center-navigation-inner {
+        @extend %center-container;	
+        @extend %position-relative;
+      }
+    }
+  }
+}
+
+//:::::::::::::::::::::::::::::: 
+//:: Main Content
+#main {
+  @extend %position-relative;
+
+	@if $main-bg-color != NULL and $main-bg-color != $page-bg-color {
+    @if ($main-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($main-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($main-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else {
+      background-color: $main-bg-color;
+    }
+  }
+	@if $main-menu-using-block {
+		padding-top: 0;
+	}
+  @else {
+    @if $main-top-padding-for-navigation != NULL {
+      padding-top: $main-top-padding-for-navigation;
+    }
+  }
+	@if $center-main {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+  @else {
+    .tabs-primary,
+    .action-links {
+      @extend %center-container;
+      @extend %clearfix;
+    }
+  }
+}
+#content {
+	@if $center-content {
+		@extend %center-container;	
+    @extend %position-relative;
+
+    .sidebar-first & {
+      float: none;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+  }
+  @else {
+    .sidebar-first & {
+      float: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  @if $content-bg-color != NULL and $content-bg-color != $main-bg-color {
+    @if ($content-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($content-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($content-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($content-bg-color != $page-bg-color){
+      background-color: $content-bg-color;
+    }
+  }
+	@if $content-clear != NULL {
+		clear: $content-clear;
+	}
+	@if $content-float != NULL {
+		float: $content-float;
+	}
+	@if $content-margin != NULL {
+		margin: $content-margin;
+	}
+	@if $content-padding != NULL {
+		padding: $content-padding;
+	}
+	@if $content-width != NULL {
+		width: $content-width;
+	}
+}
+#page-title {
+  @if $h1-center-container {
+    @extend %center-container;
+  }
+	@extend %clearfix;
+}
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Sidebar
+#sidebar {
+  @if $sidebar-bg-color != NULL and $sidebar-bg-color != $main-bg-color {
+    @if ($sidebar-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($sidebar-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($sidebar-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($sidebar-bg-color != $page-bg-color){
+      background-color: $sidebar-bg-color;
+    }
+  }
+  @if $sidebar-clear != NULL and $sidebar-clear != $bottom-sidebar-clear {
+		clear: $sidebar-clear;
+	}
+	@if $sidebar-float != NULL {
+		float: $sidebar-float;
+	}
+	@if $sidebar-margin != NULL {
+		margin: $sidebar-margin;
+	}
+	@if $sidebar-padding != NULL {
+		padding: $sidebar-padding;
+	}
+	@if $sidebar-width != NULL {
+		width: $sidebar-width;
+	}
+	@if $center-sidebar {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+
+  @if $sidebar-column-count != NULL and $sidebar-column-count > 1 {
+		.block {
+			float: left;
+			padding: 0 $pit-gutter-width;
+			width: (100% / $bottom-banner-column-count);
+		}
+	}
+}
+.region-sidebar-first {
+	@extend %clearfix;
+
+	.sidebar-first {
+		@if $center-sidebar-inner {
+			
+			@extend %center-container;	
+      @extend %position-relative;
+		}
+		float: none;
+		margin: 0;
+		padding: 0;
+		width: auto;
+	}
+}
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Footer
+#footer-wrap {
+	@if $center-footer {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+
+  @if ($footer-bg-color != NULL){
+    @if ($footer-bg-color == $master-color){
+      @extend %bg-master-color;
+    }
+    @else if ($footer-bg-color == $secondary-color){
+      @extend %bg-secondary-color;
+    }
+    @else if ($footer-bg-color == $accent-color){
+      @extend %bg-accent-color;
+    }
+    @else if ($footer-bg-color != $site-bg-color){
+      background-color: $footer-bg-color;
+    }
+  }
+}
+#footer {
+	@if $center-footer-inner {
+		@extend %center-container;	
+    @extend %position-relative;
+	}
+	padding-bottom: em(20);
+	padding-top: em(20);
+
+	.block {
+		@if $edit-block-footer {
+			@extend %edit-container;
+		}
+	}
+}

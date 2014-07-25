@@ -1,0 +1,443 @@
+//::::::::::::::::::::::::::::::
+//:: Horizontal Inline Menu
+//::::::::::::::::::::::::::::::
+
+
+//:::::::::::::::::::::::::::::: 
+//:: Horizontal Inline Menu (him) Defaults
+$menu-him-container-background:				NULL !default;
+$menu-him-container-border-radius:		NULL !default;
+$menu-him-container-margin:						NULL !default;
+$menu-him-container-float:						NULL !default;
+$menu-him-container-padding:					NULL !default;
+$menu-him-container-width:            NULL !default;
+$menu-him-ul-identifier:							".menu" !default;
+$menu-him-ul-full-list-reset:         true !default;
+$menu-him-ul-background:							NULL !default;
+$menu-him-ul-margin:									NULL !default;
+$menu-him-ul-padding:									NULL !default;
+$menu-him-li-display:                 NULL !default;
+$menu-him-li-float:                   NULL !default;
+$menu-him-li-height:									NULL !default;
+$menu-him-li-margin:									NULL !default;
+$menu-him-li-padding:									NULL !default;
+$menu-him-li-width:										(100% / $main-menu-item-count) !default;
+$menu-him-a-background:								NULL !default;
+$menu-him-container-border-radius:    NULL !default;
+$menu-him-a-color:										$master-color !default;
+$menu-him-a-padding:									5px !default;
+$menu-him-a-hover-background:					NULL !default;
+$menu-him-a-hover-color:							$secondary-color !default;
+$menu-him-a-active-background:				NULL !default;
+$menu-him-a-active-color:							$secondary-color !default;
+$menu-him-a-active-hover-background:	NULL !default;
+$menu-him-a-active-hover-color:				$secondary-color !default;
+
+
+@mixin horizontal-inline-menu (
+		$CSS3Pie:											true
+	,	$within-media-query:					false
+	,	$container-ClearFix:					false
+	,	$container-background:				$menu-him-container-background
+	,	$container-border-radius:			$menu-him-container-border-radius
+	, $container-clear:							NULL
+	, $container-float:							$menu-him-container-float
+	,	$container-margin:						$menu-him-container-margin
+	,	$container-overflow:					NULL
+	,	$container-padding:						$menu-him-container-padding
+	,	$container-transition:				NULL
+	,	$container-width:     				$menu-him-container-width
+	,	$ul-identifier:								$menu-him-ul-identifier
+	,	$ul-full-list-reset:					$menu-him-ul-full-list-reset
+	,	$ul-ClearFix:									false
+	,	$ul-background:								$menu-him-ul-background
+	, $ul-border-all:								NULL
+	, $ul-border-top:								NULL
+	, $ul-border-right:							NULL
+	, $ul-border-bottom:						NULL
+	, $ul-border-left:							NULL
+	, $ul-border-radius:						NULL
+	, $ul-clear:										NULL
+	, $ul-display:									NULL
+	, $ul-float:										NULL
+	, $ul-margin:										$menu-him-ul-margin
+	, $ul-padding:									$menu-him-ul-padding
+	, $ul-text-align:								NULL
+	,	$li-ClearFix:									false
+	,	$li-list-reset:								true
+	, $li-seperator-top:						NULL
+	, $li-seperator-right:					NULL
+	, $li-seperator-bottom:					NULL
+	, $li-seperator-left:						NULL
+	,	$li-border-radius:						NULL
+	, $li-clear:										NULL
+	, $li-float:										$menu-him-li-float
+	, $li-display:									$menu-him-li-display
+	, $li-height:										$menu-him-li-height
+	, $li-margin:										$menu-him-li-margin
+	, $li-padding:									$menu-him-li-padding
+	, $li-width:										$menu-him-li-width
+	, $li-first-margin:							NULL
+	, $li-first-padding:						NULL
+	, $li-last-margin:							NULL
+	, $li-last-padding:							NULL
+	,	$a-background:								$menu-him-a-background
+	,	$a-border-radius:							$menu-him-container-border-radius
+	,	$a-color:											$menu-him-a-color
+	,	$a-display:										block
+	,	$a-height:										NULL
+	,	$a-padding:										$menu-him-a-padding
+	,	$a-hover-background:					$menu-him-a-hover-background
+	,	$a-hover-color:								$menu-him-a-hover-color
+	,	$a-active-background:					$menu-him-a-active-background
+	,	$a-active-color:							$menu-him-a-active-color
+	,	$a-active-hover-background:		$menu-him-a-active-hover-background
+	,	$a-active-hover-color:				$menu-him-a-active-hover-color
+)
+{
+
+	@if $container-background != NULL {
+		background: $container-background;
+	}
+	@if $container-border-radius != NULL and $container-border-radius > 0 {
+		@include border-radius($container-border-radius);
+	}
+	@if $container-clear != NULL {
+		clear: $container-clear;
+	}
+	@if $container-margin != NULL {
+		margin: $container-margin;
+	}
+	@if $container-float != NULL {
+		float: $container-float;
+	}
+	@if $container-overflow != NULL {
+		overflow: $container-overflow;
+	}
+	@if $container-padding != NULL {
+		padding: $container-padding;
+	}
+	@if $container-transition != NULL {
+		@include transition($container-transition);
+	}
+	@if $CSS3Pie and $container-border-radius != NULL and $container-border-radius > 0 {
+		@include ie('lt-ie9'){
+			@include CSS3Pie();
+		}
+	}
+	@if $container-width != NULL {
+		width: $container-width;
+	}
+	@if $container-ClearFix or $ul-float != NULL {
+		@if $within-media-query {
+			@include ClearFix();
+		}
+		@else {
+			@extend %clearfix;
+		}
+	}
+
+	#{$ul-identifier} {
+		@if $ul-ClearFix or $li-float != NULL {
+			@if $within-media-query {
+				@include ClearFix();			
+			}
+			@else {
+				@extend %clearfix;
+			}
+		}
+		@if $ul-full-list-reset {
+			@include full-list-reset();
+		}
+		@if $ul-background != NULL {
+			background-color: $ul-background;
+		}
+		@if $ul-display != NULL {
+			@if $ul-display == inline-block {
+				@if $within-media-query {
+					display: -moz-inline-stack;
+					display: inline-block;
+					*vertical-align: auto;
+					zoom: 1;
+					*display: inline;
+				}
+				@else {
+					@extend %inline-block;
+				}
+			}
+			@else if $ul-display == block {
+				@if $within-media-query {
+					display: block;
+				}
+				@else {
+					@extend %display-block;
+				}
+			}
+			@else {
+				display: $ul-display;
+			}
+		}
+		@if $ul-border-all != NULL {
+			border: $ul-border-all;
+		}
+		@if $ul-border-top != NULL {
+			border-top: $ul-border-top;
+		}
+		@if $ul-border-right != NULL {
+			border-right: $ul-border-right;
+		}
+		@if $ul-border-bottom != NULL {
+			border-bottom: $ul-border-bottom;
+		}
+		@if $ul-border-left != NULL {
+			border-left: $ul-border-left;
+		}
+		@if $ul-border-radius != NULL {
+			@include border-radius($ul-border-radius);
+		}
+		@if $ul-clear != NULL {
+			clear: $ul-clear;
+		}
+		@if $ul-float != NULL {
+			float: $ul-float;
+		}
+		@if $ul-margin != NULL {
+			margin: $ul-margin;
+		}
+		@if $ul-padding != NULL {
+			padding: $ul-padding;
+		}
+		@if $ul-text-align != NULL {
+			text-align: $ul-text-align;
+		}
+		@if $CSS3Pie and $ul-border-radius != NULL and $ul-border-radius > 0 {
+			@include ie('lt-ie9'){
+				@include CSS3Pie();
+			}
+		}
+		
+		li {
+			@if $li-ClearFix {
+				@if $within-media-query {
+					@include ClearFix();
+				}
+				@else {
+					@extend %clearfix;
+				}
+			}
+			@if $li-list-reset {
+				@include list-reset();
+			}
+			@if $li-border-radius != NULL and $li-border-radius > 0 {
+				@include border-radius($li-border-radius);
+			}
+			@if $li-clear != NULL {
+				clear: $li-clear;
+			}
+			@if $li-display != NULL {
+				@if $li-display == inline-block {
+					@if $within-media-query {
+						display: -moz-inline-stack;
+						display: inline-block;
+						*vertical-align: auto;
+						zoom: 1;
+						*display: inline;
+					}
+					@else {
+						@extend %inline-block;
+					}
+				}
+				@else if $li-display == block {
+					@if $within-media-query {
+						display: block;
+					}
+					@else {
+						@extend %display-block;
+					}
+				}
+				@else {
+					display: $li-display;
+				}
+			}
+			@if $li-float != NULL {
+				float: $li-float;
+			}
+			@if $li-height != NULL {
+				height: $li-height;
+			}
+			@if $li-margin != NULL {
+				margin: $li-margin;
+			}
+			@if $li-padding != NULL {
+				padding: $li-padding;
+			}
+			@if $li-width != NULL {
+				width: $li-width;
+			}
+			@if $CSS3Pie and $li-border-radius != NULL and $li-border-radius > 0 {
+				@include ie('lt-ie9'){
+					@include CSS3Pie();
+				}
+			}
+		
+			&.first {
+				@if $li-first-margin != NULL {
+					margin: $li-first-margin;
+				}
+				@if $li-first-padding != NULL {
+					padding: $li-first-padding;
+				}
+			}
+			@if $li-seperator-top != NULL {
+				+ li {
+					border-top: $li-seperator-top;
+				}
+			}
+			@if $li-seperator-right != NULL {
+				+ li {
+					border-right: $li-seperator-right;
+				}
+			}
+			@if $li-seperator-bottom != NULL {
+				+ li {
+					border-bottom: $li-seperator-bottom;
+				}
+			}
+			@if $li-seperator-left != NULL {
+				+ li {
+					border-left: $li-seperator-left;
+				}
+			}
+			&.last {
+				@if $li-last-margin != NULL {
+					margin: $li-last-margin;
+				}
+				@if $li-last-padding != NULL {
+					padding: $li-last-padding;
+				}
+			}
+		}
+		
+		a {
+			@if $a-background != NULL {
+				background: $a-background;
+			}
+			@if $a-border-radius != NULL and $a-border-radius > 0 {
+				@include border-radius($a-border-radius);
+			}
+			@if $a-color != NULL {
+				color: $a-color;
+			}
+			@if $a-display != NULL {
+				@if $a-display == inline-block {
+					@if $within-media-query {
+						display: -moz-inline-stack;
+						display: inline-block;
+						*vertical-align: auto;
+						zoom: 1;
+						*display: inline;
+					}
+					@else {
+						@extend %inline-block;
+					}
+				}
+				@else if $a-display == block {
+					@if $within-media-query {
+						display: block;
+					}
+					@else {
+						@extend %display-block;
+					}
+				}
+				@else {
+					display: $a-display;
+				}
+			}
+			@if $a-height != NULL {
+				height: $a-height;
+			}
+			@if $main-menu-item-padding != NULL {
+				padding-left: $main-menu-item-padding;
+				padding-right: $main-menu-item-padding;
+			}
+			@if $a-padding != NULL {
+				padding: $a-padding;
+			}
+			@if $main-menu-link-underline-static {
+				text-decoration: underline;
+			}
+			@else {
+				text-decoration: none;
+			}
+			@if $CSS3Pie and $a-border-radius != NULL and $a-border-radius > 0 {
+				@include ie('lt-ie9'){
+					@include CSS3Pie();
+				}
+			}
+
+			&:hover {
+				@if $a-hover-background != NULL {
+					background: $a-hover-background;
+				}
+				@if $a-hover-color != NULL {
+					color: $a-hover-color;
+				}
+				@if $main-menu-link-underline-on-hover {
+					text-decoration: underline;
+					}
+				@else {
+					text-decoration: none;
+				}    
+			}
+			&.active {
+				@if $a-active-background != NULL {
+					background: $a-active-background;
+				}
+				@if $a-active-color != NULL {
+					color: $a-active-color;
+				}
+
+				&:hover {
+					@if $a-active-hover-background != NULL {
+						background: $a-active-hover-background;
+					}
+					@if $a-active-hover-color != NULL {
+						color: $a-active-hover-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+//::::::::::::::::::::::::::::::
+//:: Horizontal Inline Sub-Menu
+//::::::::::::::::::::::::::::::
+@mixin menu-submenu-full-horizontal-inline() {
+
+	ul {
+
+		ul {
+			position: absolute;
+			width: 100%;
+			z-index: 100;
+		}
+	}
+	> ul {
+		position: relative;
+	}
+	li {
+	
+		&:hover {
+		
+			> ul {
+				display: block;
+			}
+		}
+	}
+}
+
+

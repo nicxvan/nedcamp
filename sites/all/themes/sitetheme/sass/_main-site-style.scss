@@ -1,0 +1,881 @@
+//::::::::::::::::::::::::::::::
+//:: Main Styles
+//::::::::::::::::::::::::::::::
+ 
+//::::::::::::::::::::::::::::::
+//:: Temp
+.social-twitter {
+  @extend %icon-font-base;
+  @extend %icon-twitter;
+}
+.social-facebook {
+  @extend %icon-font-base;
+  @extend %icon-facebook;
+}
+.social-linkedin {
+  @extend %icon-font-base;
+  @extend %icon-linkedin;
+}
+.social-pinterest {
+  @extend %icon-font-base;
+  @extend %icon-pinterest;
+}
+.social-youtube {
+  @extend %icon-font-base;
+  @extend %icon-youtube;
+}
+.social-google {
+  @extend %icon-font-base;
+  @extend %icon-googleplus;
+}
+
+
+
+//::::::::::::::::::::::::::::::
+//:: One-off
+code,
+pre,
+kbd,
+samp,
+var {
+	@extend %font-stack-code;
+}
+strong, 
+b {
+	@extend %font-stack-sans-bold; 
+  
+  em, 
+  i {
+    @extend %font-stack-sans-bold-italic; 
+  }
+}
+em, 
+i {
+	@extend %font-stack-sans-italic;
+
+  strong, 
+  b {
+    @extend %font-stack-sans-bold-italic; 
+  }
+}
+fieldset {
+	legend {
+		@extend %font-stack-sans-bold;
+	}
+}
+#page-title {
+  @extend %bg-accent-color;
+  
+  .front & {
+    @extend %element-invisible;
+  }
+}
+ul {
+  &.primary,
+  &.secondary {
+    @extend %bg-accent-color;
+    margin: 0;
+    padding: 1em 2px 1.5em;
+  }
+}
+.post-date,
+.author {
+  @extend %font-stack-serif;
+  font-size: em(13);
+  letter-spacing: 1px;
+  margin-right: em(20);
+  text-transform: uppercase;
+
+  .label {
+    letter-spacing: 0;
+    font-size: em(16,13);
+    margin-right: em(5,13);
+    text-transform: uppercase;
+  }
+}
+.label {
+  @extend %font-stack-sans-condensed-bold;
+}
+.read-more {
+	@extend %font-stack-serif; 
+}
+.overview {
+	@extend %font-stack-sans-condensed;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Top Level Structure
+html {
+}
+body {
+  background-image: url(#{$theme-images}/bg_parchment.gif);
+  background-repeat: repeat;
+  padding-top: $top-page-padding;
+  
+  @include responsive(all) {
+    padding-top: 0;
+  }
+  
+  &.cke_editable {
+    background: none;
+  }
+}
+html,
+body {
+  height: 100%;
+}
+#page {
+  @include responsive($ipad) {
+    padding: 0 40px;
+  }
+  @include responsive(less-than-ipad) {
+    padding: 0 20px;
+  }
+}
+#header {
+  @include responsive(all) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+#main {
+  @include responsive(grid-ipad) {
+    padding-top: 2em;
+  }
+  @include responsive(less-than-ipad) {
+    padding-top: 1em;
+  }
+  @include responsive(less-than-nook) {
+    padding-top: 0;
+  }
+}
+#content,
+#sidebar {
+  @include responsive(grid-ipad) {
+    padding: 0 20px;
+  }
+  @include responsive(less-than-ipad) {
+    padding: 0 1em;
+  }
+  @include responsive(less-than-nook) {
+    float: none;
+    width: 100%;
+  }
+}
+#content {
+  @include responsive($activate-navicon-level) {
+    border-top: 1px solid $master-color;
+    margin-top: 7em;
+    padding-top: em(10);
+  }
+  
+  p {
+    a {
+      &:link {
+        @extend %font-stack-serif-smallcap;
+      }
+      &:visited {
+        @extend %font-stack-serif-smallcap;
+      }
+    }
+  }
+}
+#sidebar {
+}
+
+//::::::::::::::::::::::::::::::
+//:: Logo
+#logo {
+  display: block;
+  float: none;
+  text-align: right;
+  
+  @include responsive(less-than-nook) {
+    left: 0;
+    max-height: 100px;
+    max-width: 50%;
+    padding: 0 1em;
+    position: absolute;
+    text-align: left;
+    top: 3px;
+    width: 50%;
+  }
+  @include responsive($landscape) {
+
+  }
+  @include responsive($portrait) {
+
+  }
+}
+
+//::::::::::::::::::::::::::::::
+//:: Header
+#header {
+}
+#header-inner {
+  @extend %position-relative;
+  
+  @include responsive(nook-landscape) {
+    padding-bottom: 30px;
+  }
+}
+#name-and-slogan {
+  float: left;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: (100% / 3);
+  
+  @include responsive(nook-landscape) {
+    width: (100% / 2);
+  }
+  @include responsive($portrait) {
+    float: none;
+    text-align: center;
+    width: 100%;
+  }
+  a {
+    @extend %font-stack-sans-heavy;
+    @extend %secondary-color;
+    font-weight: bold;
+    line-height: $header-height;
+
+    @include responsive($portrait) {
+      line-height: 50px;
+    }
+  }
+}
+.region-header {
+  @include responsive(nook-landscape) {
+    width: (100% / 2);
+  }
+  @include responsive($portrait) {
+    float: none;
+    width: 100%;
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Navigation
+#main-menu {
+	@include single-col-stacked-menu (
+    	$container-background:				$menu-scsm-container-background
+    ,	$container-border-radius:			$menu-scsm-container-border-radius
+    ,	$container-transition:				NULL
+    ,	$ul-identifier:								".links"
+    ,	$ul-full-list-reset:					true
+    , $ul-border-all:								NULL
+    , $ul-display:                  block
+    , $ul-text-align:								right
+    ,	$li-list-reset:								true
+    , $li-seperator:								NULL
+    , $li-display:									block
+    , $li-padding:									0
+    ,	$a-background:								$menu-scsm-a-background
+    ,	$a-color:											$menu-scsm-a-color
+    ,	$a-display:										block
+    , $a-line-height:               1.2
+    ,	$a-padding:										$menu-scsm-a-padding
+    ,	$a-hover-background:					$menu-scsm-a-hover-background
+    ,	$a-hover-color:								$menu-scsm-a-hover-color
+    ,	$a-active-background:					$menu-scsm-a-active-background
+    ,	$a-active-color:							$menu-scsm-a-active-color
+    ,	$a-active-hover-background:		$menu-scsm-a-active-hover-background
+    ,	$a-active-hover-color:				$menu-scsm-a-active-hover-color
+  );
+	@include font-size(
+      $level-full: 26
+		, $level-nook: 20
+	);
+  font-weight: bold;
+  
+  @include responsive($activate-navicon-level) {
+    background: rgba(#000, 0.8);
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    @include transition(opacity 0.5s linear);
+    width: 100%;
+    z-index: -1;
+  }
+  .active-menu & {
+    @include responsive($activate-navicon-level) {
+      opacity: 1;
+      z-index: 100;
+    }
+  }
+  .links {
+    text-transform: uppercase;
+    
+    @include responsive(less-than-ipad) {
+      text-align: center;
+    }
+    li {
+      + li {
+        @include responsive($activate-navicon-level) {
+          border-top: 1px solid $master-color;
+        }
+      }
+    }
+    .menu-1186,
+    .menu-1187 {
+      @include font-size(
+        $level-full:				20
+      ,	$level-all:					NULL
+      ,	$level-ipad:				NULL
+      ,	$level-nook:				NULL
+      ,	$level-landscape:		NULL
+      ,	$level-portrait:		NULL
+      ,	$context:						28
+      );
+      a {
+        @include responsive($activate-navicon-level) {
+          padding-top: 9px;
+          padding-bottom: 9px;
+        }
+      }
+    }
+    .menu-1186 {
+      margin-top: 20px;
+      
+      @include responsive($activate-navicon-level) {
+        border-top-width: 4px;
+        margin-top: 0;
+      }
+      + li {
+        
+      }
+    }
+    &.menu-1187 {
+      
+    }
+    a {
+      @extend %font-stack-sans-heavy;
+      @include responsive($activate-navicon-level) {
+        padding: 5px 0;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+#skip-link {
+  a,
+  a:visited {
+    @extend %newdcamp-navicon;
+  }
+}
+#main-menu-inner {
+  @include responsive($activate-navicon-level) {
+    background: #FFF;
+    border: 1px solid $master-color;
+//    height: 214px;
+    left: 50%;
+    margin: -107px 0 0 -40%;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 80%;
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Sidebar
+#sidebar {
+  
+}
+.sidebar {
+  
+  .block {
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Forms
+form {
+}
+.form-item,
+.form-actions {
+	margin: 1em 0;
+}
+.form-item {
+  label {
+    @extend %font-stack-serif;
+    text-transform: uppercase;
+    
+    &.option {
+      @extend %font-stack-sans;
+    }
+  }
+}
+.form-actions {
+}
+//::::::::::::::::::::::::::::::
+.toboggan-unified {
+  #login-message {
+    @extend %mar-b-0_5em;
+
+    @include responsive($portrait){
+      font-size: em(20);
+      font-weight: bold;
+    }
+  }
+  #login-links {
+    @include font-size(
+        $level-full:				22
+      ,	$level-portrait:		16
+    );
+    line-height: normal;
+    
+    a {
+      @extend %inline-block;
+      
+      @include responsive($grid){
+        padding: 6px;
+      }
+      @include responsive($landscape){
+        padding: 8px;
+      }
+      + a {
+        @include responsive(less-than-grid){
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Blocks
+.block {
+  @extend %mar-b-3em;
+  
+  .content {
+    
+  }
+}
+.block-title {
+	
+  @include responsive($portrait){
+    text-align: center;
+  }
+	a {
+		color: $master-color;
+	}
+}
+//::::::::::::::::::::::::::::::
+.block_conference-date {
+  @extend %accent-color;
+  float: left;
+  font-weight: bold;
+  line-height: $header-height;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 50%;
+  
+  @include responsive(nook-landscape) {
+    text-align: right;
+    width: 100%;
+  }
+  @include responsive($portrait) {
+    float: none;
+    line-height: 1.25;
+    width: 100%;
+  }
+  .content {
+    @extend %font-stack-sans-heavy;
+  }
+}
+//::::::::::::::::::::::::::::::
+.block-social {
+  @extend %clearfix;
+  float: left;
+  padding-top: 5px;
+  width: 50%;
+  
+  @include responsive(nook-landscape) {
+    bottom: 0;
+    left: 0;
+    padding-top: 0;
+    position: absolute;
+    width: 100%;
+  }
+  @include responsive($portrait) {
+    float: none;
+    width: 100%;
+  }
+  .content {
+    ul {
+      @extend %full-list-reset;
+      float: right;
+
+      @include responsive(less-than-nook) {
+        float: none;
+        text-align: center; 
+      }
+      li {
+        @extend %inline-block;
+      }
+    }
+    a {
+      @extend %secondary-color;
+
+      &:hover {
+        @extend %accent-color;
+        @include text-shadow(0 0 15px $accent-color);
+      }
+    }
+    [class^="social-"],//TEMP
+    [class*=" social-"],//TEMP
+    [class^="icon-"],
+    [class*=" icon-"] {
+      @extend %inline-block;
+      font-size: $icon-font-size;
+      height: $social-icon-size;
+      padding: 10px;
+      overflow: hidden;
+      text-align: right;
+      text-decoration: none;
+      width: $social-icon-size;
+
+      @include responsive($ipad) {
+        height: 40px;
+        width: 40px;
+      }
+      &:after {
+        @extend %display-block;
+      }
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+.block-homepage_image_nav {
+  
+  .content {
+    @extend %font-stack-sans-heavy;
+    @include font-size(
+        $level-full:				24
+      ,	$level-nook:        18
+      ,	$level-landscape:		22
+      ,	$level-portrait:		26
+    );
+
+    ul {
+      @extend %full-list-reset;
+      @extend %clearfix;
+    }
+    li {
+      float: left;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      width: (100% / 3);
+
+      @include responsive($portrait) {
+        float: none;
+        width: 100%;
+      }
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+.block-buildamodule_plug {
+  .content {
+    @extend %font-stack-serif;
+    text-transform: uppercase;
+
+    @include responsive($nook) {
+      line-height: 1.4;
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+.block-footer_sponsors {
+  .block-title {
+    padding: 0 30px;
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Views
+.view-display-id-homepage_blog_listing {
+  
+  article {
+    @extend %edit-container;
+    @extend %mar-b-1_5em;
+    line-height: 1.25;
+  }
+  .title,
+  .date {
+    @include responsive($portrait){
+      
+    }
+  }
+  .title {
+    @extend %font-stack-sans-heavy;
+    font-size: em(18);
+    font-weight: bold;
+    line-height: 1.25
+  }
+  .date {
+    @extend %font-stack-serif;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-rotating_sponsor_logos {
+  
+  .slides {
+
+    @include responsive($portrait){
+      text-align: center;
+    }
+    li {
+      @extend %edit-container;
+    }
+    img {
+      @include responsive($portrait){
+        @include inline-block($alignment:none);
+      }
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-speakers_and_rabblerousers {
+  
+  .view-content {
+    @extend %clearfix;
+  }
+  article {
+    @extend %edit-container;
+    float: left;
+    @include font-size(
+      $level-full: 14
+    );
+    width: (100% / 3);
+    
+    @include responsive($portrait){
+      float: none;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  .img {
+    @extend %mar-b-0_5em;
+    padding-right: 15px;
+    
+    .user-picture {
+      @extend %halo-border;
+      @extend %display-block;
+    }
+    img {
+      @extend %center-block;
+    }
+  }
+  .name {
+    @extend %font-stack-sans-heavy;
+    font-weight: bold;
+    line-height: normal;
+  }
+  .organization {
+    @extend %font-stack-serif;
+    line-height: normal;
+    text-transform: uppercase;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-page_sponsors {
+  .title {
+  }
+  .event-sponsor {
+    @extend %edit-container;
+  }
+  .img {
+    max-width: 80%;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-sponsors_all {
+  .title {
+    clear: both;
+    float: left;
+    margin: em(60) 0 em(30) 0;
+  }
+  .sponsor {
+    @extend %edit-container;
+    @extend %mar-b-1_5em;
+    float: left;
+    padding-right: 10%;
+    width: 50%;
+
+    &:nth-of-type(2n+1){
+      clear: both;
+    }
+  }
+  .img {
+    
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-blog_listing_page {
+  .blog-article {
+    @extend %edit-container;
+    @extend %mar-b-1_5em;
+  }
+  .title {
+    line-height: 1;
+  }
+  .post-date,
+  .author {
+    
+    .label {
+    }
+  }
+  .desc {
+    
+  }
+  .read-more {
+    font-size: em(20);
+    text-align: right;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-footer_sponsors {
+
+  .sponsor {
+    @extend %edit-container;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-display-id-footer_sponsors_all {
+  @extend %clearfix;
+  @extend %bg-accent-color;
+  padding: 15px 0;
+
+  > .view-header {
+    @extend #sidebar;
+    
+    @include responsive($portrait){
+      text-align: center;
+    }
+  }
+  > .view-content {
+    @extend %clearfix;
+    @extend #content;
+
+    .sponsor {
+      float: left;
+      padding-right: 5%;
+      width: (100% / 3);
+
+      &:nth-of-type(3n+1){
+        clear: both;
+      }
+    }
+  }
+  .title {
+    clear: both;
+  }
+  .sponsor {
+    @extend %edit-container;
+  }
+}
+
+//::::::::::::::::::::::::::::::
+//:: Page Content
+.node {
+  @extend %mar-b-3em;
+  
+  .front & {
+    @include responsive(grid-ipad) {
+      margin-bottom: 1.5em;
+    }
+    @include responsive(less-than-nook) {
+      margin-bottom: 0.5em;
+    }
+  }
+}
+.node-page {
+	position: relative;
+  
+  .desc {
+    .front & {
+      @extend %font-stack-sans-heavy;
+      @include font-size(
+          $level-full:				28
+        ,	$level-ipad:				24
+        ,	$level-landscape:		18
+        ,	$level-portrait:		16
+      );
+      font-weight: bold;
+      line-height: 30px;
+      text-transform: uppercase;
+      
+      @include responsive($grid){
+        line-height: 30px;
+      }
+      @include responsive(ipad-nook){
+        line-height: 24px;
+      }
+      @include responsive(less-than-nook){
+        line-height: 1.25;
+      }
+    }
+  }
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Footer
+#footer {
+  @if $footer-font-size != NULL {
+    font-size: em(stripUnits('px', $footer-font-size));
+  }
+  @if $footer-line-height != NULL {
+  	line-height: $footer-line-height;
+  }
+  padding-left: 0;
+  padding-right: 0;
+}
+//::::::::::::::::::::::::::::::
+.block_copyright {
+	@extend %mar-b-0;
+	clear: both;
+	text-align: center;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: FlexSlider
+.flexslider {
+	@extend %mar-0;
+	background: none;
+	border: 0 none;
+	box-shadow: none;
+	
+	.slides {
+	
+		> li {
+			@include ie('lt-ie9'){
+				filter: none !important;
+			}
+		}
+		img{
+			max-width: 100%;
+			width: auto;
+		}
+	}
+}
+

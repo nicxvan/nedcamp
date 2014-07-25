@@ -1,0 +1,184 @@
+﻿//::::::::::::::::::::::::::::::
+//:: Tag-based styles
+//::::::::::::::::::::::::::::::
+
+
+//::::::::::::::::::::::::::::::
+//:: Generic
+*,*:before,*:after {
+	@include box-sizing(border-box);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+a {
+	color: $link-color;
+	-webkit-tap-highlight-color: rgba(#FFF,0); 
+	
+	@if $content-link-underline-static {
+		text-decoration: underline;
+	} 
+	@else {
+		text-decoration: none;
+  }
+
+  &:hover {
+    @if $link-hover-color != NULL and $link-hover-color != $link-color {
+      color: $link-hover-color;
+    }
+    @if $content-link-underline-on-hover {
+      text-decoration: underline;
+    }
+    @else {
+      text-decoration: none;
+    }
+  }
+}
+abbr[title] {
+	border-bottom: 0 none;
+}
+button {
+	@extend %btn;
+	font-family: $font;
+}
+p {
+	@extend %mar-pad-reset;
+
+  &.medium-top-margin {
+    margin-top: 1.5;
+  }
+  &.large-top-margin {
+    margin-top: 3em;
+  }
+  + p {
+		margin-top: 1em;
+	}
+}
+q {
+	@extend %site-quote-style;
+}
+blockquote {
+	@extend %site-block-quote-style;
+}
+ul {
+	@extend #{$site-bullet-style-extend};
+}
+ol {
+
+}
+img {
+	max-height: 100%;
+}
+iframe {
+	display: block;
+	margin: 0 auto;
+	max-height: 100%;
+	max-width: 100%;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Forms
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url] {
+	@extend %form-input-field;
+
+  &:-webkit-autofill {
+    color: $form-field-text-color;
+  }
+}
+input[type=submit] {
+	@extend %btn;
+}
+textarea {
+	@extend %form-input-field;
+
+  &:-webkit-autofill {
+    color: $form-field-text-color;
+  }
+}
+select {
+  &:-webkit-autofill {
+    color: $form-field-text-color;
+  }
+}
+
+//::::::::::::::::::::::::::::::
+//:: Titles
+h1 {
+	@extend %h1-title-style;
+	
+	@if $h1-title-label {
+		.#{$logged-in-admin} & {
+			&:before {
+				content: "h1:  ";
+			}
+		}
+	}
+}
+h2 {
+	@extend %h2-title-style;
+
+  &.medium-top-margin {
+    margin-top: em(45,$h2-font-size);
+  }
+  &.large-top-margin {
+    margin-top: em(60,$h2-font-size);
+  }
+}
+h3 {
+	@extend %h3-title-style;
+
+  &.medium-top-margin {
+    margin-top: em(30,$h2-font-size);
+  }
+  &.large-top-margin {
+    margin-top: em(60,$h3-font-size);
+  }
+}
+.title-type-h1 {
+	.title {
+		@extend %h1-title-style;
+	}
+}
+.title-type-h2 {
+	.title {
+		@extend %h2-title-style;
+	}
+}
+.title-type-h3 {
+	.title {
+		@extend %h3-title-style;
+	}
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Selection
+::selection {
+	background: $master-color;
+	color: #FFF;
+}
+::-moz-selection {
+	background: $master-color;
+	color: #FFF;
+}
+
+//::::::::::::::::::::::::::::::
+//:: Selection
+::-webkit-input-placeholder {
+   color: $form-placeholder-text-color;
+}
+:-moz-placeholder {
+   color: $form-placeholder-text-color;  
+}
+::-moz-placeholder {
+   color: $form-placeholder-text-color;  
+}
+:-ms-input-placeholder {  
+   color: $form-placeholder-text-color;  
+}
