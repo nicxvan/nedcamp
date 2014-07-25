@@ -404,9 +404,14 @@ body {
     text-align: center;
     top: 50%;
     width: 80%;
+    
+    .close {
+      display: block;
+    }
   }
   .close {
     @extend %bg-accent-color;
+    @extend %element-hidden;
     border: 1px solid $master-color;
     @include border-radius(30px);
     @include box-shadow(0 0 10px 2px rgba(#000, 0.7));
