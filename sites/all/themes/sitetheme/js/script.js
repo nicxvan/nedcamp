@@ -27,9 +27,11 @@
     $('#skip-link a').click(function(event){
       event.preventDefault();
       $('body').toggleClass('active-menu');
-      $('#main-manu').css('active-menu');
     });
-    $('#main-menu-inner').prepend('<span class="close"></span>');
+    $('#main-menu-inner').prepend('<span class="close">X</span>');
+    $('#main-menu-inner .close').on( "click", function() {
+      $('body').toggleClass('active-menu');
+    });
     if(window.innerWidth < 600){
       $('#main-menu .links').prepend('<li id="menu-item-home" class="menu-home"><a href="/">Home</a></li>');
 		}

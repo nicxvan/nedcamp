@@ -73,7 +73,7 @@ fieldset {
 ul {
   &.primary,
   &.secondary {
-    @extend %bg-accent-color;
+//    @extend %bg-accent-color;
     margin: 0;
     padding: 1em 2px 1.5em;
   }
@@ -123,7 +123,7 @@ body {
 }
 html,
 body {
-  height: 100%;
+//  height: 100%;
 }
 #page {
   @include responsive($ipad) {
@@ -140,14 +140,24 @@ body {
   }
 }
 #main {
+  background-image: url(#{$theme-images}/bg_drupal_watermark.png);
+  background-repeat: no-repeat;
+
   @include responsive(grid-ipad) {
     padding-top: 2em;
   }
-  @include responsive(less-than-ipad) {
+  @include responsive($nook) {
     padding-top: 1em;
   }
   @include responsive(less-than-nook) {
     padding-top: 0;
+  }
+  .#{$logged-in-admin} & {
+    padding-top: 0;
+    
+    @include responsive(grid-nook) {
+      padding-top: 0;
+    }
   }
 }
 #content,
@@ -161,6 +171,13 @@ body {
   @include responsive(less-than-nook) {
     float: none;
     width: 100%;
+  }
+  .#{$logged-in-admin} & {
+    padding-top: 2em;
+    
+    @include responsive(grid-nook) {
+      padding-top: 2em;
+    }
   }
 }
 #content {
@@ -322,7 +339,10 @@ body {
       }
     }
     .menu-1186,
-    .menu-1187 {
+    .menu-1187,
+    .menu-1188,
+    .menu-1189,
+    .menu-1190 {
       @include font-size(
         $level-full:				20
       ,	$level-all:					NULL
@@ -339,7 +359,8 @@ body {
         }
       }
     }
-    .menu-1186 {
+    .menu-1186,
+    .menu-1190 {
       margin-top: 20px;
       
       @include responsive($activate-navicon-level) {
@@ -350,8 +371,10 @@ body {
         
       }
     }
-    &.menu-1187 {
-      
+    &.menu-1190 {
+      .not-logged-in & {
+        @extend %element-hidden;
+      }
     }
     a {
       @extend %font-stack-sans-heavy;
@@ -381,6 +404,20 @@ body {
     text-align: center;
     top: 50%;
     width: 80%;
+  }
+  .close {
+    @extend %bg-accent-color;
+    border: 1px solid $master-color;
+    @include border-radius(30px);
+    @include box-shadow(0 0 10px 2px rgba(#000, 0.7));
+    color: $master-color;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    width: 30px;
   }
 }
 
@@ -832,6 +869,9 @@ form {
       @include responsive(less-than-nook){
         line-height: 1.25;
       }
+    }
+    sup {
+      font-size: 60%;
     }
   }
 }

@@ -100,7 +100,7 @@ $bullet-disc-secondary-pattern:					"";
 //::::::::::::::::::::::::::::::
 //:: One-Off 
 $halo-all-images:												false;
-$logged-in-admin:												"logged-in" !default; //Class on body that defines an admin is logged in
+$logged-in-admin:												"role-administrator"; //Class on body that defines an admin is logged in
 $edit-link-top-padding:									25px !default;
 
 
