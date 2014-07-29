@@ -102,6 +102,11 @@ ul {
 .overview {
 	@extend %font-stack-sans-condensed;
 }
+.drupal-camp-text {
+  display: block;
+  font-size: 2.3em;
+  line-height: 1;
+}
 
 
 //::::::::::::::::::::::::::::::
@@ -143,6 +148,9 @@ body {
   background-image: url(#{$theme-images}/bg_drupal_watermark.png);
   background-repeat: no-repeat;
 
+  .front & {
+    padding-top: 2px;
+  }
   @include responsive(grid-ipad) {
     padding-top: 2em;
   }
@@ -181,24 +189,27 @@ body {
   }
 }
 #content {
+  @extend %position-relative;
   @include responsive($activate-navicon-level) {
     border-top: 1px solid $master-color;
     margin-top: 7em;
     padding-top: em(10);
   }
   
+  .front & {
+    padding-left: 0;
+    padding-right: 0;
+  }
   p {
     a {
-      &:link {
-        @extend %font-stack-serif-smallcap;
-      }
-      &:visited {
-        @extend %font-stack-serif-smallcap;
-      }
+      @extend %font-stack-serif-smallcap;
     }
   }
 }
 #sidebar {
+  .front & {
+    padding-top: 5em;
+  }
 }
 
 //::::::::::::::::::::::::::::::
@@ -601,7 +612,11 @@ form {
 }
 //::::::::::::::::::::::::::::::
 .block-homepage_image_nav {
-  
+  left: 23px;
+  position: absolute;
+  top: 390px;
+  width: 100%;
+
   .content {
     @extend %font-stack-sans-heavy;
     @include font-size(
@@ -616,21 +631,54 @@ form {
       @extend %clearfix;
     }
     li {
+      @extend %position-relative;
+      background: #FFF;
       float: left;
       font-weight: bold;
+      @include opacity(0.85);
       text-align: center;
       text-transform: uppercase;
+      @include transition(opacity 0.5s linear);
       width: (100% / 3);
 
       @include responsive($portrait) {
         float: none;
         width: 100%;
       }
+      &:hover {
+        @include opacity(1);
+      }
+      &:before {
+        $seperator-pattern: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAKCAYAAACe5Y9JAAAAGklEQVQIW2NkgAJGTMaqVav+g0QZ8TBwawcAMjUL/0MIbGoAAAAASUVORK5CYII=";
+        background: url(#{$seperator-pattern}) repeat-y;
+        content: "";
+        height: 90%;
+        left: -1px;
+        position: absolute;
+        top: 5%;
+        width: 2px;
+      }
+      &:first-child {
+        &:before {
+          content: normal;
+        }
+      }
     }
     p {
       margin-top: 0;
     }
   }
+}
+//::::::::::::::::::::::::::::::
+.block-speakers_rabblerousers,
+.block-homepage_blog_listing {
+  padding: 0 0 0 63px;
+}
+//::::::::::::::::::::::::::::::
+.block-speakers_rabblerousers {
+}
+//::::::::::::::::::::::::::::::
+.block-homepage_blog_listing {
 }
 //::::::::::::::::::::::::::::::
 .block-buildamodule_plug {
@@ -654,6 +702,7 @@ form {
 //::::::::::::::::::::::::::::::
 //:: Views
 .view-display-id-homepage_blog_listing {
+  padding-right: 100px;
   
   article {
     @extend %edit-container;
@@ -847,6 +896,13 @@ form {
   @extend %mar-b-3em;
   
   .front & {
+    @extend %accent-color;
+    background: url(#{$theme-images}/#{$homepage-bg-img-file-name}) no-repeat;
+    min-height: $homepage-bg-img-height;
+    margin-left: em(23);
+    padding-left: 0;
+    padding-right: 0;
+    
     @include responsive(grid-ipad) {
       margin-bottom: 1.5em;
     }
@@ -862,13 +918,14 @@ form {
     .front & {
       @extend %font-stack-sans-heavy;
       @include font-size(
-          $level-full:				28
+          $level-full:				24
         ,	$level-ipad:				24
         ,	$level-landscape:		18
         ,	$level-portrait:		16
       );
       font-weight: bold;
       line-height: 30px;
+      padding: 60px 30px 0;
       text-transform: uppercase;
       
       @include responsive($grid){
@@ -883,6 +940,16 @@ form {
     }
     sup {
       font-size: 60%;
+    }
+    a {
+      #content & {
+        @extend %font-stack-sans-heavy; 
+      }
+    }
+    p {
+      + p {
+        margin-top: 0;
+      }
     }
   }
 }
