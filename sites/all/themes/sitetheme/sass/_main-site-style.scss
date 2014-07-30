@@ -3,36 +3,10 @@
 //::::::::::::::::::::::::::::::
  
 //::::::::::::::::::::::::::::::
-//:: Temp
-.social-twitter {
-  @extend %icon-font-base;
-  @extend %icon-twitter;
-}
-.social-facebook {
-  @extend %icon-font-base;
-  @extend %icon-facebook;
-}
-.social-linkedin {
-  @extend %icon-font-base;
-  @extend %icon-linkedin;
-}
-.social-pinterest {
-  @extend %icon-font-base;
-  @extend %icon-pinterest;
-}
-.social-youtube {
-  @extend %icon-font-base;
-  @extend %icon-youtube;
-}
-.social-google {
-  @extend %icon-font-base;
-  @extend %icon-googleplus;
-}
-
-
-
-//::::::::::::::::::::::::::::::
 //:: One-off
+.nowrap {
+  white-space: nowrap;
+}
 code,
 pre,
 kbd,
@@ -104,8 +78,20 @@ ul {
 }
 .drupal-camp-text {
   display: block;
-  font-size: 2.3em;
+  font-size: em(60,24);
   line-height: 1;
+
+  @include font-size(
+      $level-full:				60
+    , $level-ipad:        48
+    , $level-nook:        38
+    ,	$level-landscape:		NULL
+    ,	$level-portrait:		NULL
+    , $context:           24
+  );
+  @include responsive($grid) {
+    line-height: 1.2;
+  }
 }
 
 
@@ -193,7 +179,6 @@ body {
   @include responsive($activate-navicon-level) {
     border-top: 1px solid $master-color;
     margin-top: 7em;
-    padding-top: em(10);
   }
   
   .front & {
@@ -207,8 +192,12 @@ body {
   }
 }
 #sidebar {
+  @extend %position-relative;
+  @include responsive($activate-navicon-level) {
+    position: static;
+  }
   .front & {
-    padding-top: 5em;
+    padding-top: 0;
   }
 }
 
@@ -229,11 +218,16 @@ body {
     top: 3px;
     width: 50%;
   }
-  @include responsive($landscape) {
+  .front & {
+    left: 0;
+    padding-right: 30px;
+    position: absolute;
+    top: 0;
+    width: 100%;
 
-  }
-  @include responsive($portrait) {
-
+    @include responsive(less-than-ipad) {
+      padding: 0 1em;
+    }
   }
 }
 
@@ -329,6 +323,20 @@ body {
     @include transition(opacity 0.5s linear);
     width: 100%;
     z-index: -1;
+  }
+  .front & {
+    margin: 0 0 em(48,26);
+    min-height: 555px;
+    padding-top: em(250,26);
+      
+    @include responsive($nook) {
+      min-height: 501px;
+    }
+    @include responsive($activate-navicon-level) {
+      margin: 0;
+      min-height: 1px;
+      padding-top: 0;
+    }
   }
   .active-menu & {
     @include responsive($activate-navicon-level) {
@@ -571,7 +579,7 @@ form {
       @extend %full-list-reset;
       float: right;
 
-      @include responsive(less-than-nook) {
+      @include responsive(less-than-ipad) {
         float: none;
         text-align: center; 
       }
@@ -587,8 +595,6 @@ form {
         @include text-shadow(0 0 15px $accent-color);
       }
     }
-    [class^="social-"],//TEMP
-    [class*=" social-"],//TEMP
     [class^="icon-"],
     [class*=" icon-"] {
       @extend %inline-block;
@@ -617,11 +623,29 @@ form {
   top: 390px;
   width: 100%;
 
+  @include responsive($grid) {
+    padding-right: 10px;
+  }
+  @include responsive($nook) {
+    padding-right: 23px;
+  }
+  @include responsive($nook) {
+    top: 340px;
+  }
+  @include responsive($landscape) {
+    top: 260px;
+  }
+  @include responsive($portrait) {
+    position: static;
+  }
+  @include responsive($activate-navicon-level) {
+    left: 0;
+  }
   .content {
     @extend %font-stack-sans-heavy;
     @include font-size(
         $level-full:				24
-      ,	$level-nook:        18
+      , $level-all:     		18
       ,	$level-landscape:		22
       ,	$level-portrait:		26
     );
@@ -643,6 +667,7 @@ form {
 
       @include responsive($portrait) {
         float: none;
+        @include opacity(1);
         width: 100%;
       }
       &:hover {
@@ -666,6 +691,10 @@ form {
     }
     p {
       margin-top: 0;
+      padding-top: 13px;
+    }
+    img {
+      @extend %center-block;
     }
   }
 }
@@ -673,6 +702,10 @@ form {
 .block-speakers_rabblerousers,
 .block-homepage_blog_listing {
   padding: 0 0 0 63px;
+
+  @include responsive($activate-navicon-level) {
+    padding: 0 15px;
+  }
 }
 //::::::::::::::::::::::::::::::
 .block-speakers_rabblerousers {
@@ -704,6 +737,9 @@ form {
 .view-display-id-homepage_blog_listing {
   padding-right: 100px;
   
+  @include responsive($activate-navicon-level) {
+    padding-right: 10px;
+  }
   article {
     @extend %edit-container;
     @extend %mar-b-1_5em;
@@ -862,21 +898,35 @@ form {
   padding: 15px 0;
 
   > .view-header {
-    @extend #sidebar;
+    float: $sidebar-float;
+    padding: $sidebar-padding;
+    width: $sidebar-width;
     
     @include responsive($portrait){
+      padding: 0 15px;
       text-align: center;
+      width: 100%;
     }
   }
   > .view-content {
     @extend %clearfix;
-    @extend #content;
+    float: $content-float;
+    padding: $content-padding;
+    width: $content-width;
 
+    @include responsive($portrait) {
+      padding: 0 15px;
+      width: 100%;
+    }
     .sponsor {
       float: left;
       padding-right: 5%;
       width: (100% / 3);
 
+      @include responsive($portrait) {
+        margin: 10px 0;
+        width: 100%;
+      }
       &:nth-of-type(3n+1){
         clear: both;
       }
@@ -906,8 +956,20 @@ form {
     @include responsive(grid-ipad) {
       margin-bottom: 1.5em;
     }
+    @include responsive($nook) {
+      min-height: 490px;
+    }
+    @include responsive($landscape) {
+      min-height: 430px;
+    }
+    @include responsive($portrait) {
+      min-height: 300px;
+    }
     @include responsive(less-than-nook) {
       margin-bottom: 0.5em;
+    }
+    @include responsive($activate-navicon-level) {
+      margin-left: 0;
     }
   }
 }
@@ -934,8 +996,14 @@ form {
       @include responsive(ipad-nook){
         line-height: 24px;
       }
+      @include responsive(less-than-ipad){
+        padding-top: 30px;
+      }
       @include responsive(less-than-nook){
         line-height: 1.25;
+      }
+      @include responsive($portrait){
+        padding: 30px 15px 0;
       }
     }
     sup {
@@ -977,7 +1045,6 @@ form {
 
 //::::::::::::::::::::::::::::::
 //:: FlexSlider
-/*
 .flexslider {
 	@extend %mar-0;
 	background: none;
@@ -997,7 +1064,6 @@ form {
 		}
 	}
 }
-// */
 
 
 //::::::::::::::::::::::::::::::
