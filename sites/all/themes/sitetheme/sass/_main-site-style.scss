@@ -977,6 +977,7 @@ form {
 
 //::::::::::::::::::::::::::::::
 //:: FlexSlider
+/*
 .flexslider {
 	@extend %mar-0;
 	background: none;
@@ -996,4 +997,14 @@ form {
 		}
 	}
 }
+// */
 
+
+//::::::::::::::::::::::::::::::
+//:: FlexSlider
+.banner-style {
+  @extend %edit-container;
+}
+.banner_style_title-image {
+  
+}

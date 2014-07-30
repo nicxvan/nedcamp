@@ -268,7 +268,7 @@ code,pre,kbd,samp,var{padding:0 0.4em;font-size:0.77em;font-family:Menlo,Consola
 %halo-border {
 	@include halo-border(
     	$background-color:	#FFF
-    , $border:						2px solid #CCC
+    , $border:						1px solid #CCC
     , $padding:						5px
 	);
 }

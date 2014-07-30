@@ -620,7 +620,7 @@ input[type=submit]:hover {
 .halo-border,
 .view-display-id-speakers_and_rabblerousers .img .user-picture {
   background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid #cccccc;
+  border: 1px solid #cccccc;
   padding: 5px;
 }
 
