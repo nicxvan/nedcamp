@@ -10,4 +10,8 @@
 	max-width: $site-width;
 	padding: 0 $site-padding;
 	width: 100%;
+  
+  .lt-ie9 & {
+    max-width: ($site-width - ($site-padding * 2));
+  }
 }

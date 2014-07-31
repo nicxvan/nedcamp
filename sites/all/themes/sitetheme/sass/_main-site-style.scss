@@ -630,7 +630,7 @@ form {
     padding-right: 23px;
   }
   @include responsive($nook) {
-    top: 340px;
+    top: 370px;
   }
   @include responsive($landscape) {
     top: 260px;
@@ -839,6 +839,7 @@ form {
     clear: both;
     float: left;
     margin: em(60) 0 em(30) 0;
+    width: 100%;
   }
   .sponsor {
     @extend %edit-container;
@@ -1054,9 +1055,6 @@ form {
 	.slides {
 	
 		> li {
-			@include ie('lt-ie9'){
-				filter: none !important;
-			}
 		}
 		img{
 			max-width: 100%;
