@@ -84,8 +84,8 @@ code,pre,kbd,samp,var{padding:0 0.4em;font-size:0.77em;font-family:Menlo,Consola
 	@include title-style (
 			$font-size: em($h1-font-size)
 		, $font-weight:	normal
-		,	$line-height: $site-line-height
-		,	$margin: 0
+		,	$line-height: 1.25
+		,	$margin: 0 0 em(10, $h1-font-size)
 		,	$text-transform: uppercase
     , $extend-1: font-stack-sans-condensed-bold
   );
