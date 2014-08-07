@@ -411,8 +411,8 @@ h1, .title-type-h1 .title {
   color: #d52027;
   font-size: 2.25em;
   font-weight: normal;
-  line-height: 1.8;
-  margin: 0;
+  line-height: 1.25;
+  margin: 0 0 0.27778em;
   text-transform: uppercase;
 }
 /* line 501, ../sass/mixins/_mixins.scss */
@@ -1940,23 +1940,28 @@ body.cke_editable {
 
 /* line 1029, ../sass/_main-site-style.scss */
 #footer {
+  color: #FFF;
   padding-left: 0;
   padding-right: 0;
 }
-
 /* line 1040, ../sass/_main-site-style.scss */
+#footer a {
+  color: #FFF;
+}
+
+/* line 1045, ../sass/_main-site-style.scss */
 .block_copyright {
   clear: both;
   text-align: center;
 }
 
-/* line 1049, ../sass/_main-site-style.scss */
+/* line 1054, ../sass/_main-site-style.scss */
 .flexslider {
   background: none;
   border: 0 none;
   box-shadow: none;
 }
-/* line 1059, ../sass/_main-site-style.scss */
+/* line 1064, ../sass/_main-site-style.scss */
 .flexslider .slides img {
   max-width: 100%;
   width: auto;

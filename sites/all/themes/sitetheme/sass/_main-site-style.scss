@@ -1027,6 +1027,7 @@ form {
 //::::::::::::::::::::::::::::::
 //:: Footer
 #footer {
+  color: #FFF;
   @if $footer-font-size != NULL {
     font-size: em(stripUnits('px', $footer-font-size));
   }
@@ -1035,6 +1036,10 @@ form {
   }
   padding-left: 0;
   padding-right: 0;
+  
+  a {
+    color: #FFF;
+  }
 }
 //::::::::::::::::::::::::::::::
 .block_copyright {
@@ -1068,7 +1073,4 @@ form {
 //:: FlexSlider
 .banner-style {
   @extend %edit-container;
-}
-.banner_style_title-image {
-  
 }
