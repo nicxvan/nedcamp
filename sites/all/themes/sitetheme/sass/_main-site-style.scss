@@ -734,6 +734,42 @@ form {
 
 //::::::::::::::::::::::::::::::
 //:: Views
+.view-display-id-accepted_sessions_page {
+	.session {
+		@extend %clearfix;
+		@extend %mar-b-3em;
+	}
+	.title {
+	}
+	.session-speaker {
+		.clearfix {
+			&:after {
+				content: normal;
+			}
+		}
+	}
+	.user-picture {
+		@extend %halo-border;
+		float: left;
+		margin-right: 1em;
+		margin-top: 8px;
+		
+		img {
+			@extend %display-block;
+		}
+	}
+	.fname {
+		color: #000;
+		float: left;
+		margin-right: 4px;
+	}
+	.lname {
+		color: #000;
+	}
+	.session-body {
+	}
+}
+//::::::::::::::::::::::::::::::
 .view-display-id-homepage_blog_listing {
   padding-right: 100px;
   
