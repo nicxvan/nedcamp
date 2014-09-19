@@ -742,31 +742,39 @@ form {
 	.title {
 	}
 	.session-speaker {
-		.clearfix {
-			&:after {
-				content: normal;
-			}
+		float: left;
+		padding: 8px 10px 0 0;
+		width: pon(200,540);
+	}
+	.view-mode-session_speakers {
+		+ .view-mode-session_speakers {
+			margin-top: 5px
 		}
 	}
 	.user-picture {
 		@extend %halo-border;
 		float: left;
-		margin-right: 1em;
-		margin-top: 8px;
+		margin-bottom: 5px;
 		
 		img {
 			@extend %display-block;
 		}
 	}
 	.fname {
+		clear: both;
 		color: #000;
 		float: left;
+		line-height: 1;
 		margin-right: 4px;
 	}
 	.lname {
 		color: #000;
+		line-height: 1;
+		margin: 0;
 	}
 	.session-body {
+		float: left;
+		width: pon(340,540);
 	}
 }
 //::::::::::::::::::::::::::::::
