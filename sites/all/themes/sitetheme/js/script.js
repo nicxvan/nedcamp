@@ -40,6 +40,13 @@
     $('#main-menu-inner .close').on( "click", function() {
       $('body').toggleClass('active-menu');
     });
+		if($('.view-mode-session_speakers_detail').length > 0){
+			$('.view-mode-session_speakers_detail').each(function(){
+				if(!$(this).find('.desc').length > 0 ){
+					$(this).addClass('no-bio');
+				}
+			});
+		}
     if(window.innerWidth < 600){
       $('#main-menu .links').prepend('<li id="menu-item-home" class="menu-home"><a href="/">Home</a></li>');
 		}

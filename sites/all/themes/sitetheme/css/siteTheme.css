@@ -2050,31 +2050,35 @@ body.cke_editable {
 .node-session .desc {
   padding-left: 210px;
 }
+/* line 1144, ../sass/_main-site-style.scss */
+.node-session .no-bio .social {
+  width: 100%;
+}
 
-/* line 1148, ../sass/_main-site-style.scss */
+/* line 1153, ../sass/_main-site-style.scss */
 #footer {
   color: #FFF;
   padding-left: 0;
   padding-right: 0;
 }
-/* line 1159, ../sass/_main-site-style.scss */
+/* line 1164, ../sass/_main-site-style.scss */
 #footer a {
   color: #FFF;
 }
 
-/* line 1164, ../sass/_main-site-style.scss */
+/* line 1169, ../sass/_main-site-style.scss */
 .block_copyright {
   clear: both;
   text-align: center;
 }
 
-/* line 1173, ../sass/_main-site-style.scss */
+/* line 1178, ../sass/_main-site-style.scss */
 .flexslider {
   background: none;
   border: 0 none;
   box-shadow: none;
 }
-/* line 1183, ../sass/_main-site-style.scss */
+/* line 1188, ../sass/_main-site-style.scss */
 .flexslider .slides img {
   max-width: 100%;
   width: auto;

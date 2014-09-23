@@ -1082,7 +1082,7 @@ form {
 	}
 	.field-content {
 
-	+	.field-content {
+		+	.field-content {
 			margin-top: 5px
 		}
 	}
@@ -1139,6 +1139,11 @@ form {
 	}
 	.desc {
 		padding-left: 210px;
+	}
+	.no-bio {
+		.social {
+			width: 100%;
+		}
 	}
 }
 
