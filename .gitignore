@@ -1,6 +1,14 @@
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
 
+# Ignore Windows files
+*.db
+*.bak
+
+# Ignore Net Beans project
+nbproject
+nbproject/*
+
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
