@@ -1086,15 +1086,9 @@ form {
 			margin-top: 5px
 		}
 	}
-	.speakers {
-		.desc {
-			float: right;
-			padding-left: 10px;
-			width: pon(340,540);
-		}
-	}
 	.user-picture {
 		@extend %halo-border;
+		clear: both;
 		float: left;
 		margin-bottom: 5px;
 		margin-top: 8px;
@@ -1105,6 +1099,7 @@ form {
 		}
 	}
 	.fname {
+		clear: both;
 		color: #000;
 		float: left;
 		line-height: 1;
@@ -1112,15 +1107,20 @@ form {
 	}
 	.lname {
 		color: #000;
+		float: left;
 		line-height: 1;
 		margin: 0;
 	}
 	.organization {
+		clear: both;
+		float: left;
 		line-height: 1;
 		margin-bottom: 5px;
 	}
 	.social {
 		@extend %position-relative;
+		clear: both;
+		float: left;
 		width: pon(200,540);
 
 		&:before {
@@ -1137,20 +1137,9 @@ form {
 			line-height: 16px;
 		}
 	}
-}
-.view-mode-session_speakers_detail {
-	.user-picture {
-		&:first-child {
-			+ .fname {
-				clear: both;
-				
-				+ .lname {
-					float: left;
-				}
-			}
-		}
+	.desc {
+		padding-left: 210px;
 	}
-	
 }
 
 

@@ -1995,39 +1995,40 @@ body.cke_editable {
 .node-session .field-content + .field-content {
   margin-top: 5px;
 }
-/* line 1090, ../sass/_main-site-style.scss */
-.node-session .speakers .desc {
-  float: right;
-  padding-left: 10px;
-  width: 62.96296%;
-}
-/* line 1096, ../sass/_main-site-style.scss */
+/* line 1089, ../sass/_main-site-style.scss */
 .node-session .user-picture {
+  clear: both;
   float: left;
   margin-bottom: 5px;
   margin-top: 8px;
   max-width: 37.03704%;
 }
-/* line 1107, ../sass/_main-site-style.scss */
+/* line 1101, ../sass/_main-site-style.scss */
 .node-session .fname {
+  clear: both;
   color: #000;
   float: left;
   line-height: 1;
   margin-right: 4px;
 }
-/* line 1113, ../sass/_main-site-style.scss */
+/* line 1108, ../sass/_main-site-style.scss */
 .node-session .lname {
   color: #000;
+  float: left;
   line-height: 1;
   margin: 0;
 }
-/* line 1118, ../sass/_main-site-style.scss */
+/* line 1114, ../sass/_main-site-style.scss */
 .node-session .organization {
+  clear: both;
+  float: left;
   line-height: 1;
   margin-bottom: 5px;
 }
-/* line 1122, ../sass/_main-site-style.scss */
+/* line 1120, ../sass/_main-site-style.scss */
 .node-session .social {
+  clear: both;
+  float: left;
   width: 37.03704%;
 }
 /* line 1126, ../sass/_main-site-style.scss */
@@ -2045,40 +2046,35 @@ body.cke_editable {
   display: block;
   line-height: 16px;
 }
-
-/* line 1144, ../sass/_main-site-style.scss */
-.view-mode-session_speakers_detail .user-picture:first-child + .fname {
-  clear: both;
-}
-/* line 1147, ../sass/_main-site-style.scss */
-.view-mode-session_speakers_detail .user-picture:first-child + .fname + .lname {
-  float: left;
+/* line 1140, ../sass/_main-site-style.scss */
+.node-session .desc {
+  padding-left: 210px;
 }
 
-/* line 1159, ../sass/_main-site-style.scss */
+/* line 1148, ../sass/_main-site-style.scss */
 #footer {
   color: #FFF;
   padding-left: 0;
   padding-right: 0;
 }
-/* line 1170, ../sass/_main-site-style.scss */
+/* line 1159, ../sass/_main-site-style.scss */
 #footer a {
   color: #FFF;
 }
 
-/* line 1175, ../sass/_main-site-style.scss */
+/* line 1164, ../sass/_main-site-style.scss */
 .block_copyright {
   clear: both;
   text-align: center;
 }
 
-/* line 1184, ../sass/_main-site-style.scss */
+/* line 1173, ../sass/_main-site-style.scss */
 .flexslider {
   background: none;
   border: 0 none;
   box-shadow: none;
 }
-/* line 1194, ../sass/_main-site-style.scss */
+/* line 1183, ../sass/_main-site-style.scss */
 .flexslider .slides img {
   max-width: 100%;
   width: auto;
