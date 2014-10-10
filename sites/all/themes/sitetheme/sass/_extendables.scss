@@ -1,345 +1,513 @@
 //::::::::::::::::::::::::::::::
-//:: Extendables and Common Classes - Core
+//:: Extendables and Common Classes
 //::::::::::::::::::::::::::::::
+
+
+//::::::::::::::::::::::::::::::
+//:: Tables
+$responsive-tables-level:	less-than-ipad !default;
+//::::::::::::::::::::::::::::::
+//:: Table Style
+%table-headers {  
+  @extend %master-color;
+  border-bottom: 3px solid $master-color;
+  padding-bottom: 3px
+}
+//::::::::::::::::::::::::::::::
+%table-style {
+  @extend %responsive-tables;
+  min-width: 100%;
+  
+  th {
+    @extend %table-headers;
+  }
+  tr {
+    border-bottom: 0 none;
+
+    &.odd {
+      background-color: darken($site-bg-color, 3);
+      
+      &:hover {
+        background-color: darken($site-bg-color, 4);
+      }
+    }
+    &.even {
+      background-color: $site-bg-color;
+      
+      &:hover {
+        background-color: darken($site-bg-color, 4);
+      }
+    }
+    &.state-ACTIVE {
+      .edit {
+        .btn {
+          @extend %element-hidden;
+        }
+      }
+    }
+  }
+  td {
+    @extend %position-relative;
+    padding: 6px 0;
+
+    &[class^="rating-"],
+    &[class*=" rating-"] {
+      padding: 0;
+      text-align: center;
+      top: 7px;
+      
+      &:before {
+        font-size: 1em;
+        text-align: left;
+        top: 7px;
+      }
+      .lt-ie9 & {
+        top: 0;
+      }
+    }
+    .active {
+      color: red;
+    }
+  }
+  tbody {
+    tr {
+      &:first-child {
+        
+        [class*="rating-"] {
+          .lt-ie9 & {
+            top: 2px;
+            height: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+%responsive-tables {
+  thead {
+    @include responsive($responsive-tables-level){
+       display: none;
+    }
+  }
+  tr {
+    @include responsive($responsive-tables-level){
+      display: block;
+      border-bottom: 3px solid $master-color;
+    }
+    &.views-row-first {
+      @include responsive($responsive-tables-level){
+        border-top: 3px solid $master-color;
+      }
+    }
+  }
+  td {
+    @include responsive($responsive-tables-level){
+       display: block;
+       min-height: 32px;
+       padding-left: 40%;
+    }
+    @include responsive($nook){
+       padding-left: 50%;
+    }
+    @include responsive($portrait){
+			padding-left: 10%;
+			width: 100%;
+    }
+    &:before {
+      @extend %master-color;
+      left: 0;
+      position: absolute;
+      top: 6px;
+			width: 40%;
+
+			@include responsive($nook){
+        width: 50%;
+			}
+      @include responsive($portrait){
+				display: block;
+				margin-left: -10%;
+				position: static;
+				width: 100%;
+      }
+    }
+    &.title {
+      &:before {
+        @include responsive($responsive-tables-level){
+          content: "Sponsorship Level:";
+        }
+      }
+    }
+		&.cost {
+			&:before {
+				@include responsive($responsive-tables-level){
+					content: "Cost:";
+				}
+			}
+		}
+		&.actions {
+			@include responsive($portrait){
+				margin-left: 0;
+				padding-left: 0;
+			}
+			&:before {
+				@include responsive($responsive-tables-level){
+					content: "Become a Sponsor:";
+				}
+				@include responsive($portrait){
+					margin-left: 0;
+				}
+			}
+		}
+		.commerce-add-to-cart {
+			@include responsive($portrait){
+				margin: 10px 0;
+				text-align: center;
+			}
+		}
+	}
+}
+
  
 //::::::::::::::::::::::::::::::
-//:: Visibility and Placement
-%position-relative {
-  position: relative;
+//:: Fonts
+/*
+  font-family:'Avenir Next W04 Bold';
+  font-family:'AvenirNextLTW01-DemiCnS';
+  font-family:'AvenirNextW01-CnLight';
+  font-family:'AvenirNextLTW01-Condens 727663';
+  font-family:'AvenirNextLTW01-CnItSC';
+  font-family:'Avenir Next W02 Thin';
+  font-family:'AvenirNextW02-ThinItali';
+  font-family:'AvenirNextLTW01-MediumS';
+  font-family:'AvenirNextLTW01-MediumI 727649';
+  font-family:'AvenirNextW01-CnLightIt';
+  font-family:'Avenir Next W02 Light';
+  font-family:'AvenirNextW02-LightItal';
+  font-family:'GaramondClassico W00';
+  font-family:'GaramondClassico W00 SC';
+*/
+
+%font-stack-code {
+  font-family: Menlo, Consolas, "Andale Mono", "Lucida Console", "Nimbus Mono L", "DejaVu Sans Mono", monospace, "Courier New";
 }
-%element-hidden,
-.hidden {
-	display: none;
+%font-stack-sans {
+  font-family: 'Avenir Next W02 Light', Helvetica, Arial, sans-serif;
+  font-weight: normal;
 }
-%element-invisible,
-.invisible {
-	@include hide-block();
+%font-stack-sans-italic {
+  font-family: 'AvenirNextW02-ThinItali', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
 }
-%element-visible,
-.visible {
-	@include show-block();
+%font-stack-sans-bold {
+  font-family: 'AvenirNextLTW01-MediumS', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+%font-stack-sans-bold-italic {
+  font-family: 'AvenirNextLTW01-MediumI 727649', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+%font-stack-sans-heavy {
+  font-family: 'Avenir Next W04 Bold', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
+%font-stack-sans-condensed {
+  font-family: 'AvenirNextW01-CnLight', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+%font-stack-sans-condensed-bold {
+  font-family: 'AvenirNextLTW01-DemiCnS', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+%font-stack-serif {
+  font-family: 'GaramondClassico W00', "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+%font-stack-serif-smallcap {
+  font-family: 'GaramondClassico W00 SC', "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+/*
+body{font-family:sans-serif;}
+body,.webform-component label.option,.accordian-view .ui-accordion-content-active{font-family:'Avenir Next W02 Light',Helvetica,Arial,sans-serif;font-weight:normal;}
+em,i{font-family:'AvenirNextW02-ThinItali',Helvetica,Arial,sans-serif;font-weight:normal;font-style:normal;}
+strong,b,input.form-submit,a.button,.holiday-giving input.submit,input.checkout-cancel,input.btn-submit,fieldset legend,.accordian-view .ui-state-default a,.accordian-view .ui-state-default a:link,.accordian-view .ui-state-active a,.accordian-view .ui-state-active a:link,.shopping-cart-page section .cart-item .product-title a,.shopping-cart-page section .cart-item .product-title a:link,.checkout-help,.checkout-review tr.even td .form-type-item label,.checkout-review tr.odd td .form-type-item label,.checkout-review .pane-title,input.checkout-back,ol.inline.commerce-checkout-progress li.active{font-family:'AvenirNextLTW01-MediumS',Helvetica,Arial,sans-serif;font-weight:normal;}
+strong em,em strong,b i,i b{font-family:'AvenirNextLTW01-MediumI 727649',Helvetica,Arial,sans-serif;font-weight:normal;font-style:normal;}
+h2,.utility-newdcamp,.utility-date,.main-menu-block ul.menu li.leaf a,.cta a{font-family:'Avenir Next W04 Bold',Helvetica,Arial,sans-serif;font-weight:normal;}
+.overview{font-family:'AvenirNextW01-CnLight',Helvetica,Arial,sans-serif;font-weight:normal;font-style:normal;}
+h1,.label{font-family:'AvenirNextLTW01-DemiCnS',Helvetica,Arial,sans-serif;font-weight:normal;font-style:normal;}
+.webform-component label,.cta,.post-date,.author,.read-more{font-family:'GaramondClassico W00',"Times New Roman",Times,serif;font-weight:normal;}
+#content p a:link,#content p
+a:visited{font-family:'GaramondClassico W00 SC',"Times New Roman",Times,serif;font-weight:normal;}
+code,pre,kbd,samp,var{padding:0 0.4em;font-size:0.77em;font-family:Menlo,Consolas,"Andale Mono","Lucida Console","Nimbus Mono L","DejaVu Sans Mono",monospace,"Courier New";}
+*/
+//::::::::::::::::::::::::::::::
+//:: Titles
+%h1-title-style {
+	@include title-style (
+			$font-size: em($h1-font-size)
+		, $font-weight:	normal
+		,	$line-height: 1.25
+		,	$margin: 0 0 em(10, $h1-font-size)
+		,	$text-transform: uppercase
+    , $extend-1: font-stack-sans-condensed-bold
+  );
+}
+%h2-title-style {
+	@include title-style (
+      $color: $title-color
+		,	$font-size: em($h2-font-size)
+		, $font-weight:	bold
+		,	$line-height: 1
+		,	$margin: em(10,36) 0
+		,	$text-transform: uppercase
+    , $extend-1: font-stack-sans-heavy
+	);
+}
+%h3-title-style {
+	@include title-style (
+			$color: $title-color
+		,	$font-size: em($h3-font-size)
+		, $font-weight:	bold
+		,	$line-height: 1
+		,	$margin: em(10) 0
+	);
 }
 
 
 //::::::::::::::::::::::::::::::
-//:: Colors
-%master-color,
-.master-color {
-	color: $master-color !important;
-}
-
-%secondary-color,
-.secondary-color {
-	color: $secondary-color !important;
-}
-%accent-color,
-.accent-color {
-	color: $accent-color !important;
-}
-%text-color,
-.text-color {
-	color: $text-color !important;
-}
+//:: Navicon
 //::::::::::::::::::::::::::::::
-%bg-master-color,
-.bg-master-color {
-	background-color: $master-color;
-}
+%newdcamp-navicon {
+	@include create-navicon(
+    $z-index: 100
+  );
+	@extend %element-invisible;
 
-%bg-secondary-color,
-.bg-secondary-color {
-	background-color: $secondary-color;
-}
-%bg-accent-color,
-.bg-accent-color {
-	background-color: $accent-color;
-}
-%bg-text-color,
-.bg-text-color {
-	background-color: $text-color;
-}
-//::::::::::::::::::::::::::::::
-%published-No,
-.published-No,
-.node-unpublished {
-  @extend %position-relative;
-  background-color: $non-published-bg-color !important;
-	
-	&:before {
-		content: "unpublished";
-		color: #F00;
-		font-size: 11px;
-		position: absolute;
-		right: 0;
-		top: 0;
-	}
-}
-
-
-//::::::::::::::::::::::::::::::
-//:: Margins		[Additions must be added to @function extend-margin()]
-%mar-pad-reset {
-	margin: 0;
-	padding: 0;
-}
-%mar-0 {
-	margin: 0;
-}
-%mar-b-0 {
-	margin-bottom: 0;
-}
-%mar-b-0_25em {
-	margin-bottom: 0.25em;
-}
-%mar-b-0_5em {
-	margin-bottom: 0.5em;
-}
-%mar-b-1em {
-	margin-bottom: 1em;
-}
-%mar-b-1_5em {
-	margin-bottom: 1.5em;
-}
-%mar-b-2em {
-	margin-bottom: 2em;
-}
-%mar-b-2_5em {
-	margin-bottom: 2.5em;
-}
-%mar-b-3em {
-	margin-bottom: 3em;
-}
-%mar-b-4em {
-	margin-bottom: 4em;
-}
-
-
-//::::::::::::::::::::::::::::::
-//:: Layout
-.c-f-w,
-%c-f-w {
-	@include c-f-w ($width: 100%);
-}
-.display-block,
-%display-block {
-	display: block !important;
-}
-.contents-inline,
-%contents-inline {
-	> * {
-		display: inline;
-	}
-}
-%inline-block {
-	@include inline-block($alignment:none);
-	/*
-		//:: use this for places that cannot be extended
-		display: -moz-inline-stack;
-		display: inline-block;
-		*vertical-align: auto;
-		zoom: 1;
-		*display: inline;
-	*/
-}
-%center-block {
-	display: block;
-	margin: 0 auto;
-}
-%overlay-block {
-	height: 100%;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-%edit-container {
-	.#{$logged-in-admin} & {
-		padding-top: $edit-link-top-padding !important;
-		@extend %position-relative;
-	}
-	.edit-link {
-		position: absolute;
-		left: 0;
-		text-transform: lowercase;
-		top: 0;
-	}
-	.edit-link-2 {
-		left: auto;
-    right: 0;
-	}
-}
-%list-reset {
-	list-style: none;
-	list-style-image: none;
-}
-%full-list-reset {
-	@extend %mar-pad-reset;
-  list-style: none;
-	list-style-image: none;
-}
-%clearfix {
-	@include ClearFix();
-}
-%video-aspect-ratio {
-	@extend %position-relative;
-  height: 0;
-	overflow: hidden;
-	padding-bottom: 75%;
-
-	iframe {
-		height: 100% !important;
-		left: 0;
-		position: absolute;
-		top: 0;
-		width: 100% !important;
-	}
-}
-%allow-wrapping-links {
-	-ms-word-break: break-all;
-	word-break: break-all;
-	word-break: break-word;
-	-webkit-hyphens: auto;
-	-moz-hyphens: auto;
-	hyphens: auto;
-}
-
-
-//::::::::::::::::::::::::::::::
-//:: Forms
-%form-input-field {
-  @if $form-field-bg-color != NULL {
-    background: $form-field-bg-color;
+  @include responsive($portrait) {
+    top: 165px;
   }
-  @if $form-field-border != NULL {
-  	border: $form-field-border;
-  }
-  @if $form-field-text-color != NULL {
-    color: $form-field-text-color;
-  }
-	@if $standard-border-radius != NULL and $standard-border-radius < 0 {
-		@include border-radius($standard-border-radius);
-	}
-	@include box-sizing(border-box);
-	@if $form-field-font-size != NULL and $form-field-font-size != $base-font-size {
-    font-size: em($form-field-font-size);
-  }
-	@if $form-field-line-height != NULL and $form-field-line-height != $site-line-height {
-    line-height: $form-field-line-height;
-  }
-  @if $form-field-text-color != NULL {
-    padding: $form-field-padding;
-  }
-  @if $form-field-width != NULL {
-    width: $form-field-width;
-  }
-
-	@include ie('lt-ie9'){
-		@include CSS3Pie();
+  @if $activate-navicon-level != NULL {
+		@include responsive($activate-navicon-level) {
+			clip: auto;
+		}
 	}
 }
 
 
 //::::::::::::::::::::::::::::::
-//:: Search Block
-%search-block {
+//:: Site Quotes
+//::::::::::::::::::::::::::::::
+%site-quote-style {
+	@include quotes (
+		$font-style:		italic
+	);
+}
+%site-block-quote-style {
+	@include quotes (
+		$font-size:		1.75em
+	,	$font-style:	italic
+	);
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: WYSIWYG font-sizes
+.merch-box-title,
+%merch-box-title {
+	font-size: 2em;
+}
+.merch-box-sub-title,
+%merch-box-sub-title {
+	font-size: 1.5em;
+}
+.merch-box-detail-text,
+%merch-box-detail-text {
+	font-size: 1.15em;
+}
+.merch-box-fine-print,
+%merch-box-fine-print {
+	font-size: 0.6em;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Banner Overlay
+%banner-overlay {
+	@include banner-overlay (
+			$background: $page-banner-overlay-bg
+		, $border-all: 1px solid
+		, $border-left: 0 none
+		, $border-radius: 0 $standard-border-radius $standard-border-radius 0
+		, $height: $page-banner-overlay-height
+		, $left: 0
+		, $max-height: $page-banner-overlay-height
+		, $padding: em(10) em(20)
+		, $position: absolute
+		, $top: $page-banner-overlay-padding
+		, $width: 40%
+		, $z-index: 100
+		, $ie-rgba: true
+	);
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Buttons
+.btn,
+%btn {
+  @extend %font-stack-sans-bold;
+	@include css-button(
+			$background: $master-color
+		,	$border: 0 none
+		,	$color: #FFF
+		,	$font-size: em(16)
+		,	$line-height: 1.25
+		, $padding: 6px 16px
+		, $text-decoration: none
+    , $text-transform: uppercase
+	);
+  letter-spacing: 1px;
+  @include transition(all 0.5s ease-in-out);
   
-  form{
-    @extend %position-relative;
-    @if ($search-button-width != NULL){
-      padding-right: $search-button-width + 10;
-    }
+  &:hover {
+    background-color: #666;
   }
-  .form-actions {
-    position: absolute;
-    right: 0;
-    top: 0;
-    @if ($search-button-width != NULL){
-      width: $search-button-width;
-    }
-  }
-  .form-text {
-    @if $search-field-bg-color != NULL and $search-field-bg-color != $search-field-bg-color {
-      background-color: $search-field-bg-color;
-    }
-    @if $search-field-border != NULL and $search-field-border != $form-field-border {
-      border: $search-field-border;
-    }
-    @if $search-field-text-color != NULL and $search-field-text-color != $form-field-text-color {
-      color: $search-field-text-color;
-    }
-    @if $search-field-font-size != NULL and $search-field-font-size != $form-field-font-size {
-      font-size: $search-field-font-size;
-    }
-    @if $search-field-line-height != NULL and $search-field-line-height != $form-field-line-height {
-      line-height: $search-field-line-height;
-    }
-    padding: $search-field-padding-top $search-field-padding-right $search-field-padding-bottom $search-field-padding-left;
-    @if $search-field-width != NULL and $search-field-width != $form-field-width {
-      width: $search-field-width;
-    }
-  }
-  .form-submit {
-    @if $search-field-padding-top != NULL {
-      padding-top: $search-field-padding-top;
-    }
-    @if $search-field-padding-bottom != NULL {
-      padding-bottom: $search-field-padding-bottom;
-    }
-    width: 100%;
-  }
+}
+.btn-muted,
+%btn-muted {
+	@include css-button(
+			$background: $master-color
+		,	$border: 0 none
+		,	$border-radius: $standard-border-radius
+		,	$color: #FFF
+		,	$font-size: em(14)
+		,	$line-height: 1.25
+		, $padding: 3px 10px
+		, $text-decoration: none
+	);
 }
 
 
 //::::::::::::::::::::::::::::::
 //:: Bullets
-%bullet-disc-master {
-	list-style-image: url("#{$bullet-disc-master-pattern}");
+%bullet-arrow-master {
+	@include CSSTriangle(
+			$pointing: right
+		, $color: $master-color
+		, $left: 0
+		, $top: 5px
+	);
 }
-%bullet-disc-secondary {
-	list-style-image: url("#{$bullet-disc-secondary-pattern}");
+%bullet-arrow-secondary {
+	@include CSSTriangle(
+			$pointing: right
+		,	$border-width: 6px 12px
+		, $color: $secondary-color
+		, $left: 0
+		, $top: 5px
+	);
 }
 
 //::::::::::::::::::::::::::::::
-%bullet-layout-disc {
+%bullet-layout-arrow {
+	list-style: none;
+	padding: 0;
+	
 	li {
-		@extend %bullet-disc-secondary;
+		padding-left: 20px;
+		position: relative;
+
+		&:before {
+			@extend %bullet-arrow-secondary;
+		}
 	}
 }
 
 
 //::::::::::::::::::::::::::::::
 //:: One-off
-.left-floated-img {
-	float: left;
-	margin: 0 2em 0.5em 0;
-	
-	@include responsive("only screen and (max-width: 600px)", true) {
-		display: block;
-		float: none !important;
-		margin: 0 auto 1em;
-	}
+.halo-border,
+%halo-border {
+	@include halo-border(
+    	$background-color:	#FFF
+    , $border:						1px solid #CCC
+    , $padding:						5px
+	);
 }
 
 
+	
 //::::::::::::::::::::::::::::::
-//:: Editing
-.edit-link,
-%edit-button {
+//:: Listing Objects
+%listing-block-container {
+	@include listing-container (
+	);
+}
+//::::::::::::::::::::::::::::::
+%listing-block-rows {
+	@include listing-rows (
+			$clear-rows: true
+		,	$position-edit-links: true
+		,	$rows-extend-margin: mar-b-1_5em
+		,	$rows-position: relative
+	);
+}
+//::::::::::::::::::::::::::::::
+%listing-block-title {
+	@include listing-title (
+			$title-extend: h2
+		,	$title-color: $master-color
+		,	$title-hover-anchor-underline: true
+	);
+}
+//::::::::::::::::::::::::::::::
+%listing-block-img {
+	@include listing-image (
+			$img-float: left
+		,	$img-margin: 0.3em $listing-img-rt-padding 1em 0
+	);
+}
+//::::::::::::::::::::::::::::::
+%listing-block-desc {
+	@include listing-desc (
+			$desc-extend-margin: mar-b-0_5em
+		,	$desc-hover-anchor-underline: true
+	)
+}
+//::::::::::::::::::::::::::::::
+%listing-block-link {
+	@include listing-link (
+		$link-hover-anchor-underline: false
+	);
+}
+//::::::::::::::::::::::::::::::
+.listing-block,
+%listing-block {
 	
-	a {
-		@include css-button(
-				$background: $edit-button-bg-color
-			,	$border: 1px solid $edit-button-border-color
-			,	$box-shadow: 1px 1px rgba(#000, 0.2)
-			,	$color: $edit-button-text-color !important
-			,	$float: left
-			,	$font-size: 11px
-			,	$line-height: 1
-			, $padding: 3px 5px
-			, $text-decoration: none
-			,	$text-shadow: 1px 1px rgba(#000, 0.7)
-		);
+	$views-row-class:	"views-row" !default;
+	.#{$views-row-class} {
+		@extend %listing-block-rows !optional;
+	}
+	.img {
+		@extend %listing-block-img !optional;
+	}
+	.title {
+		@extend %listing-block-title !optional;
+		margin-top: 0;
+	}
+	.date {
+		@extend %listing-block-desc !optional;
+	}
+	.desc {
+		@extend %listing-block-desc !optional;
+	}
+	.more {
+		@extend %listing-block-link !optional;
 	}
 }
-
-	
+//::::::::::::::::::::::::::::::

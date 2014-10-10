@@ -93,6 +93,9 @@ ul {
     line-height: 1.2;
   }
 }
+.views-table {
+	@extend %table-style;
+}
 
 
 //::::::::::::::::::::::::::::::
@@ -357,11 +360,7 @@ body {
         }
       }
     }
-    .menu-1186,
-    .menu-1187,
-    .menu-1188,
-    .menu-1189,
-    .menu-1190 {
+    .secondary-menu-design {
       @include font-size(
         $level-full:				20
       ,	$level-all:					NULL
@@ -378,8 +377,7 @@ body {
         }
       }
     }
-    .menu-1186,
-    .menu-1190 {
+    .menu-top-gutter {
       margin-top: 20px;
       
       @include responsive($activate-navicon-level) {
@@ -734,6 +732,10 @@ form {
 
 //::::::::::::::::::::::::::::::
 //:: Views
+.view-id-sponsorship {
+	
+}
+//::::::::::::::::::::::::::::::
 .view-display-id-accepted_sessions_page {
 	.session {
 		@extend %clearfix;
