@@ -80,9 +80,9 @@ settings[omega_libraries][respond][status] = 0
 settings[omega_libraries][pie][status] = 0
 settings[omega_libraries][html5shiv][status] = 0
 
-; Information added by Drupal.org packaging script on 2014-06-05
-version = "7.x-1.0-beta1"
+; Information added by Drupal.org packaging script on 2014-10-09
+version = "7.x-1.0-beta3+1-dev"
 core = "7.x"
 project = "cod"
-datestamp = "1402005229"
+datestamp = "1412840638"
 

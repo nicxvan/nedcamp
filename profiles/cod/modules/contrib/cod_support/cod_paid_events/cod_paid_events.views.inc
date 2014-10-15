@@ -8,7 +8,7 @@
  * Implements hook_views_default_views_alter().
  */
 function cod_paid_events_views_default_views_alter(&$views) {
-  if(!empty($views['ticket_registration'])) {
+  if (!empty($views['ticket_registration'])) {
     $views['ticket_registration']->display['default']->display_options['fields']['field_ticket_order']['id'] = 'field_ticket_order';
     $views['ticket_registration']->display['default']->display_options['fields']['field_ticket_order']['table'] = 'field_data_field_ticket_order';
     $views['ticket_registration']->display['default']->display_options['fields']['field_ticket_order']['field'] = 'field_ticket_order';

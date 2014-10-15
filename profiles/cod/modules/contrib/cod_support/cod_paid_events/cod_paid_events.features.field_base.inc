@@ -43,7 +43,14 @@ function cod_paid_events_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'ticket_state' => array(
+        'columns' => array(
+          'target_id' => 'tsid',
+        ),
+        'table' => 'ticket_state',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -82,7 +89,14 @@ function cod_paid_events_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 1,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'commerce_order' => array(
+        'columns' => array(
+          'target_id' => 'order_id',
+        ),
+        'table' => 'commerce_order',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',

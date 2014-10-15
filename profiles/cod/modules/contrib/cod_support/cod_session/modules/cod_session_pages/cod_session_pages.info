@@ -13,9 +13,9 @@ features[features_api][] = api:2
 features[page_manager_pages][] = sessions
 install_option = cod
 
-; Information added by Drupal.org packaging script on 2014-06-23
-version = "7.x-1.0-beta1+8-dev"
+; Information added by Drupal.org packaging script on 2014-09-05
+version = "7.x-1.0-beta3"
 core = "7.x"
 project = "cod_support"
-datestamp = "1403508838"
+datestamp = "1409957334"
 

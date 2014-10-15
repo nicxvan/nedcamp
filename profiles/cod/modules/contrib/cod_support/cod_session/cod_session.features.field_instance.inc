@@ -222,7 +222,7 @@ function cod_session_field_default_field_instances() {
   // Exported field_instance: 'node-schedule_item-field_accepted'
   $field_instances['node-schedule_item-field_accepted'] = array(
     'bundle' => 'schedule_item',
-    'default_value' => NULL,
+    'default_value' => 'unprocessed',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -396,7 +396,7 @@ function cod_session_field_default_field_instances() {
     'bundle' => 'session',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => 'unprocessed',
       ),
     ),
     'default_value_function' => '',

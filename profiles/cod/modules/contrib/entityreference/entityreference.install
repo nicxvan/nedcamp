@@ -162,3 +162,39 @@ function entityreference_update_7002() {
     ));
   }
 }
+
+/**
+ * Update foreign keys where necessary.
+ */
+function entityreference_update_7003() {
+  // Load the base table configuration from the cache.
+  $base_tables = variable_get('entityreference:base-tables', array());
+
+  foreach (field_info_fields() as $field_name => $field) {
+
+    if ($field['type'] != 'entityreference') {
+      // Not an entity reference field.
+      continue;
+    }
+
+    // Read in the field config.
+    $field_name = field_read_field($field['field_name']);
+
+    // Create a foreign key to the target entity type base type, if available.
+    $entity_type = $field_name['settings']['target_type'];
+    if (isset($base_tables[$entity_type])) {
+      list($base_table, $id_column) = $base_tables[$entity_type];
+      $schema['foreign keys'][$base_table] = array(
+        'table' => $base_table,
+        'columns' => array('target_id' => $id_column),
+      );
+    }
+
+    // Update foreign keys to actually contain the proper entity foreign keys
+    // if they differ.
+    if ($field_name['foreign keys'] != $schema['foreign keys']) {
+      $field_name['foreign keys'] = $schema['foreign keys'];
+      field_update_field($field_name);
+    }
+  }
+}

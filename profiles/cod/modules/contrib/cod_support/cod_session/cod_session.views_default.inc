@@ -198,7 +198,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
 
   /* Display: Sessions Listing */
@@ -519,7 +519,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
   $handler->display->display_options['block_description'] = 'Sessions: Speakers';
@@ -702,7 +702,8 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
+    'featured' => 'featured',
   );
   $handler->display->display_options['path'] = 'node/%/program/mine';
   $handler->display->display_options['menu']['type'] = 'tab';
@@ -792,7 +793,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    3 => '3',
+    'featured' => 'featured',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
   $handler->display->display_options['argument_input'] = array(
@@ -890,6 +891,143 @@ function cod_session_views_default_views() {
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['label'] = 'Event';
   $handler->display->display_options['relationships']['og_membership_rel']['required'] = TRUE;
+  /* Field: Bulk operations: Content */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::node_assign_owner_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::flag_node_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_sticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_unsticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Change Session Status',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          'session::field_accepted' => 'session::field_accepted',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::node_promote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_publish_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpromote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_save_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_by_keyword_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::pathauto_node_update_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -923,6 +1061,10 @@ function cod_session_views_default_views() {
   $handler->display->display_options['fields']['edit_node']['label'] = '';
   $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
+  /* Sort criterion: Content: Title */
+  $handler->display->display_options['sorts']['title']['id'] = 'title';
+  $handler->display->display_options['sorts']['title']['table'] = 'node';
+  $handler->display->display_options['sorts']['title']['field'] = 'title';
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
   $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
@@ -961,7 +1103,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
   /* Filter criterion: Search: Search Terms */
@@ -987,28 +1129,234 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_experience_value']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_experience_value']['expose']['multiple'] = TRUE;
 
-  /* Display: Page: Accepted */
-  $handler = $view->new_display('page', 'Page: Accepted', 'page_1');
+  /* Display: Published Sessions */
+  $handler = $view->new_display('panel_pane', 'Published Sessions', 'panel_pane_published');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Accepted Sessions';
+  $handler->display->display_options['title'] = 'Published Sessions';
   $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'view-grouped-list sessions-list sessions-accepted';
+  $handler->display->display_options['css_class'] = 'view-grouped-list sessions-list';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Bulk operations: Content */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::node_assign_owner_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::flag_node_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_sticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_unsticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Change Session Status',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          'session::field_accepted' => 'session::field_accepted',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::node_promote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_publish_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 1,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpromote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_save_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_by_keyword_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::pathauto_node_update_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_accepted']['id'] = 'field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['table'] = 'field_data_field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['field'] = 'field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_accepted']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Speaker(s) */
+  $handler->display->display_options['fields']['field_speakers']['id'] = 'field_speakers';
+  $handler->display->display_options['fields']['field_speakers']['table'] = 'field_data_field_speakers';
+  $handler->display->display_options['fields']['field_speakers']['field'] = 'field_speakers';
+  $handler->display->display_options['fields']['field_speakers']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_speakers']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Experience level */
+  $handler->display->display_options['fields']['field_experience']['id'] = 'field_experience';
+  $handler->display->display_options['fields']['field_experience']['table'] = 'field_data_field_experience';
+  $handler->display->display_options['fields']['field_experience']['field'] = 'field_experience';
+  $handler->display->display_options['fields']['field_experience']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_experience']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
+  $handler->display->display_options['argument_input'] = array(
+    'gid' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Event ID',
+    ),
+    'field_accepted_value' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Status (field_accepted)',
+    ),
+  );
+
+  /* Display: Unpublished Sessions */
+  $handler = $view->new_display('panel_pane', 'Unpublished Sessions', 'panel_pane_unpublished');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Pending (Unpublished) Sessions';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['label'] = 'No accepted sessions';
+  $handler->display->display_options['empty']['area']['label'] = 'No sessions';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'No sessions for this category have been created or assigned yet.';
+  $handler->display->display_options['empty']['area']['content'] = 'There are no pending sessions';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-  $handler->display->display_options['empty']['area']['tokenize'] = TRUE;
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Content: Title */
-  $handler->display->display_options['sorts']['title']['id'] = 'title';
-  $handler->display->display_options['sorts']['title']['table'] = 'node';
-  $handler->display->display_options['sorts']['title']['field'] = 'title';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: OG membership: Group ID */
+  $handler->display->display_options['arguments']['gid']['id'] = 'gid';
+  $handler->display->display_options['arguments']['gid']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['gid']['field'] = 'gid';
+  $handler->display->display_options['arguments']['gid']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['arguments']['gid']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['gid']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['gid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['gid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['gid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['gid']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['gid']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['gid']['validate_options']['types'] = array(
+    'event' => 'event',
+  );
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Type */
@@ -1019,190 +1367,27 @@ function cod_session_views_default_views() {
     'session' => 'session',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Search: Search Terms */
-  $handler->display->display_options['filters']['keys']['id'] = 'keys';
-  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
-  $handler->display->display_options['filters']['keys']['field'] = 'keys';
-  $handler->display->display_options['filters']['keys']['group'] = 1;
-  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Filter by keywords:';
-  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
-  /* Filter criterion: Content: Experience level (field_experience) */
-  $handler->display->display_options['filters']['field_experience_value']['id'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['table'] = 'field_data_field_experience';
-  $handler->display->display_options['filters']['field_experience_value']['field'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_experience_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator_id'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['label'] = 'Experience level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['identifier'] = 'experience_level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['multiple'] = TRUE;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['path'] = 'node/%/event/sessions/accepted';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Accepted Sessions';
-  $handler->display->display_options['menu']['weight'] = '0';
-  $handler->display->display_options['menu']['name'] = 'menu-menu-conference-admin';
-  $handler->display->display_options['tab_options']['type'] = 'normal';
-  $handler->display->display_options['tab_options']['title'] = 'Admin Sessions';
-  $handler->display->display_options['tab_options']['weight'] = '0';
+  $handler->display->display_options['filters']['status']['value'] = '0';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['argument_input'] = array(
+    'gid' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Event ID',
+    ),
+  );
 
-  /* Display: Page: Declined */
-  $handler = $view->new_display('page', 'Page: Declined', 'page_2');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Declined Sessions';
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'view-grouped-list sessions-list sessions-declined';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['empty'] = FALSE;
-  /* No results behavior: Global: Text area */
-  $handler->display->display_options['empty']['area']['id'] = 'area';
-  $handler->display->display_options['empty']['area']['table'] = 'views';
-  $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['label'] = 'No declined sessions';
-  $handler->display->display_options['empty']['area']['content'] = 'No sessions have been declined yet. When you decline unprocessed sessions, they will show up here.';
-  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-  $handler->display->display_options['defaults']['sorts'] = FALSE;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'session' => 'session',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Status (field_accepted) */
-  $handler->display->display_options['filters']['field_accepted_value']['id'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
-  $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    2 => '2',
-  );
-  $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  /* Filter criterion: Search: Search Terms */
-  $handler->display->display_options['filters']['keys']['id'] = 'keys';
-  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
-  $handler->display->display_options['filters']['keys']['field'] = 'keys';
-  $handler->display->display_options['filters']['keys']['group'] = 1;
-  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Filter by keywords:';
-  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
-  /* Filter criterion: Content: Experience level (field_experience) */
-  $handler->display->display_options['filters']['field_experience_value']['id'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['table'] = 'field_data_field_experience';
-  $handler->display->display_options['filters']['field_experience_value']['field'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_experience_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator_id'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['label'] = 'Experience level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['identifier'] = 'experience_level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['multiple'] = TRUE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['path'] = 'node/%/event/sessions/declined';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Declined Sessions';
-  $handler->display->display_options['menu']['weight'] = '-5';
-  $handler->display->display_options['menu']['name'] = 'menu-menu-conference-admin';
-
-  /* Display: Page: Unprocessed */
-  $handler = $view->new_display('page', 'Page: Unprocessed', 'page_3');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Unprocessed Sessions';
-  $handler->display->display_options['defaults']['css_class'] = FALSE;
-  $handler->display->display_options['css_class'] = 'view-grouped-list sessions-list sessions-unprocessed';
-  $handler->display->display_options['display_description'] = 'These sessions have not yet been approved or declined. ';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['empty'] = FALSE;
-  /* No results behavior: Global: Text area */
-  $handler->display->display_options['empty']['area']['id'] = 'area';
-  $handler->display->display_options['empty']['area']['table'] = 'views';
-  $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['label'] = 'No unprocessed sessions';
-  $handler->display->display_options['empty']['area']['content'] = 'There are no sessions to process. Relax a bit!';
-  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'session' => 'session',
-  );
-  $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Status (field_accepted) */
-  $handler->display->display_options['filters']['field_accepted_value']['id'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
-  $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    0 => '0',
-  );
-  $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  /* Filter criterion: Search: Search Terms */
-  $handler->display->display_options['filters']['keys']['id'] = 'keys';
-  $handler->display->display_options['filters']['keys']['table'] = 'search_index';
-  $handler->display->display_options['filters']['keys']['field'] = 'keys';
-  $handler->display->display_options['filters']['keys']['group'] = 1;
-  $handler->display->display_options['filters']['keys']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['keys']['expose']['operator_id'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['label'] = 'Filter by keywords:';
-  $handler->display->display_options['filters']['keys']['expose']['operator'] = 'keys_op';
-  $handler->display->display_options['filters']['keys']['expose']['identifier'] = 'keys';
-  /* Filter criterion: Content: Experience level (field_experience) */
-  $handler->display->display_options['filters']['field_experience_value']['id'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['table'] = 'field_data_field_experience';
-  $handler->display->display_options['filters']['field_experience_value']['field'] = 'field_experience_value';
-  $handler->display->display_options['filters']['field_experience_value']['group'] = 1;
-  $handler->display->display_options['filters']['field_experience_value']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator_id'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['label'] = 'Experience level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['operator'] = 'field_experience_value_op';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['identifier'] = 'experience_level';
-  $handler->display->display_options['filters']['field_experience_value']['expose']['remember'] = TRUE;
-  $handler->display->display_options['filters']['field_experience_value']['expose']['multiple'] = TRUE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '1';
-  $handler->display->display_options['path'] = 'node/%/event/sessions/unprocessed';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Unprocessed sessions';
-  $handler->display->display_options['menu']['weight'] = '-10';
-  $handler->display->display_options['menu']['context'] = 0;
-  $handler->display->display_options['menu']['context_only_inline'] = 0;
-  $handler->display->display_options['tab_options']['type'] = 'tab';
-  $handler->display->display_options['tab_options']['title'] = 'Sessions';
-  $handler->display->display_options['tab_options']['weight'] = '0';
-  $handler->display->display_options['tab_options']['name'] = 'devel';
-
-  /* Display: Page: Scheduled */
-  $handler = $view->new_display('page', 'Page: Scheduled', 'page_4');
+  /* Display: Scheduled Sessions */
+  $handler = $view->new_display('panel_pane', 'Scheduled Sessions', 'panel_pane_scheduled');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Scheduled Sessions';
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
@@ -1212,6 +1397,145 @@ function cod_session_views_default_views() {
   $handler->display->display_options['empty']['area']['content'] = 'No sessions have been scheduled yet. Assign a time slot and room to an accepted session to schedule it.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Bulk operations: Content */
+  $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['table'] = 'node';
+  $handler->display->display_options['fields']['views_bulk_operations']['field'] = 'views_bulk_operations';
+  $handler->display->display_options['fields']['views_bulk_operations']['label'] = '';
+  $handler->display->display_options['fields']['views_bulk_operations']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['display_type'] = '0';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['enable_select_all_pages'] = 1;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['force_single'] = 0;
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_settings']['entity_load_capacity'] = '10';
+  $handler->display->display_options['fields']['views_bulk_operations']['vbo_operations'] = array(
+    'action::node_assign_owner_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_item' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_delete_revision' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_script_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::flag_node_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_sticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_make_unsticky_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::views_bulk_operations_modify_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 1,
+      'label' => 'Change Session Status',
+      'settings' => array(
+        'show_all_tokens' => 1,
+        'display_values' => array(
+          'session::field_accepted' => 'session::field_accepted',
+        ),
+      ),
+    ),
+    'action::views_bulk_operations_argument_selector_action' => array(
+      'selected' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+      'settings' => array(
+        'url' => '',
+      ),
+    ),
+    'action::node_promote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_publish_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpromote_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_save_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::system_send_email_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_action' => array(
+      'selected' => 1,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 1,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::node_unpublish_by_keyword_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+    'action::pathauto_node_update_action' => array(
+      'selected' => 0,
+      'postpone_processing' => 0,
+      'skip_confirmation' => 0,
+      'override_label' => 0,
+      'label' => '',
+    ),
+  );
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -1314,14 +1638,19 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_experience_value']['expose']['identifier'] = 'experience_level';
   $handler->display->display_options['filters']['field_experience_value']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['field_experience_value']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['path'] = 'node/%/event/sessions/scheduled';
-  $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Scheduled sessions';
-  $handler->display->display_options['menu']['weight'] = '5';
-  $handler->display->display_options['menu']['name'] = 'menu-menu-conference-admin';
+  $handler->display->display_options['argument_input'] = array(
+    'gid' => array(
+      'type' => 'user',
+      'context' => 'entity:comment.author',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Event ID',
+    ),
+  );
 
   /* Display: Page: Admin Table */
-  $handler = $view->new_display('page', 'Page: Admin Table', 'page_5');
+  $handler = $view->new_display('page', 'Page: Admin Table', 'page_admin_table');
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'full';
@@ -1428,6 +1757,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['relationships']['flag_count_rel_1']['id'] = 'flag_count_rel_1';
   $handler->display->display_options['relationships']['flag_count_rel_1']['table'] = 'node';
   $handler->display->display_options['relationships']['flag_count_rel_1']['field'] = 'flag_count_rel';
+  $handler->display->display_options['relationships']['flag_count_rel_1']['required'] = 0;
   $handler->display->display_options['relationships']['flag_count_rel_1']['flag'] = 'session_schedule';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
@@ -1547,25 +1877,61 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value_1']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value_1']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value_1']['value'] = array(
-    0 => '0',
-    1 => '1',
+    'unprocessed' => 'unprocessed',
+    'accepted' => 'accepted',
+    'declined' => 'declined',
+    'featured' => 'featured',
+    'cancelled' => 'cancelled',
+    'backup' => 'backup',
   );
   $handler->display->display_options['filters']['field_accepted_value_1']['group'] = 0;
-  $handler->display->display_options['path'] = 'node/%/event/sessions/table';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/sessions/table';
+  $handler->display->display_options['menu']['type'] = 'tab';
+  $handler->display->display_options['menu']['title'] = 'Session Table';
+  $handler->display->display_options['menu']['weight'] = '0';
+  $handler->display->display_options['menu']['context'] = 0;
+  $handler->display->display_options['menu']['context_only_inline'] = 0;
 
-  /* Display: Unpublished Sessions */
-  $handler = $view->new_display('panel_pane', 'Unpublished Sessions', 'panel_pane_1');
+  /* Display: Schedule Items */
+  $handler = $view->new_display('panel_pane', 'Schedule Items', 'panel_pane_schedule_items');
   $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Pending (Unpublished) Sessions';
+  $handler->display->display_options['title'] = 'Schedule Item(s)';
+  $handler->display->display_options['defaults']['pager'] = FALSE;
+  $handler->display->display_options['pager']['type'] = 'mini';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '20';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['defaults']['empty'] = FALSE;
   /* No results behavior: Global: Text area */
   $handler->display->display_options['empty']['area']['id'] = 'area';
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
-  $handler->display->display_options['empty']['area']['label'] = 'No sessions';
+  $handler->display->display_options['empty']['area']['label'] = 'No schedule items';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'There are no pending sessions';
+  $handler->display->display_options['empty']['area']['content'] = 'There are no schedule items with this status.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Status */
+  $handler->display->display_options['fields']['field_accepted']['id'] = 'field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['table'] = 'field_data_field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['field'] = 'field_accepted';
+  $handler->display->display_options['fields']['field_accepted']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_accepted']['hide_alter_empty'] = FALSE;
+  /* Field: Content: Edit link */
+  $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
+  $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
+  $handler->display->display_options['fields']['edit_node']['label'] = '';
+  $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['edit_node']['hide_alter_empty'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: OG membership: Group ID */
   $handler->display->display_options['arguments']['gid']['id'] = 'gid';
@@ -1589,15 +1955,31 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'session' => 'session',
+    'schedule_item' => 'schedule_item',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = '0';
-  $handler->display->display_options['filters']['status']['group'] = 1;
+  /* Filter criterion: Content: Status (field_accepted) */
+  $handler->display->display_options['filters']['field_accepted_value']['id'] = 'field_accepted_value';
+  $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
+  $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
+  $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
+    'accepted' => 'accepted',
+  );
+  $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_accepted_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_accepted_value']['expose']['operator_id'] = 'field_accepted_value_op';
+  $handler->display->display_options['filters']['field_accepted_value']['expose']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_accepted_value']['expose']['operator'] = 'field_accepted_value_op';
+  $handler->display->display_options['filters']['field_accepted_value']['expose']['identifier'] = 'field_accepted_value';
+  $handler->display->display_options['filters']['field_accepted_value']['expose']['remember_roles'] = array();
+  $handler->display->display_options['filters']['field_accepted_value']['group_info']['label'] = 'Status';
+  $handler->display->display_options['filters']['field_accepted_value']['group_info']['identifier'] = 'field_accepted_value';
+  $handler->display->display_options['filters']['field_accepted_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_accepted_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
   $handler->display->display_options['argument_input'] = array(
     'gid' => array(
       'type' => 'user',
@@ -1607,15 +1989,8 @@ function cod_session_views_default_views() {
       'fixed' => '',
       'label' => 'Event ID',
     ),
-    'field_accepted_value' => array(
-      'type' => 'none',
-      'context' => 'entity:comment.author',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Status (field_accepted)',
-    ),
   );
+
   $export['cod_session_sessions_admin'] = $view;
 
   $view = new view();
@@ -1935,7 +2310,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
 
@@ -1984,18 +2359,17 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    0 => '0',
+    'unprocessed' => 'unprocessed',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'node/%/event/speakers/unprocessed';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/unprocessed';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Unprocessed';
   $handler->display->display_options['menu']['description'] = 'Email speakers of unprocessed sessions.';
   $handler->display->display_options['menu']['weight'] = '-30';
-  $handler->display->display_options['tab_options']['type'] = 'normal';
-  $handler->display->display_options['tab_options']['title'] = 'Contact Speakers';
+  $handler->display->display_options['tab_options']['type'] = 'tab';
+  $handler->display->display_options['tab_options']['title'] = 'Speakers';
   $handler->display->display_options['tab_options']['weight'] = '0';
-  $handler->display->display_options['tab_options']['name'] = 'menu-menu-conference-admin';
 
   /* Display: Page: Declined */
   $handler = $view->new_display('page', 'Page: Declined', 'page_2');
@@ -2041,9 +2415,9 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    2 => '2',
+    'declined' => 'declined',
   );
-  $handler->display->display_options['path'] = 'node/%/event/speakers/declined';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/declined';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Declined';
   $handler->display->display_options['menu']['weight'] = '-25';
@@ -2070,7 +2444,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'No accepted speakers';
-  $handler->display->display_options['empty']['area']['content'] = 'There are no accepted speakers at the moment. Try <a href="/node/%/event/sessions">reviewing sessions</a> to accept or decline them.';
+  $handler->display->display_options['empty']['area']['content'] = 'There are no accepted speakers at the moment. Try <a href="/admin/conference/events/%/sessions">reviewing sessions</a> to accept or decline them.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -2093,9 +2467,9 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
-  $handler->display->display_options['path'] = 'node/%/event/speakers/accepted';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/accepted';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Accepted';
   $handler->display->display_options['menu']['weight'] = '-20';
@@ -2145,9 +2519,9 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
-  $handler->display->display_options['path'] = 'node/%/event/speakers/scheduled';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/scheduled';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Scheduled';
   $handler->display->display_options['menu']['weight'] = '-15';
@@ -2207,7 +2581,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
   /* Filter criterion: Flags: Flagged */
@@ -2217,7 +2591,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '0';
   $handler->display->display_options['filters']['flagged']['group'] = 1;
-  $handler->display->display_options['path'] = 'node/%/event/speakers/unconfirmed';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/unconfirmed';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Unconfirmed';
   $handler->display->display_options['menu']['weight'] = '-10';
@@ -2284,10 +2658,10 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'node/%/event/speakers/confirmed';
+  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/confirmed';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Confirmed';
   $handler->display->display_options['menu']['description'] = 'Email speakers who have confirmed for their session';
@@ -2389,7 +2763,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
 
@@ -2581,7 +2955,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['relationship'] = 'reverse_field_speakers_node';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
   $handler->display->display_options['path'] = 'node/%/speakers';
   $handler->display->display_options['menu']['type'] = 'tab';
@@ -2743,7 +3117,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
   $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    1 => '1',
+    'accepted' => 'accepted',
   );
 
   /* Display: Page */

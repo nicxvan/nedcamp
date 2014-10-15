@@ -38,7 +38,8 @@ function cod_sponsors_menu() {
   $items['sponsorship/add/%node'] = array(
     'page callback' => 'cod_sponsors_product_add',
     'page arguments' => array(2),
-    'access arguments' => array('access content'),
+    'access callback' => 'node_access',
+    'access arguments' => array('create', 'sponsor'),
     'type' => MENU_CALLBACK,
   );
   $items['node/%node/add/sponsor'] = array(
@@ -46,21 +47,23 @@ function cod_sponsors_menu() {
     'type' => MENU_CALLBACK,
     'page callback' => 'cod_events_add_content',
     'page arguments' => array(1, 3),
-    'access callback' => TRUE,
+    'access callback' => 'node_access',
+    'access arguments' => array('create', 'sponsor'),
   );
-  $items['node/%node/event/sponsors/add/sponsor'] = array(
+  $items['admin/conference/events/%node/sponsors/add/sponsor'] = array(
     'title' => t('Add Sponsor'),
     'page callback' => 'cod_events_add_content',
-    'page arguments' => array(1, 5, 2, 3),
-    'access callback' => TRUE,
+    'page arguments' => array(3, 6, 'admin/conference/events', 4),
+    'access callback' => 'node_access',
+    'access arguments' => array('create', 'sponsor'),
     'weight' => -1,
     'type' => MENU_LOCAL_ACTION,
   );
-  $items['node/%node/event/sponsors/add/sponsorship_level'] = array(
+  $items['admin/conference/events/%node/sponsors/add/sponsorship_level'] = array(
     'title' => t('Add Sponsorship Level'),
     'page callback' => 'cod_events_add_term',
-    'page arguments' => array(1, 5, 2, 3),
-    'access callback' => TRUE,
+    'page arguments' => array(3, 6, 'admin/conference/events', 4),
+    'access arguments' => array('edit any sponsor'),
     'weight' => -4,
     'type' => MENU_LOCAL_ACTION,
   );

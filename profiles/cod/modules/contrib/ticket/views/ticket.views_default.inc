@@ -12,7 +12,7 @@ function ticket_views_default_views() {
 
   $view = new view();
   $view->name = 'ticket_registration';
-  $view->description = 'Display a list of all registration for a given ticket type';
+  $view->description = 'Display a list of all registrations for a given ticket type';
   $view->tag = 'ticket';
   $view->base_table = 'ticket_registration';
   $view->human_name = 'Ticket: Registrations by type';
@@ -108,6 +108,11 @@ function ticket_views_default_views() {
   $handler->display->display_options['fields']['mail']['table'] = 'users';
   $handler->display->display_options['fields']['mail']['field'] = 'mail';
   $handler->display->display_options['fields']['mail']['relationship'] = 'author_uid';
+  /* Field: Ticket registration: Ticket registration state */
+  $handler->display->display_options['fields']['ticket_state']['id'] = 'ticket_state';
+  $handler->display->display_options['fields']['ticket_state']['table'] = 'field_data_ticket_state';
+  $handler->display->display_options['fields']['ticket_state']['field'] = 'ticket_state';
+  $handler->display->display_options['fields']['ticket_state']['label'] = 'Status';
   /* Field: Ticket registration: Date created */
   $handler->display->display_options['fields']['created']['id'] = 'created';
   $handler->display->display_options['fields']['created']['table'] = 'ticket_registration';
@@ -140,6 +145,56 @@ function ticket_views_default_views() {
   $handler->display->display_options['arguments']['bundle']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['bundle']['summary_options']['items_per_page'] = '25';
 
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+
+  // Enable Recent Registrations panel pane if panels module is enabled
+  if (module_exists('panels')) {
+    /* Display: Recent Registrations */
+    $handler = $view->new_display('panel_pane', 'Recent Registrations', 'panel_pane_1');
+    $handler->display->display_options['defaults']['title'] = FALSE;
+    $handler->display->display_options['title'] = 'Recent Registrations';
+    $handler->display->display_options['defaults']['use_more'] = FALSE;
+    $handler->display->display_options['use_more'] = TRUE;
+    $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+    $handler->display->display_options['defaults']['use_more_always'] = FALSE;
+    $handler->display->display_options['use_more_always'] = FALSE;
+    $handler->display->display_options['defaults']['use_more_text'] = FALSE;
+    $handler->display->display_options['defaults']['pager'] = FALSE;
+    $handler->display->display_options['pager']['type'] = 'some';
+    $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+    $handler->display->display_options['pager']['options']['offset'] = '0';
+    $handler->display->display_options['defaults']['header'] = FALSE;
+    $handler->display->display_options['defaults']['relationships'] = FALSE;
+    /* Relationship: Ticket registration: Registrant */
+    $handler->display->display_options['relationships']['author_uid']['id'] = 'author_uid';
+    $handler->display->display_options['relationships']['author_uid']['table'] = 'ticket_registration';
+    $handler->display->display_options['relationships']['author_uid']['field'] = 'author_uid';
+    $handler->display->display_options['relationships']['author_uid']['required'] = TRUE;
+    /* Relationship: Ticket registration: Ticket Type */
+    $handler->display->display_options['relationships']['ticket_type_ttid']['id'] = 'ticket_type_ttid';
+    $handler->display->display_options['relationships']['ticket_type_ttid']['table'] = 'ticket_registration';
+    $handler->display->display_options['relationships']['ticket_type_ttid']['field'] = 'ticket_type_ttid';
+    $handler->display->display_options['relationships']['ticket_type_ttid']['label'] = 'Ticket Type';
+    $handler->display->display_options['relationships']['ticket_type_ttid']['required'] = TRUE;
+    $handler->display->display_options['defaults']['arguments'] = FALSE;
+    /* Contextual filter: Ticket type: Entity ID */
+    $handler->display->display_options['arguments']['entity_id']['id'] = 'entity_id';
+    $handler->display->display_options['arguments']['entity_id']['table'] = 'ticket_type';
+    $handler->display->display_options['arguments']['entity_id']['field'] = 'entity_id';
+    $handler->display->display_options['arguments']['entity_id']['relationship'] = 'ticket_type_ttid';
+    $handler->display->display_options['arguments']['entity_id']['default_action'] = 'empty';
+    $handler->display->display_options['arguments']['entity_id']['default_argument_type'] = 'fixed';
+    $handler->display->display_options['arguments']['entity_id']['summary']['number_of_records'] = '0';
+    $handler->display->display_options['arguments']['entity_id']['summary']['format'] = 'default_summary';
+    $handler->display->display_options['arguments']['entity_id']['summary_options']['items_per_page'] = '25';
+    $handler->display->display_options['arguments']['entity_id']['specify_validation'] = TRUE;
+    $handler->display->display_options['arguments']['entity_id']['validate']['type'] = 'node';
+    $handler->display->display_options['arguments']['entity_id']['validate_options']['types'] = array(
+      'event' => 'event',
+    );
+    $handler->display->display_options['arguments']['entity_id']['validate_options']['access'] = TRUE;
+  }
   $export['ticket_registration'] = $view;
 
   $view = new view();

@@ -15,7 +15,7 @@ function cod_session_management_pages_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Session Management';
   $page->admin_description = '';
-  $page->path = 'node/%node/event/sessions';
+  $page->path = 'admin/conference/events/%node/sessions/dashboard';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -28,23 +28,13 @@ function cod_session_management_pages_default_page_manager_pages() {
         'context' => 'argument_entity_id:node_1',
         'not' => FALSE,
       ),
-      1 => array(
-        'name' => 'og_perm',
-        'settings' => array(
-          'perm' => 'administer group',
-        ),
-        'context' => array(
-          0 => 'logged-in-user',
-          1 => 'argument_entity_id:node_1',
-        ),
-        'not' => FALSE,
-      ),
       2 => array(
         'name' => 'role',
         'settings' => array(
           'rids' => array(
-            0 => 4,
+            0 => 7,
             1 => 5,
+            2 => 4,
           ),
         ),
         'context' => 'logged-in-user',
@@ -56,13 +46,13 @@ function cod_session_management_pages_default_page_manager_pages() {
     'settings' => NULL,
   );
   $page->menu = array(
-    'type' => 'tab',
-    'title' => 'Sessions',
+    'type' => 'default tab',
+    'title' => 'Dashboard',
     'name' => 'navigation',
-    'weight' => '-1',
+    'weight' => -1,
     'parent' => array(
-      'type' => 'none',
-      'title' => '',
+      'type' => 'tab',
+      'title' => 'Sessions',
       'name' => 'navigation',
       'weight' => '0',
     ),
@@ -180,7 +170,7 @@ function cod_session_management_pages_default_page_manager_pages() {
     $pane->pid = 'new-d468fd6a-8561-4582-8d95-b36ef014cbd9';
     $pane->panel = 'center';
     $pane->type = 'views_panes';
-    $pane->subtype = 'cod_session_sessions_admin-panel_pane_1';
+    $pane->subtype = 'cod_session_sessions_admin-panel_pane_unpublished';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
@@ -243,6 +233,29 @@ function cod_session_management_pages_default_page_manager_pages() {
     $pane->uuid = '299bb228-0927-4f74-acf0-4f21b278101a';
     $display->content['new-299bb228-0927-4f74-acf0-4f21b278101a'] = $pane;
     $display->panels['right_sidebar'][0] = 'new-299bb228-0927-4f74-acf0-4f21b278101a';
+    $pane = new stdClass();
+    $pane->pid = 'new-8c13b0ac-c679-456c-8a56-60b06e974663';
+    $pane->panel = 'right_sidebar';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'cod_session_sessions_admin-panel_pane_schedule_items';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'arguments' => array(
+        'gid' => '%node:nid',
+      ),
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '8c13b0ac-c679-456c-8a56-60b06e974663';
+    $display->content['new-8c13b0ac-c679-456c-8a56-60b06e974663'] = $pane;
+    $display->panels['right_sidebar'][1] = 'new-8c13b0ac-c679-456c-8a56-60b06e974663';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

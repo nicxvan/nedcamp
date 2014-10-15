@@ -82,9 +82,9 @@ settings[omega_demo_regions_list][sidebar_second] = sidebar_second
 settings[omega_demo_regions_list][footer] = footer
 
 
-; Information added by drush on 2014-06-05
+; Information added by drush on 2014-10-09
 version = "7.x-4.2+6-dev"
 core = "7.x"
 project = "omega"
-datestamp = "1402005234"
+datestamp = "1412840689"
 

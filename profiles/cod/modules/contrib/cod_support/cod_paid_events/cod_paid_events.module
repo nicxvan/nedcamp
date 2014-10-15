@@ -14,37 +14,19 @@ function cod_paid_events_ticket_registered_redirect_alter(&$redirect, &$registra
   foreach ($registrations as $registration) {
     $ticket_type = $registration->ticket_type();
     if (!empty($ticket_type->field_ticket_related_product) && $product = commerce_product_load($ticket_type->field_ticket_related_product[LANGUAGE_NONE][0]['product_id'])) {
-      // Save the registrations so we can mark status and correlate orders later.
-      // Only registrations with related products have associated orders.
-      $_SESSION['cod_paid_events_ticket_registrations'][] = $registration->trid;
-
       // Add line items to the cart.
       $line_item = commerce_product_line_item_new($product);
-      commerce_cart_product_add($user->uid, $line_item);
-      $redirect = 'checkout';
-    }
-  }
-}
+      $line_item = commerce_cart_product_add($user->uid, $line_item);
 
-/**
- * Implements hook_commerce_checkout_complete().
- */
-function cod_paid_events_commerce_checkout_complete($order) {
-  if (!empty($_SESSION['cod_paid_events_ticket_registrations'])) {
-    // Mark each of the registrations with the order number.
-    foreach ($_SESSION['cod_paid_events_ticket_registrations'] as $trid) {
-      $ticket_registration = ticket_registration_load($trid);
-      $ticket_registration->field_ticket_order[LANGUAGE_NONE][0]['target_id'] = $order->order_id;
+      // If the line item was successful, add the order id to the ticket.
+      if ($line_item && !empty($line_item->order_id)) {
+        // Set the ticket registration's order id.
+        $registration->field_ticket_order[LANGUAGE_NONE][0]['target_id'] = $line_item->order_id;
+        ticket_registration_save($registration);
 
-      // Set the completed registration state.
-      if (!empty($ticket_registration->ticket_type()->field_complete_state)) {
-        $ticket_registration->ticket_state = $ticket_registration->ticket_type()->field_complete_state;
+        $redirect = 'checkout';
       }
-
-      ticket_registration_save($ticket_registration);
     }
-    // Clear out the stored registrations.
-    unset($_SESSION['cod_paid_events_ticket_registrations']);
   }
 }
 
@@ -60,10 +42,11 @@ function cod_paid_events_entity_insert($entity, $type) {
  */
 function cod_paid_events_entity_update($entity, $type) {
   cod_paid_events_add_order_instance($entity, $type);
+  cod_paid_events_order_complete($entity, $type);
 }
 
 /**
- * Implements hook_entity_presave().
+ * Update the ticket registrations to have an order field.
  */
 function cod_paid_events_add_order_instance($entity, $type) {
   if ($type == 'ticket_type' && !empty($entity->field_ticket_related_product[LANGUAGE_NONE][0]['product_id'])) {
@@ -107,6 +90,29 @@ function cod_paid_events_add_order_instance($entity, $type) {
 
       field_create_instance($instance);
       cache_clear_all('cod_paid_events_order_registrations_instance', 'cache');
+    }
+  }
+}
+
+/**
+ * Update the ticket to the correct state on order completion.
+ */
+function cod_paid_events_order_complete($entity, $type) {
+  // Commerce order moved from checkout complete to completed.
+  if ($type == 'commerce_order' && $entity->status == 'completed' && $entity->original->status != 'completed') {
+    // Get tickets related to the order.
+    $query = new EntityFieldQuery();
+    $results = $query->entityCondition('entity_type', 'ticket_registration')
+      ->fieldCondition('field_ticket_order', 'target_id', $entity->order_id)
+      ->execute();
+    if (count($results['ticket_registration'])) {
+      foreach (array_keys($results['ticket_registration']) as $trid) {
+        $ticket_registration = ticket_registration_load($trid);
+        if (!empty($ticket_registration->ticket_type()->field_complete_state)) {
+          $ticket_registration->ticket_state = $ticket_registration->ticket_type()->field_complete_state;
+          ticket_registration_save($ticket_registration);
+        }
+      }
     }
   }
 }

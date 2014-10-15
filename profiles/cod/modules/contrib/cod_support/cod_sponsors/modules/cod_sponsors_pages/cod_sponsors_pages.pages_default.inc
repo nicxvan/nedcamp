@@ -15,7 +15,7 @@ function cod_sponsors_pages_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Sponsors Management';
   $page->admin_description = '';
-  $page->path = 'node/%node/event/sponsors';
+  $page->path = 'admin/conference/events/%node/sponsors';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -28,23 +28,13 @@ function cod_sponsors_pages_default_page_manager_pages() {
         'context' => 'argument_entity_id:node_1',
         'not' => FALSE,
       ),
-      1 => array(
-        'name' => 'og_perm',
-        'settings' => array(
-          'perm' => 'administer group',
-        ),
-        'context' => array(
-          0 => 'logged-in-user',
-          1 => 'argument_entity_id:node_1',
-        ),
-        'not' => FALSE,
-      ),
       2 => array(
         'name' => 'role',
         'settings' => array(
           'rids' => array(
-            0 => 4,
+            0 => 7,
             1 => 6,
+            2 => 4,
           ),
         ),
         'context' => 'logged-in-user',

@@ -10,43 +10,6 @@
 function cod_schedule_views_default_views() {
   $export = array();
 
-  // This is the POC from DyanneNova, keeping here for legacy reasons for now.
-  $view = new view();
-  $view->name = 'cod_event_rooms';
-  $view->description = '';
-  $view->tag = 'cod_schedule';
-  $view->base_table = 'cod_event_room';
-  $view->human_name = 'COD Event Rooms';
-  $view->core = 7;
-  $view->api_version = '3.0';
-  $view->disabled = TRUE; /* Edit this to true to make a default view disabled initially */
-
-  /* Display: Master */
-  $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Rooms';
-  $handler->display->display_options['use_more_always'] = FALSE;
-  $handler->display->display_options['access']['type'] = 'none';
-  $handler->display->display_options['cache']['type'] = 'none';
-  $handler->display->display_options['query']['type'] = 'views_query';
-  $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Room: Label */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'cod_event_room';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Sort criterion: Room: Label */
-  $handler->display->display_options['sorts']['name']['id'] = 'name';
-  $handler->display->display_options['sorts']['name']['table'] = 'cod_event_room';
-  $handler->display->display_options['sorts']['name']['field'] = 'name';
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
-  $export['cod_event_rooms'] = $view;
-
   $view = new view();
   $view->name = 'cod_schedule';
   $view->description = 'Main Schedule View for Events';
@@ -322,13 +285,6 @@ function cod_schedule_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_speakers']['delta_offset'] = '0';
-  /* Field: Content: Track */
-  $handler->display->display_options['fields']['field_session_track']['id'] = 'field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['table'] = 'field_data_field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['field'] = 'field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['label'] = '';
-  $handler->display->display_options['fields']['field_session_track']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_session_track']['type'] = 'taxonomy_term_reference_plain';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -453,13 +409,6 @@ function cod_schedule_views_default_views() {
     'link' => 1,
   );
   $handler->display->display_options['fields']['field_speakers']['delta_offset'] = '0';
-  /* Field: Content: Track */
-  $handler->display->display_options['fields']['field_session_track']['id'] = 'field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['table'] = 'field_data_field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['field'] = 'field_session_track';
-  $handler->display->display_options['fields']['field_session_track']['label'] = '';
-  $handler->display->display_options['fields']['field_session_track']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_session_track']['type'] = 'taxonomy_term_reference_plain';
   /* Field: Content: Experience level */
   $handler->display->display_options['fields']['field_experience']['id'] = 'field_experience';
   $handler->display->display_options['fields']['field_experience']['table'] = 'field_data_field_experience';
@@ -587,7 +536,7 @@ function cod_schedule_views_default_views() {
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['id'] = 'field_timeslot_allowed_types_value';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['table'] = 'field_data_field_timeslot_allowed_types';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['field'] = 'field_timeslot_allowed_types_value';
-  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['default_argument_type'] = 'cod_events_default_type';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_timeslot_allowed_types_value']['summary']['format'] = 'default_summary';

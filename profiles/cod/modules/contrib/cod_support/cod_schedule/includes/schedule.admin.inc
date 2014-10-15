@@ -9,7 +9,9 @@ function cod_schedule_schedule_admin_page($node) {
   // Grab the days.
   $days = cod_schedule_days($node);
   if (empty($days)) {
-    return t('Your event must have a <a href="@edit">start and end date</a>. <a href="@edit">Edit</a> event.', array('@edit' => url('node/'.$node->nid.'/edit', array('fragment' => 'edit-field-dates', 'query' => array('destination' => 'node/'.$node->nid.'/event/schedule')))));
+    return t('Your event must have a <a href="@edit">start and end date</a>. <a href="@edit">Edit</a> event.',
+      array('@edit' => url('admin/conference/events/'. $node->nid .'/edit', array('fragment' => 'edit-field-dates',
+            'query' => array('destination' => 'admin/conference/events/'. $node->nid .'/schedule')))));
   }
 
   // Grab the Rooms attached to the event.
@@ -56,13 +58,13 @@ function cod_schedule_schedule_admin_page($node) {
         $time_entity = entity_load('cod_event_time', array($evttid));
         $time_label = $time_entity[$evttid]->getTimeLabel();
         $time_edit_uri = 'admin/conference/times/manage/' . $evttid;
-        $row = array(l($time_label, $time_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule'))));
+        $row = array(l($time_label, $time_edit_uri, array('query' => array('destination' => 'admin/conference/events/'.$node->nid.'/schedule'))));
 
         foreach ($rooms['cod_event_room'] as $roomid => $room) {
           if (empty($rows)) {
             $room_label = $room->extraFields->name;
             $room_edit_uri = 'admin/conference/rooms/manage/' . $roomid;
-            $header[] = l($room_label, $room_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule')));
+            $header[] = l($room_label, $room_edit_uri, array('query' => array('destination' => 'admin/conference/events/'.$node->nid.'/schedule')));
           }
 
           $row[] = cod_schedule_schedule_grid_item($node, $evttid, $roomid);
@@ -117,7 +119,7 @@ function cod_schedule_schedule_grid_item($event, $time, $room, $reset = FALSE) {
     // Generate the appropriate link for this timeslot.
     $items[]['data'] = l(
       t('@op timeslot', array('@op' => ucwords($op))),
-      'node/' . $event->nid . '/event/schedule/nojs/' . $op . '/' . $time .'/' . $room,
+      'admin/conference/events/' . $event->nid . '/schedule/nojs/' . $op . '/' . $time .'/' . $room,
       array('attributes' => array('class' => 'ctools-use-modal'))
     );
 
@@ -188,7 +190,7 @@ function cod_event_room_form($form, &$form_state, CodEventRoom $cod_event_room, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/event/schedule';
+    $form['actions']['submit']['#redirect'] = 'admin/conference/events/'.$node->nid.'/schedule';
   }
   $form['weight'] = array(
     '#type' => 'weight',
@@ -233,6 +235,8 @@ function cod_event_room_form_submit(&$form, &$form_state) {
 */
 function cod_event_room_form_submit_delete(&$form, &$form_state) {
   $evtrid = $form_state['cod_event_room']->evtrid;
+  cod_event_room_delete($form_state['cod_event_room']);
+  
   $form_state['redirect'] = "admin/conference/rooms/manage/$evtrid/delete";
 }
 
@@ -244,7 +248,7 @@ function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, 
 
   if (isset($node) && is_object($node) && !cod_schedule_days($node)) {
     drupal_set_message("You must first set a date for the event.", 'warning');
-    drupal_goto('node/'.$node->nid.'/event/schedule');
+    drupal_goto('admin/conference/events/'.$node->nid.'/schedule');
   }
 
   $form_state['cod_event_time'] = $cod_event_time;
@@ -291,7 +295,7 @@ function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'node/'.$node->nid.'/event/schedule';
+    $form['actions']['submit']['#redirect'] = 'admin/conference/events/'.$node->nid.'/schedule';
   }
 
   if (!$cod_event_time->isLocked() && $op != 'add' && $op != 'clone') {
@@ -329,12 +333,14 @@ function cod_event_time_form_submit(&$form, &$form_state) {
 */
 function cod_event_time_form_submit_delete(&$form, &$form_state) {
   $evttid = $form_state['cod_event_time']->evttid;
+  cod_event_time_delete($form_state['cod_event_time']);
+
   $form_state['redirect'] = "admin/conference/times/manage/$evttid/delete";
 }
 
 // --------------------------------------------------------------------------
 // Various subforms for editing the pieces of a view.
-//NODEID/event/schedule/nojs/OPERATION/TIMEID/ROOMID
+// /admin/conference/events/NODEID/schedule/nojs/OPERATION/TIMEID/ROOMID
 function cod_schedule_schedule_forms($key = NULL) {
   $forms = array(
     'edit' => array(
@@ -492,104 +498,3 @@ function cod_schedule_field_collection_item_add($field_name, $entity_type, $enti
 
   return $field_collection_item;
 }
-
-/**
- * Generic entry point to handle forms.
- *
- * We do this for consistency and to make it easy to chain forms
- * together.
- */
-/*
-// TODO: Is this function needed or called from anywhere? it appears to be a dupe of cod_schedule_schedule_timeslot_callback().
-function cod_schedule_schedule_form($js, $event, $key, $time, $room) {
-  // Reset the cache of IDs. Drupal rather aggressively prevents id duplication
-  // but this causes it to remember IDs that are no longer even being used.
-  if (isset($_POST['ajax_html_ids'])) {
-    unset($_POST['ajax_html_ids']);
-  }
-
-  $form = cod_schedule_schedule_ajax_forms($key);
-  if (empty($form)) {
-    return MENU_NOT_FOUND;
-  }
-
-  ctools_include('ajax');
-  ctools_include('modal');
-
-  ctools_modal_render( 'Error', 'Error Message');
-
-  $args = func_get_args();
-  // Remove the known args
-  array_splice($args, 0, 4);
-
-  $form_state = views_ui_build_form_state($js, $key, $view, $display_id, $args);
-  // check to see if this is the top form of the stack. If it is, pop
-  // it off; if it isn't, the user clicked somewhere else and the stack is
-  // now irrelevant.
-  if (!empty($view->stack)) {
-    $identifier = views_ui_build_identifier($key, $view, $display_id, $args);
-    // Retrieve the first form from the stack without changing the integer keys,
-    // as they're being used for the "2 of 3" progress indicator.
-    reset($view->stack);
-    list($key, $top) = each($view->stack);
-    unset($view->stack[$key]);
-
-    if (array_shift($top) != $identifier) {
-      $view->stack = array();
-    }
-  }
-
-  // Automatically remove the form cache if it is set and the key does
-  // not match. This way navigating away from the form without hitting
-  // update will work.
-  if (isset($view->form_cache) && $view->form_cache['key'] != $key) {
-    unset($view->form_cache);
-  }
-
-  // With the below logic, we may end up rendering a form twice (or two forms
-  // each sharing the same element ids), potentially resulting in
-  // drupal_add_js() being called twice to add the same setting. drupal_get_js()
-  // is ok with that, but until ajax_render() is (http://drupal.org/node/208611),
-  // reset the drupal_add_js() static before rendering the second time.
-  $drupal_add_js_original = drupal_add_js();
-  $drupal_add_js = &drupal_static('drupal_add_js');
-  $output = views_ajax_form_wrapper($form_state['form_id'], $form_state);
-  if ($form_state['submitted'] && empty($form_state['rerender'])) {
-    // Sometimes we need to re-generate the form for multi-step type operations.
-    $object = NULL;
-    if (!empty($view->stack)) {
-      $drupal_add_js = $drupal_add_js_original;
-      $stack = $view->stack;
-      $top = array_shift($stack);
-      $top[0] = $js;
-      $form_state = call_user_func_array('views_ui_build_form_state', $top);
-      $form_state['input'] = array();
-      $form_state['url'] = url(views_ui_build_form_url($form_state));
-      if (!$js) {
-        return drupal_goto(views_ui_build_form_url($form_state));
-      }
-      $output = views_ajax_form_wrapper($form_state['form_id'], $form_state);
-    }
-    elseif (!$js) {
-      // if nothing on the stack, non-js forms just go back to the main view editor.
-      return drupal_goto("admin/structure/views/view/$view->name/edit");
-    }
-    else {
-      $output = array();
-      $output[] = views_ajax_command_dismiss_form();
-      $output[] = views_ajax_command_show_buttons();
-      $output[] = views_ajax_command_trigger_preview();
-      if (!empty($form_state['#page_title'])) {
-        $output[] = views_ajax_command_replace_title($form_state['#page_title']);
-      }
-    }
-    // If this form was for view-wide changes, there's no need to regenerate
-    // the display section of the form.
-    if ($display_id !== '') {
-      views_ui_regenerate_tab($view, $output, $display_id);
-    }
-  }
-
-  return $js ? array('#type' => 'ajax', '#commands' => $output) : $output;
-}
-*/

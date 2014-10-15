@@ -14,6 +14,7 @@ function cod_events_user_default_permissions() {
   $permissions['view program'] = array(
     'name' => 'view program',
     'roles' => array(
+      'administrator' => 'administrator',
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'cod_events',
