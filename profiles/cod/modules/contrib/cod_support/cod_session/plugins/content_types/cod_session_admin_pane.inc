@@ -44,23 +44,24 @@ function cod_session_admin_sessions($event) {
   $content = drupal_render($form);
    *
    */
-
   $field = field_info_field('field_accepted');
   $allowed_values = list_allowed_values($field);
 
-
   $content_tabs = array();
-  foreach ($allowed_values AS $key => $status) {
+  // Stick to the order of the allowed values.
+  $key = 0;
+  foreach ($allowed_values AS $status_name => $status) {
     $content_tabs[] = array(
       'title' => $status,
-      'contents' => views_embed_view('cod_session_sessions_admin', 'page_1', $event->nid, $key),
+      'contents' => views_embed_view('cod_session_sessions_admin', 'panel_pane_published', $event->nid, $status_name),
       'weight' => $key,
     );
+    $key++;
   }
   // Add the Scheduled tab
   $content_tabs[] = array(
     'title' => t('Scheduled'),
-    'contents' => views_embed_view('cod_session_sessions_admin', 'page_4', $event->nid),
+    'contents' => views_embed_view('cod_session_sessions_admin', 'panel_pane_scheduled', $event->nid),
     'weight' => 10,
   );
 

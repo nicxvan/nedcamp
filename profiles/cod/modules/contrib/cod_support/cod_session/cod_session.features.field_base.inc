@@ -31,10 +31,12 @@ function cod_session_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        0 => 'Unprocessed',
-        1 => 'Accepted',
-        2 => 'Declined',
-        3 => 'Featured',
+        'unprocessed' => 'Unprocessed',
+        'accepted' => 'Accepted',
+        'declined' => 'Declined',
+        'featured' => 'Featured',
+        'cancelled' => 'Speaker(s) Cancelled',
+        'backup' => 'Backup',
       ),
       'allowed_values_function' => '',
       'allowed_values_php' => '',
@@ -47,7 +49,7 @@ function cod_session_field_default_field_bases() {
       ),
     ),
     'translatable' => 1,
-    'type' => 'list_integer',
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_event_default_session_view'

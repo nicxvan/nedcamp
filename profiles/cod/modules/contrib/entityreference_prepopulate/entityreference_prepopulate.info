@@ -6,9 +6,10 @@ dependencies[] = entityreference
 
 files[] = entityreference_prepopulate.test
 
-; Information added by Drupal.org packaging script on 2014-02-19
-version = "7.x-1.5"
+
+; Information added by drush on 2014-10-09
+version = "7.x-1.5+5-dev"
 core = "7.x"
 project = "entityreference_prepopulate"
-datestamp = "1392845305"
+datestamp = "1412840682"
 

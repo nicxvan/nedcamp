@@ -335,3 +335,28 @@ function cod_events_update_7011() {
 
   return array();
 }
+
+/**
+ * Enable the subpathauto module and set some defaults
+ */
+function cod_events_update_7012() {
+  module_enable(array('subpathauto'));
+
+  $revert = array(
+    'cod_events' => array('variable'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Revert the admin pages to use new paths
+ */
+function cod_events_update_7013() {
+  $revert = array(
+    'cod_events' => array('page_manager_pages', 'views_view'),
+  );
+  features_revert($revert);
+  return array();
+}

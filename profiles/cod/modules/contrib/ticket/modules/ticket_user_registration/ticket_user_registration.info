@@ -7,9 +7,9 @@ dependencies[] = ticket
 dependencies[] = user
 
 
-; Information added by drush on 2014-06-05
-version = "7.x-1.0-beta1+0-dev"
+; Information added by drush on 2014-10-09
+version = "7.x-1.0-beta1+4-dev"
 core = "7.x"
 project = "ticket"
-datestamp = "1402005235"
+datestamp = "1412840662"
 

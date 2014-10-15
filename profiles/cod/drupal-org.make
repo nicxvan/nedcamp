@@ -42,7 +42,7 @@ projects[auto_nodetitle][version] = "1.0"
 
 projects[breakpoints][type] = "module"
 projects[breakpoints][subdir] = "contrib"
-projects[breakpoints][version] = "1.2"
+projects[breakpoints][version] = "1.3"
 
 projects[connector][type] = "module"
 projects[connector][subdir] = "contrib"
@@ -69,13 +69,13 @@ projects[ckeditor][patch][] = "https://drupal.org/files/issues/ckeditor-remove-e
 
 projects[cod_support][type] = "module"
 projects[cod_support][subdir] = "contrib"
-projects[cod_support][version] = "1.0-beta1"
+projects[cod_support][version] = "1.0-beta3"
 ;projects[cod_support][download][type] = "git"
 ;projects[cod_support][download][url] = "http://git.drupal.org/project/cod_support.git"
 ;projects[cod_support][download][branch] = "7.x-1.x"
 
 projects[commerce][type] = "module"
-projects[commerce][version] = "1.9"
+projects[commerce][version] = "1.10"
 projects[commerce][subdir] = "contrib"
 
 projects[commerce_features][type] = "module"
@@ -106,11 +106,11 @@ projects[ctools][subdir] = "contrib"
 projects[ctools][download][type] = "git"
 projects[ctools][download][url] = "http://git.drupal.org/project/ctools.git"
 projects[ctools][download][branch] = "7.x-1.x"
-projects[ctools][download][revision] = "c9cf1ef86c47468490ffcaf08e5d78ae190c863a"
+projects[ctools][download][revision] = "9097155fe25f460c3c98719567f2cf8305dcae14"
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.7"
+projects[date][version] = "2.8"
 
 projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
@@ -138,7 +138,10 @@ projects[efq_extra_field][download][revision] = "c810360"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
-projects[entity][version] = "1.5"
+projects[entity][download][type] = "git"
+projects[entity][download][url] = "http://git.drupal.org/project/entity.git"
+projects[entity][download][branch] = "7.x-1.x"
+projects[entity][download][revision] = "4d2cc6fb1"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -155,13 +158,24 @@ projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
 projects[entityreference][version] = "1.1"
 
+; Fix foreign keys feature revert issue
+; https://www.drupal.org/node/1969018
+projects[entityreference][patch][] = "https://drupal.org/files/issues/1969018-update-field-config-foreign-keys-15.patch"
+
 projects[entityreference_prepopulate][type] = "module"
 projects[entityreference_prepopulate][subdir] = "contrib"
-projects[entityreference_prepopulate][version] = "1.5"
+projects[entityreference_prepopulate][download][type] = "git"
+projects[entityreference_prepopulate][download][url] = "http://git.drupal.org/project/entityreference_prepopulate.git"
+projects[entityreference_prepopulate][download][branch] = "7.x-1.x"
+projects[entityreference_prepopulate][download][revision] = "9b40518a"
+
+; Allow entityreference prepopulate function when an ajax callback is performed.
+; https://www.drupal.org/node/1970320 and https://www.drupal.org/node/2295951
+projects[entityreference_prepopulate][patch][] = "https://drupal.org/files/issues/er_prepopulate_ajax_values-1.patch"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.0"
+projects[features][version] = "2.2"
 
 projects[field_group][type] = "module"
 projects[field_group][subdir] = "contrib"
@@ -177,7 +191,10 @@ projects[field_select_ct][version] = "1.0-alpha1"
 
 projects[field_collection][type] = "module"
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta7"
+projects[field_collection][download][type] = "git"
+projects[field_collection][download][url] = "http://git.drupal.org/project/field_collection.git"
+projects[field_collection][download][branch] = "7.x-1.x"
+projects[field_collection][download][revision] = "ae778f2"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
@@ -212,7 +229,7 @@ projects[mollom][subdir] = "contrib"
 projects[mollom][version] = "2.10"
 
 projects[multiple_entity_form][type] = "module"
-projects[multiple_entity_form][version] = "1.1"
+projects[multiple_entity_form][version] = "1.2"
 projects[multiple_entity_form][subdir] = "contrib"
 
 projects[oauth][type] = "module"
@@ -255,7 +272,7 @@ projects[panels][subdir] = "contrib"
 projects[panels][download][type] = "git"
 projects[panels][download][url] = "http://git.drupal.org/project/panels.git"
 projects[panels][download][branch] = "7.x-3.x"
-projects[panels][download][revision] = "a267233f91e84db326a286ad91692d83c4d4a684"
+projects[panels][download][revision] = "ed5fd8c29f2f5c63ae78788e9aabbc3bd35e8dd7"
 
 projects[panels_tabs][type] = "module"
 projects[panels_tabs][subdir] = "contrib"
@@ -273,6 +290,10 @@ projects[quicktabs][version] = "3.6"
 projects[quicktabs][subdir] = "contrib"
 projects[quicktabs][patch][] = "http://drupal.org/files/2104643-revert-qt-487518-5.patch"
 
+projects[realname][type] = "module"
+projects[realname][subdir] = "contrib"
+projects[realname][version] = "1.2"
+
 projects[redirect][type] = "module"
 projects[redirect][subdir] = "contrib"
 projects[redirect][version] = "1.0-rc1"
@@ -281,9 +302,13 @@ projects[rules][type] = "module"
 projects[rules][subdir] = "contrib"
 projects[rules][version] = "2.7"
 
-projects[smtp][version] = "1.0"
 projects[smtp][type] = "module"
 projects[smtp][subdir] = "contrib"
+projects[smtp][version] = "1.0"
+
+projects[subpathauto][type] = "module"
+projects[subpathauto][subdir] = "contrib"
+projects[subpathauto][version] = "1.3"
 
 projects[strongarm][type] = "module"
 projects[strongarm][subdir] = "contrib"
@@ -328,7 +353,7 @@ projects[views][version] = "3.8"
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
 
-projects[views_autorefresh][version] = "1.0-beta2"
+projects[views_autorefresh][version] = "1.0-beta3"
 projects[views_autorefresh][type] = "module"
 projects[views_autorefresh][subdir] = "contrib"
 
@@ -337,18 +362,18 @@ projects[views_datasource][subdir] = "contrib"
 projects[views_datasource][download][type] = "git"
 projects[views_datasource][download][url] = "http://git.drupal.org/project/views_datasource.git"
 projects[views_datasource][download][branch] = "7.x-1.x"
-projects[views_datasource][download][revision] = "c15e455cebe36c1a2ef1082da4b0ea7d93db2ed5"
+projects[views_datasource][download][revision] = "0d6849221"
 
 projects[views_field_view][version] = "1.1"
 projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"
 
 projects[views_send][type] = "module"
-projects[views_send][version] = "1.0"
+projects[views_send][version] = "1.1"
 projects[views_send][subdir] = "contrib"
 
 projects[views_data_export][type] = "module"
-projects[views_data_export][version] = "3.0-beta7"
+projects[views_data_export][version] = "3.0-beta8"
 projects[views_data_export][subdir] = "contrib"
 
 projects[views_bulk_operations][type] = "module"

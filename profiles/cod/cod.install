@@ -90,6 +90,7 @@ function cod_install_tasks() {
  */
 function cod_install_tasks_alter(&$tasks, $install_state) {
   global $install_state;
+  $tasks['install_profile_modules']['display_name'] = st('Install Conference Organizing Distribution');
 
   // Skip profile selection step.
   $tasks['install_select_profile']['display'] = FALSE;
@@ -108,6 +109,11 @@ function cod_install_tasks_alter(&$tasks, $install_state) {
  * Override of install_finished() without the useless text.
  */
 function cod_install_finished(&$install_state) {
+
+  // Remember the profile which was used.
+  variable_set('install_profile', drupal_get_profile());
+  variable_set('install_task', 'done');
+
   // BEGIN copy/paste from install_finished().
   // Remove the bookmarks flag
   $flag = flag_get_flag('bookmarks');
@@ -117,9 +123,6 @@ function cod_install_finished(&$install_state) {
     _flag_clear_cache();
   }
 
-   // Enable the Pisces theme and set it as the default theme.
-  theme_enable(array('omega', 'pisces'));
-  variable_set('theme_default', 'pisces');
   variable_set('clean_url', 1);
 
   // Enable default settings for jquery_update
@@ -131,6 +134,23 @@ function cod_install_finished(&$install_state) {
   // do not leave stale cached data, and that any content types or other items
   // registered by the installation profile are registered correctly.
   drupal_flush_all_caches();
+
+  // Enable the Origins theme and set it as the default.
+  $cod_themes = array('omega', 'pisces', 'adminimal');
+  theme_enable($cod_themes);
+
+    // The Bartik theme is automatically enabled during installation. Disable it.
+  db_update('system')
+    ->fields(array('status' => 0))
+    ->condition('type', 'theme')
+    ->condition('name', 'bartik')
+    ->execute();
+
+  // Set the default and administration themes.
+  variable_set('theme_default', 'pisces');
+  // Set a default administrative theme:
+  variable_set('admin_theme', 'adminimal');
+  variable_set('node_admin_theme', FALSE);
 
   // We make custom code for the footer here because we want people to be able to freely edit it if they wish.
   $footer_body = '<p>'. st('A community event site, powered by the <a href="@drupal">Conference Organizing Distribution</a>', array('@drupal' => url('https://drupal.org/project/cod'))) . '</p>';
@@ -155,9 +175,6 @@ function cod_install_finished(&$install_state) {
     );
     drupal_write_record('block', $footer_block);
   }
-
-  // Remember the profile which was used.
-  variable_set('install_profile', drupal_get_profile());
 
   // Installation profiles are always loaded last
   db_update('system')
@@ -341,6 +358,9 @@ function cod_create_first_event_submit($form_id, &$form_state) {
  * Implements hook_install().
  */
 function cod_install() {
+  // Do not use the administration theme when editing or creating content.
+  variable_set('node_admin_theme', '0');
+
   // Create page type.
 
   // Insert default pre-defined node types into the database. For a complete
@@ -379,15 +399,6 @@ function cod_install() {
     ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
     ->execute();
 
-  // Enable the admin theme.
-  db_update('system')
-    ->fields(array('status' => 1))
-    ->condition('type', 'theme')
-    ->condition('name', 'adminimal')
-    ->execute();
-  variable_set('admin_theme', 'adminimal');
-  variable_set('node_admin_theme', '1');
-
   // Default page to not be promoted and have comments disabled.
   variable_set('node_options_page', array('status'));
   variable_set('comment_page', COMMENT_NODE_HIDDEN);
@@ -406,6 +417,16 @@ function cod_install() {
 
   node_access_rebuild(FALSE);
 
+  // The installer requires that the system theme settings form
+  // be submitted in order for its themes' settings to be properly set
+  // For more background, see http://drupal.org/node/1776730.
+  module_load_include('inc', 'system', 'system.admin');
+  foreach ($cod_themes as $theme_name) {
+    $form_state = form_state_defaults();
+    $form_state['build_info']['args'][0] = $theme_name;
+    $form_state['values'] = array();
+    drupal_form_submit('system_theme_settings', $form_state);
+  }
 }
 
 /**
@@ -438,5 +459,24 @@ function cod_update_7003() {
   variable_set('jquery_update_compression_type', 'min');
   variable_set('jquery_update_jquery_admin_version', '1.7');
   variable_set('jquery_update_jquery_version', '1.8');
+  return array();
+}
+
+/**
+ * Make sure Adminimal and Picses are enabled if they are set as themes.
+ */
+function cod_update_7004() {
+  //Verify adminimal is enabled if its set as admin theme.
+  if (variable_get('admin_theme', '') == 'adminimal') {
+    $admin_theme = 'adminimal';
+    theme_enable(array($admin_theme));
+    module_enable(array('adminimal_admin_menu'));
+    theme_disable(array('seven'));
+  }
+  // Verify pisces is enabled if its the default theme.
+  if (variable_get('theme_default', '') == 'pisces') {
+    theme_enable(array('pisces'));
+    theme_disable(array('bartik'));
+  }
   return array();
 }

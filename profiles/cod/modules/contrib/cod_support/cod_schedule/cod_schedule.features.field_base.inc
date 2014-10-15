@@ -95,7 +95,7 @@ function cod_schedule_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'views',
+      'handler' => 'timeslot_views',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
@@ -154,7 +154,14 @@ function cod_schedule_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'cod_event_room' => array(
+        'columns' => array(
+          'target_id' => 'evtrid',
+        ),
+        'table' => 'cod_event_room',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -191,7 +198,14 @@ function cod_schedule_field_default_field_bases() {
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(),
+    'foreign keys' => array(
+      'cod_event_time' => array(
+        'columns' => array(
+          'target_id' => 'evttid',
+        ),
+        'table' => 'cod_event_time',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',

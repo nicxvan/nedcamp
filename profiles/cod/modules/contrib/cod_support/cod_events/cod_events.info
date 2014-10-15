@@ -24,6 +24,7 @@ dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = panels
 dependencies[] = strongarm
+dependencies[] = subpathauto
 dependencies[] = text
 dependencies[] = views
 dependencies[] = views_field_view
@@ -77,6 +78,8 @@ features[variable][] = og_orphans_delete
 features[variable][] = og_ui_admin_people_view
 features[variable][] = og_use_queue
 features[variable][] = pathauto_node_event_pattern
+features[variable][] = subpathauto_depth
+features[variable][] = subpathauto_ignore_admin
 features[views_view][] = cod_events_admin
 features_exclude[field_base][field_event_product] = field_event_product
 features_exclude[field_base][field_paid_event] = field_paid_event
@@ -85,9 +88,9 @@ features_exclude[field_instance][node-event-field_paid_event] = node-event-field
 files[] = includes/views/handlers/cod_events_plugin_argument_default_event.inc
 files[] = includes/views/handlers/cod_events_plugin_argument_default_type.inc
 
-; Information added by Drupal.org packaging script on 2014-06-23
-version = "7.x-1.0-beta1+8-dev"
+; Information added by Drupal.org packaging script on 2014-09-05
+version = "7.x-1.0-beta3"
 core = "7.x"
 project = "cod_support"
-datestamp = "1403508838"
+datestamp = "1409957334"
 

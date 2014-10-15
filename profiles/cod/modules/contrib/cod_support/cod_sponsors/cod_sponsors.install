@@ -48,3 +48,15 @@ function cod_sponsors_update_7002() {
 
   return array();
 }
+
+/**
+ * Revert Sponsors feature to set the correct pathauto variable.
+ */
+function cod_sponsors_update_7003() {
+  $revert = array(
+    'cod_sponsors' => array('variable'),
+  );
+  features_revert($revert);
+
+  return array();
+}

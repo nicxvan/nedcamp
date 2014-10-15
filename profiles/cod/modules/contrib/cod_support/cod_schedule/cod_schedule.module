@@ -4,7 +4,20 @@
  * Code for the COD Schedule feature.
  */
 
+// Define variables values for scheduling content types.
+define('COD_SCHEDULE_SINGLE', 'single');
+define('COD_SCHEDULE_MULTIPLE', 'multiple');
+
 include_once('cod_schedule.features.inc');
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function cod_schedule_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'entityreference') {
+    return "plugins/entityreference/$plugin";
+  }
+}
 
 /**
  * Implements hook_menu().
@@ -44,31 +57,34 @@ function cod_schedule_menu() {
     'weight' => -10,
   );
 
-  $items['node/%node/event/schedule'] = array(
+  $items['admin/conference/events/%node/schedule'] = array(
     'title' => 'Schedule',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'cod_schedule_schedule_admin_page',
-    'page arguments' => array(1),
-    'access callback' => TRUE,
+    'page arguments' => array(3),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 3),
     'weight' => 0,
     'file' => 'includes/schedule.admin.inc',
   );
 
-  $items['node/%node/event/schedule/room'] = array(
+  $items['admin/conference/events/%node/schedule/room'] = array(
     'title' => 'Add Room',
     'type' => MENU_LOCAL_ACTION,
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('cod_event_room_form', new CodEventRoom(), 'add', 1),
-    'access callback' => TRUE,
+    'page arguments' => array('cod_event_room_form', new CodEventRoom(), 'add', 3),
+    'access callback' => 'entity_access',
+    'access arguments' => array('create', 'cod_event_room'),
     'file' => 'includes/schedule.admin.inc',
    );
 
-  $items['node/%node/event/schedule/time'] = array(
+  $items['admin/conference/events/%node/schedule/time'] = array(
     'title' => 'Add Time',
     'type' => MENU_LOCAL_ACTION,
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('cod_event_time_form', new CodEventTime(), 'add', 1),
-    'access callback' => TRUE,
+    'page arguments' => array('cod_event_time_form', new CodEventTime(), 'add', 3),
+    'access callback' => 'entity_access',
+    'access arguments' => array('create', 'cod_event_time'),
     'file' => 'includes/schedule.admin.inc',
   );
 
@@ -76,12 +92,12 @@ function cod_schedule_menu() {
   // Arguments: node/NODEID/edit/schedule/nojs/OPERATION/TIMEID/ROOMID
   // TODO: Add load handlers for time,room and operations.
   // Or just use the views_ui_cache method to load the forms.
-  $items['node/%node/event/schedule/%ctools_js/%/%/%'] = array(
+  $items['admin/conference/events/%node/schedule/%ctools_js/%/%/%'] = array(
     'page callback' => 'cod_schedule_schedule_timeslot_callback',
-    'page arguments' => array(4, 1, 5, 6, 7),
+    'page arguments' => array(5, 3, 6, 7, 8),
     'delivery callback' => 'ajax_deliver',
     'access callback' => 'cod_schedule_schedule_access',
-    'access arguments' => array(1),
+    'access arguments' => array(3),
     'file' => 'includes/schedule.admin.inc',
     'type' => MENU_CALLBACK,
   );
@@ -151,6 +167,40 @@ function cod_schedule_form_node_form_alter(&$form, &$form_state) {
   if (isset($form['#node_edit_form']) && isset($form['field_event_timeslots'])) {
     $form['field_event_timeslots']['#access'] = FALSE;
   }
+
+  if (isset($form['field_session_timeslot']) && !empty($form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'])) {
+    $form = _cod_schedule_timeslot_view_widget($form, $form['og_group_ref'][LANGUAGE_NONE][0]['default']['#default_value'][0], $form['#bundle']);
+  }
+
+  if (isset($form['field_session_timeslot']) && $form['og_group_ref']['#access'] == TRUE) {
+     if (isset($form_state['entityreference_prepopulate']['node'][$form['#bundle']]['og_group_ref'])) {
+       $form['field_session_timeslot']['#states'] = array(
+         'invisible' => array(
+           'xor',
+           array(':input[name="og_group_ref[und][0][default]"]' => array('value' => '_none')),
+           // This sort of works, but would be better if it fired after
+           // the autocomplete. Note that this field is only available
+           // to administrators.
+           array(':input[name="og_group_ref[und][0][admin][0][target_id]"]' => array('empty' => TRUE)),
+         ),
+       );
+     }
+     else {
+       $form['field_session_timeslot']['#states'] = array(
+         'visible' => array(
+           'xor',
+           array(':input[name="og_group_ref[und][0][default]"]' => array('!value' => '_none')),
+           // This sort of works, but would be better if it fired after
+           // the autocomplete. Note that this field is only available
+           // to administrators.
+           array(':input[name="og_group_ref[und][0][admin][0][target_id]"]' => array('empty' => FALSE)),
+         ),
+       );
+     }
+
+     $form['field_session_timeslot']['#prefix'] = '<div id="field-cod-session-timeslot">';
+     $form['field_session_timeslot']['#suffix'] = '</div>';
+   }
 }
 
 /**
@@ -525,33 +575,55 @@ function cod_schedule_field_collection_item_update(FieldCollectionItemEntity $fc
 /**
  * Implements hook_cod_event_ajax_elements().
  */
-function cod_schedule_cod_event_ajax_elements($form, $nid, $fieldgroup = NULL) {
+function cod_schedule_cod_event_ajax_elements($form, $nid, $bundle) {
   // Get the applicable terms for this event.
-  if($fieldgroup == 'field_session_details') {
-    $display_name = 'entityreference_1';
-    $args = array($nid, 'session');
-    $view = views_get_view('cod_schedule_timeslot_widget');
+  if (isset($bundle)) {
+    $form = _cod_schedule_timeslot_view_widget($form, $nid, $bundle);
 
-    $view->set_display($display_name);
-
-    // Make sure the query is not cached.
-    $view->is_cacheable = FALSE;
-
-    // Pass options to the display handler to make them available later.
-    $entityreference_options = array(
-      'match' => NULL,
-      'match_operator' => 'CONTAINS',
-      'limit' => 0,
-      'ids' => NULL,
-    );
-    $view->display_handler->set_option('entityreference_options', $entityreference_options);
-    $results = $view->execute_display($display_name, $args);
-
-    if($results) {
-      $form['field_session_timeslot'][LANGUAGE_NONE]['#options'] = array_merge($form['field_session_timeslot'][LANGUAGE_NONE]['#options'], $results);
-    }
     return array(ajax_command_replace('#field-cod-session-timeslot', drupal_render($form['field_session_timeslot'])));
   }
+}
+
+/**
+ * Set the timeslot widget with proper view arguments based on page context.
+ * @return string
+ */
+function _cod_schedule_timeslot_view_widget($form, $event_nid, $bundle) {
+  $args = array($event_nid, $bundle);
+  $view = views_get_view('cod_schedule_timeslot_widget');
+  $display_name = 'entityreference_1';
+
+  $view->set_display($display_name);
+  // Make sure the query is not cached.
+  $view->is_cacheable = FALSE;
+
+  // Pass options to the display handler to make them available later.
+  $entityreference_options = array(
+    'match' => NULL,
+    'match_operator' => 'CONTAINS',
+    'limit' => 0,
+    'ids' => NULL,
+  );
+
+
+  $result = array();
+  if ($view->display_handler->set_option('entityreference_options', $entityreference_options)) {
+    // Get the results.
+    $result = $view->execute_display($display_name, $args);
+  }
+
+  $return['_none'] = t('- None -');
+  if ($result) {
+    $target_type = 'field_collection_item';
+    $entities = entity_load($target_type, array_keys($result));
+    foreach($entities as $entity) {
+      list($id,, $bundle) = entity_extract_ids($target_type, $entity);
+      $return[$id] = $result[$id];
+    }
+    $form['field_session_timeslot'][LANGUAGE_NONE]['#options'] = $return;
+  }
+
+  return $form;
 }
 
 function cod_schedule_custom_theme() {
