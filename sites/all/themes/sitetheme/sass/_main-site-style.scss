@@ -446,12 +446,10 @@ body {
 
 //::::::::::::::::::::::::::::::
 //:: Sidebar
-#sidebar {
-  
-}
-.sidebar {
-  
-  .block {
+.region-sidebar-first {
+  @include responsive(less-than-nook){
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -732,6 +730,83 @@ form {
 
 //::::::::::::::::::::::::::::::
 //:: Views
+.view-id-session_schedule {
+  @extend %mar-b-3em;
+  line-height: 1.25;
+
+  .odd,
+  .even {
+    @extend %edit-container;
+    
+    + div {
+      .views-field-title {
+        margin-top: em(12);
+      }
+    }
+  }
+  .view-content {
+    h2 {
+      &:first-child {
+        margin-top: 0.5em;
+      }
+    }
+  }
+  .title {
+    margin-top: 1.5em;
+  }
+  .views-field-title {
+    font-weight: bold;
+    + span {
+      @extend %inline-block;
+      margin-right: em(4);
+    }
+  }
+  .session-speaker {
+    @extend %inline-block;
+    
+    * {
+      @extend %inline-block;
+    }
+    .user-picture {
+      @extend %element-hidden;
+    }
+  }
+  .profile {
+    margin-top: 0;
+    margin-bottom: 0;
+    
+    .field-name-field-profile-first {
+      margin-right: em(4);
+    }
+  }
+  .views-field-edit-node {
+    @extend %edit-button;
+  }
+}
+//::::::::::::::::::::::::::::::
+.view-id-book {
+  .field-name-field-description {
+    @extend %mar-b-0_5em;
+    line-height: 1.25;
+  }
+  .field-name-field-product-image {
+  
+    img {
+      @extend %display-block;
+    }
+    + span {
+      float: left;
+      margin: 0 em(8) em(8) 0;
+    }
+  }
+  .field-name-commerce-price {
+    @extend %mar-b-0_5em;
+  }
+  .views-field-add-to-cart-form {
+    clear: both;
+  }
+}
+//:::::::::::::::::::::::::::::://::::::::::::::::::::::::::::::
 .view-id-sponsorship {
 	
 }
