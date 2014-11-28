@@ -136,7 +136,7 @@ function cod_install_finished(&$install_state) {
   drupal_flush_all_caches();
 
   // Enable the Origins theme and set it as the default.
-  $cod_themes = array('omega', 'pisces', 'adminimal');
+  $cod_themes = array('omega', 'pisces', 'adminimal', 'fisherman');
   theme_enable($cod_themes);
 
     // The Bartik theme is automatically enabled during installation. Disable it.
@@ -149,7 +149,7 @@ function cod_install_finished(&$install_state) {
   // Set the default and administration themes.
   variable_set('theme_default', 'pisces');
   // Set a default administrative theme:
-  variable_set('admin_theme', 'adminimal');
+  variable_set('admin_theme', 'fisherman');
   variable_set('node_admin_theme', FALSE);
 
   // We make custom code for the footer here because we want people to be able to freely edit it if they wish.
@@ -463,7 +463,7 @@ function cod_update_7003() {
 }
 
 /**
- * Make sure Adminimal and Picses are enabled if they are set as themes.
+ * Make sure Adminimal and Pisces are enabled if they are set as themes.
  */
 function cod_update_7004() {
   //Verify adminimal is enabled if its set as admin theme.
@@ -477,6 +477,19 @@ function cod_update_7004() {
   if (variable_get('theme_default', '') == 'pisces') {
     theme_enable(array('pisces'));
     theme_disable(array('bartik'));
+  }
+  return array();
+}
+
+/**
+ * Set Fisherman as replacement Administration theme for Adminimal.
+ */
+function cod_update_7006() {
+  //Verify that Adminimal is set as admin theme, then switch to Fisherman.
+  if (variable_get('admin_theme', '') == 'adminimal') {
+    $admin_theme = 'fisherman';
+    theme_enable(array($admin_theme));
+    variable_set('admin_theme', $admin_theme);
   }
   return array();
 }

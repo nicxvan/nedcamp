@@ -48,6 +48,7 @@ function ticket_user_registration_form_ticket_register_form_alter(&$form, &$form
   }
 
   $parent_entity = array();
+  $first_registration = TRUE;
   foreach ($form as $field_name => $element) {
     if (preg_match('/^ticket_registration:new_(\d+)/', $field_name, $matches)) {
       $parent_entity = $form[$field_name]['#entity']->ticket_type();
@@ -58,11 +59,13 @@ function ticket_user_registration_form_ticket_register_form_alter(&$form, &$form
         '#type' => 'textfield',
         '#title' => t('Registered e-mail address'),
         '#description' => t('Enter the e-mail address of the person who will use this ticket. The e-mail address will be used to create an account for the ticketholder.'),
+        '#default_value' => (isset($form['#user']->mail) && $first_registration) ? $form['#user']->mail : '',
         '#maxlength' => EMAIL_MAX_LENGTH,
         '#required' => TRUE,
         '#element_validate' => array('ticket_user_registration_email_validate'),
         '#weight' => -1000,
       );
+      $first_registration = FALSE;
     }
   }
   $return_url = $parent_entity->entity_type . '/' . $parent_entity->entity_id;
