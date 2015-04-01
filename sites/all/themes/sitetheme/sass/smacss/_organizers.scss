@@ -47,6 +47,24 @@
     padding: 0;
     width: 100%;
   }
+  &.first {
+    clear: both;
+    
+    @include responsive($nook) {
+      clear: none;
+    }
+    @include responsive($portrait) {
+      clear: none;
+    }
+  }
+  &:nth-child(2n){
+    @include responsive($nook) {
+      clear: both;
+    }
+    @include responsive($portrait) {
+      clear: both;
+    }
+  }
   > p {
     margin-top: 0.25em;
   }

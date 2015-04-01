@@ -2371,6 +2371,34 @@ body.cke_editable {
   }
 }
 /* line 50, ../sass/smacss/_organizers.scss */
+.organizers__organizer.first {
+  clear: both;
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  /* line 50, ../sass/smacss/_organizers.scss */
+  .organizers__organizer.first {
+    clear: none;
+  }
+}
+@media only screen and (max-width: 479px) {
+  /* line 50, ../sass/smacss/_organizers.scss */
+  .organizers__organizer.first {
+    clear: none;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+  /* line 60, ../sass/smacss/_organizers.scss */
+  .organizers__organizer:nth-child(2n) {
+    clear: both;
+  }
+}
+@media only screen and (max-width: 479px) {
+  /* line 60, ../sass/smacss/_organizers.scss */
+  .organizers__organizer:nth-child(2n) {
+    clear: both;
+  }
+}
+/* line 68, ../sass/smacss/_organizers.scss */
 .organizers__organizer > p {
   margin-top: 0.25em;
 }
