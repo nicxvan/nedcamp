@@ -212,6 +212,7 @@ body {
   text-align: right;
   
   @include responsive(less-than-nook) {
+    height: 100%;
     left: 0;
     max-height: 100px;
     max-width: 50%;
@@ -1209,7 +1210,7 @@ form {
 			padding: 3px 0 0 25px;
 		}
 		a {
-			@extend %allow-wrapping-links;
+//			@extend %allow-wrapping-links; // Not sure where this extend went
 			display: block;
 			line-height: 16px;
 		}
@@ -1275,3 +1276,8 @@ form {
 .banner-style {
   @extend %edit-container;
 }
+
+
+//::::::::::::::::::::::::::::::
+//:: Organizers
+@import "smacss/organizers";

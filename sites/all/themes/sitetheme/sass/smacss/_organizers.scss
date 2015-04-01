@@ -1,0 +1,65 @@
+//::::::::::::::::::::::::::::::
+//:: Organizers
+//::::::::::::::::::::::::::::::
+ 
+ 
+//::::::::::::::::::::::::::::::
+//:: Variables
+
+
+//::::::::::::::::::::::::::::::
+//:: Placeholders
+
+
+//::::::::::::::::::::::::::::::
+//:: Style
+.view-display-id-organizers_page {
+
+  > .view-content {
+    @extend %clearfix;
+    
+    @include responsive("only screen and (max-width: 400px)", true) {
+      text-align: center;
+    }
+  }
+}
+.organizers__group {
+  clear: both;
+}
+.organizers__organizer {
+  @extend %edit-container;
+  @extend %mar-b-3em;
+  float: left;
+  line-height: 1;
+  padding-right: 20px;
+  width: (100% / 3);
+  
+  @include responsive($nook) {
+    margin-bottom: 2em;
+    width: (100% / 2);
+  }
+  @include responsive($portrait) {
+    margin-bottom: 2em;
+    width: (100% / 2);
+  }
+  @include responsive("only screen and (max-width: 400px)", true) {
+    margin-bottom: 1.5em;
+    padding: 0;
+    width: 100%;
+  }
+  > p {
+    margin-top: 0.25em;
+  }
+}
+.organizers__headshot {
+
+}
+.organizers__name {
+
+}
+.organizers__twitter {
+
+}
+.organizers__company {
+
+}
