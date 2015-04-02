@@ -809,3 +809,22 @@ function ticket_registration_delete_multiple($ticket_registration_ids) {
 function ticket_registration_save(TicketRegistration $ticket_registration) {
   return $ticket_registration->save();
 }
+
+function ticket_registration_mollom_form_info($form_id) {
+    switch ($form_id) {
+        // Ticket Registration form.
+        case 'ticket_register_form':
+            $form_info = array(
+                'mode' => MOLLOM_MODE_CAPTCHA,
+            );
+            return $form_info;
+    }
+}
+
+function ticket_registration_mollom_form_list() {
+    // Ticket Registration form
+    $forms['ticket_register_form'] = array(
+        'title' => t('Ticket Registration Form'),
+    );
+    return $forms;
+}
