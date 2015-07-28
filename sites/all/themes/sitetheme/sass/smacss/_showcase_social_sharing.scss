@@ -1,0 +1,63 @@
+//::::::::::::::::::::::::::::::
+//:: Showcase Social Sharing
+//::::::::::::::::::::::::::::::
+ 
+ 
+//::::::::::::::::::::::::::::::
+//:: Variables
+
+
+//::::::::::::::::::::::::::::::
+//:: Placeholders
+
+
+//::::::::::::::::::::::::::::::
+//:: Style
+.showcase__social_sharing {
+  text-align: center;
+}
+.showcase_social_sharing__label {
+  color: #000;
+  font-size: em(14);
+  font-weight: bold;
+  line-height: 1;
+  
+  @include responsive($nook){
+    margin-bottom: 0.25em;
+  }
+  @include responsive(less-than-nook){
+    display: inline-block;
+    margin-right: 0.5em;
+    position: relative;
+    top: -6px;
+  }
+}
+.showcase_social_sharing__list {
+  @extend %full-list-reset;
+  font-size: 1.6em;
+  
+  @include responsive(less-than-nook){
+    display: inline-block;
+  }
+}
+.showcase_social_sharing__item {
+  display: inline-block;
+  padding-right: 7px;
+}
+.social_icon__icon {
+  display: block;
+}
+.social_icon__link {
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: none;
+  }
+  &:before {
+  }
+}
+.social_icon__text {
+  @extend %element-invisible;
+}

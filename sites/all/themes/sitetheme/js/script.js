@@ -47,6 +47,8 @@
 				}
 			});
 		}
+    $('.showcase__view_header').append($('.slides--showcase_page_slider + .flex-direction-nav'));
+    
     if(window.innerWidth < 600){
       $('#main-menu .links').prepend('<li id="menu-item-home" class="menu-home"><a href="/">Home</a></li>');
 		}

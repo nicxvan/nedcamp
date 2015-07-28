@@ -1258,7 +1258,14 @@ form {
 	background: none;
 	border: 0 none;
 	box-shadow: none;
+  height: auto !important;
+  overflow: visible !important;
 	
+  ul,
+  ol {
+    @extend %list-reset;
+    padding: 0;
+  }
 	.slides {
 	
 		> li {
@@ -1281,3 +1288,8 @@ form {
 //::::::::::::::::::::::::::::::
 //:: Organizers
 @import "smacss/organizers";
+
+//::::::::::::::::::::::::::::::
+//:: Showcase
+@import "smacss/showcase";
+@import "smacss/showcase_social_sharing";

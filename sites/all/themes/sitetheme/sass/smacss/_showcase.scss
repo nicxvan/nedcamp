@@ -1,0 +1,246 @@
+//::::::::::::::::::::::::::::::
+//:: Showcase
+//::::::::::::::::::::::::::::::
+ 
+ 
+//::::::::::::::::::::::::::::::
+//:: Variables
+
+
+//::::::::::::::::::::::::::::::
+//:: Placeholders
+
+
+//::::::::::::::::::::::::::::::
+//:: Style - Common
+.node-type-showcase,
+.page-auto-showcase,
+.page-showcase {
+  #main {
+    padding-top: 1em;
+  }
+  #content {
+    float: none;
+    margin-bottom: 3em;
+    width: 100%;
+    
+    &:hover {
+      .contextual-links-trigger {
+        display: block;
+      }
+    }
+  }
+  #logo {
+    float: left;
+    padding-right: 25px;
+    text-align: left;
+    width: 33%;
+    
+    @include responsive(ipad-nook){
+      width: 23%;
+    }
+    @include responsive(less-than-nook){
+      height: 115px;
+      left: -15px;
+      max-width: 50%;
+      top: -110px;
+      width: 50%;
+    }
+  }
+  #page-title {
+    background: transparent;
+    
+    @include responsive(less-than-ipad){
+      margin-top: 10px;
+    }
+  }
+}
+.showcase__header {
+  @extend %clearfix;
+  margin-bottom: 3em;
+  min-height: 130px;
+  position:relative;
+}
+.showcase__header_content {
+  bottom: 0;
+  float: left;
+  position: absolute;
+  right: 0;
+  width: 67%;
+  
+  @include responsive(ipad-nook){
+    position: static;
+    width: 77%;
+  }
+  @include responsive(less-than-nook){
+    //padding-top: 40px;
+    position: static;
+    text-align: center;
+    width: 100%;
+  }
+}
+.showcase__submit {
+  margin-top: 3em;
+  text-align: center;
+}
+.showcase__submit_link {
+  @include responsive($portrait){
+    display: block;
+  }
+}
+.showcase__counter {
+  display: inline-block;
+  margin: 20px 20px 0 0;
+  
+  @include responsive(less-than-ipad){
+    margin-right: 0;
+  }
+}
+.showcase__images_sharing {
+  float: right;
+  padding-left: 20px;
+  width: 60%;
+  
+  @include responsive($ipad){
+    width: 50%;
+  }
+  @include responsive(less-than-ipad){
+    float: none;
+    max-width: 600px;
+    padding: 0;
+    width: 100%;
+  }
+}
+.showcase__images {
+  margin-bottom: 1em;
+  
+  .flex-control-thumbs {
+    @extend %full-list-reset;
+    margin-top: 2px;
+  }
+}
+
+.showcase__description {
+  margin-bottom: 1.5em;
+}
+.showcase__agency {
+  > p {
+    @extend %inline-block;
+  }
+}
+.showcase__view_footer {
+  clear: both;
+  margin-top: 3em;
+}
+
+
+//::::::::::::::::::::::::::::::
+//:: Style - Showcase Page
+.showcase__header {
+  .item-list {
+    margin-top: -2em;
+    padding-left: 130px;
+    
+    @include responsive(less-than-ipad){
+      margin-top: 0;
+      padding-left: 0;
+    }
+  }
+  .pager {
+    display: inline-block;
+    margin: 0;
+    text-align: left;
+
+    @include responsive($portrait){
+      display: block;
+    }
+    li {
+      padding: 0;
+      
+      @include responsive($portrait){
+        display: block;
+        float: left;
+        width: 50%;
+      }
+      a {
+        @extend %btn;
+        display: inline-block;
+        margin: 0 20px 0 0;
+        text-align: center;
+        width: 125px;
+        
+        @include responsive($nook){
+          margin: 0;
+        }
+        @include responsive($portrait){
+          display: block;
+          margin: 0;
+          width: 100%;
+        }
+      }
+      &.pager-previous {
+        @include responsive($portrait){
+          padding-right: 5px;
+        }
+      }
+      &.pager-current {
+        @extend %element-hidden;
+      }
+      &.pager-next {
+        @include responsive($portrait){
+          padding-left: 5px;
+        }
+      }
+      &.last {
+        a {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+//::::::::::::::::::::::::::::::
+.showcase__view_all {
+  @include responsive(less-than-ipad){
+    font-size: 0.8em;
+    text-align: center;
+  }
+}
+
+
+
+//::::::::::::::::::::::::::::::
+//:: Style - Auto Showcase Page
+.showcase__view_header {
+  .flex-direction-nav {
+    display: inline-block;
+    
+    li {
+      display: inline-block;
+    }
+  }
+  .flex-direction-nav {
+    a {
+      @extend %btn;
+      display: block;
+      height: auto;
+      margin: 0 20px 0 0;
+      opacity: 1;
+      overflow: visible;
+      position: static;
+      text-align: center;
+      width: 125px;
+      
+      &:before {
+        content: normal;
+      }
+    }
+    .flex-prev {
+      left: 0;
+    }
+    .flex-next {
+      right: 0;
+    }
+  }
+}
+

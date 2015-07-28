@@ -6,43 +6,49 @@
   .icon-pinterest,
   %icon-pinterest {
     &:before {
-      content: "\e600";
+      content: "\e604";
     }
   }
   .icon-linkedin,
   %icon-linkedin {
     &:before {
-      content: "\e601";
+      content: "\e605";
     }
   }
   .icon-youtube,
   %icon-youtube {
     &:before {
-      content: "\e602";
+      content: "\e606";
     }
   }
   .icon-navicon,
   %icon-navicon {
     &:before {
-      content: "\e603";
+      content: "\e607";
     }
   }
   .icon-googleplus,
   %icon-googleplus {
     &:before {
-      content: "\e604";
+      content: "\e601";
     }
   }
   .icon-facebook,
   %icon-facebook {
     &:before {
-      content: "\e605";
+      content: "\e602";
     }
   }
   .icon-twitter,
   %icon-twitter {
     &:before {
-      content: "\e606";
+      content: "\e603";
+    }
+  }
+  .icon-mail,
+  %icon-mail {
+    &:before {
+      content: "\e600";
     }
   }
 }
@@ -51,43 +57,49 @@
   .icon-pinterest-r,
   %icon-pinterest-r {
     &:before {
-      content: "\e600";
+      content: "\e604";
     }
   }
   .icon-linkedin-r,
   %icon-linkedin-r {
     &:before {
-      content: "\e601";
+      content: "\e605";
     }
   }
   .icon-youtube-r,
   %icon-youtube-r {
     &:before {
-      content: "\e602";
+      content: "\e606";
     }
   }
   .icon-navicon-r,
   %icon-navicon-r {
     &:before {
-      content: "\e603";
+      content: "\e607";
     }
   }
   .icon-googleplus-r,
   %icon-googleplus-r {
     &:before {
-      content: "\e604";
+      content: "\e601";
     }
   }
   .icon-facebook-r,
   %icon-facebook-r {
     &:before {
-      content: "\e605";
+      content: "\e602";
     }
   }
   .icon-twitter-r,
   %icon-twitter-r {
     &:before {
-      content: "\e606";
+      content: "\e603";
+    }
+  }
+  .icon-mail-r,
+  %icon-mail-r {
+    &:before {
+      content: "\e600";
     }
   }
 }
@@ -97,37 +109,42 @@
     .lt-ie8 {
       .icon-pinterest {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
         }
       }
       .icon-linkedin {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
         }
       }
       .icon-youtube {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
         }
       }
       .icon-navicon {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe607;');
         }
       }
       .icon-googleplus {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
         }
       }
       .icon-facebook {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
         }
       }
       .icon-twitter {
         .pseudo-before {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+        }
+      }
+      .icon-mail {
+        .pseudo-before {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
         }
       }
     }
@@ -136,37 +153,42 @@
     .lt-ie8 {
       .icon-pinterest {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
         }
       }
       .icon-linkedin {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
         }
       }
       .icon-youtube {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
         }
       }
       .icon-navicon {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe607;');
         }
       }
       .icon-googleplus {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe604;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe601;');
         }
       }
       .icon-facebook {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe605;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe602;');
         }
       }
       .icon-twitter {
         .pseudo-after {
-          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe606;');
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe603;');
+        }
+      }
+      .icon-mail {
+        .pseudo-after {
+          zoom: expression(this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe600;');
         }
       }
     }
