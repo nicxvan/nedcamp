@@ -37,26 +37,26 @@ function showcase_theme_registry_alter(&$theme_registry) {
   $theme_registry['views_view__showcase__auto_showcase'] = array(
     'base hook' => 'views_view',
     'type' => 'module',
-    'path' => drupal_get_path('module', 'showcase'),
-    'template' => '/theme/views/views-view--showcase--auto-showcase',
+    'path' => drupal_get_path('module', 'showcase') . '/theme/views',
+    'template' => '/views-view--showcase--auto-showcase',
   );
   $theme_registry['views_view__showcase__showcase'] = array(
     'base hook' => 'views_view',
     'type' => 'module',
-    'path' => drupal_get_path('module', 'showcase'),
-    'template' => '/theme/views/views-view--showcase--showcase',
+    'path' => drupal_get_path('module', 'showcase') . '/theme/views',
+    'template' => '/views-view--showcase--showcase',
   );
   $theme_registry['views_view__showcase__showcase_node'] = array(
     'base hook' => 'views_view',
     'type' => 'module',
-    'path' => drupal_get_path('module', 'showcase'),
-    'template' => '/theme/views/views-view--showcase--showcase-node',
+    'path' => drupal_get_path('module', 'showcase') . '/theme/views',
+    'template' => '/views-view--showcase--showcase-node',
   );
   $theme_registry['views_view_field__showcase__nothing'] = array(
     'base hook' => 'views_view',
     'type' => 'module',
-    'path' => drupal_get_path('module', 'showcase'),
-    'template' => '/theme/views/views-view-field--showcase--nothing',
+    'path' => drupal_get_path('module', 'showcase') . '/theme/views',
+    'template' => '/views-view-field--showcase--nothing',
   );
 
 }
