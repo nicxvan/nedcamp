@@ -18,3 +18,5 @@ sites/default/themes/BaseResponsive/assets/.sass-cache/*
 # Ignore Development modules
 sites/*/modules/stage_file_proxy/*
 sites/*/modules/contrib/stage_file_proxy/*
+sites/*/modules/shield/*
+sites/*/modules/contrib/shield/*
