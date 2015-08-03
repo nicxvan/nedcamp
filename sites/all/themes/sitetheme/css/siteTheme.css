@@ -2436,12 +2436,19 @@ body.cke_editable {
 }
 
 /* line 19, ../sass/smacss/_showcase.scss */
+.not-logged-in.node-type-showcase .contextual-links-wrapper,
+.not-logged-in.page-auto-showcase .contextual-links-wrapper,
+.not-logged-in.page-showcase .contextual-links-wrapper {
+  display: none;
+}
+
+/* line 27, ../sass/smacss/_showcase.scss */
 .node-type-showcase #main,
 .page-auto-showcase #main,
 .page-showcase #main {
   padding-top: 1em;
 }
-/* line 22, ../sass/smacss/_showcase.scss */
+/* line 30, ../sass/smacss/_showcase.scss */
 .node-type-showcase #content,
 .page-auto-showcase #content,
 .page-showcase #content {
@@ -2449,13 +2456,13 @@ body.cke_editable {
   margin-bottom: 3em;
   width: 100%;
 }
-/* line 28, ../sass/smacss/_showcase.scss */
+/* line 36, ../sass/smacss/_showcase.scss */
 .node-type-showcase #content:hover .contextual-links-trigger,
 .page-auto-showcase #content:hover .contextual-links-trigger,
 .page-showcase #content:hover .contextual-links-trigger {
   display: block;
 }
-/* line 33, ../sass/smacss/_showcase.scss */
+/* line 41, ../sass/smacss/_showcase.scss */
 .node-type-showcase #logo,
 .page-auto-showcase #logo,
 .page-showcase #logo {
@@ -2465,7 +2472,7 @@ body.cke_editable {
   width: 33%;
 }
 @media only screen and (min-width: 600px) and (max-width: 959px) {
-  /* line 33, ../sass/smacss/_showcase.scss */
+  /* line 41, ../sass/smacss/_showcase.scss */
   .node-type-showcase #logo,
   .page-auto-showcase #logo,
   .page-showcase #logo {
@@ -2473,7 +2480,7 @@ body.cke_editable {
   }
 }
 @media only screen and (max-width: 599px) {
-  /* line 33, ../sass/smacss/_showcase.scss */
+  /* line 41, ../sass/smacss/_showcase.scss */
   .node-type-showcase #logo,
   .page-auto-showcase #logo,
   .page-showcase #logo {
@@ -2484,14 +2491,14 @@ body.cke_editable {
     width: 50%;
   }
 }
-/* line 50, ../sass/smacss/_showcase.scss */
+/* line 58, ../sass/smacss/_showcase.scss */
 .node-type-showcase #page-title,
 .page-auto-showcase #page-title,
 .page-showcase #page-title {
   background: transparent;
 }
 @media only screen and (max-width: 767px) {
-  /* line 50, ../sass/smacss/_showcase.scss */
+  /* line 58, ../sass/smacss/_showcase.scss */
   .node-type-showcase #page-title,
   .page-auto-showcase #page-title,
   .page-showcase #page-title {
@@ -2499,14 +2506,14 @@ body.cke_editable {
   }
 }
 
-/* line 58, ../sass/smacss/_showcase.scss */
+/* line 66, ../sass/smacss/_showcase.scss */
 .showcase__header {
   margin-bottom: 3em;
   min-height: 130px;
   position: relative;
 }
 
-/* line 64, ../sass/smacss/_showcase.scss */
+/* line 72, ../sass/smacss/_showcase.scss */
 .showcase__header_content {
   bottom: 0;
   float: left;
@@ -2515,14 +2522,14 @@ body.cke_editable {
   width: 67%;
 }
 @media only screen and (min-width: 600px) and (max-width: 959px) {
-  /* line 64, ../sass/smacss/_showcase.scss */
+  /* line 72, ../sass/smacss/_showcase.scss */
   .showcase__header_content {
     position: static;
     width: 77%;
   }
 }
 @media only screen and (max-width: 599px) {
-  /* line 64, ../sass/smacss/_showcase.scss */
+  /* line 72, ../sass/smacss/_showcase.scss */
   .showcase__header_content {
     position: static;
     text-align: center;
@@ -2530,45 +2537,45 @@ body.cke_editable {
   }
 }
 
-/* line 82, ../sass/smacss/_showcase.scss */
+/* line 90, ../sass/smacss/_showcase.scss */
 .showcase__submit {
   margin-top: 3em;
   text-align: center;
 }
 
 @media only screen and (max-width: 479px) {
-  /* line 86, ../sass/smacss/_showcase.scss */
+  /* line 94, ../sass/smacss/_showcase.scss */
   .showcase__submit_link {
     display: block;
   }
 }
 
-/* line 91, ../sass/smacss/_showcase.scss */
+/* line 99, ../sass/smacss/_showcase.scss */
 .showcase__counter {
   display: inline-block;
   margin: 20px 20px 0 0;
 }
 @media only screen and (max-width: 767px) {
-  /* line 91, ../sass/smacss/_showcase.scss */
+  /* line 99, ../sass/smacss/_showcase.scss */
   .showcase__counter {
     margin-right: 0;
   }
 }
 
-/* line 99, ../sass/smacss/_showcase.scss */
+/* line 107, ../sass/smacss/_showcase.scss */
 .showcase__images_sharing {
   float: right;
   padding-left: 20px;
   width: 60%;
 }
 @media only screen and (min-width: 768px) and (max-width: 959px) {
-  /* line 99, ../sass/smacss/_showcase.scss */
+  /* line 107, ../sass/smacss/_showcase.scss */
   .showcase__images_sharing {
     width: 50%;
   }
 }
 @media only screen and (max-width: 767px) {
-  /* line 99, ../sass/smacss/_showcase.scss */
+  /* line 107, ../sass/smacss/_showcase.scss */
   .showcase__images_sharing {
     float: none;
     max-width: 600px;
@@ -2577,63 +2584,63 @@ body.cke_editable {
   }
 }
 
-/* line 114, ../sass/smacss/_showcase.scss */
+/* line 122, ../sass/smacss/_showcase.scss */
 .showcase__images {
   margin-bottom: 1em;
 }
-/* line 117, ../sass/smacss/_showcase.scss */
+/* line 125, ../sass/smacss/_showcase.scss */
 .showcase__images .flex-control-thumbs {
   margin-top: 2px;
 }
 
-/* line 123, ../sass/smacss/_showcase.scss */
+/* line 131, ../sass/smacss/_showcase.scss */
 .showcase__description {
   margin-bottom: 1.5em;
 }
 
-/* line 131, ../sass/smacss/_showcase.scss */
+/* line 139, ../sass/smacss/_showcase.scss */
 .showcase__view_footer {
   clear: both;
   margin-top: 3em;
 }
 
-/* line 140, ../sass/smacss/_showcase.scss */
+/* line 148, ../sass/smacss/_showcase.scss */
 .showcase__header .item-list {
   margin-top: -2em;
   padding-left: 130px;
 }
 @media only screen and (max-width: 767px) {
-  /* line 140, ../sass/smacss/_showcase.scss */
+  /* line 148, ../sass/smacss/_showcase.scss */
   .showcase__header .item-list {
     margin-top: 0;
     padding-left: 0;
   }
 }
-/* line 149, ../sass/smacss/_showcase.scss */
+/* line 157, ../sass/smacss/_showcase.scss */
 .showcase__header .pager {
   display: inline-block;
   margin: 0;
   text-align: left;
 }
 @media only screen and (max-width: 479px) {
-  /* line 149, ../sass/smacss/_showcase.scss */
+  /* line 157, ../sass/smacss/_showcase.scss */
   .showcase__header .pager {
     display: block;
   }
 }
-/* line 157, ../sass/smacss/_showcase.scss */
+/* line 165, ../sass/smacss/_showcase.scss */
 .showcase__header .pager li {
   padding: 0;
 }
 @media only screen and (max-width: 479px) {
-  /* line 157, ../sass/smacss/_showcase.scss */
+  /* line 165, ../sass/smacss/_showcase.scss */
   .showcase__header .pager li {
     display: block;
     float: left;
     width: 50%;
   }
 }
-/* line 165, ../sass/smacss/_showcase.scss */
+/* line 173, ../sass/smacss/_showcase.scss */
 .showcase__header .pager li a {
   display: inline-block;
   margin: 0 20px 0 0;
@@ -2641,13 +2648,13 @@ body.cke_editable {
   width: 125px;
 }
 @media only screen and (min-width: 600px) and (max-width: 767px) {
-  /* line 165, ../sass/smacss/_showcase.scss */
+  /* line 173, ../sass/smacss/_showcase.scss */
   .showcase__header .pager li a {
     margin: 0;
   }
 }
 @media only screen and (max-width: 479px) {
-  /* line 165, ../sass/smacss/_showcase.scss */
+  /* line 173, ../sass/smacss/_showcase.scss */
   .showcase__header .pager li a {
     display: block;
     margin: 0;
@@ -2655,39 +2662,39 @@ body.cke_editable {
   }
 }
 @media only screen and (max-width: 479px) {
-  /* line 181, ../sass/smacss/_showcase.scss */
+  /* line 189, ../sass/smacss/_showcase.scss */
   .showcase__header .pager li.pager-previous {
     padding-right: 5px;
   }
 }
 @media only screen and (max-width: 479px) {
-  /* line 189, ../sass/smacss/_showcase.scss */
+  /* line 197, ../sass/smacss/_showcase.scss */
   .showcase__header .pager li.pager-next {
     padding-left: 5px;
   }
 }
-/* line 195, ../sass/smacss/_showcase.scss */
+/* line 203, ../sass/smacss/_showcase.scss */
 .showcase__header .pager li.last a {
   margin: 0;
 }
 
 @media only screen and (max-width: 767px) {
-  /* line 203, ../sass/smacss/_showcase.scss */
+  /* line 211, ../sass/smacss/_showcase.scss */
   .showcase__view_all {
     font-size: 0.8em;
     text-align: center;
   }
 }
 
-/* line 215, ../sass/smacss/_showcase.scss */
+/* line 223, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav {
   display: inline-block;
 }
-/* line 218, ../sass/smacss/_showcase.scss */
+/* line 226, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav li {
   display: inline-block;
 }
-/* line 223, ../sass/smacss/_showcase.scss */
+/* line 231, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav a {
   display: block;
   height: auto;
@@ -2698,15 +2705,15 @@ body.cke_editable {
   text-align: center;
   width: 125px;
 }
-/* line 234, ../sass/smacss/_showcase.scss */
+/* line 242, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav a:before {
   content: normal;
 }
-/* line 238, ../sass/smacss/_showcase.scss */
+/* line 246, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav .flex-prev {
   left: 0;
 }
-/* line 241, ../sass/smacss/_showcase.scss */
+/* line 249, ../sass/smacss/_showcase.scss */
 .showcase__view_header .flex-direction-nav .flex-next {
   right: 0;
 }

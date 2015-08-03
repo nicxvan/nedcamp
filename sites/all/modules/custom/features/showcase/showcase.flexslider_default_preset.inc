@@ -20,7 +20,7 @@ function showcase_flexslider_default_presets() {
   $preset->imagestyle_thumbnail = 'showcase_image_slider_thumb';
   $preset->options = array(
     'namespace' => 'flex-',
-    'selector' => '.slides--showcase_image_slider > li',
+    'selector' => '.slides > li',
     'easing' => 'swing',
     'direction' => 'horizontal',
     'reverse' => 0,
@@ -72,7 +72,7 @@ function showcase_flexslider_default_presets() {
   $preset->imagestyle_thumbnail = 'showcase_image_slider_thumb';
   $preset->options = array(
     'namespace' => 'flex-',
-    'selector' => '.slides--showcase_page_slider > li',
+    'selector' => '.slides > li',
     'easing' => 'swing',
     'direction' => 'horizontal',
     'reverse' => 0,

@@ -13,6 +13,14 @@
 
 //::::::::::::::::::::::::::::::
 //:: Style - Common
+.not-logged-in.node-type-showcase,
+.not-logged-in.page-auto-showcase,
+.not-logged-in.page-showcase {
+  .contextual-links-wrapper {
+    display: none;
+  }
+}
+//::::::::::::::::::::::::::::::
 .node-type-showcase,
 .page-auto-showcase,
 .page-showcase {
