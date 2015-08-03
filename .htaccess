@@ -56,7 +56,7 @@ DirectoryIndex index.php index.html index.htm
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
-RewriteRule ^(.*)$ http://nedcamp.org/$1 [R=301,L]
+#RewriteRule ^(.*)$ http://nedcamp.org/$1 [R=301,L]
 
 
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
