@@ -841,12 +841,13 @@ form {
 	.fname {
 		clear: both;
 		color: #000;
-		float: left;
+    display: inline-block;
 		line-height: 1;
 		margin-right: 4px;
 	}
 	.lname {
 		color: #000;
+    display: inline-block;
 		line-height: 1;
 		margin: 0;
 	}
