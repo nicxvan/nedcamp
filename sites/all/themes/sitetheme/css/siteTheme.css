@@ -1954,17 +1954,18 @@ body.cke_editable {
   margin-bottom: 5px;
 }
 /* line 841, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .fname {
+.view-display-id-accepted_sessions_page .full_name {
   clear: both;
+}
+/* line 844, ../sass/_main-site-style.scss */
+.view-display-id-accepted_sessions_page .fname {
   color: #000;
-  display: inline-block;
   line-height: 1;
   margin-right: 4px;
 }
-/* line 848, ../sass/_main-site-style.scss */
+/* line 849, ../sass/_main-site-style.scss */
 .view-display-id-accepted_sessions_page .lname {
   color: #000;
-  display: inline-block;
   line-height: 1;
   margin: 0;
 }
