@@ -2,6 +2,7 @@
 //:: Main Styles
 //::::::::::::::::::::::::::::::
  
+
 //::::::::::::::::::::::::::::::
 //:: One-off
 .nowrap {
@@ -903,8 +904,27 @@ form {
   }
 }
 //::::::::::::::::::::::::::::::
-.view-display-id-speakers_and_rabblerousers {
+.speakers-and-rabblerousers {
   
+  &.view-display-id-speakers_and_rabblerousers__random {
+    @extend %clearfix;
+  }
+  .attachment-before {
+    float: left;
+    width: (100% / 3);
+
+    .speaker_and_rabblerouser__item {
+      width: 100%;
+    }
+    + .view-content {
+      float: left;
+      width: ((100% / 3) * 2);
+
+      .speaker_and_rabblerouser__item {
+        width: (100% / 2);
+      }
+    }
+  }
   .view-content {
     @extend %clearfix;
   }
@@ -947,6 +967,9 @@ form {
     @extend %font-stack-serif;
     line-height: normal;
     text-transform: uppercase;
+  }
+  .title {
+    line-height: normal;
   }
 }
 //::::::::::::::::::::::::::::::

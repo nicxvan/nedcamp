@@ -116,17 +116,21 @@
     <?php endif; ?>
 
     <div id="content" class="column" role="main">
+
+      <?php global $user; ?>
       
-    <div class="contextual-links-wrapper">
-      <ul class="contextual-links">
-        <li class="views-ui-edit first">
-          <a href="/admin/structure/views/view/showcase/edit/showcase_sorting?destination=<?php print current_path(); ?>">Edit view</a>
-        </li>
-        <li class="draggableviews-order last">
-          <a href="/admin/sorting/showcase?destination=<?php print current_path(); ?>">Order view</a>
-        </li>
-      </ul>
-    </div>
+      <?php if (in_array('administrator', $user->roles)): ?>
+        <div class="contextual-links-wrapper">
+          <ul class="contextual-links">
+            <li class="views-ui-edit first">
+              <a href="/admin/structure/views/view/showcase/edit/showcase_sorting?destination=<?php print current_path(); ?>">Edit view</a>
+            </li>
+            <li class="draggableviews-order last">
+              <a href="/admin/sorting/showcase?destination=<?php print current_path(); ?>">Order view</a>
+            </li>
+          </ul>
+        </div>
+      <?php endif; ?>
 
       
       <?php print render($page['content']); ?>
