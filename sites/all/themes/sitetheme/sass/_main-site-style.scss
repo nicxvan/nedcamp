@@ -39,7 +39,7 @@ fieldset {
 	}
 }
 #page-title {
-  @extend %bg-accent-color;
+//  @extend %bg-accent-color;
   
   .front & {
     @extend %element-invisible;
@@ -913,6 +913,9 @@ form {
     float: left;
     width: (100% / 3);
 
+    @include responsive ($portrait) {
+      width: 100%;
+    }
     .speaker_and_rabblerouser__item {
       width: 100%;
     }
@@ -920,8 +923,15 @@ form {
       float: left;
       width: ((100% / 3) * 2);
 
+      @include responsive ($portrait) {
+        width: 100%;
+      }
       .speaker_and_rabblerouser__item {
         width: (100% / 2);
+        
+        @include responsive ($portrait) {
+          width: 100%;
+        }
       }
     }
   }
