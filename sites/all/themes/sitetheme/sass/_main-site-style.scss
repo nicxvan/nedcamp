@@ -960,9 +960,12 @@ form {
     @extend %mar-b-0_5em;
     padding-right: 15px;
     
+    @include responsive($portrait){
+      padding-right: 0;
+    }
     .user-picture {
+      display: inline-block;
       @extend %halo-border;
-      @extend %display-block;
     }
     img {
       @extend %center-block;
