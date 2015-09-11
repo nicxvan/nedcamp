@@ -116,7 +116,7 @@ html, #main, #main-menu-inner .close, .view-display-id-footer_sponsors_all,
 }
 
 /* line 109, ../sass/extendables/_extendables.scss */
-.block, .view-id-session_schedule, .view-display-id-accepted_sessions_page .session, .node, .organizers__organizer {
+.block, .view-id-session_schedule, view-id-accepted_sessions .session, .node, .organizers__organizer {
   margin-bottom: 3em;
 }
 
@@ -135,7 +135,7 @@ html, #main, #main-menu-inner .close, .view-display-id-footer_sponsors_all,
 .block-social .content [class^="icon-"]:after,
 .block-social .content [class*=" icon-"]:after,
 .view-id-book .field-name-field-product-image img,
-.view-display-id-accepted_sessions_page .user-picture img,
+view-id-accepted_sessions .user-picture img,
 .node-session .user-picture img {
   display: block !important;
 }
@@ -205,7 +205,7 @@ html, #main, #main-menu-inner .close, .view-display-id-footer_sponsors_all,
 
 /* line 182, ../sass/mixins/_mixins.scss */
 .listing-block .views-row:after, #header #header-inner:after, #main-menu #main-menu-inner:after, #main .tabs-primary:after,
-#main .action-links:after, #page-title:after, .region-sidebar-first:after, .block-social:after, .block-homepage_image_nav .content ul:after, .view-display-id-accepted_sessions_page .session:after, .speakers-and-rabblerousers.view-display-id-speakers_and_rabblerousers__random:after, .speakers-and-rabblerousers .view-content:after, .view-display-id-footer_sponsors_all:after, .view-display-id-footer_sponsors_all > .view-content:after, .view-display-id-organizers_page > .view-content:after, .showcase__header:after,
+#main .action-links:after, #page-title:after, .region-sidebar-first:after, .block-social:after, .block-homepage_image_nav .content ul:after, view-id-accepted_sessions .session:after, .speakers-and-rabblerousers.view-display-id-speakers_and_rabblerousers__random:after, .speakers-and-rabblerousers .view-content:after, .view-display-id-footer_sponsors_all:after, .view-display-id-footer_sponsors_all > .view-content:after, .view-display-id-organizers_page > .view-content:after, .showcase__header:after,
 .listing-block .views-row .pseudo-clear,
 #header #header-inner .pseudo-clear,
 #main-menu #main-menu-inner .pseudo-clear,
@@ -215,7 +215,7 @@ html, #main, #main-menu-inner .close, .view-display-id-footer_sponsors_all,
 .region-sidebar-first .pseudo-clear,
 .block-social .pseudo-clear,
 .block-homepage_image_nav .content ul .pseudo-clear,
-.view-display-id-accepted_sessions_page .session .pseudo-clear,
+view-id-accepted_sessions .session .pseudo-clear,
 .speakers-and-rabblerousers.view-display-id-speakers_and_rabblerousers__random .pseudo-clear,
 .speakers-and-rabblerousers .view-content .pseudo-clear,
 .view-display-id-footer_sponsors_all .pseudo-clear,
@@ -812,7 +812,7 @@ input[type=submit]:hover,
 
 /* line 435, ../sass/_extendables.scss */
 .halo-border,
-.view-display-id-accepted_sessions_page .user-picture,
+view-id-accepted_sessions .user-picture,
 .speakers-and-rabblerousers .img .user-picture,
 .node-session .user-picture {
   background-color: rgba(255, 255, 255, 0.1);
@@ -1939,38 +1939,38 @@ body.cke_editable {
 }
 
 /* line 823, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .session-speaker {
+view-id-accepted_sessions .session-speaker {
   float: left;
   padding: 8px 10px 0 0;
   width: 37.03704%;
 }
 /* line 829, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .view-mode-session_speakers + .view-mode-session_speakers {
+view-id-accepted_sessions .view-mode-session_speakers + .view-mode-session_speakers {
   margin-top: 5px;
 }
 /* line 833, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .user-picture {
+view-id-accepted_sessions .user-picture {
   float: left;
   margin-bottom: 5px;
 }
 /* line 842, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .full_name {
+view-id-accepted_sessions .full_name {
   clear: both;
 }
 /* line 845, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .fname {
+view-id-accepted_sessions .fname {
   color: #000;
   line-height: 1;
   margin-right: 4px;
 }
 /* line 850, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .lname {
+view-id-accepted_sessions .lname {
   color: #000;
   line-height: 1;
   margin: 0;
 }
 /* line 855, ../sass/_main-site-style.scss */
-.view-display-id-accepted_sessions_page .session-body {
+view-id-accepted_sessions .session-body {
   float: left;
   width: 62.96296%;
 }
