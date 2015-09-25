@@ -176,7 +176,8 @@ body {
     @include responsive(grid-nook) {
       padding-top: 2em;
     }
-  }
+
+    }
 }
 #content {
   @extend %position-relative;
@@ -736,13 +737,33 @@ form {
   @extend %mar-b-3em;
   line-height: 1.25;
 
-  .odd,
-  .even {
-    @extend %edit-container;
-    
-    + div {
-      .views-field-title {
-        margin-top: em(12);
+  .view-grouping-header {
+      margin-top: 2em;
+      
+    .field-name-field-evttime-date {
+      @extend %h1-title-style;
+      
+      .field-item {
+        @extend %font-stack-sans;
+      }
+    }
+  }
+  .view-grouping-content {
+    .title {
+      &:first-child {
+        .field-item {
+          padding-top: 0 !important;
+        }
+      }
+    }
+    > .odd,
+    > .even {
+      @extend %edit-container;
+      
+      + div {
+        .views-field-title {
+          margin-top: em(12);
+        }
       }
     }
   }
