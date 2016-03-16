@@ -2463,30 +2463,30 @@ body.cke_editable {
   }
 }
 /* line 50, ../sass/smacss/_organizers.scss */
-.organizers__organizer.first {
+.organizers__organizer:nth-of-type(3n+1) {
   clear: both;
 }
 @media only screen and (min-width: 600px) and (max-width: 767px) {
   /* line 50, ../sass/smacss/_organizers.scss */
-  .organizers__organizer.first {
+  .organizers__organizer:nth-of-type(3n+1) {
     clear: none;
   }
 }
 @media only screen and (max-width: 479px) {
   /* line 50, ../sass/smacss/_organizers.scss */
-  .organizers__organizer.first {
+  .organizers__organizer:nth-of-type(3n+1) {
     clear: none;
   }
 }
 @media only screen and (min-width: 600px) and (max-width: 767px) {
   /* line 60, ../sass/smacss/_organizers.scss */
-  .organizers__organizer:nth-child(2n) {
+  .organizers__organizer:nth-of-type(2n+1) {
     clear: both;
   }
 }
 @media only screen and (max-width: 479px) {
   /* line 60, ../sass/smacss/_organizers.scss */
-  .organizers__organizer:nth-child(2n) {
+  .organizers__organizer:nth-of-type(2n+1) {
     clear: both;
   }
 }
