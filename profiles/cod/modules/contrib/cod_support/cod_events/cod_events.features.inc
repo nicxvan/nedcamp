@@ -28,18 +28,18 @@ function cod_events_views_api($module = NULL, $api = NULL) {
  */
 function cod_events_flag_default_flags() {
   $flags = array();
-  // Exported flag: "Default Event".
+  // Exported flag: "Default Conference".
   $flags['default_event'] = array(
     'entity_type' => 'node',
-    'title' => 'Default Event',
+    'title' => 'Default Conference',
     'global' => 1,
     'types' => array(
       0 => 'event',
     ),
-    'flag_short' => 'Set as default event',
+    'flag_short' => 'Set as default conference',
     'flag_long' => '',
     'flag_message' => '',
-    'unflag_short' => 'Remove default event',
+    'unflag_short' => 'Remove default conference',
     'unflag_long' => '',
     'unflag_message' => '',
     'unflag_denied_text' => '',
@@ -77,13 +77,14 @@ function cod_events_flag_default_flags() {
 function cod_events_node_info() {
   $items = array(
     'event' => array(
-      'name' => t('Event'),
+      'name' => t('Conference'),
       'base' => 'node_content',
-      'description' => t('Provides free and paid event registration on the Event content type.'),
+      'description' => t('Manages all content and registrations related to a conference.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
     ),
   );
+  drupal_alter('node_info', $items);
   return $items;
 }

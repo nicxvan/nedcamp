@@ -5,11 +5,11 @@ core = 7.x
 ; Contributed modules.
 projects[acquia_connector][type] = "module"
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "2.15"
+projects[acquia_connector][version] = "2.16"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
-projects[addressfield][version] = "1.0-beta5"
+projects[addressfield][version] = "1.2"
 
 projects[admin_icons][type] = "module"
 projects[admin_icons][subdir] = "contrib"
@@ -23,22 +23,19 @@ projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][download][type] = "git"
 projects[admin_menu][download][url] = "http://git.drupal.org/project/admin_menu.git"
 projects[admin_menu][download][branch] = "7.x-3.x"
-projects[admin_menu][download][revision] = "b07d37b8"
+projects[admin_menu][download][revision] = "67abd3a2e42c28167551b5d0e753ca322bc592ce"
 
 projects[adminimal_admin_menu][type] = "module"
 projects[adminimal_admin_menu][subdir] = "contrib"
-projects[adminimal_admin_menu][download][type] = "git"
-projects[adminimal_admin_menu][download][url] = "http://git.drupal.org/project/adminimal_admin_menu.git"
-projects[adminimal_admin_menu][download][branch] = "7.x-1.x"
-projects[adminimal_admin_menu][download][revision] = "eca2f1c4"
+projects[adminimal_admin_menu][version] = "1.7"
 
 projects[advanced_help][type] = "module"
-projects[advanced_help][version] = "1.1"
+projects[advanced_help][version] = "1.3"
 projects[advanced_help][subdir] = "contrib"
 
 projects[apachesolr][type] = "module"
 projects[apachesolr][subdir] = "contrib"
-projects[apachesolr][version] = "1.6"
+projects[apachesolr][version] = "1.8"
 
 projects[apachesolr_og][type] = "module"
 projects[apachesolr_og][subdir] = "contrib"
@@ -55,9 +52,13 @@ projects[auto_nodetitle][type] = "module"
 projects[auto_nodetitle][subdir] = "contrib"
 projects[auto_nodetitle][version] = "1.0"
 
+projects[better_exposed_filters][type] = "module"
+projects[better_exposed_filters][subdir] = "contrib"
+projects[better_exposed_filters][version] = "3.2"
+
 projects[breakpoints][type] = "module"
 projects[breakpoints][subdir] = "contrib"
-projects[breakpoints][version] = "1.3"
+projects[breakpoints][version] = "1.4"
 
 projects[connector][type] = "module"
 projects[connector][subdir] = "contrib"
@@ -65,30 +66,34 @@ projects[connector][version] = "1.0-beta2"
 
 projects[ckeditor][type] = "module"
 projects[ckeditor][subdir] = "contrib"
-projects[ckeditor][version] = "1.16"
-
-; Accomodate latest Media changes.
-; https://drupal.org/node/2159403
-projects[ckeditor][patch][] = "http://drupal.org/files/issues/ckeditor-accomodate-latest-media-changes-81.patch"
+projects[ckeditor][version] = "1.17"
 
 projects[cod_support][type] = "module"
 projects[cod_support][subdir] = "contrib"
-projects[cod_support][version] = "1.0-beta5"
+projects[cod_support][version] = "1.0-rc1"
 ;projects[cod_support][download][type] = "git"
 ;projects[cod_support][download][url] = "http://git.drupal.org/project/cod_support.git"
 ;projects[cod_support][download][branch] = "7.x-1.x"
 
 projects[commerce][type] = "module"
-projects[commerce][version] = "1.10"
+projects[commerce][version] = "1.11"
 projects[commerce][subdir] = "contrib"
+
+; Make "Add to cart" button text a display format setting
+; https://www.drupal.org/node/1147690
+projects[commerce][patch][] = http://drupal.org/files/issues/commerce_cart-button_text-1147690-75.patch
+
+; Possibility to show price difference/total price in attributes
+; https://www.drupal.org/node/1226466
+projects[commerce][patch][] = http://drupal.org/files/issues/product_select_options_token_display_alternative-1226466-36.patch
 
 projects[commerce_features][type] = "module"
 projects[commerce_features][subdir] = "contrib"
-projects[commerce_features][version] = "1.0"
+projects[commerce_features][version] = "1.1"
 
 projects[commerce_stock][type] = "module"
 projects[commerce_stock][subdir] = "contrib"
-projects[commerce_stock][version] = "2.0"
+projects[commerce_stock][version] = "2.2"
 
 ; Commerce Coupon 2.x suite
 projects[commerce_coupon][type] = "module"
@@ -96,14 +101,17 @@ projects[commerce_coupon][subdir] = "contrib"
 projects[commerce_coupon][download][type] = "git"
 projects[commerce_coupon][download][url] = "http://git.drupal.org/project/commerce_coupon.git"
 projects[commerce_coupon][download][branch] = "7.x-2.x"
-projects[commerce_coupon][download][revision] = "cf5398ef642da0be7939fb07ff873e884824824f"
+projects[commerce_coupon][download][revision] = "55bdc40eca0f7b32e11a77a94bf5ec21649849cc"
 
 projects[commerce_discount][type] = "module"
 projects[commerce_discount][subdir] = "contrib"
 projects[commerce_discount][download][type] = "git"
 projects[commerce_discount][download][url] = "http://git.drupal.org/project/commerce_discount.git"
 projects[commerce_discount][download][branch] = "7.x-1.x"
-projects[commerce_discount][download][revision] = "aa4f42317e5ed172f5a4efc0486f3e44b84a1cb2"
+projects[commerce_discount][download][revision] = "7a78225fb778b2ff0b71aa7d5a13bea824b07b69"
+
+; Add a weight to commerce_discount. https://www.drupal.org/node/1962484#comment-10026949
+projects[commerce_discount][patch][] = "https://www.drupal.org/files/issues/1962484-add-weight-commerce-discount-1.patch"
 
 projects[commerce_coupon_batch][type] = "module"
 projects[commerce_coupon_batch][subdir] = "contrib"
@@ -121,27 +129,34 @@ projects[conditional_fields][subdir] = "contrib"
 projects[conditional_fields][download][type] = "git"
 projects[conditional_fields][download][url] = "http://git.drupal.org/project/conditional_fields.git"
 projects[conditional_fields][download][branch] = "7.x-3.x"
-projects[conditional_fields][download][revision] = "78ecb0408"
-
-projects[context][type] = "module"
-projects[context][subdir] = "contrib"
-projects[context][version] = "3.3"
+projects[conditional_fields][download][revision] = "12ab0cb0e0660278b2a9e330aae2f13b97c8459e"
 
 projects[ctools][type] = "module"
 projects[ctools][subdir] = "contrib"
-projects[ctools][version] = "1.5"
+projects[ctools][version] = "1.9"
+
+; Allow contexts to load in information for existing contexts.
+; See https://www.drupal.org/node/2484541#comment-9899043 for more info.
+projects[ctools][patch][] = "http://drupal.org/files/issues/2484541-context-dependency-1.patch"
+
+; Add new css classes to the attributes variable
+; See https://www.drupal.org/node/2645612#comment-10723956 for more info.
+projects[ctools][patch][] = "https://www.drupal.org/files/issues/2645612-ctools-attributes-array-1.patch"
 
 projects[date][type] = "module"
 projects[date][subdir] = "contrib"
-projects[date][version] = "2.8"
+projects[date][version] = "2.9"
+
+; Allow date to work with timezones
+projects[date][patch][] = "http://drupal.org/files/issues/date-views-filter-timezone-1820304-18.patch"
 
 projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
-projects[date_ical][version] = "3.3"
+projects[date_ical][version] = "3.8"
 
 ; Remove icalcreator library from the date_ical module
 ; https://drupal.org/node/2209165
-projects[date_ical][patch][] = "https://drupal.org/files/issues/date_ical_remove_makefile.patch"
+projects[date_ical][patch][] = "http://drupal.org/files/issues/date_ical_remove_makefile-3.patch"
 
 ; Keeping this to the latest version, since it should only be used for development.
 projects[devel][version] = "1.5"
@@ -152,20 +167,28 @@ projects[diff][type] = "module"
 projects[diff][subdir] = "contrib"
 projects[diff][version] = "3.2"
 
+; Distro Update
+projects[distro_update][version] = "1.x-dev"
+projects[distro_update][type] = "module"
+projects[distro_update][subdir] = "contrib"
+projects[distro_update][download][type] = "git"
+projects[distro_update][download][revision] = "f5ab9fe"
+projects[distro_update][download][branch] = "7.x-1.x"
+
 projects[efq_extra_field][type] = "module"
 projects[efq_extra_field][subdir] = "contrib"
 projects[efq_extra_field][version] = "1.0-alpha1"
-projects[efq_extra_field][download][type] = "git"
-projects[efq_extra_field][download][url] = "http://git.drupal.org/project/efq_extra_field.git"
-projects[efq_extra_field][download][branch] = "7.x-1.x"
-projects[efq_extra_field][download][revision] = "c810360"
 
 projects[entity][type] = "module"
 projects[entity][subdir] = "contrib"
 projects[entity][download][type] = "git"
 projects[entity][download][url] = "http://git.drupal.org/project/entity.git"
 projects[entity][download][branch] = "7.x-1.x"
-projects[entity][download][revision] = "4d2cc6fb1"
+projects[entity][download][revision] = "4d76c5c2302e225fea2db7aba08d48f3558bf275"
+
+projects[entity_embed][type] = "module"
+projects[entity_embed][subdir] = "contrib"
+projects[entity_embed][version] = "1.0-alpha4"
 
 projects[entitycache][type] = "module"
 projects[entitycache][subdir] = "contrib"
@@ -184,22 +207,22 @@ projects[entityreference][version] = "1.1"
 
 ; Fix foreign keys feature revert issue
 ; https://www.drupal.org/node/1969018
-projects[entityreference][patch][] = "https://drupal.org/files/issues/1969018-update-field-config-foreign-keys-15.patch"
+projects[entityreference][patch][] = "http://drupal.org/files/issues/1969018-update-field-config-foreign-keys-15.patch"
 
 projects[entityreference_prepopulate][type] = "module"
 projects[entityreference_prepopulate][subdir] = "contrib"
 projects[entityreference_prepopulate][download][type] = "git"
 projects[entityreference_prepopulate][download][url] = "http://git.drupal.org/project/entityreference_prepopulate.git"
 projects[entityreference_prepopulate][download][branch] = "7.x-1.x"
-projects[entityreference_prepopulate][download][revision] = "9b40518a"
+projects[entityreference_prepopulate][download][revision] = "0ffdec817b5b3158066245390668e8636fea1d2a"
 
 ; Allow entityreference prepopulate function when an ajax callback is performed.
 ; https://www.drupal.org/node/1970320 and https://www.drupal.org/node/2295951
-projects[entityreference_prepopulate][patch][] = "https://drupal.org/files/issues/er_prepopulate_ajax_values-1.patch"
+projects[entityreference_prepopulate][patch][] = "http://drupal.org/files/issues/er_prepopulate_ajax_values-1.patch"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.2"
+projects[features][version] = "2.7"
 
 projects[fivestar][type] = "module"
 projects[fivestar][subdir] = "contrib"
@@ -207,7 +230,7 @@ projects[fivestar][version] = "2.1"
 
 projects[field_group][type] = "module"
 projects[field_group][subdir] = "contrib"
-projects[field_group][version] = "1.4"
+projects[field_group][version] = "1.5"
 
 projects[field_permissions][type] = "module"
 projects[field_permissions][subdir] = "contrib"
@@ -219,25 +242,35 @@ projects[field_select_ct][version] = "1.0"
 
 projects[field_collection][type] = "module"
 projects[field_collection][subdir] = "contrib"
-projects[field_collection][version] = "1.0-beta8"
+projects[field_collection][version] = "1.0-beta11"
+
+projects[file_entity][type] = "module"
+projects[file_entity][subdir] = "contrib"
+projects[file_entity][download][type] = "git"
+projects[file_entity][download][url] = "http://git.drupal.org/project/file_entity.git"
+projects[file_entity][download][branch] = "7.x-2.x"
+projects[file_entity][download][revision] = "5effd7a"
 
 projects[flag][type] = "module"
 projects[flag][subdir] = "contrib"
-projects[flag][version] = "3.5"
+projects[flag][version] = "3.7"
 
 projects[inline_conditions][type] = "module"
-projects[inline_conditions][version] = "1.0-alpha4"
 projects[inline_conditions][subdir] = "contrib"
+projects[inline_conditions][download][type] = "git"
+projects[inline_conditions][download][url] = "http://git.drupal.org/project/inline_conditions.git"
+projects[inline_conditions][download][branch] = "7.x-1.x"
+projects[inline_conditions][download][revision] = "3dd9495e0a7b95f7e8a29141a8860b073cba2b6a"
 
 projects[inline_entity_form][type] = "module"
-projects[inline_entity_form][version] = "1.5"
+projects[inline_entity_form][version] = "1.6"
 projects[inline_entity_form][subdir] = "contrib"
 
 projects[i18n][type] = "module"
-projects[i18n][version] = "1.11"
+projects[i18n][version] = "1.13"
 projects[i18n][subdir] = "contrib"
 
-projects[jquery_update][version] = "2.4"
+projects[jquery_update][version] = "2.7"
 projects[jquery_update][type] = "module"
 projects[jquery_update][subdir] = "contrib"
 
@@ -247,18 +280,29 @@ projects[libraries][version] = "2.2"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
-projects[link][version] = "1.3"
+projects[link][version] = "1.4"
+
+projects[media][type] = "module"
+projects[media][subdir] = "contrib"
+projects[media][download][type] = "git"
+projects[media][download][url] = "http://git.drupal.org/project/media.git"
+projects[media][download][branch] = "7.x-2.x"
+projects[media][download][revision] = "9f7142b"
+
+projects[media_oembed][type] = "module"
+projects[media_oembed][subdir] = "contrib"
+projects[media_oembed][version] = "2.5"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
-projects[module_filter][version] = "1.8"
+projects[module_filter][version] = "2.0"
 
 projects[mollom][type] = "module"
 projects[mollom][subdir] = "contrib"
-projects[mollom][version] = "2.12"
+projects[mollom][version] = "2.15"
 
 projects[multiple_entity_form][type] = "module"
-projects[multiple_entity_form][version] = "1.2"
+projects[multiple_entity_form][version] = "1.3"
 projects[multiple_entity_form][subdir] = "contrib"
 
 projects[oauth][type] = "module"
@@ -272,47 +316,89 @@ projects[oauthconnector][download][url] = "http://git.drupal.org/project/oauthco
 projects[oauthconnector][download][branch] = "7.x-1.x"
 projects[oauthconnector][download][revision] = "0ce7ac9614710c0f68d0a58cb4ae4667f8bd6fa7"
 
+projects[oembed][type] = "module"
+projects[oembed][subdir] = "contrib"
+projects[oembed][download][type] = "git"
+projects[oembed][download][url] = "http://git.drupal.org/project/oembed.git"
+projects[oembed][download][branch] = "7.x-1.x"
+projects[oembed][download][revision] = "9aa5303"
+
+; Remove the media submodule as it conflicts with the Media: oEmbed module.
+; https://drupal.org/node/2269745#comment-8796261
+projects[oembed][patch][] = "https://drupal.org/files/issues/remove-media-submodule-2269745-2.patch"
+
 projects[og][type] = "module"
 projects[og][subdir] = "contrib"
-projects[og][version] = "2.7"
+projects[og][download][type] = "git"
+projects[og][download][url] = "http://git.drupal.org/project/og.git"
+projects[og][download][branch] = "7.x-2.x"
+projects[og][download][revision] = "cc9c04036a80fcf27a4e9533b6cb0820e3e750be"
+; Do NOT update OG until the og_context_init code is removed. It breaks things.. =(
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
-projects[og][patch][] = "http://drupal.org/files/issues/og-default-role-member-2005800-23.patch"
+projects[og][patch][] = "http://drupal.org/files/issues/og-default-role-member-2005800-40.patch"
 
 ; og_ui should give users the theme, not admin ui when creating groups
 ; http://drupal.org/node/1800208
 projects[og][patch][] = "http://drupal.org/files/og_ui-group_node_add_theme-1800208-5.patch"
 
 ; Allow non-members with subscribe access to be able to post into a group.
-; http://drupal.org/node/1902086#comment-7026516
+; http://www.drupal.org/node/2357459
 projects[og][patch][] = "http://drupal.org/files/issues/og_id_user_access.patch"
 
-; og_group_ref field should respect og_user_access()
-; http://drupal.org/node/1902086#comment-7026516
-; projects[og][patch][] = "http://drupal.org/files/1902086-og-ref-respect-og-user-access-3.patch"
+; OG Context is exiting prematurely, not setting the correct conference in some cases.
+; https://www.drupal.org/node/2493277#comment-9950303
+projects[og][patch][] = "http://drupal.org/files/issues/2493277-og-context-premature-empty-1.patch"
+
+; Assign a language to entities that don't assign it themselves inside og.
+; See https://www.drupal.org/node/1865852 for more info.
+projects[og][patch][] = "https://www.drupal.org/files/issues/group-manager-language-1865852.patch"
 
 projects[og_menu][type] = "module"
 projects[og_menu][subdir] = "contrib"
 projects[og_menu][download][type] = "git"
 projects[og_menu][download][url] = "http://git.drupal.org/project/og_menu.git"
 projects[og_menu][download][branch] = "7.x-3.x"
-projects[og_menu][download][revision] = "fd255c7b900938c2d00c9c2232f2055705e0cca0"
+projects[og_menu][download][revision] = "33b00e2bef6a7a9572315182e50469f56f540785"
 
 projects[og_vocab][type] = "module"
 projects[og_vocab][subdir] = "contrib"
 projects[og_vocab][version] = "1.2"
 
-projects[panelizer][type] = "module"
-projects[panelizer][subdir] = "contrib"
-projects[panelizer][version] = "3.1"
+; Allow og_vocab to select any group a user has access to.
+; https://www.drupal.org/node/2481153#comment-9881365
+projects[og_vocab][patch][2457113] = "http://drupal.org/files/issues/2481153-og_vocab-accessible-groups-1.patch"
 
+; Fix fatal error in og_vocab when used with metatag.
+; https://www.drupal.org/node/2531418#comment-10107836
+projects[og_vocab][patch][2531418] = "https://www.drupal.org/files/issues/fatal_error_with_metatag-2531418-1.patch"
+
+projects[og_theme][type] = "module"
+projects[og_theme][subdir] = "contrib"
+projects[og_theme][version] = "2.0"
+
+projects[panelizer][version] = "3.x-dev"
+projects[panelizer][subdir] = "contrib"
+projects[panelizer][download][type] = "git"
+projects[panelizer][download][revision] = "442d8a9dd2262b8c5fdb3cf439e46e5c9668346f"
+projects[panelizer][download][branch] = "7.x-3.x"
+; Better Revision Handling
+; http://drupal.org/node/2457113
+projects[panelizer][patch][2457113] = "http://drupal.org/files/issues/panelizer-better_revision-2457113-48.patch"
+
+projects[panels][version] = "3.5"
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
-projects[panels][download][type] = "git"
-projects[panels][download][url] = "http://git.drupal.org/project/panels.git"
-projects[panels][download][branch] = "7.x-3.x"
-projects[panels][download][revision] = "ed5fd8c29f2f5c63ae78788e9aabbc3bd35e8dd7"
+; Fix IPE JS alert (Panelizer is Incompatible with Moderation)
+; http://drupal.org/node/1402860#comment-9729091
+projects[panels][patch][1402860] = "http://drupal.org/files/issues/panelizer_is-1402860-82-fix-ipe-end-js-alert.patch"
+; IPE Insufficient for working with Panelizer Revisioning
+; https://www.drupal.org/node/2462331#comment-9778921
+projects[panels][patch][2462331] = "http://drupal.org/files/issues/2462331-4.patch"
+
+; Allow CSS keyword replacements
+projects[panels][patch][1441218] = "http://drupal.org/files/issues/panels-css-keywords-1441218-65.patch"
 
 projects[panels_tabs][type] = "module"
 projects[panels_tabs][subdir] = "contrib"
@@ -323,7 +409,7 @@ projects[panels_tabs][download][revision] = "2caec501d"
 
 projects[pathauto][type] = "module"
 projects[pathauto][subdir] = "contrib"
-projects[pathauto][version] = "1.2"
+projects[pathauto][version] = "1.3"
 
 projects[quicktabs][type] = "module"
 projects[quicktabs][version] = "3.6"
@@ -340,15 +426,19 @@ projects[realname][version] = "1.2"
 
 projects[redirect][type] = "module"
 projects[redirect][subdir] = "contrib"
-projects[redirect][version] = "1.0-rc1"
+projects[redirect][version] = "1.0-rc3"
 
 projects[rules][type] = "module"
 projects[rules][subdir] = "contrib"
-projects[rules][version] = "2.7"
+projects[rules][version] = "2.9"
+
+projects[safeword][type] = "module"
+projects[safeword][subdir] = "contrib"
+projects[safeword][version] = "1.13"
 
 projects[smtp][type] = "module"
 projects[smtp][subdir] = "contrib"
-projects[smtp][version] = "1.0"
+projects[smtp][version] = "1.3"
 
 projects[subpathauto][type] = "module"
 projects[subpathauto][subdir] = "contrib"
@@ -361,27 +451,25 @@ projects[strongarm][download][url] = "http://git.drupal.org/project/strongarm.gi
 projects[strongarm][download][branch] = "7.x-2.x"
 projects[strongarm][download][revision] = "5a2326ba67"
 
-projects[themekey][type] = "module"
-projects[themekey][subdir] = "contrib"
-projects[themekey][download][type] = "git"
-projects[themekey][download][url] = "http://git.drupal.org/project/themekey.git"
-projects[themekey][download][branch] = "7.x-2.x"
-projects[themekey][download][revision] = "7bddcfa2f7ae36abc6d1a27a0b0a8e92d174b568"
+projects[taxonomy_machine_name][type] = "module"
+projects[taxonomy_machine_name][subdir] = "contrib"
+projects[taxonomy_machine_name][version] = "1.2"
 
 ; For COD releases, we peg it to a release of ticket. For dev, we use the dev branch.
 projects[ticket][type] = "module"
 projects[ticket][subdir] = "contrib"
-projects[ticket][version] = "1.0-beta2"
-;projects[ticket][download][type] = "git"
-;projects[ticket][download][url] = "http://git.drupal.org/project/ticket.git"
-;projects[ticket][download][branch] = "7.x-1.x"
+projects[ticket][version] = "1.0-beta4"
+projects[ticket][download][type] = "git"
+projects[ticket][download][url] = "http://git.drupal.org/project/ticket.git"
+projects[ticket][download][branch] = "7.x-1.x"
+;projects[ticket][download][revision] = "1b530acb2d31f2536ef777c98c28fb7fbc8a73b7"
 
 projects[title][type] = "module"
 projects[title][version] = "1.0-alpha7"
 projects[title][subdir] = "contrib"
 
 projects[token][type] = "module"
-projects[token][version] = "1.5"
+projects[token][version] = "1.6"
 projects[token][subdir] = "contrib"
 
 projects[uuid][type] = "module"
@@ -402,23 +490,42 @@ projects[variable][type] = "module"
 projects[variable][version] = "2.5"
 projects[variable][subdir] = "contrib"
 
-projects[views][version] = "3.8"
+projects[views][version] = "3.13"
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
 
-projects[views_autorefresh][version] = "1.0-beta3"
+; Allow taxonomy term fields to be transformed when being passed as a value.
+projects[views][patch][] = "http://drupal.org/files/issues/views-taxonomy-name-case-transform-1.patch"
+
+projects[views_argument_substitutions][type] = "module"
+projects[views_argument_substitutions][subdir] = "contrib"
+projects[views_argument_substitutions][version] = "1.0-dev"
+projects[views_argument_substitutions][download][type] = "git"
+projects[views_argument_substitutions][download][url] = "http://git.drupal.org/project/views_argument_substitutions.git"
+projects[views_argument_substitutions][download][branch] = "7.x-1.x"
+projects[views_argument_substitutions][download][revision] = "95b810afc0bd8d078fd6ee2bbf96e487db4d0acc"
+
+; Remove notice thrown on arrays being passed as input values
+; See https://www.drupal.org/node/2650642#comment-10750768 for more info.
+projects[views_argument_substitutions][patch][] = "https://www.drupal.org/files/issues/2650642-check-array-values-input-1.patch"
+
+projects[views_autorefresh][version] = "1.0"
 projects[views_autorefresh][type] = "module"
 projects[views_autorefresh][subdir] = "contrib"
 
+projects[views_block_filter_block][type] = "module"
+projects[views_block_filter_block][subdir] = "contrib"
+projects[views_block_filter_block][version] = "1.0-beta2"
+
 projects[views_datasource][type] = "module"
 projects[views_datasource][subdir] = "contrib"
-projects[views_datasource][version] = "1.x-dev"
-projects[views_datasource][download][type] = "git"
-projects[views_datasource][download][url] = "http://git.drupal.org/project/views_datasource.git"
-projects[views_datasource][download][branch] = "7.x-1.x"
-projects[views_datasource][download][revision] = "b17317e72f4e8e018c61"
+projects[views_datasource][version] = "1.0-alpha2"
 
-projects[views_field_view][version] = "1.1"
+projects[views_date_format_sql][type] = "module"
+projects[views_date_format_sql][subdir] = "contrib"
+projects[views_date_format_sql][version] = "3.3"
+
+projects[views_field_view][version] = "1.2"
 projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"
 
@@ -427,11 +534,11 @@ projects[views_send][version] = "1.1"
 projects[views_send][subdir] = "contrib"
 
 projects[views_data_export][type] = "module"
-projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][version] = "3.0-beta9"
 projects[views_data_export][subdir] = "contrib"
 
 projects[views_bulk_operations][type] = "module"
-projects[views_bulk_operations][version] = "3.2"
+projects[views_bulk_operations][version] = "3.3"
 projects[views_bulk_operations][subdir] = "contrib"
 
 projects[votingapi][type] = "module"
@@ -439,11 +546,12 @@ projects[votingapi][version] = "2.12"
 projects[votingapi][subdir] = "contrib"
 
 projects[webform][type] = "module"
-projects[webform][version] = "4.1"
+projects[webform][version] = "4.12"
 projects[webform][subdir] = "contrib"
 
 ; Contributed themes.
 ; This hash of Omega Git is before the Susy 1 to 2 re-write.
+; See https://www.drupal.org/node/2398093 for more details.
 projects[omega][type] = "theme"
 projects[omega][subdir] = "contrib"
 projects[omega][download][type] = "git"
@@ -451,35 +559,62 @@ projects[omega][download][url] = "http://git.drupal.org/project/omega.git"
 projects[omega][download][branch] = "7.x-4.x"
 projects[omega][download][revision] = "a4d56d4d4868ef"
 
+; Backport all commits that are not susy 2 specific in Omega 4.x
+; https://www.drupal.org/node/2398093#comment-9726835
+projects[omega][patch][] = "http://drupal.org/files/issues/2398093-omega4-backports-1.patch"
+
+; Hide blank messages in Omega 4.x
+; https://www.drupal.org/node/2512542#comment-10059838
+projects[omega][patch][] = "http://drupal.org/files/issues/blank_error_message-2512542-1.patch"
+
+; Update panels headings in panels 3.5
+; https://www.drupal.org/node/2453475
+projects[omega][patch][] = "http://drupal.org/files/issues/omega-2453475-panels-headings-1.patch"
+
 projects[adminimal_theme][type] = "theme"
 projects[adminimal_theme][subdir] = "contrib"
-projects[adminimal_theme][version] = "1.18"
+projects[adminimal_theme][version] = "1.24"
 
 ; Libraries.
 ; NOTE: These need to be listed in http://drupal.org/packaging-whitelist.
-libraries[underscore][download][type] = "get"
-libraries[underscore][type] = "libraries"
-libraries[underscore][download][url] = "https://github.com/jashkenas/underscore/archive/1.4.4.zip"
-
 libraries[backbone][download][type] = "get"
-libraries[backbone][type] = "libraries"
-libraries[backbone][download][url] = "https://github.com/jashkenas/backbone/archive/1.0.0.tar.gz"
+libraries[backbone][download][url] = "https://github.com/jashkenas/backbone/archive/1.1.0.zip"
 
 libraries[ckeditor][download][type] = "get"
-libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor/CKEditor/CKEditor%204.3.4/ckeditor_4.3.4_full.zip"
-libraries[ckeditor][type] = "libraries"
+libraries[ckeditor][download][url] = "http://download.cksource.com/CKEditor%20for%20Drupal/edit/ckeditor_4.4.3_edit.zip"
 
 libraries[ckeditor_lineutils][download][type] = "get"
-libraries[ckeditor_lineutils][download][url] = "http://download.ckeditor.com/lineutils/releases/lineutils_4.3.4.zip"
+libraries[ckeditor_lineutils][download][url] = "http://download.ckeditor.com/lineutils/releases/lineutils_4.4.3.zip"
 libraries[ckeditor_lineutils][type] = "libraries"
 libraries[ckeditor_lineutils][subdir] = "ckeditor/plugins"
 libraries[ckeditor_lineutils][directory_name] = "lineutils"
 
 libraries[ckeditor_widget][download][type] = "get"
-libraries[ckeditor_widget][download][url] = "http://download.ckeditor.com/widget/releases/widget_4.3.4.zip"
+libraries[ckeditor_widget][download][url] = "http://download.ckeditor.com/widget/releases/widget_4.4.3.zip"
 libraries[ckeditor_widget][type] = "libraries"
 libraries[ckeditor_widget][subdir] = "ckeditor/plugins"
 libraries[ckeditor_widget][directory_name] = "widget"
+
+libraries[colorbox][download][type] = "get"
+libraries[colorbox][download][url] = "https://github.com/jackmoore/colorbox/archive/1.x.zip"
+
+libraries[jsonpath][download][type] = "get"
+libraries[jsonpath][download][url] = "https://jsonpath.googlecode.com/files/jsonpath-0.8.1.php"
+
+libraries[modernizr][download][type] = "get"
+libraries[modernizr][download][url] = "https://github.com/Modernizr/Modernizr/archive/v2.7.1.zip"
+
+libraries[plupload][download][type] = "get"
+libraries[plupload][download][url] = "https://github.com/moxiecode/plupload/archive/v1.5.8.zip"
+; Remove plupload library examples folder for Drupal distribution
+; http://drupal.org/node/1903850
+libraries[plupload][patch][1903850] = "http://drupal.org/files/issues/plupload-1_5_8-rm_examples-1903850-16.patch"
+
+libraries[underscore][download][type] = "get"
+libraries[underscore][download][url] = "https://github.com/jashkenas/underscore/archive/1.5.2.zip"
+
+libraries[tablesaw][download][type] = "get"
+libraries[tablesaw][download][url] = "https://github.com/filamentgroup/tablesaw/releases/download/v1.0.4/tablesaw-1.0.4.zip"
 
 libraries[placeholder][download][type] = "get"
 libraries[placeholder][type] = "libraries"
@@ -488,3 +623,10 @@ libraries[placeholder][download][url] = "https://github.com/mathiasbynens/jquery
 libraries[iCalcreator][download][type] = "get"
 libraries[iCalcreator][type] = "libraries"
 libraries[iCalcreator][download][url] = "https://github.com/iCalcreator/iCalcreator/archive/master.zip"
+
+libraries[dompdf][download][type] = "get"
+libraries[dompdf][type] = "libraries"
+libraries[dompdf][download][url] = "https://github.com/dompdf/dompdf/releases/download/v0.6.2/dompdf-0.6.2.zip"
+; Remove dompdf example folder.
+; See https://www.drupal.org/node/2434767#comment-10749890 for more info.
+libraries[dompdf][patch][] = "https://www.drupal.org/files/issues/dompdf-remove-www-2.patch"

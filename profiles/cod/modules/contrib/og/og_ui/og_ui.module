@@ -1114,6 +1114,21 @@ function og_ui_get_group_admin($entity_type, $etid) {
   if (isset($cache["$entity_type:$etid"])) {
     return $cache["$entity_type:$etid"];
   }
+  // This function is also used as access callback for menu items, so we need to
+  // make sure that the user supplied $etid is actually an integer.
+  if (!ctype_digit($etid)) {
+    return array();
+  }
+  // ensure we are invoking this on something worth doing it on
+  $entity = entity_load_single($entity_type, $etid);
+  $entity_info = entity_get_info($entity_type);
+  // if this isn't a group type, skip invoking admin modules
+  if (empty($entity_info['entity keys']['bundle']) || !og_is_group_type($entity_type, $entity->{$entity_info['entity keys']['bundle']})) {
+    $cache["$entity_type:$etid"] = FALSE;
+    return FALSE;
+  }
+  
+
   $data = module_invoke_all('og_ui_get_group_admin', $entity_type, $etid);
 
   // Allow other modules to alter the menu items.

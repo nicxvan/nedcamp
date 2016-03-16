@@ -13,3 +13,11 @@ function ticket_user_registration_update_7001() {
   ctools_export_crud_delete('views_view', $view);
   return array();
 }
+
+/**
+ * We like changing views so much in ticket that we're changing it again!
+ */
+function ticket_user_registration_update_7002() {
+  ticket_user_registration_update_7001();
+  return array();
+}

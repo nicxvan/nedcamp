@@ -169,7 +169,12 @@ class ctools_context_required {
 
   function select($contexts, $context) {
     if (!is_array($contexts)) {
-      $contexts = array($contexts);
+      if (is_object($contexts) && $contexts instanceof ctools_context) {
+        $contexts = array($contexts->id => $contexts);
+      }
+      else {
+        $contexts = array($contexts);
+      }
     }
 
     // If we had requested a $context but that $context doesn't exist
@@ -211,7 +216,7 @@ class ctools_context_optional extends ctools_context_required {
     $context = new ctools_context('any');
     $context->title      = t('No context');
     $context->identifier = t('No context');
-    $contexts = array_merge(array('empty' => $context), $contexts);
+    $contexts['empty'] = $context;
   }
 
   function filter($contexts) {
@@ -328,13 +333,15 @@ function _ctools_context_selector($contexts, $required, $default, $num = 0) {
       $title = $num ? t('Context %count', array('%count' => $num)) : t('Context');
     }
 
-    return array(
+    $form = array(
       '#type' => 'select',
       '#options' => $options,
       '#title' => $title,
       '#default_value' => $default,
     );
   }
+
+  return $form;
 }
 
 /**
@@ -1120,9 +1127,12 @@ function ctools_context_get_context_from_context($context, $type = 'context', $a
  * @param $placeholders
  *   If true, placeholders are acceptable.
  */
-function ctools_context_get_context_from_contexts($contexts, $type = 'context', $placeholders = FALSE) {
+function ctools_context_get_context_from_contexts($contexts, $type = 'context', $placeholders = FALSE, $existing_contexts = array()) {
   $return = array();
   foreach ($contexts as $context) {
+    if (!empty($existing_contexts)) {
+      $context['existing contexts'] = $existing_contexts;
+    }
     $ctext = ctools_context_get_context_from_context($context, $type);
     if ($ctext) {
       if ($placeholders) {
@@ -1216,7 +1226,7 @@ function ctools_context_load_contexts($object, $placeholders = TRUE, $contexts =
   }
 
   if (!empty($object->contexts) && is_array($object->contexts)) {
-    $contexts += ctools_context_get_context_from_contexts($object->contexts, 'context', $placeholders);
+    $contexts += ctools_context_get_context_from_contexts($object->contexts, 'context', $placeholders, $contexts);
   }
 
   // add contexts from relationships
@@ -1498,7 +1508,7 @@ function ctools_access($settings, $contexts = array()) {
       return TRUE;
     }
     else if (!$pass && $settings['logic'] == 'and') {
-      // Fail if 'and' and htis rule failed.
+      // Fail if 'and' and this rule failed.
       return FALSE;
     }
   }
@@ -1587,7 +1597,9 @@ function ctools_access_add_restrictions($settings, $contexts) {
       $required_context = isset($plugin['required context']) ? $plugin['required context'] : array();
       $context = isset($test['context']) ? $test['context'] : array();
       $contexts = ctools_context_select($contexts, $required_context, $context);
-      $function($test['settings'], $contexts);
+      if ($contexts !== FALSE) {
+        $function($test['settings'], $contexts);
+      }
     }
   }
 }

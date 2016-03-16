@@ -89,31 +89,29 @@ function cod_paid_events_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'ticket_type-ticket_type-field_complete_state'
-  $field_instances['ticket_type-ticket_type-field_complete_state'] = array(
+  // Exported field_instance: 'ticket_type-ticket_type-field_checkout_complete_state'
+  $field_instances['ticket_type-ticket_type-field_checkout_complete_state'] = array(
     'bundle' => 'ticket_type',
-    'default_value' => NULL,
-    'default_value_function' => '',
+    'default_value' => array(
+      0 => array(
+        '' => 'completed',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'settings' => array(),
+        'weight' => 9,
       ),
     ),
     'entity_type' => 'ticket_type',
-    'field_name' => 'field_complete_state',
-    'label' => 'Checkout complete state',
+    'field_name' => 'field_checkout_complete_state',
+    'label' => 'Checkout Complete State',
     'required' => 0,
     'settings' => array(
-      'behaviors' => array(
-        'prepopulate' => array(
-          'status' => 0,
-        ),
-      ),
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -121,7 +119,7 @@ function cod_paid_events_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 9,
     ),
   );
 
@@ -162,7 +160,7 @@ function cod_paid_events_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Checkout complete state');
+  t('Checkout Complete State');
   t('Price');
   t('Product');
 

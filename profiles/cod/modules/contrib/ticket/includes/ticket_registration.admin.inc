@@ -26,6 +26,9 @@ function ticket_registration_view_page($ticket_type) {
     }
   }
 
+  // Set the path so exposed filters form action is set properly.
+  $view->override_path = current_path();
+
   // Default back to the default display.
   return $view->preview($dname, array($ticket_type->ttid));
 }
@@ -63,8 +66,46 @@ function ticket_registration_view($entity_type, $entity) {
  * Implements ENTITY_TYPE_form().
  */
 function ticket_registration_form($form, &$form_state, $entity, $op = 'edit') {
-
   // Attach the fields for this ticket registration.
+  if (user_access('edit all ticket registrations')) {
+    $ticket_type = ticket_type_load($entity->bundle);
+    if (!empty($entity->trid) && $host = $ticket_type->entity) {
+      $form['admin_settings'] = array(
+        '#type' => 'fieldset',
+        '#weight' => -99,
+        '#title' => t('Administrative Settings'),
+        '#collapsible' => FALSE,
+        '#collapsed' => FALSE,
+      );
+      $options = array();
+      foreach($host->{$ticket_type->field_name}[LANGUAGE_NONE] AS $tt) {
+        $type = ticket_type_load($tt['value']);
+        $options[$tt['value']] = ticket_type_label($type);
+      }
+      $form['admin_settings']['bundle'] = array(
+        '#type' => 'select',
+        '#title' => 'Ticket Type',
+        '#description' => 'This selector is potentially dangerous. Only change the ticket type if both types have similar fields.',
+        '#options' => $options,
+        '#default_value' => $ticket_type->ttid,
+        '#weight' => -99,
+      );
+      $form['admin_settings']['author_uid'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Author UID'),
+        '#default_value' => $entity->author_uid,
+        '#size' => 32,
+        '#maxlength' => 32,
+      );
+      $form['admin_settings']['user_uid'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Registered User'),
+        '#default_value' => $entity->user_uid,
+        '#size' => 32,
+        '#maxlength' => 32,
+      );
+    }
+  }
   field_attach_form('ticket_registration', $entity, $form, $form_state);
 
   // TODO: Need to add the status checkbox here, but it should probably
@@ -77,7 +118,7 @@ function ticket_registration_form($form, &$form_state, $entity, $op = 'edit') {
     '#weight' => 40,
   );
 
-  if ($op != 'add' && $op != 'clone') {
+  if (user_access('delete own ticket registration') && $op != 'add' && $op != 'clone') {
     $form['actions']['delete'] = array(
       '#type' => 'submit',
       '#value' => t('Delete'),
@@ -93,6 +134,7 @@ function ticket_registration_form($form, &$form_state, $entity, $op = 'edit') {
  * ENTITY_TYPE_form() submit callback.
  */
 function ticket_registration_form_submit($form, &$form_state) {
+  global $user;
   $ticket_registration = entity_ui_form_submit_build_entity($form, $form_state);
 
   // Set the properties.
@@ -119,7 +161,11 @@ function ticket_registration_form_submit($form, &$form_state) {
     $ticket_registration->is_new_revision = TRUE;
   }
 
+  $form_state['redirect'] = 'user/'. $ticket_registration->user_uid .'/tickets';
+  drupal_set_message("Ticket Successfully Updated");
+
   $ticket_registration->save();
+  $form_state['ticket_registration'] = $ticket_registration;
 }
 
 /**
@@ -219,7 +265,7 @@ function ticket_register_form_validate($form, &$form_state) {
 }
 
 /**
- * Tikcet register page form submit.
+ * Ticket register page form submit.
  */
 function ticket_register_form_submit($form, &$form_state) {
   multiple_entity_form_submit($form, $form_state);
@@ -241,15 +287,14 @@ function ticket_register_form_submit($form, &$form_state) {
 
     // Set the default registrant uid if not set.
     if (empty($entity->user_uid)) {
-      $entity->user_uid = $GLOBALS['user']->uid;
+      $entity->user_uid = 0;
     }
 
     // TODO: We should probably do this in hook_entity insert or something.
     if (module_exists('ticket_state')) {
       $ticket_type = $entity->ticket_type();
-      if (!empty($ticket_type->ticket_type_default_tsid)) {
-        $ts = ticket_state_load($ticket_type->ticket_type_default_tsid[LANGUAGE_NONE][0]['target_id']);
-        $entity->state = $ts->name;
+      if (!empty($ticket_type->ticket_type_default_state)) {
+        $entity->state = $ticket_type->ticket_type_default_state[LANGUAGE_NONE][0]['value'];
       }
     }
 

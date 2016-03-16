@@ -8,3 +8,15 @@ function cod_profile_social_update_7001() {
   );
   features_revert($revert);
 }
+
+/**
+ * Update social profile fields with new versions of link and features.
+ */
+function cod_profile_social_update_7002() {
+
+  // Revert Features components to ensure that they are in their default states.
+  $revert = array(
+    'cod_profile_social' => array('field_instance'),
+  );
+  features_revert($revert);
+}

@@ -193,7 +193,7 @@ function commerce_discount_install_helper() {
       ),
       'field_name' => 'commerce_discounts',
       'type' => 'entityreference',
-      'locked' => TRUE,
+      'locked' => FALSE,
       'cardinality' => FIELD_CARDINALITY_UNLIMITED,
     );
     field_create_field($field);

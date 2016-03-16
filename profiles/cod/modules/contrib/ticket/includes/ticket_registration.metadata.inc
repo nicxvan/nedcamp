@@ -39,7 +39,7 @@ class TicketRegistrationMetadataController extends EntityDefaultMetadataControll
 
     $properties['ticket_type'] = array(
       'label' => t('Ticket type entity'),
-      'type' => 'entity',
+      'type' => 'ticket_type',
       'description' => t('The loaded ticket type entity.'),
       'getter callback' => 'ticket_registration_get_properties',
     );
@@ -59,16 +59,26 @@ class TicketRegistrationMetadataController extends EntityDefaultMetadataControll
       'getter callback' => 'ticket_registration_get_properties',
     );
 
+    $properties['host_entity'] = array(
+      'label' => t('Host entity'),
+      'type' => 'entity',
+      'description' => t('The entity containing the registration_type field.'),
+      'getter callback' => 'ticket_registration_get_properties',
+    );
+
+    /*
+     * This field is Depricated in favor of the 'host_entity' property.
+     */
     $properties['entity'] = array(
       'label' => t('Host entity'),
       'type' => 'entity',
-      'description' => t('The loaded host entity.'),
+      'description' => t('The loaded host entity. (Depricated: use the "host_entity" property instead.'),
       'getter callback' => 'ticket_registration_get_properties',
     );
 
     $properties['user'] = array(
       'label' => t('User entity'),
-      'type' => 'entity',
+      'type' => 'user',
       'schema field' => 'user_uid',
       'description' => t('The entity for which the registration belongs to. Usually a user.'),
       'getter callback' => 'ticket_registration_get_properties',
@@ -79,7 +89,14 @@ class TicketRegistrationMetadataController extends EntityDefaultMetadataControll
       'type' => 'user',
       'schema field' => 'author_uid',
       'description' => t('The user who created the registration.'),
-      'getter callback' => 'ticket_registration_property_author_get',
+      'getter callback' => 'ticket_registration_get_properties',
+    );
+
+    $properties['label'] = array(
+      'label' => t('Registration Label'),
+      'type' => 'text',
+      'description' => t('The user who created the registration.'),
+      'getter callback' => 'ticket_registration_get_properties',
     );
 
     $properties['created'] = array(

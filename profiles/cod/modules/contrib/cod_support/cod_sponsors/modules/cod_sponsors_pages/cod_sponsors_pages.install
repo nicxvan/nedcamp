@@ -16,3 +16,16 @@ function cod_sponsors_pages_update_7001() {
 
   return array();
 }
+
+/**
+ * Update pages to use permissions instead of roles for access
+ */
+function cod_sponsors_pages_update_7002() {
+
+  $revert = array(
+    'cod_sponsors_pages' => array('page_manager_pages'),
+  );
+  features_revert($revert);
+
+  return array();
+}

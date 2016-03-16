@@ -39,17 +39,22 @@ function cod_sponsors_form_sponsor_node_form_alter(&$form, &$form_state, $form_i
 }
 
 /**
+ * Implements hook_cod_default_permissions().
+ */
+function cod_sponsors_cod_default_permissions() {
+  return array(
+    'user_permission' => array('cod_sponsors'),
+    'user_role' => array('cod_sponsors'),
+    'og_role' => array('cod_sponsors'),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function cod_sponsors_menu() {
   $items = array();
-  $items['sponsorship/add/%node'] = array(
-    'page callback' => 'cod_sponsors_product_add',
-    'page arguments' => array(2),
-    'access callback' => 'node_access',
-    'access arguments' => array('create', 'sponsor'),
-    'type' => MENU_CALLBACK,
-  );
+
   $items['node/%node/add/sponsor'] = array(
     'title' => t('Add Sponsor'),
     'type' => MENU_CALLBACK,
@@ -58,19 +63,19 @@ function cod_sponsors_menu() {
     'access callback' => 'node_access',
     'access arguments' => array('create', 'sponsor'),
   );
-  $items['admin/conference/events/%node/sponsors/add/sponsor'] = array(
+  $items['admin/conference/%node/sponsors/add/sponsor'] = array(
     'title' => t('Add Sponsor'),
     'page callback' => 'cod_events_add_content',
-    'page arguments' => array(3, 6, 'admin/conference/events', 4),
+    'page arguments' => array(2, 5, 'admin/conference', 3),
     'access callback' => 'node_access',
     'access arguments' => array('create', 'sponsor'),
     'weight' => -1,
     'type' => MENU_LOCAL_ACTION,
   );
-  $items['admin/conference/events/%node/sponsors/add/sponsorship_level'] = array(
+  $items['admin/conference/%node/sponsors/add/sponsorship_level'] = array(
     'title' => t('Add Sponsorship Level'),
     'page callback' => 'cod_events_add_term',
-    'page arguments' => array(3, 6, 'admin/conference/events', 4),
+    'page arguments' => array(2, 5, 'admin/conference', 3),
     'access arguments' => array('edit any sponsor'),
     'weight' => -4,
     'type' => MENU_LOCAL_ACTION,
@@ -90,33 +95,4 @@ function cod_sponsors_permission() {
     'description' => t('Allows users to view published sponsors'),
   );
   return $perms;
-}
-
-/**
- * Custom function to add product(s) to a cart by product id.
- *
- * The hook adds a path with two wildcards (which become variables later
- * in the function). The first spot is the for the product id, and the
- * second is the quantity. For example, the url
- * “mysite.com/product/add/5555/2” will add the 2 of the product with id
- * 5555 to the cart. When the user visits this path, the product id and
- * quantity are sent to the MYMODULE_product_add function… which we need
- * to add now.
- */
-function cod_sponsors_product_add($node) {
-  if (isset($node->field_sponsor_sponsorship_level[LANGUAGE_NONE][0]['tid'])) {
-    $term = taxonomy_term_load($node->field_sponsor_sponsorship_level[LANGUAGE_NONE][0]['tid']);
-    if (isset($term->field_sponsor_product[LANGUAGE_NONE][0]['product_id'])) {
-      $pid = $term->field_sponsor_product[LANGUAGE_NONE][0]['product_id'];
-      if ($product = commerce_product_load($pid)) {
-        global $user;
-        $uid = $user->uid;
-        $data['context']['display_path'] = 'node/' . $node->nid;
-        $line_item = commerce_product_line_item_new($product, 1, 0, $data);
-        $line_item->field_ticket_type['und'][]['value'] = 0;
-        $line_item = commerce_cart_product_add($uid, $line_item, FALSE);
-        drupal_goto('checkout');
-      }
-    }
-  }
 }

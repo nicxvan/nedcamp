@@ -15,7 +15,7 @@ function cod_sponsors_pages_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Sponsors Management';
   $page->admin_description = '';
-  $page->path = 'admin/conference/events/%node/sponsors';
+  $page->path = 'admin/conference/%node/sponsors';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -29,13 +29,9 @@ function cod_sponsors_pages_default_page_manager_pages() {
         'not' => FALSE,
       ),
       2 => array(
-        'name' => 'role',
+        'name' => 'perm',
         'settings' => array(
-          'rids' => array(
-            0 => 7,
-            1 => 6,
-            2 => 4,
-          ),
+          'perm' => 'edit any sponsor content',
         ),
         'context' => 'logged-in-user',
         'not' => FALSE,
@@ -229,6 +225,31 @@ function cod_sponsors_pages_default_page_manager_pages() {
     $pane->uuid = '5136ef86-669e-45ed-a953-48d6f3a8ac5c';
     $display->content['new-5136ef86-669e-45ed-a953-48d6f3a8ac5c'] = $pane;
     $display->panels['right_sidebar'][0] = 'new-5136ef86-669e-45ed-a953-48d6f3a8ac5c';
+    if (module_exists('cod_sponsors_commerce')) {
+      $pane = new stdClass();
+      $pane->pid = 'new-37388e4c-e88e-4c13-b703-a96445831a5c';
+      $pane->panel = 'right_sidebar';
+      $pane->type = 'views_panes';
+      $pane->subtype = 'cod_sponsors_commerce-panel_pane_1';
+      $pane->shown = TRUE;
+      $pane->access = array();
+      $pane->configuration = array(
+        'arguments' => array(
+          'og_group_ref_target_id' => '%node:nid',
+        ),
+      );
+      $pane->cache = array();
+      $pane->style = array(
+        'settings' => NULL,
+      );
+      $pane->css = array();
+      $pane->extras = array();
+      $pane->position = 1;
+      $pane->locks = array();
+      $pane->uuid = '37388e4c-e88e-4c13-b703-a96445831a5c';
+      $display->content['new-37388e4c-e88e-4c13-b703-a96445831a5c'] = $pane;
+      $display->panels['right_sidebar'][1] = 'new-37388e4c-e88e-4c13-b703-a96445831a5c';
+    }
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;

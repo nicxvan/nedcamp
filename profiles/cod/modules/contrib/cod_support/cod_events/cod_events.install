@@ -360,3 +360,177 @@ function cod_events_update_7013() {
   features_revert($revert);
   return array();
 }
+
+/**
+ * Rename events to conferences.
+ */
+function cod_events_update_7014() {
+  $revert = array('cod_events' => array('page_manager_pages', 'views_view', 'flag'));
+  if (module_exists('cod_sponsors_pages')) {
+    $revert['cod_sponsors_pages'] = array('page_manager_pages');
+  }
+  if (module_exists('cod_sponsors')) {
+    $revert['cod_sponsors'] = array('field_instance');
+  }
+  if (module_exists('cod_session_management_pages')) {
+    $revert['cod_session_management_pages'] = array('page_manager_pages');
+  }
+  if (module_exists('cod_session')) {
+    $revert['cod_session'] = array('views_view', 'field_instance');
+  }
+  if (module_exists('cod_schedule')) {
+    $revert['cod_schedule'] = array('field_instance', 'views_view');
+  }
+  if (module_exists('cod_news')) {
+    $revert['cod_news'] = array('field_instance');
+  }
+  if (module_exists('cod_bof')) {
+    $revert['cod_bof'] = array('field_instance', 'views_view');
+  }
+  if (module_exists('cod_schedule_pages')) {
+    $revert['cod_schedule_pages'] = array('page_manager_pages');
+  }
+
+  features_revert($revert);
+
+    // Manually clear out stale menu links due to order of modules being enabled.
+  db_delete('menu_links')
+    ->condition('menu_name', 'management')
+    ->execute();
+  menu_rebuild();
+
+  // Finally, flush admin_menu's cache.
+  admin_menu_flush_caches();
+}
+
+/**
+ * Update pages to use permissions instead of roles for access
+ */
+function cod_events_update_7015() {
+  $revert = array(
+    'cod_events' => array('page_manager_pages'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Migrate program field to its own node and link it to the conference.
+ */
+function cod_events_update_7016() {
+  // Enable the new cod_basic_age feature:
+  module_enable(array('cod_basic_page'));
+
+  $query = new EntityFieldQuery;
+  $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', array('event'))
+      ->fieldCondition('field_event_program', 'value', 'NULL', '!=');
+  $conferences = $query->execute();
+
+  // Nothing in the program field was set, just return.
+  if (!isset($conferences['node'])) {
+    return array();
+  }
+
+  foreach ($conferences['node'] AS $nid => $conference) {
+    $node = node_load($nid);
+    $wrapper = entity_metadata_wrapper('node', $node);
+    // If we have data for the program, create a new node
+    $body = $wrapper->field_event_program->value();
+    if ($body['value'] != '') {
+      $values = array(
+        'type' => 'page',
+        'bundle' => 'page',
+        'uid' => intval($node->uid),
+        'status' => intval($node->status),
+        'comment' => 0,
+        'promote' => 0,
+      );
+      $program = entity_create('node', $values);
+      $pwrapper = entity_metadata_wrapper('node', $program, array('bundle' => 'page'));
+      $pwrapper->title->set('Program');
+      $body_content = $wrapper->field_event_program->raw();
+      $pwrapper->body->set($body_content);
+      $pwrapper->og_group_ref->set(array($nid));
+      $pwrapper->save();
+      if ($pwrapper->body->raw() == $wrapper->field_event_program->raw()) {
+        $wrapper->field_event_program->set(array('value' => ''));
+        $wrapper->save();
+      }
+    }
+  }
+  $instance_info = field_info_instance('node', 'field_event_program', 'event');
+  // Fix a spelling error in the original ticket state to hide the field.
+  $instance_info['display']['default']['label'] = 'hidden';
+  $instance_info['display']['default']['type'] = 'hidden';
+  // Indicate the field is Deprecated.
+  $instance_info['label'] = 'Program (Deprecated, Delete this field)';
+  $instance_info['description'] = 'This field has been replaced by a basic page, please visit the pages tab to see your migrated program.';
+  // Write the changed definition back.
+  field_update_instance($instance_info);
+}
+
+
+/**
+ * Update conference admin to use panels instead of views pages. Revert variable in og_node_access_strict
+ */
+function cod_events_update_7017() {
+  $revert = array(
+    'cod_events' => array('variable', 'views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Update add og fields to the conference, now required by og_node_access strict
+ */
+function cod_events_update_7018() {
+  $revert = array(
+    'cod_events' => array('field_base', 'field_instance'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Fix incorrect pathauto settings for organic group paths.
+ */
+function cod_events_update_7019() {
+  $variables = array(
+    'pathauto_node_sponsor_pattern',
+    'pathauto_node_schedule_item_pattern',
+    'pathauto_node_session_pattern',
+    'pathauto_node_news_pattern',
+    'pathauto_node_bof_session_pattern',
+    'pathauto_node_page_pattern',
+  );
+  foreach ($variables as $variable) {
+    $pattern = variable_get($variable, '');
+    if (strpos($pattern, '[node:og_group_ref]/') === 0) {
+      variable_set($variable, str_replace('[node:og_group_ref]/', '[node:og-group-ref:0:url:path]/', $pattern));
+    }
+  }
+  drupal_set_message("URL aliases have been updated to use the path of the conference instead of a title. Update your content accordingly.");
+}
+
+/**
+ * Use safeword module to create short words for conferences.
+ * IMPORTANT: Make sure to check your event urls after executing this update!
+ */
+function cod_events_update_7022() {
+  module_enable(array('safeword'));
+  // Revert the fields for safeword to work
+  if (module_exists('safeword')) {
+    $revert = array(
+      'cod_events' => array('field_base', 'field_instance', 'variable'),
+    );
+    features_revert($revert);
+    drupal_set_message("URL short path field created, IMPORTANT: Make sure to check your event urls after executing this update!");
+  } else {
+    throw new DrupalUpdateException('Safeword module could not be enabled. Please download it manually and re-apply this updated.');
+  }
+}

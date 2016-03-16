@@ -56,7 +56,7 @@ function cod_event_room_form($form, &$form_state, CodEventRoom $cod_event_room, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'admin/conference/events/'.$node->nid.'/schedule';
+    $form['actions']['submit']['#redirect'] = 'admin/conference/'.$node->nid.'/schedule';
   }
   $form['weight'] = array(
     '#type' => 'weight',
@@ -90,7 +90,7 @@ function cod_event_room_form_submit(&$form, &$form_state) {
     $form_state['redirect'] = $form_state['clicked_button']['#redirect'];
   }
   else {
-    $form_state['redirect'] = 'admin/conference/rooms';
+    $form_state['redirect'] = 'admin/conference/config/rooms';
   }
 
   drupal_set_message(t('The room %room was saved.', array('%room' => $cod_event_room->name)));
@@ -103,7 +103,7 @@ function cod_event_room_form_submit_delete(&$form, &$form_state) {
   $evtrid = $form_state['cod_event_room']->evtrid;
   cod_event_room_delete($form_state['cod_event_room']);
 
-  $form_state['redirect'] = "admin/conference/rooms/manage/$evtrid/delete";
+  $form_state['redirect'] = "admin/conference/config/rooms/manage/$evtrid/delete";
 }
 
 
@@ -113,8 +113,8 @@ function cod_event_room_form_submit_delete(&$form, &$form_state) {
 function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, $op = 'update', $node = NULL) {
 
   if (isset($node) && is_object($node) && !cod_schedule_days($node)) {
-    drupal_set_message(l(t("You must first set a date for the event."), 'admin/conference/events/'.$node->nid.'/edit',array('fragment' => 'edit-field-dates')), 'warning');
-    drupal_goto('admin/conference/events/'.$node->nid.'/schedule');
+    drupal_set_message(l(t("You must first set a date for the event."), 'admin/conference/'.$node->nid.'/edit',array('fragment' => 'edit-field-dates')), 'warning');
+    drupal_goto('admin/conference/'.$node->nid.'/schedule');
   }
 
   $form_state['cod_event_time'] = $cod_event_time;
@@ -161,7 +161,7 @@ function cod_event_time_form($form, &$form_state, CodEventTime $cod_event_time, 
     '#weight' => 40,
   );
   if (isset($node->nid)) {
-    $form['actions']['submit']['#redirect'] = 'admin/conference/events/'.$node->nid.'/schedule';
+    $form['actions']['submit']['#redirect'] = 'admin/conference/'.$node->nid.'/schedule';
   }
 
   if (!$cod_event_time->isLocked() && $op != 'add' && $op != 'clone') {
@@ -190,7 +190,7 @@ function cod_event_time_form_submit(&$form, &$form_state) {
     $form_state['redirect'] = $form_state['clicked_button']['#redirect'];
   }
   else {
-    $form_state['redirect'] = 'admin/conference/times';
+    $form_state['redirect'] = 'admin/conference/config/times';
   }
 }
 
@@ -201,12 +201,12 @@ function cod_event_time_form_submit_delete(&$form, &$form_state) {
   $evttid = $form_state['cod_event_time']->evttid;
   cod_event_time_delete($form_state['cod_event_time']);
 
-  $form_state['redirect'] = "admin/conference/times/manage/$evttid/delete";
+  $form_state['redirect'] = "admin/conference/config/times/manage/$evttid/delete";
 }
 
 // --------------------------------------------------------------------------
 // Various subforms for editing the pieces of a view.
-// /admin/conference/events/NODEID/schedule/nojs/OPERATION/TIMEID/ROOMID
+// /admin/conference/NODEID/schedule/nojs/OPERATION/TIMEID/ROOMID
 function cod_schedule_schedule_forms($key = NULL) {
   $forms = array(
     'edit' => array(
@@ -416,7 +416,7 @@ function cod_schedule_schedule_grid_item($event, $time, $room, $reset = FALSE, $
     // Generate the appropriate link for this timeslot.
     $items[] = array(
       'title' => t('@op timeslot', array('@op' => ucwords($op))),
-      'href' => 'admin/conference/events/' . $event->nid . '/schedule/nojs/' . $op . '/' . $time .'/' . $room,
+      'href' => 'admin/conference/' . $event->nid . '/schedule/nojs/' . $op . '/' . $time .'/' . $room,
       'attributes' => array('class' => 'ctools-use-modal'),
     );
 

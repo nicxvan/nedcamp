@@ -237,6 +237,11 @@ function og_vocab_uri($og_vocab) {
   $url = array();
 
   $vocab = taxonomy_vocabulary_load($og_vocab->vid);
+  if (!$vocab) {
+    // Return early if we don't have a valid vocabulary object.
+    return $url;
+  }
+
   if (user_access('administer taxonomy')) {
     // URL to taxonomy administration.
     $url = array(
@@ -245,7 +250,7 @@ function og_vocab_uri($og_vocab) {
   }
   else {
     $relation = og_vocab_relation_get($og_vocab->vid);
-    if (og_user_access($relation->group_type, $relation->gid, 'administer taxonomy')) {
+    if ($relation && og_user_access($relation->group_type, $relation->gid, 'administer taxonomy')) {
       // URL to taxonomy administration in the group context.
       $url = array(
         'path' => "group/$relation->group_type/$relation->gid/admin/taxonomy/$vocab->machine_name/edit",
@@ -463,6 +468,7 @@ function og_vocab_field_widget_form(&$form, &$form_state, $field, $instance, $la
   foreach ($vids as $vid) {
     $og_vocab = og_vocab_load_og_vocab($vid, $entity_type, $bundle);
     $element[$vid] = $og_vocab->getFormElement($entity_type, $entity, $form, $form_state);
+    $element[$vid]['#gid'] = og_vocab_relation_get($vid);
   }
 
   return $element;
@@ -1371,10 +1377,20 @@ function og_vocab_get_accessible_vocabs($entity_type, $bundle, $field_name, $acc
   $context = FALSE;
   $gids = array();
 
-  if (in_array($use_context, array('force', 'yes')) && module_exists('og_context') && $context = og_context()) {
+  if (in_array($use_context, array('force', 'yes', 'all')) && module_exists('og_context') && $context = og_context()) {
     $gids[$context['group_type']][$context['gid']] = array($context['gid']);
   }
+  elseif (in_array($use_context, array('all')) && !$gids) {
+    // These are groups you have access to
+    $field = field_info_field(OG_AUDIENCE_FIELD);
+    $field_instance = field_info_instance($entity_type, OG_AUDIENCE_FIELD, $bundle);
+    $handler = EntityReference_SelectionHandler_Generic::getInstance($field, $field_instance, $entity_type);
+    $result = $handler->getReferencableEntities();
+    $group_bundle = key($result);
+    $gids = array($entity_type => array_keys($result[$group_bundle]));
+  }
   elseif (in_array($use_context, array('yes', 'no')) && !$gids) {
+    // These are groups you belong to
     $gids = og_get_entity_groups('user', $account);
   }
 

@@ -15,7 +15,7 @@ function cod_session_management_pages_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Session Management';
   $page->admin_description = '';
-  $page->path = 'admin/conference/events/%node/sessions/dashboard';
+  $page->path = 'admin/conference/%node/sessions/dashboard';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -29,13 +29,9 @@ function cod_session_management_pages_default_page_manager_pages() {
         'not' => FALSE,
       ),
       2 => array(
-        'name' => 'role',
+        'name' => 'perm',
         'settings' => array(
-          'rids' => array(
-            0 => 7,
-            1 => 5,
-            2 => 4,
-          ),
+          'perm' => 'edit field_session_timeslot',
         ),
         'context' => 'logged-in-user',
         'not' => FALSE,

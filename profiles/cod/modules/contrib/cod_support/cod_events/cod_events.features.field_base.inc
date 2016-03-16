@@ -118,34 +118,66 @@ function cod_events_field_default_field_bases() {
     'type_name' => 'product',
   );
 
-  // Exported field_base: 'field_event_program'
-  $field_bases['field_event_program'] = array(
+  // Exported field_base: 'field_url_title'
+  $field_bases['field_url_title'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_event_program',
+    'field_name' => 'field_url_title',
     'field_permissions' => array(
       'type' => 0,
     ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'machine' => array(
+        0 => 'machine',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
+    'module' => 'safeword',
+    'settings' => array(
+      'allow_machine_changes' => 1,
+      'complete_path_label' => 'Complete path',
+      'machine_description' => 'A URL-safe version of the text. It may only contain lowercase letters, numbers and underscores. Leave blank to re-generate.',
+      'machine_label' => 'URL-safe',
+      'max_length' => 24,
+      'replace_pattern' => '(--|<[^<>]+>|[^/a-z0-9-])+',
+      'replace_value' => '-',
+      'show_complete_path' => 1,
+      'unique' => 0,
+    ),
     'translatable' => 0,
-    'type' => 'text_with_summary',
+    'type' => 'safeword_title',
+  );
+
+  // Exported field_base: 'group_access'
+  $field_bases['group_access'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'group_access',
+    'field_permissions' => array(
+      'type' => 1,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'no_ui' => TRUE,
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Public - accessible to all site users',
+        1 => 'Private - accessible only to group members',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'group_group'
@@ -173,7 +205,6 @@ function cod_events_field_default_field_bases() {
     'translatable' => 0,
     'type' => 'list_boolean',
   );
-
   // Exported field_base: 'og_group_ref'
   $field_bases['og_group_ref'] = array(
     'active' => 1,
@@ -224,6 +255,35 @@ function cod_events_field_default_field_bases() {
     'target_type' => 'node',
     'translatable' => 0,
     'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'og_roles_permissions'
+  $field_bases['og_roles_permissions'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'og_roles_permissions',
+    'field_permissions' => array(
+      'type' => 1,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Use default roles and permissions',
+        1 => 'Override default roles and permissions',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
   );
 
   return $field_bases;

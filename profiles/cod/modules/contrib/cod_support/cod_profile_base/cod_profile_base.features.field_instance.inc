@@ -216,15 +216,7 @@ function cod_profile_base_field_default_field_instances() {
   // Exported field_instance: 'user-user-field_profile_location'
   $field_instances['user-user-field_profile_location'] = array(
     'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'element_key' => 'user|user|field_profile_location|und|0',
-        'thoroughfare' => '',
-        'premise' => '',
-        'locality' => '',
-        'country' => 'AF',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -253,12 +245,16 @@ function cod_profile_base_field_default_field_instances() {
       'module' => 'addressfield',
       'settings' => array(
         'available_countries' => array(),
+        'default_country' => '',
         'format_handlers' => array(
           'address' => 'address',
+          'address-hide-postal-code' => 0,
+          'address-hide-street' => 0,
           'address-hide-country' => 0,
           'organisation' => 0,
           'name-full' => 0,
           'name-oneline' => 0,
+          'address-optional' => 0,
         ),
       ),
       'type' => 'addressfield_standard',

@@ -207,21 +207,20 @@ function ticket_field_formatter_view_form($form, &$form_state, $vars = NULL) {
     // Output the ticket type entity.
     $form[TICKET_PREFIX . $ticket_type->ttid] = entity_view('ticket_type', array($ticket_type), 'default', $vars['langcode']);
 
-    $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid] = array(
+    $ticket_quantity = array(
       '#title' => t('Quantity'),
-      '#description' => t('Enter the number of tickets you would like to register for.'),
       '#type' => 'textfield',
     );
 
     // Change the QTY field depending on the ticket type settings.
     if (!$wrapper->ticket_type_order_max->value() || $wrapper->ticket_type_order_max->value() > 20) {
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#size'] = 3;
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#default_value'] = '';
+      $ticket_quantity['#size'] = 3;
+      $ticket_quantity['#default_value'] = '';
     }
     elseif ($wrapper->ticket_type_order_max->value() == 1 && count($vars['ticket_types']) == 1) {
       // If we only have one ticket type, and its max QTY is one, don't show anything
-        $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#type'] = 'value';
-        $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#value'] = '1';
+      $ticket_quantity['#type'] = 'value';
+      $ticket_quantity['#value'] = '1';
     }
     else {
       $qty_range = array();
@@ -229,13 +228,13 @@ function ticket_field_formatter_view_form($form, &$form_state, $vars = NULL) {
         $qty_range[$i] = $i;
       }
 
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#type'] = 'select';
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#default_value'] = (int)$wrapper->ticket_type_order_min->value();
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#options'] = $qty_range;
+      $ticket_quantity['#type'] = 'select';
+      $ticket_quantity['#default_value'] = (int)$wrapper->ticket_type_order_min->value();
+      $ticket_quantity['#options'] = $qty_range;
     }
 
     if (ticket_type_available($ticket_type)) {
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid] += array(
+      $ticket_quantity += array(
         '#element_validate' => array(
           'element_validate_integer',
           'ticket_field_formatter_view_form_quantity_validate',
@@ -248,8 +247,11 @@ function ticket_field_formatter_view_form($form, &$form_state, $vars = NULL) {
       );
     }
     else {
-      $form[TICKET_QUANTITY_PREFIX . $ticket_type->ttid]['#disabled'] = TRUE;
+      $ticket_quantity['#disabled'] = TRUE;
     }
+
+    // Save the Quantity Field in the element itself.
+    $form[TICKET_PREFIX . $ticket_type->ttid]['ticket_type'][$ticket_type->ttid][TICKET_QUANTITY_PREFIX . $ticket_type->ttid] = $ticket_quantity;
   }
 
   // General submit button.
@@ -570,7 +572,7 @@ function ticket_type_get_entity(&$item) {
   elseif (isset($item['value'])) {
     // By default always load the default revision, so caches get used.
     $entity = entity_load_single('ticket_type', $item['value']);
-    if ($entity->revision_id != $item['revision_id']) {
+    if (isset($item['revision_id']) && $entity->revision_id != $item['revision_id']) {
       // A non-default revision is a referenced, so load this one.
       // TODO: revisioning should be tested. I don't think this works
       // at the moment.
@@ -636,7 +638,7 @@ function ticket_field_presave($entity_type, $entity, $field, $instance, $langcod
         $ticket_type->save();
 
         // Allow submodules to respond to the item info.
-        module_invoke_all('ticket_field_item_presave', $item);
+        module_invoke_all('ticket_field_item_presave', $item, $entity);
 
         // Store the info back to the field item.
         $item = array(

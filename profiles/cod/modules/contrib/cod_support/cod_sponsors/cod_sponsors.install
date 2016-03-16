@@ -72,3 +72,15 @@ function cod_sponsors_update_7004() {
 
   return array();
 }
+
+/**
+ * Update cod sponsors features to new version of link and features.
+ */
+function cod_sponsors_update_7005() {
+  $revert = array(
+    'cod_sponsors' => array('user_permission', 'field_instance'),
+  );
+  features_revert($revert);
+
+  return array();
+}

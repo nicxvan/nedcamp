@@ -4,8 +4,11 @@
  * Ticket state module file.
  */
 
-define('TICKET_STATE_FIELD', 'ticket_state');
+define('TICKET_STATE_PROPERTY', 'state');
+define('TICKET_TYPE_DEFAULT_STATE_FIELD', 'ticket_type_default_state');
+
 module_load_include('inc', 'ticket_state', 'includes/ticket_state.admin');
+module_load_include('inc', 'ticket_state', 'includes/ticket_state.field');
 
 /**
  * Implements hook_ctools_plugin_directory().
@@ -17,15 +20,27 @@ function ticket_state_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+* Implements hook_views_api().
+*/
+function ticket_state_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'ticket_state') . '/views',
+  );
+}
+
+/**
  * Implements hook_entity_info().
  */
 function ticket_state_entity_info() {
+  module_load_include('inc', 'ticket_state', 'includes/ticket_state.controller');
+
   // Ticket registration state entity.
   $entities['ticket_state'] = array(
     'label' => t('Ticket registration state'),
     'plural label' => t('Ticket registration states'),
     'entity class' => 'TicketStateEntity',
-    'controller class' => 'EntityAPIControllerExportable',
+    'controller class' => 'TicketStateController',
     'base table' => 'ticket_state',
     'fieldable' => FALSE,
     'exportable' => TRUE,
@@ -54,6 +69,16 @@ function ticket_state_entity_info() {
   return $entities;
 }
 
+/**
+ *  Implements hook_entity_presave().
+ */
+function ticket_state_entity_presave($entity, $type) {
+  if ($type == 'ticket_registration' && isset($entity->bundle)) {
+    if (empty($entity->state) && $ticket_type = ticket_type_load($entity->bundle)) {
+      $entity->state = isset($ticket_type->{TICKET_TYPE_DEFAULT_STATE_FIELD}[LANGUAGE_NONE][0]['value']) ?  $ticket_type->{TICKET_TYPE_DEFAULT_STATE_FIELD}[LANGUAGE_NONE][0]['value'] : NULL;
+    }
+  }
+}
 /**
  * Implements hook_entity_property_info().
  */
@@ -105,6 +130,19 @@ function ticket_state_entity_property_info() {
     ),
   );
 
+  return $info;
+}
+
+/**
+ * Alter the ticket_registration entity properties
+ */
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function ticket_state_entity_property_info_alter(&$info) {
+  $properties = &$info['ticket_registration'];
+  $properties['properties']['state']['getter callback'] = 'entity_property_verbatim_get';
+  $properties['properties']['state']['setter callback'] = 'entity_property_verbatim_set';
   return $info;
 }
 
@@ -247,7 +285,7 @@ function ticket_state_get_states_options($conditions = array()) {
   $states = ticket_state_states($conditions);
 
   foreach ($states as $state) {
-    $options[$state->tsid] = t('@state', array('@state' => entity_label('ticket_state', $state)));
+    $options[$state->name] = t('@state', array('@state' => entity_label('ticket_state', $state)));
   }
 
   return $options;
@@ -258,26 +296,10 @@ function ticket_state_get_states_options($conditions = array()) {
  */
 function ticket_state_type_default($ticket_type) {
   if ($ticket_type->ttid) {
-    $instance = field_info_instance('ticket_registration', TICKET_STATE_FIELD, $ticket_type->ttid);
+    $instance = field_info_instance('ticket_registration', TICKET_STATE_PROPERTY, $ticket_type->ttid);
     return $instance['default_value'][0]['target_id'];
   }
 }
-
-/**
- * Implements hook_field_widget_WIDGET_TYPE_form_alter().
- */
-function ticket_state_field_widget_ticket_type_form_alter(&$element, &$form_state, $context) {
-  // Add the element.
-  $element['ticket_state_default'] = array(
-    '#type' => 'select',
-    '#title' => t('Default registration state'),
-    '#description' => t('The default ticket registration state assigned to new registrations.'),
-    '#options' => ticket_state_get_states_options(),
-    '#default_value' => ticket_state_type_default($element['#entity']),
-    '#weight' => 50,
-  );
-}
-
 
 /**
  * Implements hook_ticket_field_item_presave().
@@ -288,61 +310,39 @@ function ticket_state_ticket_field_item_presave($item) {
   if (isset($item['ticket_state_default'])) {
     $settings['default_value'][0]['target_id'] = $item['ticket_state_default'];
   }
-  if ($field_instance = field_info_instance('ticket_registration', TICKET_STATE_FIELD, $item['entity']->ttid)) {
+  /*
+  if ($field_instance = field_info_instance('ticket_registration', TICKET_STATE_PROPERTY, $item['entity']->ttid)) {
     $field_instance = array_merge($field_instance, $settings);
     field_update_instance($field_instance);
   }
   else {
     ticket_state_create_field_instance('ticket_registration', $item['entity']->ttid, $settings);
   }
+  */
 }
 
-/**
- * Helper function to create a ticket_state field instance.
- */
-function ticket_state_create_field_instance($entity_type, $bundle, $settings = array()) {
-  // This function might be called from install, so use get_t.
-  $t = get_t();
-
-  // Setup the field instance info.
-  $field_instance = array(
-    'field_name' => TICKET_STATE_FIELD,
-    'entity_type' => $entity_type,
-    'bundle' => $bundle,
-    'label' => $t('Ticket registration state'),
-    'description' => $t('The current state of this registration.'),
-    'required' => TRUE,
-    'widget' => array(
-      'type' => 'options_select',
-      'module' => 'options',
-    ),
-    'dipslay' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'type' => 'hidden',
-      ),
-    ),
-  );
-
-  $field_instance = array_merge($field_instance, $settings);
-  field_create_instance($field_instance);
-}
-
-/**
- * Implements hook_views_default_views_alter().
- */
-function ticket_state_views_default_views_alter(&$views) {
-  if (isset($views['ticket_registration'])) {
-    $fields = &$views['ticket_registration']->display['default']->display_options['fields'];
-    $new_col = array(
-      'ticket_state' => array(
-        'id' => 'ticket_state',
-        'table' => 'field_data_ticket_state',
-        'field' => 'ticket_state',
-        'label' => t('Status'),
-      ),
+function ticket_state_field_extra_fields() {
+  // expose the email property on the fields and display settings forms.
+  $extra = array();
+  foreach (ticket_get_ticket_types() as $type => $reg_type) {
+    $extra['ticket_registration'][$type]['display']['state'] =
+    $extra['ticket_registration'][$type]['form']['state'] = array(
+      'label' => t('State'),
+      'description' => t('State of the registration.'),
+      'weight' => 0,
     );
-    $position = 2;
-    $fields = array_slice($fields, 0, $position) + $new_col + array_slice($fields, $position);
+  }
+
+  return $extra;
+}
+
+/**
+ * Implements hook_form_alter().
+ * Alter the ticket registration edit form to hide the ticket state from regular
+ * Users.
+ */
+function ticket_state_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id, "ticket_registration_edit") === 0 && !user_access('administer ticket states')) {
+    $form['state']['#access'] = FALSE;
   }
 }

@@ -1,22 +1,6 @@
 # Ignore configuration files that may contain sensitive information.
 sites/*/settings*.php
 
-# Ignore Windows files
-Thumbs.db
-sites/*/Thumbs.db
-*.db
-*.bak
-
-# Ignore Net Beans project
-nbproject/*
-
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
-sites/default/themes/BaseResponsive/assets/.sass-cache/*
-
-# Ignore Development modules
-sites/*/modules/stage_file_proxy/*
-sites/*/modules/contrib/stage_file_proxy/*
-sites/*/modules/shield/*
-sites/*/modules/contrib/shield/*

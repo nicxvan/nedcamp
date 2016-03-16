@@ -7,9 +7,9 @@ dependencies[] = entity
 package = Features
 
 
-; Information added by drush on 2014-11-20
+; Information added by drush on 2016-02-24
 version = "7.x-1.0-alpha3+8-dev"
 core = "7.x"
 project = "uuid_features"
-datestamp = "1416445100"
+datestamp = "1456347719"
 

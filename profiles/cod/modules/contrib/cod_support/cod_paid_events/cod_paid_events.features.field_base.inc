@@ -33,50 +33,35 @@ function cod_paid_events_field_default_field_bases() {
     'type' => 'commerce_price',
   );
 
-  // Exported field_base: 'field_complete_state'
-  $field_bases['field_complete_state'] = array(
+  // Exported field_base: 'field_checkout_complete_state'
+  $field_bases['field_checkout_complete_state'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_complete_state',
+    'field_name' => 'field_checkout_complete_state',
     'field_permissions' => array(
-      'type' => 0,
+      'type' => 2,
     ),
-    'foreign keys' => array(
-      'ticket_state' => array(
-        'columns' => array(
-          'target_id' => 'tsid',
-        ),
-        'table' => 'ticket_state',
-      ),
-    ),
+    'foreign keys' => array(),
     'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
+      'value' => array(
+        0 => 'value',
       ),
     ),
     'locked' => 0,
-    'module' => 'entityreference',
+    'module' => 'ticket_state',
     'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'direction' => 'ASC',
-          'property' => 'weight',
-          'type' => 'property',
-        ),
-        'target_bundles' => array(),
+      'allowed_values' => array(
+        'pending' => 'Pending',
+        'completed' => 'Completed',
+        'cancelled' => 'Cancelled',
+        'checked_in' => 'Checked-In',
       ),
-      'target_type' => 'ticket_state',
+      'allowed_values_function' => '',
     ),
     'translatable' => 0,
-    'type' => 'entityreference',
+    'type' => 'list_ticket_state',
   );
 
   // Exported field_base: 'field_ticket_order'

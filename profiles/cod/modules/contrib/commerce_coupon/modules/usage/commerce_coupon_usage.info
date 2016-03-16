@@ -9,11 +9,13 @@ files[] = includes/views/handlers/commerce_coupon_usage_views_handler_area_usage
 files[] = includes/views/handlers/commerce_coupon_usage_views_handler_field_usage.inc
 files[] = includes/views/handlers/commerce_coupon_usage_views_handler_field_remove.inc
 
+files[] = includes/views/commerce_coupon_usage.views.inc
 files[] = includes/commerce_coupon_usage.controller.inc
 
-; Information added by drush on 2014-11-20
-version = "7.x-2.0-beta4+3-dev"
+
+; Information added by drush on 2016-02-24
+version = "7.x-2.0-beta4+19-dev"
 core = "7.x"
 project = "commerce_coupon"
-datestamp = "1416445171"
+datestamp = "1456347806"
 

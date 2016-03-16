@@ -41,7 +41,7 @@ function cod_schedule_schedule_admin_page($node) {
   // Grab the days.
   $days = cod_schedule_days($node);
   if (empty($days)) {
-    return t('Your event must have a <a href="@edit">start and end date</a>. <a href="@edit">Edit</a> event.', array('@edit' => url('node/'.$node->nid.'/edit', array('fragment' => 'edit-field-dates', 'query' => array('destination' => 'admin/conference/events/' . $node->nid . '/schedule')))));
+    return t('Your event must have a <a href="@edit">start and end date</a>. <a href="@edit">Edit</a> event.', array('@edit' => url('node/'.$node->nid.'/edit', array('fragment' => 'edit-field-dates', 'query' => array('destination' => 'admin/conference/' . $node->nid . '/schedule')))));
   }
 
   // Grab the Rooms attached to the event.
@@ -111,10 +111,10 @@ function cod_schedule_schedule_admin_page($node) {
       foreach ($times['cod_event_time'] as $evttid => $time) {
         $time_entity = entity_load('cod_event_time', array($evttid));
         $time_label = $time_entity[$evttid]->getTimeLabel();
-        $time_edit_uri = 'admin/conference/times/manage/' . $evttid;
+        $time_edit_uri = 'admin/conference/config/times/manage/' . $evttid;
         $row = array(
           array(
-            'data' => l($time_label, $time_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule'))),
+            'data' => l($time_label, $time_edit_uri, array('query' => array('destination' => 'admin/conference/'.$node->nid.'/schedule'))),
             'class' => 'cod-schedule-time-column',
           )
         );
@@ -122,8 +122,8 @@ function cod_schedule_schedule_admin_page($node) {
         foreach ($rooms['cod_event_room'] as $roomid => $room) {
           if (empty($rows)) {
             $room_label = $room->extraFields->name;
-            $room_edit_uri = 'admin/conference/rooms/manage/' . $roomid;
-            $header[] = l($room_label, $room_edit_uri, array('query' => array('destination' => 'node/'.$node->nid.'/event/schedule')));
+            $room_edit_uri = 'admin/conference/config/rooms/manage/' . $roomid;
+            $header[] = l($room_label, $room_edit_uri, array('query' => array('destination' => 'admin/conference/'.$node->nid.'/schedule')));
           }
 
           // @TODO Cache reset var is manually set to TRUE until we invalidate the cache when a schedule item is updated

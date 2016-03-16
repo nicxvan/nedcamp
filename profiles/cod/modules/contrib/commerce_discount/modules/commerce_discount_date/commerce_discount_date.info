@@ -11,9 +11,9 @@ dependencies[] = date_popup
 files[] = commerce_discount_date.test
 
 
-; Information added by drush on 2014-11-20
-version = "7.x-1.0-alpha4+4-dev"
+; Information added by drush on 2016-02-24
+version = "7.x-1.0-alpha5+0-dev"
 core = "7.x"
 project = "commerce_discount"
-datestamp = "1416445166"
+datestamp = "1456347803"
 

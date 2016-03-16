@@ -15,7 +15,7 @@ function cod_events_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Event dashboard';
   $page->admin_description = 'Event dashboard';
-  $page->path = 'admin/conference/events/%node/dashboard';
+  $page->path = 'admin/conference/%node/dashboard';
   $page->access = array(
     'plugins' => array(
       0 => array(
@@ -28,16 +28,10 @@ function cod_events_default_page_manager_pages() {
         'context' => 'argument_entity_id:node_1',
         'not' => FALSE,
       ),
-      3 => array(
-        'name' => 'role',
+      4 => array(
+        'name' => 'perm',
         'settings' => array(
-          'rids' => array(
-            0 => 7,
-            1 => 3,
-            2 => 5,
-            3 => 6,
-            4 => 4,
-          ),
+          'perm' => 'edit own event content',
         ),
         'context' => 'logged-in-user',
         'not' => FALSE,

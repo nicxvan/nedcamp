@@ -18,6 +18,10 @@ function cod_session_install() {
       }
     }
   }
+
+  // Enable the associated session and speaker pages
+  $module_list = array('cod_speaker_pages', 'cod_session_pages');
+  module_enable($module_list);
 }
 
 /**
@@ -241,6 +245,18 @@ function cod_session_update_7015() {
 function cod_session_update_7016() {
   module_enable(array('views_send'));
 
+  $revert = array(
+    'cod_session' => array('views_view'),
+  );
+  features_revert($revert);
+
+  return array();
+}
+
+/**
+ * Update Session admin view to show sessions other than accepted ones.
+ */
+function cod_session_update_7017() {
   $revert = array(
     'cod_session' => array('views_view'),
   );

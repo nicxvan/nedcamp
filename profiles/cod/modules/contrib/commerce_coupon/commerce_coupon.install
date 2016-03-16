@@ -167,7 +167,7 @@ function commerce_coupon_schema() {
     'foreign keys' => array(
       'uid' => array(
         'table' => 'users',
-        'column' => array('uid' => 'uid')
+        'columns' => array('uid' => 'uid')
       ),
     ),
     'unique keys' => array(
@@ -228,6 +228,14 @@ function commerce_coupon_uninstall() {
   if ($instance = field_info_instance('commerce_order', 'commerce_coupons', 'commerce_order')) {
     commerce_delete_instance($instance);
   }
+}
+
+/**
+ * Implements hook_enable().
+ */
+function commerce_coupon_enable() {
+  // Clear current entity property info cache.
+  entity_property_info_cache_clear();
 }
 
 /**

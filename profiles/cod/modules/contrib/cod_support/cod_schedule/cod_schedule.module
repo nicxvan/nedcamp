@@ -23,6 +23,16 @@ function cod_schedule_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implements hook_cod_default_permissions().
+ */
+function cod_schedule_cod_default_permissions() {
+  return array(
+    'user_permission' => array('cod_schedule'),
+    'og_permission' => array('cod_schedule'),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function cod_schedule_menu() {
@@ -61,7 +71,7 @@ function cod_schedule_menu() {
   );
 
   /*
-  $items['admin/conference/events/%node/schedule'] = array(
+  $items['admin/conference/%node/schedule'] = array(
     'title' => 'Schedule',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'cod_schedule_schedule_admin_page',
@@ -72,21 +82,21 @@ function cod_schedule_menu() {
     'file' => 'includes/schedule.admin.inc',
   );
   */
-  $items['admin/conference/events/%node/schedule/room'] = array(
+  $items['admin/conference/%node/schedule/room'] = array(
     'title' => 'Add Room',
     'type' => MENU_LOCAL_ACTION,
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('cod_event_room_form', new CodEventRoom(), 'add', 3),
+    'page arguments' => array('cod_event_room_form', new CodEventRoom(), 'add', 2),
     'access callback' => 'entity_access',
     'access arguments' => array('create', 'cod_event_room'),
     'file' => 'includes/schedule.admin.inc',
    );
 
-  $items['admin/conference/events/%node/schedule/time'] = array(
+  $items['admin/conference/%node/schedule/time'] = array(
     'title' => 'Add Time',
     'type' => MENU_LOCAL_ACTION,
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('cod_event_time_form', new CodEventTime(), 'add', 3),
+    'page arguments' => array('cod_event_time_form', new CodEventTime(), 'add', 2),
     'access callback' => 'entity_access',
     'access arguments' => array('create', 'cod_event_time'),
     'file' => 'includes/schedule.admin.inc',
@@ -96,12 +106,12 @@ function cod_schedule_menu() {
   // Arguments: node/NODEID/edit/schedule/nojs/OPERATION/TIMEID/ROOMID
   // TODO: Add load handlers for time,room and operations.
   // Or just use the views_ui_cache method to load the forms.
-  $items['admin/conference/events/%node/schedule/%ctools_js/%/%/%'] = array(
+  $items['admin/conference/%node/schedule/%ctools_js/%/%/%'] = array(
     'page callback' => 'cod_schedule_schedule_timeslot_callback',
-    'page arguments' => array(5, 3, 6, 7, 8),
+    'page arguments' => array(4, 2, 5, 6, 7),
     'delivery callback' => 'ajax_deliver',
     'access callback' => 'cod_schedule_schedule_access',
-    'access arguments' => array(3),
+    'access arguments' => array(2),
     'file' => 'includes/schedule.admin.inc',
     'context' => MENU_CONTEXT_INLINE,
     'type' => MENU_CALLBACK,
@@ -157,6 +167,11 @@ function cod_schedule_permission() {
   $perms['view schedule'] = array(
     'title' => t('View Schedule'),
     'description' => t('Allows users to view the event schedule'),
+  );
+
+  $perms['administer schedule'] = array(
+    'title' => t('Administer Schedule'),
+    'description' => t('Allows users to administer the event schedule'),
   );
 
   return $perms;
@@ -223,7 +238,7 @@ function cod_schedule_update_session() {
   }
 
   $session_nid = check_plain($_POST['session']);
-  $timeslot_id = check_plain($_POST['timeslot']);
+  $timeslot_id = isset($_POST['timeslot']) ? check_plain($_POST['timeslot']) : NULL;
 
   $session = node_load($session_nid);
   $wrapper = entity_metadata_wrapper('node', $session);
@@ -254,13 +269,13 @@ function cod_schedule_update_session() {
     $fc_wrapper->save();
 
     $wrapper->field_session_timeslot->offsetSet(0, intval($timeslot_id));
-    $wrapper->field_accepted->set(1);
+    $wrapper->field_accepted->set('accepted');
   }
 
   $wrapper->save();
 
   // @TODO Just returning post for testing but we likely will return error messages 'n stuff
-  drupal_json_output("Updated!");
+  drupal_json_output($timeslot_id);
 }
 
 /**
@@ -336,7 +351,7 @@ function cod_schedule_entity_info() {
       'cod_event_room' => array(
         'label' => t('Room'),
         'admin' => array(
-          'path' => 'admin/conference/rooms',
+          'path' => 'admin/conference/config/rooms/manage',
           'access arguments' => array('administer cod_event_room'),
         ),
       ),
@@ -344,7 +359,7 @@ function cod_schedule_entity_info() {
     'static cache' => TRUE,
     'field cache' => TRUE,
     'admin ui' => array(
-      'path' => 'admin/conference/rooms',
+      'path' => 'admin/conference/config/rooms',
       'file' => 'schedule.admin.inc',
       'file path' => drupal_get_path('module', 'cod_schedule') . '/includes',
       'controller class' => 'CodEventRoomUIController',
@@ -379,7 +394,7 @@ function cod_schedule_entity_info() {
       'cod_event_time' => array(
         'label' => t('Time'),
         'admin' => array(
-          'path' => 'admin/conference/times',
+          'path' => 'admin/conference/config/times/manage',
           'access arguments' => array('administer cod_event_time'),
         ),
       ),
@@ -387,7 +402,7 @@ function cod_schedule_entity_info() {
     'static cache' => TRUE,
     'field cache' => TRUE,
     'admin ui' => array(
-      'path' => 'admin/conference/times',
+      'path' => 'admin/conference/config/times',
       'file' => 'schedule.admin.inc',
       'file path' => drupal_get_path('module', 'cod_schedule') . '/includes',
       'controller class' => 'CodEventTimeUIController',

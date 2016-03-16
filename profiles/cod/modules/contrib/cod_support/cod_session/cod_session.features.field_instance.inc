@@ -290,7 +290,7 @@ function cod_session_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Event',
+    'label' => 'Conference',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -666,7 +666,7 @@ function cod_session_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'og_group_ref',
-    'label' => 'Event',
+    'label' => 'Conference',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -775,7 +775,7 @@ function cod_session_field_default_field_instances() {
   t('Body');
   t('Default Session View');
   t('Description');
-  t('Event');
+  t('Conference');
   t('Experience level');
   t('File attachments');
   t('Image');

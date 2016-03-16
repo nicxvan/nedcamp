@@ -31,9 +31,7 @@ dependencies[] = adminimal_admin_menu
 dependencies[] = advanced_help
 dependencies[] = auto_nodetitle
 dependencies[] = content_access
-dependencies[] = context
 dependencies[] = contextual
-dependencies[] = context_ui
 dependencies[] = ctools
 dependencies[] = ckeditor
 dependencies[] = dashboard
@@ -45,6 +43,7 @@ dependencies[] = date_views
 dependencies[] = devel
 dependencies[] = devel_generate
 dependencies[] = diff
+dependencies[] = distro_update
 dependencies[] = efq_extra_field
 dependencies[] = entity
 dependencies[] = entityreference
@@ -81,6 +80,7 @@ dependencies[] = token
 dependencies[] = update
 dependencies[] = user
 dependencies[] = views
+dependencies[] = views_argument_substitutions
 dependencies[] = views_autorefresh
 dependencies[] = views_field_view
 dependencies[] = views_bulk_operations
@@ -106,9 +106,9 @@ files[] = cod.profile
 ; System Requirements.
 php_memory_limit = 128M
 
-; Information added by Drupal.org packaging script on 2014-11-20
-version = "7.x-1.0-beta5"
+; Information added by Drupal.org packaging script on 2016-02-24
+version = "7.x-1.1"
 core = "7.x"
 project = "cod"
-datestamp = "1416445081"
+datestamp = "1456347687"
 

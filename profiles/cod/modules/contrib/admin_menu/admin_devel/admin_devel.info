@@ -5,9 +5,9 @@ core = 7.x
 scripts[] = admin_devel.js
 
 
-; Information added by drush on 2014-11-20
-version = "7.x-3.0-rc4+4-dev"
+; Information added by drush on 2016-02-24
+version = "7.x-3.0-rc5+3-dev"
 core = "7.x"
 project = "admin_menu"
-datestamp = "1416445184"
+datestamp = "1456347833"
 

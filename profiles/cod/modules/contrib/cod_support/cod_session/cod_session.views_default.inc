@@ -1098,14 +1098,6 @@ function cod_session_views_default_views() {
     'session' => 'session',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Content: Status (field_accepted) */
-  $handler->display->display_options['filters']['field_accepted_value']['id'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['table'] = 'field_data_field_accepted';
-  $handler->display->display_options['filters']['field_accepted_value']['field'] = 'field_accepted_value';
-  $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
-    'accepted' => 'accepted',
-  );
-  $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
   /* Filter criterion: Search: Search Terms */
   $handler->display->display_options['filters']['keys']['id'] = 'keys';
   $handler->display->display_options['filters']['keys']['table'] = 'search_index';
@@ -1909,7 +1901,7 @@ function cod_session_views_default_views() {
     'backup' => 'backup',
   );
   $handler->display->display_options['filters']['field_accepted_value_1']['group'] = 0;
-  $handler->display->display_options['path'] = 'admin/conference/events/%/sessions/table';
+  $handler->display->display_options['path'] = 'admin/conference/%/sessions/table';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Session Table';
   $handler->display->display_options['menu']['weight'] = '0';
@@ -2280,7 +2272,7 @@ function cod_session_views_default_views() {
     'unprocessed' => 'unprocessed',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/unprocessed';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/unprocessed';
   $handler->display->display_options['menu']['type'] = 'default tab';
   $handler->display->display_options['menu']['title'] = 'Unprocessed';
   $handler->display->display_options['menu']['description'] = 'Email speakers of unprocessed sessions.';
@@ -2335,7 +2327,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
     'declined' => 'declined',
   );
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/declined';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/declined';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Declined';
   $handler->display->display_options['menu']['weight'] = '-25';
@@ -2362,7 +2354,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'No accepted speakers';
-  $handler->display->display_options['empty']['area']['content'] = 'There are no accepted speakers at the moment. Try <a href="/admin/conference/events/%/sessions">reviewing sessions</a> to accept or decline them.';
+  $handler->display->display_options['empty']['area']['content'] = 'There are no accepted speakers at the moment. Try <a href="/admin/conference/%/sessions">reviewing sessions</a> to accept or decline them.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -2387,7 +2379,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
     'accepted' => 'accepted',
   );
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/accepted';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/accepted';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Accepted';
   $handler->display->display_options['menu']['weight'] = '-20';
@@ -2439,7 +2431,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['field_accepted_value']['value'] = array(
     'accepted' => 'accepted',
   );
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/scheduled';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/scheduled';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Scheduled';
   $handler->display->display_options['menu']['weight'] = '-15';
@@ -2509,7 +2501,7 @@ function cod_session_views_default_views() {
   $handler->display->display_options['filters']['flagged']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['filters']['flagged']['value'] = '0';
   $handler->display->display_options['filters']['flagged']['group'] = 1;
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/unconfirmed';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/unconfirmed';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Unconfirmed';
   $handler->display->display_options['menu']['weight'] = '-10';
@@ -2579,7 +2571,7 @@ function cod_session_views_default_views() {
     'accepted' => 'accepted',
   );
   $handler->display->display_options['filters']['field_accepted_value']['group'] = 1;
-  $handler->display->display_options['path'] = 'admin/conference/events/%/speakers/confirmed';
+  $handler->display->display_options['path'] = 'admin/conference/%/speakers/confirmed';
   $handler->display->display_options['menu']['type'] = 'tab';
   $handler->display->display_options['menu']['title'] = 'Confirmed';
   $handler->display->display_options['menu']['description'] = 'Email speakers who have confirmed for their session';

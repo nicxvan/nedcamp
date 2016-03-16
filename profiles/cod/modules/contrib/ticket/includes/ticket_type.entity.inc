@@ -65,8 +65,23 @@ class TicketTypeUIController extends EntityDefaultUIController {
   public function hook_menu() {
     $items = array();
     $id_count = count(explode('/', $this->path));
+
     $wildcard = isset($this->entityInfo['admin ui']['menu wildcard']) ? $this->entityInfo['admin ui']['menu wildcard'] : '%entity_object';
     $plural_label = isset($this->entityInfo['plural label']) ? $this->entityInfo['plural label'] : $this->entityInfo['label'] . 's';
+
+    /* Individual Ticket Type Edit pages */
+    $items[ticket_get_admin_path('ticket_type') . '/manage/' . $wildcard . '/type'] = array(
+      'title' => 'Edit Ticket Type',
+     // 'title callback' => 'ticket_type_page_title',
+     // 'title arguments' => array($this->id_count + 2),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('ticket_type_edit_form', $this->id_count + 2),
+      'access callback' => 'entity_access',
+      'access arguments' => array('update', $this->entityType, $this->id_count + 2),
+      'file path' => drupal_get_path('module', 'ticket') . '/includes',
+      'file' => 'ticket_type.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+     );
 
     $registration_path = ticket_get_admin_path('ticket_registration');
     $items[$registration_path . '/manage/' . $wildcard] = array(
@@ -75,7 +90,6 @@ class TicketTypeUIController extends EntityDefaultUIController {
       'title arguments' => array($this->id_count + 2),
       'page callback' => 'ticket_registration_view_page',
       'page arguments' => array($this->id_count + 2),
-      'acces callback' => TRUE,
       'access callback' => 'entity_access',
       'access arguments' => array('update', $this->entityType, $this->id_count + 2),
       'file path' => drupal_get_path('module', 'ticket') . '/includes',
@@ -220,8 +234,8 @@ class TicketTypeUIController extends EntityDefaultUIController {
    * Returns the operation count for calculating colspans.
    */
   protected function operationCount() {
-    // Set count to 1 for view registrations link.
-    $count = 1;
+    // Set count to 2 for view registrations and edit ticket type links.
+    $count = 2;
     $count += !empty($this->entityInfo['bundle of']) && entity_type_is_fieldable($this->entityInfo['bundle of']) && module_exists('field_ui') ? 2 : 0;
     $count += !empty($this->entityInfo['exportable']) ? 1 : 0;
     $count += !empty($this->entityInfo['i18n controller class']) ? 1 : 0;
@@ -279,15 +293,19 @@ class TicketTypeUIController extends EntityDefaultUIController {
     */
 
     // Get the managing path for ticket_registrations.
-    $path = ticket_get_admin_path('ticket_registration');
-    $row[] = l(t('view registrations'), $path . '/manage/' . $id . '/registrations');
+    $reg_path = ticket_get_admin_path('ticket_registration');
+    $row[] = l(t('view registrations'), $reg_path . '/manage/' . $id . '/registrations');
+
+    // Ticket Definition link
+    $type_path = ticket_get_admin_path('ticket_type');
+    $row[] = l(t('edit ticket type'), $type_path . '/manage/' . $id . '/type', array('query' => array('destination' => current_path())));
 
     // Add operations depending on the status.
     if (!entity_has_status($this->entityType, $entity, ENTITY_FIXED)) {
       if ($field_ui) {
         // Field management is on ticket registrations, not types.
-        $row[] = l(t('manage fields'), $path . '/manage/' . $id . '/fields');
-        $row[] = l(t('manage display'), $path . '/manage/' . $id . '/display');
+        $row[] = l(t('manage fields'), $reg_path . '/manage/' . $id . '/fields');
+        $row[] = l(t('manage display'), $reg_path . '/manage/' . $id . '/display');
       }
     }
 
