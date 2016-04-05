@@ -1196,7 +1196,14 @@ form {
     }
     a {
       #content & {
-        @extend %font-stack-sans-heavy; 
+        @extend %font-stack-sans-heavy;
+        @include text-shadow(-1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF);
+        @include single-transition(color 250ms linear);
+        
+        &:hover {
+          color: #000;
+          text-decoration: none;
+        }
       }
     }
     p {

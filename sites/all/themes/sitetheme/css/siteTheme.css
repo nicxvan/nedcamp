@@ -2304,28 +2304,41 @@ body.cke_editable {
 .node-page .desc sup {
   font-size: 60%;
 }
+/* line 1198, ../sass/_main-site-style.scss */
+#content .node-page .desc a {
+  text-shadow: -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white, 1px 1px 0 white;
+  -webkit-transition: color 250ms linear, 1s;
+  -moz-transition: color 250ms linear, 1s;
+  -o-transition: color 250ms linear, 1s;
+  transition: color 250ms linear, 1s;
+}
 /* line 1203, ../sass/_main-site-style.scss */
+#content .node-page .desc a:hover {
+  color: #000;
+  text-decoration: none;
+}
+/* line 1210, ../sass/_main-site-style.scss */
 .node-page .desc p + p {
   margin-top: 0;
 }
 
-/* line 1210, ../sass/_main-site-style.scss */
+/* line 1217, ../sass/_main-site-style.scss */
 .node-session .field {
   margin: 1em 0;
 }
-/* line 1213, ../sass/_main-site-style.scss */
+/* line 1220, ../sass/_main-site-style.scss */
 .node-session .field-label {
   color: #000;
 }
-/* line 1216, ../sass/_main-site-style.scss */
+/* line 1223, ../sass/_main-site-style.scss */
 .node-session .field-name-body {
   margin-top: 0;
 }
-/* line 1221, ../sass/_main-site-style.scss */
+/* line 1228, ../sass/_main-site-style.scss */
 .node-session .field-content + .field-content {
   margin-top: 5px;
 }
-/* line 1225, ../sass/_main-site-style.scss */
+/* line 1232, ../sass/_main-site-style.scss */
 .node-session .user-picture {
   clear: both;
   float: left;
@@ -2333,7 +2346,7 @@ body.cke_editable {
   margin-top: 8px;
   max-width: 37.03704%;
 }
-/* line 1237, ../sass/_main-site-style.scss */
+/* line 1244, ../sass/_main-site-style.scss */
 .node-session .fname {
   clear: both;
   color: #000;
@@ -2341,68 +2354,68 @@ body.cke_editable {
   line-height: 1;
   margin-right: 4px;
 }
-/* line 1244, ../sass/_main-site-style.scss */
+/* line 1251, ../sass/_main-site-style.scss */
 .node-session .lname {
   color: #000;
   float: left;
   line-height: 1;
   margin: 0;
 }
-/* line 1250, ../sass/_main-site-style.scss */
+/* line 1257, ../sass/_main-site-style.scss */
 .node-session .organization {
   clear: both;
   float: left;
   line-height: 1;
   margin-bottom: 5px;
 }
-/* line 1256, ../sass/_main-site-style.scss */
+/* line 1263, ../sass/_main-site-style.scss */
 .node-session .social {
   clear: both;
   float: left;
   width: 37.03704%;
 }
-/* line 1262, ../sass/_main-site-style.scss */
+/* line 1269, ../sass/_main-site-style.scss */
 .node-session .social:before {
   left: 0;
   position: absolute;
   top: 0;
 }
-/* line 1267, ../sass/_main-site-style.scss */
+/* line 1274, ../sass/_main-site-style.scss */
 .node-session .social p {
   padding: 3px 0 0 25px;
 }
-/* line 1270, ../sass/_main-site-style.scss */
+/* line 1277, ../sass/_main-site-style.scss */
 .node-session .social a {
   display: block;
   line-height: 16px;
 }
-/* line 1276, ../sass/_main-site-style.scss */
+/* line 1283, ../sass/_main-site-style.scss */
 .node-session .desc {
   padding-left: 210px;
 }
-/* line 1280, ../sass/_main-site-style.scss */
+/* line 1287, ../sass/_main-site-style.scss */
 .node-session .no-bio .social {
   width: 100%;
 }
 
-/* line 1289, ../sass/_main-site-style.scss */
+/* line 1296, ../sass/_main-site-style.scss */
 #footer {
   color: #FFF;
   padding-left: 0;
   padding-right: 0;
 }
-/* line 1300, ../sass/_main-site-style.scss */
+/* line 1307, ../sass/_main-site-style.scss */
 #footer a {
   color: #FFF;
 }
 
-/* line 1305, ../sass/_main-site-style.scss */
+/* line 1312, ../sass/_main-site-style.scss */
 .block_copyright {
   clear: both;
   text-align: center;
 }
 
-/* line 1314, ../sass/_main-site-style.scss */
+/* line 1321, ../sass/_main-site-style.scss */
 .flexslider {
   background: none;
   border: 0 none;
@@ -2410,12 +2423,12 @@ body.cke_editable {
   height: auto !important;
   overflow: visible !important;
 }
-/* line 1323, ../sass/_main-site-style.scss */
+/* line 1330, ../sass/_main-site-style.scss */
 .flexslider ul,
 .flexslider ol {
   padding: 0;
 }
-/* line 1331, ../sass/_main-site-style.scss */
+/* line 1338, ../sass/_main-site-style.scss */
 .flexslider .slides img {
   max-width: 100%;
   width: auto;
