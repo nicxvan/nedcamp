@@ -613,7 +613,7 @@ function ticket_admin_paths() {
 /**
  * Helper function to perform cleanup when adding or deleting a ticket type.
  */
-function ticket_flush_caches($entity_type = NULL, $entity_id = '') {
+function ticket_flush_cache($entity_type = NULL, $entity_id = '', $rebuild_menu = FALSE) {
   // Saving ticket types changes available bundles for ticket
   // registrations, so we need to clear the entity info cache.
   entity_info_cache_clear();
@@ -624,7 +624,9 @@ function ticket_flush_caches($entity_type = NULL, $entity_id = '') {
   // Clear the menu so this item can generate an admin page.
   // TODO: This could probably be smarter and only happen on
   // a new item save. Currently called on ticket_type->save().
-  menu_rebuild();
+  if ($rebuild_menu) {
+    menu_rebuild();
+  }
 }
 
 /**

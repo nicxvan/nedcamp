@@ -468,10 +468,20 @@ function commerce_i18n_string($name, $default, $options = array()) {
 
 /**
  * Returns the currency code of the site's default currency.
+ *
+ * @param $context
+ *   Provide an optional context to help determine the default currency.
  */
-function commerce_default_currency() {
-  $currency_code = variable_get('commerce_default_currency', 'USD');
-  drupal_alter('commerce_default_currency', $currency_code);
+function commerce_default_currency($context = NULL) {
+  // Once the currency is set, don't change it.
+  $currency_code = &drupal_static(__FUNCTION__);
+
+  if (!isset($currency)) {
+    $currency_code = variable_get('commerce_default_currency', 'USD');
+    // Allow modules to alter the default currency.
+    drupal_alter('commerce_default_currency', $currency_code, $context);
+  }
+
   return $currency_code;
 }
 

@@ -5,8 +5,8 @@ package = Views
 dependencies[] = views
 
 
-; Information added by drush on 2016-02-24
+; Information added by drush on 2016-06-17
 version = ""
 project = "views_argument_substitutions"
-datestamp = "1456347713"
+datestamp = "1466205702"
 

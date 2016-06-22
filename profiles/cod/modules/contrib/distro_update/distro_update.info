@@ -6,9 +6,9 @@ dependencies[] = update
 configure = admin/reports/updates/settings
 
 
-; Information added by drush on 2016-02-24
+; Information added by drush on 2016-06-17
 version = "7.x-1.0-beta4+2-dev"
 core = "7.x"
 project = "distro_update"
-datestamp = "1456347784"
+datestamp = "1466205777"
 

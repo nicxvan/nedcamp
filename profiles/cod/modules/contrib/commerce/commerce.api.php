@@ -183,10 +183,12 @@ function hook_commerce_entity_create_alter($entity_type, $entity) {
  *
  * @param $currency_code
  *   The default currency code.
+ * @param $context
+ *   Optional context for determining the default currency.
  *
  * @see commerce_default_currency()
  */
-function hook_commerce_default_currency_alter(&$currency_code) {
+function hook_commerce_default_currency_alter(&$currency_code, $context = NULL) {
   global $language;
   if (isset($language->language) && $language->language == 'en-US') {
     $currency_code = 'USD';

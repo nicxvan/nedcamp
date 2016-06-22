@@ -70,7 +70,7 @@ function og_field_widget_form(&$form, &$form_state, $field, $instance, $langcode
   }
 
   $target_type = $field['settings']['target_type'];
-  $user_gids = og_get_entity_groups('user', NULL, array(OG_STATE_ACTIVE, OG_STATE_PENDING));
+  $user_gids = og_get_entity_groups();
   $user_gids = !empty($user_gids[$target_type]) ? $user_gids[$target_type] : array();
 
   // Get the "Other group" group IDs.
@@ -135,7 +135,7 @@ function og_field_widget_form(&$form, &$form_state, $field, $instance, $langcode
         $ids = array();
         foreach ($dummy_entity->{$field_name}[$langcode] as $delta => $value) {
           $id = $value['target_id'];
-          if (!in_array($id, $other_groups_ids)) {
+          if (!in_array($id, $other_groups_ids) || og_user_access($entity_type, $id, 'subscribe')) {
             $ids[] = $id;
           }
         }
