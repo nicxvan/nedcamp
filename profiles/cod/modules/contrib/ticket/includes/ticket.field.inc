@@ -603,6 +603,9 @@ function ticket_field_presave($entity_type, $entity, $field, $instance, $langcod
     if (isset($item['entity']) || !empty($entity->revision)) {
 
       if ($ticket_type = ticket_type_get_entity($item)) {
+        if ($ticket_type->status == NULL) {
+          continue;
+        }
 
         // If we're creating a new ticket type, then we set the entity info.
         // Note that the entity_id may be 0 if the entity is also new.
@@ -613,7 +616,13 @@ function ticket_field_presave($entity_type, $entity, $field, $instance, $langcod
           $ticket_type->field_name = $field['field_name'];
           $ticket_type->created = REQUEST_TIME;
         }
-        $ticket_type->status = $item['status'];
+        if (isset($item['status'])) {
+          $ticket_type->status = $item['status'];
+        }
+        else if (isset($item['entity']->status)) {
+          $ticket_type->status = $item['entity']->status;
+        }
+
         $ticket_type->changed = REQUEST_TIME;
 
         // If the host entity is saved as new revision, do the same for the
@@ -633,7 +642,6 @@ function ticket_field_presave($entity_type, $entity, $field, $instance, $langcod
             $ticket_type->is_new = FALSE;
             $ticket_type->is_new_revision = TRUE;
           }
-
         }
         $ticket_type->save();
 
@@ -693,7 +701,7 @@ function ticket_field_update($entity_type, $entity, $field, $instance, $langcode
   }
 
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
-  ticket_flush_caches($entity_type, $entity_id);
+  cache_clear_all('ticket:' . $entity_type . ':' . $entity_id, 'cache');
 }
 
 /**

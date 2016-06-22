@@ -34,7 +34,10 @@ class TicketTypeEntity extends Entity {
    */
   public function save() {
     parent::save();
-    ticket_flush_caches();
+    // We must flush caches when saving a new ticket type.
+    if (isset($this->is_new) && $this->is_new == TRUE) {
+      ticket_flush_cache(NULL, '', TRUE);
+    }
   }
 
   /**

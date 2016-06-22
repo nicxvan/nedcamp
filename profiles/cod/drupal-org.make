@@ -5,7 +5,7 @@ core = 7.x
 ; Contributed modules.
 projects[acquia_connector][type] = "module"
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "2.16"
+projects[acquia_connector][version] = "2.17"
 
 projects[addressfield][type] = "module"
 projects[addressfield][subdir] = "contrib"
@@ -46,7 +46,7 @@ projects[apachesolr_og][download][revision] = "49820b4a4fcff7c1c4efe449da033fb6d
 
 ; Check the user object before trying to display a result.
 ; https://drupal.org/node/2077281#comment-7807937
-projects[apachesolr_og][patch][] = "http://drupal.org/files/issues/apachesolr_og-check-for-anonymous.patch"
+projects[apachesolr_og][patch][] = "https://www.drupal.org/files/issues/apachesolr_og-check-for-anonymous.patch"
 
 projects[auto_nodetitle][type] = "module"
 projects[auto_nodetitle][subdir] = "contrib"
@@ -76,24 +76,29 @@ projects[cod_support][version] = "1.0-rc1"
 ;projects[cod_support][download][branch] = "7.x-1.x"
 
 projects[commerce][type] = "module"
-projects[commerce][version] = "1.11"
 projects[commerce][subdir] = "contrib"
+projects[commerce][version] = "1.13"
 
 ; Make "Add to cart" button text a display format setting
 ; https://www.drupal.org/node/1147690
-projects[commerce][patch][] = http://drupal.org/files/issues/commerce_cart-button_text-1147690-75.patch
+projects[commerce][patch][] = https://www.drupal.org/files/issues/commerce_cart-button_text-1147690-75.patch
 
 ; Possibility to show price difference/total price in attributes
 ; https://www.drupal.org/node/1226466
-projects[commerce][patch][] = http://drupal.org/files/issues/product_select_options_token_display_alternative-1226466-36.patch
+projects[commerce][patch][] = https://www.drupal.org/files/issues/product_select_options_token_display_alternative-1226466-36.patch
+
+; Allow the default currency to be changed via a context.
+; See https://www.drupal.org/node/2415237#comment-10746838 for more info.
+projects[commerce][patch][] = https://www.drupal.org/files/issues/2657718-static_cache_default_currency-1.patch
+
 
 projects[commerce_features][type] = "module"
 projects[commerce_features][subdir] = "contrib"
-projects[commerce_features][version] = "1.1"
+projects[commerce_features][version] = "1.2"
 
 projects[commerce_stock][type] = "module"
 projects[commerce_stock][subdir] = "contrib"
-projects[commerce_stock][version] = "2.2"
+projects[commerce_stock][version] = "2.3"
 
 ; Commerce Coupon 2.x suite
 projects[commerce_coupon][type] = "module"
@@ -137,7 +142,7 @@ projects[ctools][version] = "1.9"
 
 ; Allow contexts to load in information for existing contexts.
 ; See https://www.drupal.org/node/2484541#comment-9899043 for more info.
-projects[ctools][patch][] = "http://drupal.org/files/issues/2484541-context-dependency-1.patch"
+projects[ctools][patch][] = "https://www.drupal.org/files/issues/2484541-context-dependency-1.patch"
 
 ; Add new css classes to the attributes variable
 ; See https://www.drupal.org/node/2645612#comment-10723956 for more info.
@@ -148,15 +153,15 @@ projects[date][subdir] = "contrib"
 projects[date][version] = "2.9"
 
 ; Allow date to work with timezones
-projects[date][patch][] = "http://drupal.org/files/issues/date-views-filter-timezone-1820304-18.patch"
+projects[date][patch][] = "https://www.drupal.org/files/issues/date-views-filter-timezone-1820304-18.patch"
 
 projects[date_ical][type] = "module"
 projects[date_ical][subdir] = "contrib"
-projects[date_ical][version] = "3.8"
+projects[date_ical][version] = "3.9"
 
 ; Remove icalcreator library from the date_ical module
 ; https://drupal.org/node/2209165
-projects[date_ical][patch][] = "http://drupal.org/files/issues/date_ical_remove_makefile-3.patch"
+projects[date_ical][patch][] = "https://www.drupal.org/files/issues/date_ical_remove_makefile-3.patch"
 
 ; Keeping this to the latest version, since it should only be used for development.
 projects[devel][version] = "1.5"
@@ -198,8 +203,8 @@ projects[entitycache][download][branch] = "7.x-1.x"
 projects[entitycache][download][revision] = "7e390b5"
 
 ; Fix core translation support.
-; http://drupal.org/node/1349566#comment-7781063
-projects[entitycache][patch][] = "http://drupal.org/files/add-translation-information-on-each-request-1349566-12.patch"
+; https://www.drupal.org/node/1349566#comment-7781063
+projects[entitycache][patch][] = "https://www.drupal.org/files/add-translation-information-on-each-request-1349566-12.patch"
 
 projects[entityreference][type] = "module"
 projects[entityreference][subdir] = "contrib"
@@ -207,7 +212,7 @@ projects[entityreference][version] = "1.1"
 
 ; Fix foreign keys feature revert issue
 ; https://www.drupal.org/node/1969018
-projects[entityreference][patch][] = "http://drupal.org/files/issues/1969018-update-field-config-foreign-keys-15.patch"
+projects[entityreference][patch][] = "https://www.drupal.org/files/issues/1969018-update-field-config-foreign-keys-15.patch"
 
 projects[entityreference_prepopulate][type] = "module"
 projects[entityreference_prepopulate][subdir] = "contrib"
@@ -218,15 +223,15 @@ projects[entityreference_prepopulate][download][revision] = "0ffdec817b5b3158066
 
 ; Allow entityreference prepopulate function when an ajax callback is performed.
 ; https://www.drupal.org/node/1970320 and https://www.drupal.org/node/2295951
-projects[entityreference_prepopulate][patch][] = "http://drupal.org/files/issues/er_prepopulate_ajax_values-1.patch"
+projects[entityreference_prepopulate][patch][] = "https://www.drupal.org/files/issues/er_prepopulate_ajax_values-1.patch"
 
 projects[features][type] = "module"
 projects[features][subdir] = "contrib"
-projects[features][version] = "2.7"
+projects[features][version] = "2.10"
 
 projects[fivestar][type] = "module"
 projects[fivestar][subdir] = "contrib"
-projects[fivestar][version] = "2.1"
+projects[fivestar][version] = "2.2"
 
 projects[field_group][type] = "module"
 projects[field_group][subdir] = "contrib"
@@ -243,6 +248,10 @@ projects[field_select_ct][version] = "1.0"
 projects[field_collection][type] = "module"
 projects[field_collection][subdir] = "contrib"
 projects[field_collection][version] = "1.0-beta11"
+
+; Fix undefined index from field_collection_field_attach_form().
+; See https://www.drupal.org/node/1716526 for more info.
+projects[field_collection][patch][] = "https://www.drupal.org/files/issues/undefined_langcode-1716526-12.patch"
 
 projects[file_entity][type] = "module"
 projects[file_entity][subdir] = "contrib"
@@ -263,7 +272,7 @@ projects[inline_conditions][download][branch] = "7.x-1.x"
 projects[inline_conditions][download][revision] = "3dd9495e0a7b95f7e8a29141a8860b073cba2b6a"
 
 projects[inline_entity_form][type] = "module"
-projects[inline_entity_form][version] = "1.6"
+projects[inline_entity_form][version] = "1.8"
 projects[inline_entity_form][subdir] = "contrib"
 
 projects[i18n][type] = "module"
@@ -276,7 +285,7 @@ projects[jquery_update][subdir] = "contrib"
 
 projects[libraries][type] = "module"
 projects[libraries][subdir] = "contrib"
-projects[libraries][version] = "2.2"
+projects[libraries][version] = "2.3"
 
 projects[link][type] = "module"
 projects[link][subdir] = "contrib"
@@ -291,7 +300,7 @@ projects[media][download][revision] = "9f7142b"
 
 projects[media_oembed][type] = "module"
 projects[media_oembed][subdir] = "contrib"
-projects[media_oembed][version] = "2.5"
+projects[media_oembed][version] = "2.6"
 
 projects[module_filter][type] = "module"
 projects[module_filter][subdir] = "contrib"
@@ -337,19 +346,19 @@ projects[og][download][revision] = "cc9c04036a80fcf27a4e9533b6cb0820e3e750be"
 
 ; Auto-assign role to group manager broken on groups with overridden roles.
 ; https://drupal.org/node/2005800#comment-7684873
-projects[og][patch][] = "http://drupal.org/files/issues/og-default-role-member-2005800-40.patch"
+projects[og][patch][] = "https://www.drupal.org/files/issues/og-default-role-member-2005800-40.patch"
 
 ; og_ui should give users the theme, not admin ui when creating groups
-; http://drupal.org/node/1800208
-projects[og][patch][] = "http://drupal.org/files/og_ui-group_node_add_theme-1800208-5.patch"
+; https://www.drupal.org/node/1800208
+projects[og][patch][] = "https://www.drupal.org/files/og_ui-group_node_add_theme-1800208-5.patch"
 
 ; Allow non-members with subscribe access to be able to post into a group.
 ; http://www.drupal.org/node/2357459
-projects[og][patch][] = "http://drupal.org/files/issues/og_id_user_access.patch"
+projects[og][patch][] = "https://www.drupal.org/files/issues/og_id_user_access.patch"
 
 ; OG Context is exiting prematurely, not setting the correct conference in some cases.
 ; https://www.drupal.org/node/2493277#comment-9950303
-projects[og][patch][] = "http://drupal.org/files/issues/2493277-og-context-premature-empty-1.patch"
+projects[og][patch][] = "https://www.drupal.org/files/issues/2493277-og-context-premature-empty-1.patch"
 
 ; Assign a language to entities that don't assign it themselves inside og.
 ; See https://www.drupal.org/node/1865852 for more info.
@@ -368,7 +377,7 @@ projects[og_vocab][version] = "1.2"
 
 ; Allow og_vocab to select any group a user has access to.
 ; https://www.drupal.org/node/2481153#comment-9881365
-projects[og_vocab][patch][2457113] = "http://drupal.org/files/issues/2481153-og_vocab-accessible-groups-1.patch"
+projects[og_vocab][patch][2457113] = "https://www.drupal.org/files/issues/2481153-og_vocab-accessible-groups-1.patch"
 
 ; Fix fatal error in og_vocab when used with metatag.
 ; https://www.drupal.org/node/2531418#comment-10107836
@@ -381,24 +390,22 @@ projects[og_theme][version] = "2.0"
 projects[panelizer][version] = "3.x-dev"
 projects[panelizer][subdir] = "contrib"
 projects[panelizer][download][type] = "git"
-projects[panelizer][download][revision] = "442d8a9dd2262b8c5fdb3cf439e46e5c9668346f"
+projects[panelizer][download][revision] = "fa9b8617f72a9fde277b456393a0ead6a7862715"
 projects[panelizer][download][branch] = "7.x-3.x"
 ; Better Revision Handling
-; http://drupal.org/node/2457113
-projects[panelizer][patch][2457113] = "http://drupal.org/files/issues/panelizer-better_revision-2457113-48.patch"
+; https://www.drupal.org/node/2457113
+projects[panelizer][patch][2457113] = "https://www.drupal.org/files/issues/panelizer-better_revision-2457113-48.patch"
 
-projects[panels][version] = "3.5"
 projects[panels][type] = "module"
 projects[panels][subdir] = "contrib"
+projects[panels][version] = "3.x-dev"
+projects[panels][download][revision] = "e8623b704fb2585bbf77f31f06d4a98721556277"
 ; Fix IPE JS alert (Panelizer is Incompatible with Moderation)
-; http://drupal.org/node/1402860#comment-9729091
-projects[panels][patch][1402860] = "http://drupal.org/files/issues/panelizer_is-1402860-82-fix-ipe-end-js-alert.patch"
+; https://www.drupal.org/node/1402860#comment-9729091
+projects[panels][patch][1402860] = "https://www.drupal.org/files/issues/panelizer_is-1402860-82-fix-ipe-end-js-alert.patch"
 ; IPE Insufficient for working with Panelizer Revisioning
 ; https://www.drupal.org/node/2462331#comment-9778921
-projects[panels][patch][2462331] = "http://drupal.org/files/issues/2462331-4.patch"
-
-; Allow CSS keyword replacements
-projects[panels][patch][1441218] = "http://drupal.org/files/issues/panels-css-keywords-1441218-65.patch"
+projects[panels][patch][2462331] = "https://www.drupal.org/files/issues/2462331-4.patch"
 
 projects[panels_tabs][type] = "module"
 projects[panels_tabs][subdir] = "contrib"
@@ -414,7 +421,7 @@ projects[pathauto][version] = "1.3"
 projects[quicktabs][type] = "module"
 projects[quicktabs][version] = "3.6"
 projects[quicktabs][subdir] = "contrib"
-projects[quicktabs][patch][] = "http://drupal.org/files/2104643-revert-qt-487518-5.patch"
+projects[quicktabs][patch][] = "https://www.drupal.org/files/2104643-revert-qt-487518-5.patch"
 
 projects[r4032login][type] = "module"
 projects[r4032login][subdir] = "contrib"
@@ -438,7 +445,7 @@ projects[safeword][version] = "1.13"
 
 projects[smtp][type] = "module"
 projects[smtp][subdir] = "contrib"
-projects[smtp][version] = "1.3"
+projects[smtp][version] = "1.4"
 
 projects[subpathauto][type] = "module"
 projects[subpathauto][subdir] = "contrib"
@@ -465,7 +472,7 @@ projects[ticket][download][branch] = "7.x-1.x"
 ;projects[ticket][download][revision] = "1b530acb2d31f2536ef777c98c28fb7fbc8a73b7"
 
 projects[title][type] = "module"
-projects[title][version] = "1.0-alpha7"
+projects[title][version] = "1.0-alpha8"
 projects[title][subdir] = "contrib"
 
 projects[token][type] = "module"
@@ -490,12 +497,12 @@ projects[variable][type] = "module"
 projects[variable][version] = "2.5"
 projects[variable][subdir] = "contrib"
 
-projects[views][version] = "3.13"
+projects[views][version] = "3.14"
 projects[views][type] = "module"
 projects[views][subdir] = "contrib"
 
 ; Allow taxonomy term fields to be transformed when being passed as a value.
-projects[views][patch][] = "http://drupal.org/files/issues/views-taxonomy-name-case-transform-1.patch"
+projects[views][patch][] = "https://www.drupal.org/files/issues/views-taxonomy-name-case-transform-1.patch"
 
 projects[views_argument_substitutions][type] = "module"
 projects[views_argument_substitutions][subdir] = "contrib"
@@ -530,7 +537,7 @@ projects[views_field_view][type] = "module"
 projects[views_field_view][subdir] = "contrib"
 
 projects[views_send][type] = "module"
-projects[views_send][version] = "1.1"
+projects[views_send][version] = "1.2"
 projects[views_send][subdir] = "contrib"
 
 projects[views_data_export][type] = "module"
@@ -561,22 +568,22 @@ projects[omega][download][revision] = "a4d56d4d4868ef"
 
 ; Backport all commits that are not susy 2 specific in Omega 4.x
 ; https://www.drupal.org/node/2398093#comment-9726835
-projects[omega][patch][] = "http://drupal.org/files/issues/2398093-omega4-backports-1.patch"
+projects[omega][patch][] = "https://www.drupal.org/files/issues/2398093-omega4-backports-1.patch"
 
 ; Hide blank messages in Omega 4.x
 ; https://www.drupal.org/node/2512542#comment-10059838
-projects[omega][patch][] = "http://drupal.org/files/issues/blank_error_message-2512542-1.patch"
+projects[omega][patch][] = "https://www.drupal.org/files/issues/blank_error_message-2512542-1.patch"
 
 ; Update panels headings in panels 3.5
 ; https://www.drupal.org/node/2453475
-projects[omega][patch][] = "http://drupal.org/files/issues/omega-2453475-panels-headings-1.patch"
+projects[omega][patch][] = "https://www.drupal.org/files/issues/omega-2453475-panels-headings-1.patch"
 
 projects[adminimal_theme][type] = "theme"
 projects[adminimal_theme][subdir] = "contrib"
 projects[adminimal_theme][version] = "1.24"
 
 ; Libraries.
-; NOTE: These need to be listed in http://drupal.org/packaging-whitelist.
+; NOTE: These need to be listed in https://www.drupal.org/packaging-whitelist.
 libraries[backbone][download][type] = "get"
 libraries[backbone][download][url] = "https://github.com/jashkenas/backbone/archive/1.1.0.zip"
 
@@ -607,8 +614,8 @@ libraries[modernizr][download][url] = "https://github.com/Modernizr/Modernizr/ar
 libraries[plupload][download][type] = "get"
 libraries[plupload][download][url] = "https://github.com/moxiecode/plupload/archive/v1.5.8.zip"
 ; Remove plupload library examples folder for Drupal distribution
-; http://drupal.org/node/1903850
-libraries[plupload][patch][1903850] = "http://drupal.org/files/issues/plupload-1_5_8-rm_examples-1903850-16.patch"
+; https://www.drupal.org/node/1903850
+libraries[plupload][patch][1903850] = "https://www.drupal.org/files/issues/plupload-1_5_8-rm_examples-1903850-16.patch"
 
 libraries[underscore][download][type] = "get"
 libraries[underscore][download][url] = "https://github.com/jashkenas/underscore/archive/1.5.2.zip"

@@ -13,9 +13,9 @@ files[] = includes/views/handlers/commerce_discount_usage_handler_field_commerce
 files[] = commerce_discount_usage.test
 
 
-; Information added by drush on 2016-02-24
+; Information added by drush on 2016-06-17
 version = "7.x-1.0-alpha5+0-dev"
 core = "7.x"
 project = "commerce_discount"
-datestamp = "1456347803"
+datestamp = "1466205792"
 
