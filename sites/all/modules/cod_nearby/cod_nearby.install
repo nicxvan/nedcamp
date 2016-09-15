@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Installation and update scripts for COD Nearby.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function cod_nearby_install() {
+  drupal_set_message(t('Please go the @url page to fill in a Google Maps API key.', array('@url' => l('Geofield Map settings page', 'admin/config/content/geofield_map'))), 'warning');
+}
