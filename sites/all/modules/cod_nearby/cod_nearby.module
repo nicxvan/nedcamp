@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the COD Nearby feature.
+ */
+
+include_once 'cod_nearby.features.inc';

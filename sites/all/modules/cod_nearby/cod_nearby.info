@@ -1,0 +1,46 @@
+name = COD Nearby
+description = Provides a structure (content type and Views page) to manage lists of things to do near the main event.
+core = 7.x
+package = COD
+dependencies[] = addressfield
+dependencies[] = cod_base
+dependencies[] = cod_events
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = geocoder
+dependencies[] = geofield
+dependencies[] = geofield_map
+dependencies[] = geophp
+dependencies[] = strongarm
+dependencies[] = text
+dependencies[] = views
+features[ctools][] = strongarm:strongarm:1
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[field_base][] = field_nearby_coords
+features[field_base][] = field_nearby_location
+features[field_instance][] = node-nearby-body
+features[field_instance][] = node-nearby-field_nearby_coords
+features[field_instance][] = node-nearby-field_nearby_location
+features[node][] = nearby
+features[variable][] = comment_anonymous_nearby
+features[variable][] = comment_default_mode_nearby
+features[variable][] = comment_default_per_page_nearby
+features[variable][] = comment_form_location_nearby
+features[variable][] = comment_nearby
+features[variable][] = comment_preview_nearby
+features[variable][] = comment_subject_field_nearby
+features[variable][] = field_bundle_settings_node__nearby
+features[variable][] = menu_options_nearby
+features[variable][] = menu_parent_nearby
+features[variable][] = node_options_nearby
+features[variable][] = node_preview_nearby
+features[variable][] = node_submitted_nearby
+features[views_view][] = nearby_list
+
+; Information added by Drupal.org packaging script on 2016-09-15
+version = "7.x-1.0-alpha2"
+core = "7.x"
+project = "cod_nearby"
+datestamp = "1473906845"
+
