@@ -5,6 +5,25 @@
 define('GEOFIELD_MAP_MAX_ZOOM', 22);
 
 /**
+ * Implements hook_menu().
+ */
+
+function geofield_map_menu() {
+  $items = array();
+  $items['admin/config/content/geofield_map'] = array(
+    'title' => t('Geofield map settings'),
+    'description' => t('Configuration for API keys.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('geofield_map_admin_settings'),
+    'file' => 'geofield_map.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
  * Implements hook_views_api().
  */
 
@@ -99,10 +118,13 @@ function geofield_map_field_formatter_view($entity_type, $entity, $field, $insta
       'class' => 'geofieldMap',
     );
 
+    // Build API url.
+    $api_url = geofield_map_build_api_url();
+
     $element[0] = array(
       '#attached' => array(
         'js' => array(
-          '//maps.googleapis.com/maps/api/js?sensor=false' => array('type' => 'external'),
+          "$api_url" => array('type' => 'external'),
           drupal_get_path('module', 'geofield_map') . '/js/GeoJSON.js',
           drupal_get_path('module', 'geofield_map') . '/js/geofield_map.js',
           array('data' => array('geofieldMap' => $js_settings), 'type' => 'setting'),
@@ -407,4 +429,43 @@ function geofield_map_settings_do($settings) {
   );
   return $map_settings;
 
+}
+
+/**
+ * Builds the javascript maps api url based on authentication method.
+ */
+function geofield_map_build_api_url() {
+  // Google api url.
+  $api_url = '//maps.googleapis.com/maps/api/js';
+  // Array to hold query paramters for the google maps url.
+  // Including version number as it's required for Premium plans.
+  // https://developers.google.com/maps/documentation/javascript/versions
+  $query = array('v' => '3');
+
+  switch (variable_get('geofield_map_google_auth_method')) {
+    case 1:
+      $key = variable_get('geofield_map_google_apikey', FALSE);
+      if (!empty($key)) {
+        $query['key'] = $key;
+      }
+      break;
+
+    case 2:
+      $client_id = variable_get('geofield_map_google_client_id', FALSE);
+      $private_key = variable_get('geofield_map_google_private_key', FALSE);
+      if (!empty($client_id)) {
+        $query['client'] = $client_id;
+        if (!empty($private_key)) {
+          $query['signature'] = $private_key;
+        }
+      }
+      break;
+  }
+
+  // Add query params to API url.
+  if (!empty($query)) {
+    $api_url .= '?' . drupal_http_build_query($query);
+  }
+
+  return $api_url;
 }
