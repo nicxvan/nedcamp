@@ -34,10 +34,16 @@ i {
   }
 }
 fieldset {
+  min-width: 0;
 	legend {
 		@extend %font-stack-sans-bold;
 	}
 }
+
+select {
+  width: 100%;
+}
+
 #page-title {
 //  @extend %bg-accent-color;
   
