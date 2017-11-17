@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+## Run database updates and re-import config.
+##
+## Usage: fin run-update
+
+# Abort if anything fails.
+set -e
+
+fin drush $LOCAL_DRUSH_ALIAS cc drush
+fin drush $LOCAL_DRUSH_ALIAS cr
+fin drush $LOCAL_DRUSH_ALIAS updb -y
+fin drush $LOCAL_DRUSH_ALIAS entity-updates -y
+fin drush $LOCAL_DRUSH_ALIAS csim -y
+fin drush $LOCAL_DRUSH_ALIAS csim -y

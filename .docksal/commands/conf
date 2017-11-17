@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+## Commands for managing config.
+##
+## Usage: fin conf <command>
+##
+## Sub-commands:
+##   export    Export configuration
+##   import    Import configuration
+
+
+case "$1" in
+    export)
+        $ADDON_ROOT/export
+    ;;
+    import)
+        $ADDON_ROOT/import
+    ;;
+    *)
+        fin help conf
+    ;;
+esac

@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+## Set permissions on the Drupal files system. Must pass the name of the group. Recommend running as sudo.
+##
+## Usage: sudo fin set-permissions user group
+
+# Abort script if anything fails.
+set -e
+
+if [ $# -eq 0 ]; then
+  echo "No arguments supplied. Please specify the group name to set."
+  exit 1
+fi
+
+# PROJECT_ROOT is passed from fin.
+# The following variables are configured in the '.env' file: DOCROOT, VIRTUAL_HOST.
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
+
+if [ $(id -u) != 0 ]; then
+  printf "**************************************\n"
+  printf "* Error: You must run this with sudo. *\n"
+  printf "**************************************\n"
+  exit 1
+fi
+if [ $# -ne 2 ]; then
+  printf "**************************************\n"
+  printf "* Error: Please pass user and group. *\n"
+  printf "**************************************\n"
+  exit 1
+fi
+
+drupal_user=${1}
+httpd_group=${2:-_www}
+drupal_path=${DOCROOT_PATH}
+
+if [ -z "${drupal_user}" ] || [[ $(id -un "${drupal_user}" 2> /dev/null) != "${drupal_user}" ]]; then
+  printf "*************************************\n"
+  printf "* Error: Please provide a valid user. *\n"
+  printf "*************************************\n"
+  exit 1
+fi
+cd $drupal_path
+printf "Changing ownership of all contents of "${drupal_path}":\n user => "${drupal_user}" \t group => "${httpd_group}"\n"
+chown -R ${drupal_user}:${httpd_group} .
+printf "Changing permissions of all directories inside "${drupal_path}" to "rwxr-xr-x"...\n"
+find . -type d -exec chmod u=rwx,g=rx,o=rx '{}' \;
+printf "Changing permissions of all files inside "${drupal_path}" to "rw-r--r--"...\n"
+find . -type f -exec chmod u=rw,g=r,o=r '{}' \;
+printf "Changing permissions of "files" directories in "${drupal_path}/sites" to "rwxrwxrwx"...\n"
+cd sites
+find . -type d -name files -exec chmod a=rwx '{}' \;
+printf "Changing permissions of all files inside all "files" directories in "${drupal_path}/sites" to "rw-rw-rw-"...\n"
+printf "Changing permissions of all directories inside all "files" directories in "${drupal_path}/sites" to "rwxrwxrwx"...\n"
+for x in ./*/files; do
+  find ${x} -type d -exec chmod a=rwx '{}' \;
+  find ${x} -type f -exec chmod a=rw '{}' \;
+done
+printf "Changing permissions on bin files.\n";
+find . -type d -name bin -exec chmod -R a+x '{}' \;
+echo "Done setting proper permissions on files and directories"
+

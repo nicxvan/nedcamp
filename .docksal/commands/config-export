@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Export config.
+##
+## Usage: fin config-export
+
+fin drush $LOCAL_ALIAS cex -y

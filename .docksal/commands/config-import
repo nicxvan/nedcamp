@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+## Import config.
+##
+## Usage: fin config-import
+
+# PROJECT_ROOT is passed from fin.
+# The following variables are configured in the '.env' file: DOCROOT, VIRTUAL_HOST.
+
+fin drush $LOCAL_ALIAS cim -y

@@ -1,0 +1,7 @@
+version: "2.1"
+services:
+  cli:
+    environment:
+      - XDEBUG_ENABLED=1
+      - XDEBUG_CONFIG=idekey=PHPSTORM remote_host=192.168.64.1
+      - PHP_IDE_CONFIG=serverName=${VIRTUAL_HOST}

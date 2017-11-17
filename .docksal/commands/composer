@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+## Runs composer for the project.
+##
+## Usage: fin composer [command]
+
+# Abort if anything fails.
+set -e
+
+cd "${PROJECT_ROOT}"
+
+fin exec composer "$@"

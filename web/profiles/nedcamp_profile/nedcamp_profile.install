@@ -1,0 +1,36 @@
+<?php
+/**
+ * Implements hook_install().
+ */
+function nedcamp_profile_install() {
+  global $config_directories;
+
+
+  if (isset($config_directories['vcs'])) {
+    $sync_directory = $config_directories['vcs'];
+  }
+  elseif (isset($config_directories['sync'])) {
+    $sync_directory = $config_directories['sync'];
+  }
+  else {
+    $sync_directory = drupal_get_path('profile', 'nedcamp_profile') . '/config/sync';
+  }
+
+  // Create a source storage that reads from sync.
+  $file_storage = new \Drupal\Core\Config\FileStorage($sync_directory);
+
+  // Match up the site UUIDs.
+  $system_site = $file_storage->read('system.site');
+  if (isset($system_site['uuid'])) {
+    \Drupal::configFactory()
+      ->getEditable('system.site')
+      ->set('uuid', $system_site['uuid'])
+      ->save();
+  }
+
+
+  // First, do everything in standard profile.
+  include_once DRUPAL_ROOT . '/core/profiles/standard/standard.install';
+  standard_install();
+
+}

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+## Generate a ULI uri for a specific alias and automatically open in browser
+##
+## Usage: fin uli [alias]
+
+open "$(fin drush ${1:-$DEFAULT_ALIAS} uli --browser=0| tr -d '\r')"

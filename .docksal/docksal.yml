@@ -1,0 +1,10 @@
+version: "2.1"
+services:
+  web:
+    environment:
+      APACHE_DOCUMENTROOT: /var/www/web
+  cli:
+    environment:
+      DOCROOT: web
+      PROFILE_NAME: "${PROFILE_NAME}"
+      SITE_NAME: "${SITE_NAME}"
